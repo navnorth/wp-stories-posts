@@ -1,0 +1,45 @@
+.mapcontainer
+{
+    width: 100%;
+	height: 450px;
+    position: relative;
+}
+.ss-container
+{
+	margin-top: 0px;
+    width: 100%;
+	height:450px;
+    position: relative;
+    text-align: left;
+    float: left;
+	overflow: hidden;
+}
+#canvas_holder
+{
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	width:100%;
+}
+#map_canvas
+{
+	width:100%;
+	height:100%;
+	position: absolute;
+	top: 0px;
+	left: 0px;
+}
+#map
+{
+	position: relative;
+	width: 100%;
+	height:450px;
+}
+
+.popupcntnr {
+    float: left;
+    width: 100%;
+}
+.popupcntnr img { width: 80px;	height: 80px; float: left; margin-right: 20px }
+.popupcntnr > p {  margin: 2px 10px; width: 100%; display: table; float: none; width: auto}
+.info h4 { font-size: 17px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }

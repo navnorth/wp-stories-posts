@@ -1,0 +1,25 @@
+.scp_adtnalflds {
+    margin: 15px 0;
+}
+.wrprtext {
+    font-size: 15px;
+    font-weight: bold;
+    margin: 5px 0;
+}
+.wrprfld input[type="text"], .wrprfld textarea {
+    margin: 11px 0;
+    padding: 5px 10px;
+    width: 75%;
+}
+.wrprfld > div {
+    padding: 5px 0;
+}
+.wrprfld > div label {
+    font-size: 14px;
+}
+.wrprfld > span {
+    float: left;
+    font-size: 14px;
+    width: 14%;
+	margin: 17px 0;
+}

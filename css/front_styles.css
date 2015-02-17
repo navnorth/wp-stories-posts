@@ -1,0 +1,49 @@
+.col-md-12.pblctn_paramtr.padding_left .scp_feature_image {
+    float: left;
+    margin-right: 10px;
+    width: 15%;
+}
+.col-md-12.pblctn_paramtr.padding_left .scp_feature_image .featured_item_image {
+    float: left;
+    width: 100%;
+}
+
+
+.stry_srch_frm { float: left; width: 90%}
+.stry_srch_frm  input[type="text"],
+.stry_srch_frm  select {
+	width: 100%; 
+	margin-top: 5px; 
+	border: 1px solid #ccc; 
+	-webkit-box-sizing: border-box; 
+	-moz-box-sizing: border-box; 
+	-ms-box-sizing: border-box; 
+	-o-box-sizing: border-box;
+	 	box-sizing: border-box;
+}
+.stry_srch_frm  input[type="text"] { padding: 8px 10px; }
+.stry_srch_frm  select { padding: 5px 10px; }
+.stry_srch_frm  input[type="submit"] { 
+	background: #00529f;
+    border: none;
+    color: #fff;
+    cursor: pointer;
+    float: left;
+    font-family: "Raleway-Regular";
+    margin: 5px 0 0;
+    padding: 10px 0;
+    text-align: center;
+    width: 125px;
+	cursor: pointer;
+}
+.stry_srch_frm input[type="text"]:hover,
+.stry_srch_frm select:hover { border-color: #999 }
+.stry_srch_frm  input[type="submit"]:hover { background: #0c61b0;}
+
+ 
+@media screen and (max-width: 992px) {
+	.stry_srch_frm { width: 100%}
+	.pblctn_lft_sid_img_cntnr { padding-left: 0 !important}
+	.stry_srch_frm  h3 { text-align: left}
+	
+}

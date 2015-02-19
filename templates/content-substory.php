@@ -24,8 +24,8 @@
     <?php endif; ?>
     <p>
         <?php 
-            $content = get_the_content($post->ID);
-            echo substr($content, 0, 300);
+		    $content = get_the_content($post->ID);
+		    echo substr($content, 0, 300);
         ?>
     </p>
     <p>

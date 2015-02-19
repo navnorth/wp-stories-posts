@@ -177,7 +177,9 @@ function get_storiesmap()
                       position: google.maps.ControlPosition.LEFT_BOTTOM
                       }
                     });
-                
+                	map.set('scrollwheel', false);
+					var isScrollWheelEnabled = map.get('scrollwheel');
+
                     var infowindow = new google.maps.InfoWindow({
                       maxWidth: 400,
 					  Width: 400,

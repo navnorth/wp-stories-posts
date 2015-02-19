@@ -14,11 +14,11 @@ get_header(); ?>
 			{
 				global $wpdb;
 				extract($_REQUEST);
-				$pageposts1 = $pageposts2 = $pageposts3 = $pageposts4 = array();
+				$searcharr = array();
 				if(!empty($searchtext))
 				{
 					$s = trim($searchtext, " ");
-					$querystr = "SELECT *
+					$querystr = "SELECT ID
 								FROM $wpdb->posts, $wpdb->postmeta, $wpdb->term_relationships, $wpdb->term_taxonomy, $wpdb->terms
 									WHERE ($wpdb->terms.name LIKE '%$s%'
 									OR $wpdb->postmeta.meta_value LIKE '%$s%'
@@ -34,75 +34,45 @@ get_header(); ?>
 				}
 				if(!empty($taxonomy_state))
 				{
-					$querystr = "SELECT *
-								FROM $wpdb->posts, $wpdb->postmeta, $wpdb->term_relationships, $wpdb->term_taxonomy, $wpdb->terms
-									WHERE ($wpdb->terms.name LIKE '%$taxonomy_state%')
-								AND $wpdb->posts.post_type = 'stories'
-								AND $wpdb->posts.ID = $wpdb->postmeta.post_id
-								AND $wpdb->posts.ID = $wpdb->term_relationships.object_id
-								AND $wpdb->term_relationships.term_taxonomy_id = $wpdb->term_taxonomy.term_taxonomy_id
-								AND $wpdb->term_taxonomy.term_id = $wpdb->terms.term_id
-								ORDER BY $wpdb->posts.post_date DESC";
-					$pageposts2 = $wpdb->get_results($querystr, OBJECT_K);
+					$searcharr[] = array('taxonomy' => 'state', 'field' => 'slug', 'terms' => array( "$taxonomy_state" ),);
 				}
 				if(!empty($taxonomy_program))
 				{
-					$querystr = "SELECT *
-								FROM $wpdb->posts, $wpdb->postmeta, $wpdb->term_relationships, $wpdb->term_taxonomy, $wpdb->terms
-									WHERE ($wpdb->terms.name LIKE '%$taxonomy_program%')
-								AND $wpdb->posts.post_type = 'stories'
-								AND $wpdb->posts.ID = $wpdb->postmeta.post_id
-								AND $wpdb->posts.ID = $wpdb->term_relationships.object_id
-								AND $wpdb->term_relationships.term_taxonomy_id = $wpdb->term_taxonomy.term_taxonomy_id
-								AND $wpdb->term_taxonomy.term_id = $wpdb->terms.term_id
-								ORDER BY $wpdb->posts.post_date DESC";
-					$pageposts3 = $wpdb->get_results($querystr, OBJECT_K);
+					$searcharr[] = array('taxonomy' => 'program', 'field' => 'slug', 'terms' => array( "$taxonomy_program" ),);
 				}
 				if(!empty($taxonomy_grade_level))
 				{
-					$querystr = "SELECT *
-								FROM $wpdb->posts, $wpdb->postmeta, $wpdb->term_relationships, $wpdb->term_taxonomy, $wpdb->terms
-									WHERE ($wpdb->terms.name LIKE '%$taxonomy_grade_level%')
-								AND $wpdb->posts.post_type = 'stories'
-								AND $wpdb->posts.ID = $wpdb->postmeta.post_id
-								AND $wpdb->posts.ID = $wpdb->term_relationships.object_id
-								AND $wpdb->term_relationships.term_taxonomy_id = $wpdb->term_taxonomy.term_taxonomy_id
-								AND $wpdb->term_taxonomy.term_id = $wpdb->terms.term_id
-								ORDER BY $wpdb->posts.post_date DESC";
-					$pageposts4 = $wpdb->get_results($querystr, OBJECT_K);
+					$searcharr[] = array('taxonomy' => 'grade_level', 'field' => 'slug', 'terms' => array( "$taxonomy_grade_level" ),);
 				}
 				
-				if(!empty($pageposts1) && !empty($pageposts2) && !empty($pageposts3) && !empty($pageposts4)):
-					$pageposts = array_intersect_key($pageposts1, $pageposts2, $pageposts3, $pageposts4);
-				elseif(!empty($pageposts1) && !empty($pageposts2) && !empty($pageposts3)):
-					$pageposts = array_intersect_key($pageposts1, $pageposts2, $pageposts3);
-				elseif(!empty($pageposts1) && !empty($pageposts3) && !empty($pageposts4)):
-					$pageposts = array_intersect_key($pageposts1, $pageposts3, $pageposts4);
-				elseif(!empty($pageposts1) && !empty($pageposts2) && !empty($pageposts4)):
-					$pageposts = array_intersect_key($pageposts1, $pageposts2, $pageposts4);
-				elseif(!empty($pageposts2) && !empty($pageposts3) && !empty($pageposts4)):
-					$pageposts = array_intersect_key($pageposts2, $pageposts3, $pageposts4);
-				elseif(!empty($pageposts1) && !empty($pageposts2)):
-					$pageposts = array_intersect_key($pageposts1, $pageposts2);
-				elseif(!empty($pageposts1) && !empty($pageposts3)):
-					$pageposts = array_intersect_key($pageposts1, $pageposts3);
-				elseif(!empty($pageposts1) && !empty($pageposts4)):
-					$pageposts = array_intersect_key($pageposts1, $pageposts4);
-				elseif(!empty($pageposts2) && !empty($pageposts3)):
-					$pageposts = array_intersect_key($pageposts2, $pageposts3);
-				elseif(!empty($pageposts2) && !empty($pageposts4)):
-					$pageposts = array_intersect_key($pageposts2, $pageposts4);
-				elseif(!empty($pageposts3) && !empty($pageposts4)):
-					$pageposts = array_intersect_key($pageposts3, $pageposts4);
-				elseif(!empty($pageposts1)):
+				if(!empty($searcharr))
+				{
+					$args = array('post_type' => 'stories','tax_query' => array('relation' => 'AND',$searcharr),);
+					$query = new WP_Query( $args );
+					$pageposts2 = $wpdb->get_results($query->request, OBJECT_K);
+				}
+				
+				if(isset($pageposts1) && isset($pageposts2) )
+				{
+					if(!empty($pageposts1) && !empty($pageposts2) )
+					{
+						$pageposts = array_intersect_key($pageposts1, $pageposts2);
+					}
+					else
+					{
+						$pageposts = array();
+					}
+				}
+				elseif(isset($pageposts1))
+				{
 					$pageposts = $pageposts1;
-				elseif(!empty($pageposts2)):
+				}
+				elseif(isset($pageposts2))
+				{
 					$pageposts = $pageposts2;
-				elseif(!empty($pageposts3)):
-					$pageposts = $pageposts3;
-				elseif(!empty($pageposts4)):
-					$pageposts = $pageposts4;	
-				endif;						
+				}
+				
+									
 					if(isset($pageposts) && !empty($pageposts))
 					{
 						?>
@@ -122,8 +92,9 @@ get_header(); ?>
 								</header><!-- .archive-header -->
 		
 								<?php
-									foreach($pageposts as $post )
+									foreach($pageposts as $key => $data )
 									{
+										$post = get_post($key);
 										setup_postdata($post);			
 										get_story_template_part( 'content', 'substory' );
 									}
@@ -159,6 +130,14 @@ get_header(); ?>
 			}
 			else
 			{
+				/* $settings = get_post_meta(107, "settings", true);
+				 $styleSettings = get_post_meta(107, "styleSettings", true);
+				 $slides = get_post_meta(107, "slides", true);
+				 print_r($settings);
+				 print_r($styleSettings);
+				 print_r($slides);
+				 die;*/
+				 
 				 if ( have_posts() )
 				 { ?>
 					<div class="col-md-12 col-sm-12 col-xs-12 pblctn_right_sid_mtr">

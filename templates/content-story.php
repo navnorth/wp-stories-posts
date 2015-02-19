@@ -18,13 +18,13 @@
 			$videourl = get_post_meta( $post->ID, "story_video" , true );
 		?>
         <?php if(isset($url) && !empty($url)) : ?>
-				<div class="col-md-12 col-sm-12 col-xs-12">
+				<div class="col-md-12 col-sm-12 col-xs-12 noborder">
 					<img src="<?php echo $url; ?>" />
 				</div>
         <?php endif; ?>
         
         <?php if(isset($videourl) && !empty($videourl)) : ?>
-        		<div class="col-md-12 col-sm-12 col-xs-12">
+        		<div class="col-md-12 col-sm-12 col-xs-12 noborder">
 					<iframe src="<?php echo $videourl; ?>"></iframe>
 				</div>
         <?php endif; ?>
@@ -85,8 +85,10 @@
 				}
 				$tagurl = trim($tagurl, ', ');
 			}
-		?>   
+		?> 
+       
         <div class="col-md-12 col-sm-12 col-xs-12">
+        	<div class="pblctn_box"><span class="socl_icns fa-stack"><i class="fa fa-star "></i></span></div>
             <p class="rght_sid_wdgt_hedng">Story Snapshot</p>
             <?php if(isset($story_school) && !empty($story_school)) : ?>
         		 <p class="margn_none">
@@ -150,6 +152,7 @@
 				$stories = get_posts($args);
 			?>
             <div class="col-md-12 col-sm-12 col-xs-12">
+            	<div class="pblctn_box"><span class="socl_icns fa-stack"><i class="fa fa-star "></i></span></div>
                 <p class="rght_sid_wdgt_hedng">Related Stories</p>
                 <?php
 					foreach( $stories as $story)

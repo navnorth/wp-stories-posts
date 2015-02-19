@@ -39,7 +39,7 @@
 .stry_srch_frm input[type="text"]:hover,
 .stry_srch_frm select:hover { border-color: #999 }
 .stry_srch_frm  input[type="submit"]:hover { background: #0c61b0;}
-
+.noborder{ border: none !important; padding: 0!important;}
  
 @media screen and (max-width: 992px) {
 	.stry_srch_frm { width: 100%}

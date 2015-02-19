@@ -275,8 +275,8 @@ function get_story_search($searchtext=NULL, $taxonomy_state=NULL, $taxonomy_prog
 	{
 		foreach($states as $state)
 		{
-			if($taxonomy_state == $state->name): $check = 'selected="selected"'; else: $check = ''; endif; 
-			$stateoption .= '<option '.$check.' value="'.$state->name.'">'.$state->name.'</option>';
+			if($taxonomy_state == $state->slug): $check = 'selected="selected"'; else: $check = ''; endif; 
+			$stateoption .= '<option '.$check.' value="'.$state->slug.'">'.$state->name.'</option>';
 		}
 	}
 	$programoption = '<option value="">Select Program</option>';
@@ -284,8 +284,8 @@ function get_story_search($searchtext=NULL, $taxonomy_state=NULL, $taxonomy_prog
 	{
 		foreach($programs as $program)
 		{
-			if($taxonomy_program == $program->name): $check = 'selected="selected"'; else: $check = ''; endif; 
-			$programoption .= '<option '.$check.' value="'.$program->name.'">'.$program->name.'</option>';
+			if($taxonomy_program == $program->slug): $check = 'selected="selected"'; else: $check = ''; endif; 
+			$programoption .= '<option '.$check.' value="'.$program->slug.'">'.$program->name.'</option>';
 		}
 	}
 	$gradeoption = '<option value="">Select Grade</option>';
@@ -293,8 +293,8 @@ function get_story_search($searchtext=NULL, $taxonomy_state=NULL, $taxonomy_prog
 	{
 		foreach($grades as $grade)
 		{
-			if($taxonomy_grade_level == $grade->name): $check = 'selected="selected"'; else: $check = ''; endif; 
-			$gradeoption .= '<option '.$check.' value="'.$grade->name.'">'.$grade->name.'</option>';
+			if($taxonomy_grade_level == $grade->slug): $check = 'selected="selected"'; else: $check = ''; endif; 
+			$gradeoption .= '<option '.$check.' value="'.$grade->slug.'">'.$grade->name.'</option>';
 		}
 	}
 	?>

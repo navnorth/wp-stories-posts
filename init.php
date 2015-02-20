@@ -93,12 +93,14 @@ function story_custom_metaboxes()
 
 function create_stories_metabox()
 {
-	global $post, $characteristics;
+	global $post, $characteristics, $districtsize;
 	$story_video 		= get_post_meta($post->ID, "story_video", true);
 	$story_highlight 	= get_post_meta($post->ID, "story_highlight", true);
 	$story_district 	= get_post_meta($post->ID, "story_district", true);
 	$story_school 		= get_post_meta($post->ID, "story_school", true);
 	$story_mapaddress 	= get_post_meta($post->ID, "story_mapaddress", true);
+	$story_zipcode 		= get_post_meta($post->ID, "story_zipcode", true);
+	$story_districtsize	= get_post_meta($post->ID, "story_districtsize", true);
 	$story_characteristic = unserialize(get_post_meta($post->ID, "story_characteristic", true));
 	$story_sidebar_content = get_post_meta($post->ID, "story_sidebar_content", true);
 	
@@ -128,12 +130,38 @@ function create_stories_metabox()
 			$return .= '<div class="wrprtext">Location</div>';
 			$return .= '<div class="wrprfld">
 							<span>District</span>
-							<input type="text" name="story_district" value="'. $story_district .'" placeholder="District"/>
+							<input type="text" name="story_district" value="'. $story_district .'" />
 							<span>School</span>
-							<input type="text" name="story_school" value="'. $story_school .'" placeholder="School"/>
+							<input type="text" name="story_school" value="'. $story_school .'" />
 							<span>Map Address</span>
-							<input type="text" name="story_mapaddress" value="'. $story_mapaddress .'" placeholder="Map Address"/>
+							<input type="text" name="story_mapaddress" value="'. $story_mapaddress .'" />
+							<span>Zipcode</span>
+							<input type="text" name="story_zipcode" value="'. $story_zipcode .'" />
 						</div>';
+		$return .= '</div>';
+		
+		$return .= '<div class="scp_adtnalflds">';
+			$return .= '<div class="wrprtext">District Size</div>';
+			$return .= '<div class="wrprfld">';
+				$return .= '<select name="story_districtsize">';
+					$return  .= '<option value="">Select Distict Size</option>';	
+					foreach($districtsize as $size)
+					{
+						if(isset($story_districtsize) && !empty($story_districtsize))
+						{
+							if($size == $story_districtsize)
+							{
+								$check = 'selected="selected"';
+							}
+							else
+							{
+								$check = '';
+							}
+						}
+						$return  .= '<option value="'.$size.'" '.$check .'/>'.$size.'</option>';
+					}
+				$return .= '</select>';	
+			$return .= '</div>';
 		$return .= '</div>';
 		
 		$return .= '<div class="scp_adtnalflds">';
@@ -189,6 +217,16 @@ function save_askquestion_metabox()
 	if(isset($_POST['story_school']) && !empty($_POST['story_school']))
 	{
 		update_post_meta($post->ID, "story_school", $_POST['story_school']);
+	}
+	
+	if(isset($_POST['story_zipcode']) && !empty($_POST['story_zipcode']))
+	{
+		update_post_meta($post->ID, "story_zipcode", $_POST['story_zipcode']);
+	}
+	
+	if(isset($_POST['story_districtsize']) && !empty($_POST['story_districtsize']))
+	{
+		update_post_meta($post->ID, "story_districtsize", $_POST['story_districtsize']);
 	}
 	
 	if(isset($_POST['story_mapaddress']) && !empty($_POST['story_mapaddress']))
@@ -261,8 +299,10 @@ function get_latitude_longitude($address)
 	}
 }
 //Story Search
-function get_story_search($searchtext=NULL, $taxonomy_state=NULL, $taxonomy_program=NULL, $taxonomy_grade_level=NULL)
+function get_story_search($searchtext=NULL, $taxonomy_state=NULL, $taxonomy_program=NULL, $taxonomy_grade_level=NULL, $district_location=NULL, $district_size=NULL)
 {
+	global $wpdb, $characteristics, $districtsize;
+	
 	$args = array('orderby'   => 'name', 
 				  'order'     => 'ASC',
 				  'hide_empty'=> false); 
@@ -279,7 +319,7 @@ function get_story_search($searchtext=NULL, $taxonomy_state=NULL, $taxonomy_prog
 			$stateoption .= '<option '.$check.' value="'.$state->slug.'">'.$state->name.'</option>';
 		}
 	}
-	$programoption = '<option value="">Select Program</option>';
+	$programoption = '<option value="">Select program</option>';
 	if(isset($programs) && !empty($programs))
 	{
 		foreach($programs as $program)
@@ -297,9 +337,27 @@ function get_story_search($searchtext=NULL, $taxonomy_state=NULL, $taxonomy_prog
 			$gradeoption .= '<option '.$check.' value="'.$grade->slug.'">'.$grade->name.'</option>';
 		}
 	}
+	$district_locationoption = '<option value="">Select District Location</option>';
+	if(isset($characteristics) && !empty($characteristics))
+	{
+		foreach($characteristics as $characteristic)
+		{
+			if($district_location == $characteristic): $check = 'selected="selected"'; else: $check = ''; endif; 
+			$district_locationoption .= '<option '.$check.' value="'.$characteristic.'">'.$characteristic.'</option>';
+		}
+	}
+	$district_sizeoption = '<option value="">Select District Size</option>';
+	if(isset($districtsize) && !empty($districtsize))
+	{
+		foreach($districtsize as $size)
+		{
+			if($district_size == $size): $check = 'selected="selected"'; else: $check = ''; endif; 
+			$district_sizeoption .= '<option '.$check.' value="'.$size.'">'.$size.'</option>';
+		}
+	}
 	?>
     	<aside class="search_widget stry_srch_frm">
-            <h3>Search Story</h3>
+            <h3><?php if(isset($searchtext)) { echo "Refine Search"; }else { echo "EdTech Story"; }?></h3>
             <form method="get">
                 <input type="text" name="searchtext" value="<?php echo $searchtext; ?>" />
                 <select name="taxonomy_state">
@@ -311,9 +369,18 @@ function get_story_search($searchtext=NULL, $taxonomy_state=NULL, $taxonomy_prog
                 <select name="taxonomy_grade_level">
                     <?php echo $gradeoption; ?>
                 </select>
+                <select name="district_location">
+                    <?php echo $district_locationoption; ?>
+                </select>
+                <select name="district_size">
+                    <?php echo $district_sizeoption; ?>
+                </select>
+                <div class="showallstories">
+                    <a href="<?php echo site_url();?>/stories/?action=showall"> Show All Stories</a>
+                </div>
                 <input type="submit" name="action" value="Search" />
             </form>
-        </aside>   
+        </aside>
     <?php
 } 
 //Functions for load template

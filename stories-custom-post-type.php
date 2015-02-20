@@ -9,8 +9,9 @@
  */
 
 //defining the url,path and slug for the plugin
-global $wpdb, $characteristics;
-$characteristics = array('Free and Reduced lunch','Rural','Suburban','Urban');
+global $wpdb, $characteristics, $districtsize;
+$characteristics = array('Rural','Suburban','Urban');
+$districtsize = array("Less than 1,000 students","1,001-10,000 students","10,001-40,000 students","40,001+ students");
 
 define( 'SCP_URL', plugin_dir_url(__FILE__) );
 define( 'SCP_PATH', plugin_dir_path(__FILE__) );
@@ -58,9 +59,12 @@ add_action('wp_enqueue_scripts', 'scp_frontside_scripts');
 function scp_frontside_scripts()
 {
 	wp_enqueue_style('front-styles', SCP_URL.'css/front_styles.css');
+	wp_enqueue_style('bxslider-styles', SCP_URL.'css/jquery.bxslider.css');
 
 	wp_enqueue_script('jquery');
 	wp_enqueue_script('front-scripts', SCP_URL.'js/front_scripts.js');
+	wp_enqueue_script('bxslider-scripts', SCP_URL.'js/jquery.bxslider.min.js');
+	
 }
 //filte template for front end
 add_filter( 'template_include', 'scp_template_loader' );
@@ -142,8 +146,23 @@ function get_storiesmap()
 									$longitude = $story->longitude;
 									$image = $story->image;
 									$content = $story->content;
+									if(!empty($content))
+									{
+										$content = substr($content, 0 ,60);
+										$content = $content."...";
+									}
 									$link = get_the_permalink($story->postid);
-									echo "['<div class=info><h4><a href=$link target=_blank>$title</a></h4><div class=popupcntnr><img src=$image><p>$content</p></div></div>', $latitude, $longitude],";
+									$district = get_post_meta($story->postid,"story_district",true);
+									$states = get_the_terms( $story->postid, "state" );
+									if(isset($states) && !empty($states))
+									{
+										foreach($states as $state)
+										{
+											$url = get_term_link($state->term_id, $state->taxonomy);
+											$stateurl = '<a target="_blank" href="'. $url .'">'.$state->name.'</a>';
+										}
+									}
+									echo "['<div class=info><h4><a href=$link target=_blank>$title</a></h4><div class=popupcntnr><img src=$image><div class=subinfo><p><b>$district</b>, <b>$stateurl</b></div></p>$content</div></div>', $latitude, $longitude],";
 								}
 							}
 							else 

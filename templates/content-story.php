@@ -8,26 +8,32 @@
  */
 ?> 
 <?php global $post; ?>
-<div class="col-md-3 col-sm-12 col-xs-12 pblctn_right_sid_mtr">
+<div class="col-md-4 col-sm-12 col-xs-12 pblctn_right_sid_mtr">
     <div>
-        <aside class="widget">
-        	<h3 class="widget-title">Share this story</h3>
-        </aside>
         <?php 
 			$url = wp_get_attachment_url( get_post_thumbnail_id($post->ID) );
 			$videourl = get_post_meta( $post->ID, "story_video" , true );
 		?>
-        <?php if(isset($url) && !empty($url)) : ?>
-				<div class="col-md-12 col-sm-12 col-xs-12 noborder">
+        <?php if(isset($url) && !empty($url) && empty($videourl)) : ?>
+				<div class="col-md-12 col-sm-12 col-xs-12 noborder nomargintop">
 					<img src="<?php echo $url; ?>" />
 				</div>
         <?php endif; ?>
         
         <?php if(isset($videourl) && !empty($videourl)) : ?>
-        		<div class="col-md-12 col-sm-12 col-xs-12 noborder">
+        		<div class="col-md-12 col-sm-12 col-xs-12 noborder nomargintop">
 					<iframe src="<?php echo $videourl; ?>"></iframe>
 				</div>
         <?php endif; ?>
+        
+        <aside class="story_sharewidget">
+        	<h3 class="story_sharewidgetttl">Share this story</h3>
+           <?php
+				echo '<div class="story_sharewidgeticns">';
+							echo do_shortcode("[ssba]");
+				echo '</div>';
+		   ?>
+        </aside>
          
         <?php
 			$programs = get_the_terms( $post->ID, "program" );
@@ -167,40 +173,16 @@
     </div>
 </div>	
 
-<div class="col-md-9 col-sm-12 col-xs-12 pblctn_lft_sid_img_cntnr">
-        <div class="col-md-12 pblctn_paramtr padding_left">
-            <h3><?php echo get_the_title($post->ID); ?></h3>
-            <p>
-				<?php 
-					$content = get_the_content($post->ID);
-					$content = apply_filters('the_content', $content);
-					echo $content;
-				?>
-            </p>
-         </div>
-         
-         <h3>Additional Resources</h3>
-         <div class="col-md-12 col-sm-12 col-xs-12">
-            <p>From Featured School:</p>     
-            <ul class="">
-                <li>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</li>
-                <li>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</li>
-                <li>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</li>
-            </ul>
-         </div>
-         <div class="col-md-12 col-sm-12 col-xs-12">
-              <p>From US Department of Education:</p>     
-              <ul class="">
-                    <li>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</li>
-                    <li>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</li>
-                    <li>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</li>
-              </ul>
-         </div>
-         
-         <h3>Point of Contact</h3>
-         <p class="rght_sid_wdgt_hedng">Sara Tratin</p>
-         <p class="margn_none">abc technology</p>
-         <p class="margn_none"><a href="">abc@gmail.com</a></p>
-         <p class="margn_none">(0000)-000-000</p> 
+<div class="col-md-8 col-sm-12 col-xs-12 pblctn_lft_sid_img_cntnr">
+    <div class="col-md-12 pblctn_paramtr padding_left">
+        <h3><?php echo get_the_title($post->ID); ?></h3>
+        <p>
+            <?php 
+                $content = get_the_content($post->ID);
+                $content = apply_filters('the_content', $content);
+                echo $content;
+            ?>
+        </p>
+     </div>
 </div>
 

@@ -79,7 +79,7 @@
 .map_cntnr .archive-header { float: left; width: 100%}
 .map_cntnr .archive-header h1 { margin-bottom: 0}
  
-.story_sharewidget { float: left; width: 100%; text-align: center}
+.story_sharewidget { width: 100%; text-align: center}
 .story_sharewidget .ssba a { display: inline-block;}
 .ssba>div { text-align: center !important}
 .stry_srch_frm .showallstories { width: 100%; margin-bottom: 10px; font-size: 15px; font-family: "Raleway-Regular"; text-align: left}

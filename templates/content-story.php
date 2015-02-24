@@ -22,7 +22,7 @@
         
         <?php if(isset($videourl) && !empty($videourl)) : ?>
         		<div class="col-md-12 col-sm-12 col-xs-12 noborder nomargintop">
-					<iframe src="<?php echo $videourl; ?>"></iframe>
+					<iframe src="<?php echo $videourl; ?>" height="250"></iframe>
 				</div>
         <?php endif; ?>
         
@@ -101,11 +101,11 @@
 					 <b>School :</b> <?php echo $story_school; ?>
 				 </p>
         	<?php endif; ?>
-            <?php if(isset($story_mapaddress) && !empty($story_mapaddress)) : ?>
-        		 <p class="margn_none">
-					 <b>Address :</b> <?php echo $story_mapaddress; ?>
-				 </p>
-        	<?php endif; ?>
+            <?php //if(isset($story_mapaddress) && !empty($story_mapaddress)) : ?>
+        		 <!--<p class="margn_none">
+					 <b>Address :</b> <?php //echo $story_mapaddress; ?>
+				 </p>-->
+        	<?php // endif; ?>
             <?php if(isset($story_district) && !empty($story_district)) : ?>
         		 <p class="margn_none">
 					 <b>District :</b> <?php echo $story_district; ?>

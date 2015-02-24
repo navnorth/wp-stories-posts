@@ -303,9 +303,10 @@ function get_story_search($searchtext=NULL, $taxonomy_state=NULL, $taxonomy_prog
 {
 	global $wpdb, $characteristics, $districtsize;
 	
-	$args = array('orderby'   => 'name', 
+	$args = array('orderby'   => 'term_order', 
 				  'order'     => 'ASC',
-				  'hide_empty'=> false); 
+				  'hide_empty'=> false);
+				   
 	$states = get_terms('state', $args);
 	$programs = get_terms('program', $args);
 	$grades = get_terms('grade_level', $args);

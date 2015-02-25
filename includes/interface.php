@@ -54,13 +54,13 @@ function ordersmenu()
 			if (count($post_type_taxonomies) > 1)
 			{
 				?>
-				<h2 class="subtitle"><?php echo ucfirst($post_type_data->labels->name) ?> <?php _e( "Taxonomies", 'tto' ) ?></h2>
+				<h2 class="subtitle"><?php echo ucfirst($post_type_data->labels->name) ?> <?php _e( "Taxonomies", 'scp' ) ?></h2>
 				<table cellspacing="0" class="wp-list-taxonomy">
 					<thead>
 						<tr>
 							<th style="" class="column-cb check-column" id="cb" scope="col">&nbsp;</th>
-							<th style="" class="" id="author" scope="col"><?php _e( "Taxonomy Title", 'tto' ) ?></th>
-							<th style="" class="manage-column" id="categories" scope="col"><?php _e( "Total  Posts", 'tto' ) ?></th>
+							<th style="" class="" id="author" scope="col"><?php _e( "Taxonomy Title", 'scp' ) ?></th>
+							<th style="" class="manage-column" id="categories" scope="col"><?php _e( "Total  Posts", 'scp' ) ?></th>
 						</tr>
 					</thead>
 

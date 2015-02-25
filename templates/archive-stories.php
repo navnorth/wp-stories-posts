@@ -66,6 +66,10 @@ get_header(); ?>
 					{
 						$searcharr[] = array('taxonomy' => 'grade_level', 'field' => 'slug', 'terms' => array( "$taxonomy_grade_level" ),);
 					}
+					if(!empty($story_tags))
+					{
+						$searcharr[] = array('taxonomy' => 'story_tag', 'field' => 'slug', 'terms' => $story_tags,);
+					}
 					
 					if(!empty($searcharr))
 					{
@@ -98,7 +102,7 @@ get_header(); ?>
 					if(isset($pageposts) && !empty($pageposts))
 					{ ?>
                         <div class="col-md-4 col-sm-12 col-xs-12 pblctn_right_sid_mtr">
-                         <?php get_story_search($searchtext, $taxonomy_state, $taxonomy_program, $taxonomy_grade_level, $district_location, $district_size); ?>
+                        	<?php get_story_search($searchtext, $taxonomy_state, $taxonomy_program, $taxonomy_grade_level, $district_location, $district_size,$story_tags); ?>
                         </div>
 							
                         <div class="col-md-8 col-sm-12 col-xs-12 pblctn_lft_sid_img_cntnr map_cntnr">
@@ -127,7 +131,7 @@ get_header(); ?>
 					{
 						?>
                         <div class="col-md-4 col-sm-12 col-xs-12 pblctn_right_sid_mtr">
-                         <?php get_story_search($searchtext, $taxonomy_state, $taxonomy_program, $taxonomy_grade_level, $district_location, $district_size); ?>
+                        <?php get_story_search($searchtext, $taxonomy_state, $taxonomy_program, $taxonomy_grade_level, $district_location, $district_size,$story_tags); ?>
                         </div>
                         
                         <div class="col-md-8 col-sm-12 col-xs-12 pblctn_lft_sid_img_cntnr map_cntnr">
@@ -152,10 +156,29 @@ get_header(); ?>
 			{
 				 $args = array('post_type' => 'stories','post_status' => 'publish','meta_query' => array(array('key' => 'story_highlight','value' => 'true')));
 				 $postquery = new WP_Query( $args );
+				 
+				 $args = array('orderby' => 'count', 'order' => 'DESC', 'number' => 10);
+				 $tags = get_terms('story_tag', $args);
+				 
 				 if ( $postquery->have_posts() )
 				 { ?>
 					<div class="col-md-4 col-sm-12 col-xs-12 pblctn_right_sid_mtr">
 						 <?php get_story_search(); ?>
+                         <div class="topic_sidebar">
+                         	<p class="hdng_mtr brdr_mrgn_none">
+	                            <a href="javascript:">Topics :</a>
+                            </p>
+                            <ul>
+                 				<?php
+								foreach($tags as $tag)
+								{
+								  echo '<li>
+										  <a href="'.site_url().'/stories??searchtext=&story_tags[]='.$tag->slug.'&action=Search">'.ucfirst($tag->name).'</a>
+									    </li>'; 
+								}
+								?>           
+                            </ul>
+                         </div>
 					</div>
 					
 					<div class="col-md-8 col-sm-12 col-xs-12 pblctn_lft_sid_img_cntnr map_cntnr">

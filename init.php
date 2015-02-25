@@ -299,7 +299,7 @@ function get_latitude_longitude($address)
 	}
 }
 //Story Search
-function get_story_search($searchtext=NULL, $taxonomy_state=NULL, $taxonomy_program=NULL, $taxonomy_grade_level=NULL, $district_location=NULL, $district_size=NULL)
+function get_story_search($searchtext=NULL, $taxonomy_state=NULL, $taxonomy_program=NULL, $taxonomy_grade_level=NULL, $district_location=NULL, $district_size=NULL,$taxonomy_tags=NULL)
 {
 	global $wpdb, $characteristics, $districtsize;
 	
@@ -310,6 +310,7 @@ function get_story_search($searchtext=NULL, $taxonomy_state=NULL, $taxonomy_prog
 	$states = get_terms('state', $args);
 	$programs = get_terms('program', $args);
 	$grades = get_terms('grade_level', $args);
+	$tags = get_terms('story_tag', $args);
 	
 	$stateoption = '<option value="">Select State</option>';
 	if(isset($states) && !empty($states))
@@ -356,6 +357,7 @@ function get_story_search($searchtext=NULL, $taxonomy_state=NULL, $taxonomy_prog
 			$district_sizeoption .= '<option '.$check.' value="'.$size.'">'.$size.'</option>';
 		}
 	}
+	
 	?>
     	<aside class="search_widget stry_srch_frm">
             <h3><?php if(isset($searchtext)) { echo "Refine Search"; }else { echo "EdTech Story"; }?></h3>
@@ -376,6 +378,23 @@ function get_story_search($searchtext=NULL, $taxonomy_state=NULL, $taxonomy_prog
                 <select name="district_size">
                     <?php echo $district_sizeoption; ?>
                 </select>
+                <?php if( isset($searchtext) ): ?>
+	            <div class="pplrstorytags">
+                	<ul>
+						<?php
+         					foreach($tags as $tag)
+							{
+								if(isset($taxonomy_tags) && !empty($taxonomy_tags))
+									if(in_array( $tag->slug, $taxonomy_tags )): $check = 'checked="checked"'; else: $check = ''; endif;
+									echo '<li>
+											<input type="checkbox" '.$check.' name="story_tags[]" value="'.$tag->slug.'">
+											<label>'.$tag->name.'</label>
+										 </li>';
+							}               
+                        ?>
+                    </ul>
+                </div>
+                <?php endif; ?>
                 <div class="showallstories">
                     <a href="<?php echo site_url();?>/stories/?action=showall"> Show All Stories</a>
                 </div>

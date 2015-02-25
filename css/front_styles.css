@@ -83,8 +83,21 @@
 .story_sharewidget .ssba a { display: inline-block;}
 .ssba>div { text-align: center !important}
 .stry_srch_frm .showallstories { width: 100%; margin-bottom: 10px; font-size: 15px; font-family: "Raleway-Regular"; text-align: left}
- 
- 
+
+.pplrstorytags { margin-top: 25px} 
+.pplrstorytags li { float: left; width: 100%}
+.pplrstorytags label { font-weight: normal; float: left} 
+.pplrstorytags input[type="checkbox"] { float: left; margin: 4px 8px 0 0;}
+
+.topic_sidebar { float: left; width: 100%; margin-top: 20px}
+.topic_sidebar ul { width: 100%; margin-top: 10px}
+.topic_sidebar li {
+	border: 1px solid #f0f0f0;
+    display: inline-block;
+    margin: 0 5px 5px 0;
+    padding: 2px 10px;
+}
+.topic_sidebar li a { font-family: 'Raleway-Regular'; color: #00529f !important; line-height: 25px}
  
 @media screen and (max-width: 992px) {
 	.stry_srch_frm { width: 100%}

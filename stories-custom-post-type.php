@@ -144,13 +144,11 @@ function applyorderfilter($orderby, $args)
 			
 		return $orderby;    
 	}
-	
 	//if autosort, then force the menu_order
-	if ($options['autosort'] == 1)
+	/*if ($options['autosort'] == 1)
 	{
 		return 't.term_order';
-	}
-		
+	}*/
 	return $orderby; 
 }
 

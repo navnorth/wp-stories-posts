@@ -26,9 +26,9 @@ function create_managment_taxonomies()
 						'program'	 => 'Program',
 						'state'	 => 'State',
 						'grade_level'=> 'Grade Level');
-	
+
 	foreach($texonomy_array as $texonomy_key => $texonomy_value)
-	{					
+	{
 			// Add new taxonomy, hierarchical (like Category)
 			$labels = array(
 				'name'                       => _x( $texonomy_value, 'taxonomy general name' ),
@@ -53,7 +53,7 @@ function create_managment_taxonomies()
 			);
 			register_taxonomy( $texonomy_key, array('stories'), $args );
 	}
-	
+
 	$labels = array(
 				'name'                       => _x( 'Tags', 'taxonomy general name' ),
 				'singular_name'              => _x( 'Tag', 'taxonomy singular name' ),
@@ -72,7 +72,7 @@ function create_managment_taxonomies()
 				'not_found'                  => __( 'No found.' ),
 				'menu_name'                  => __( 'Tags' ),
 			);
-		
+
 			$args = array(
 				'hierarchical'          => false,
 				'labels'                => $labels,
@@ -82,7 +82,7 @@ function create_managment_taxonomies()
 				'query_var'             => true,
 				'rewrite'               => array( 'slug' => 'story_tag' ),
 			);
-		
+
 			register_taxonomy( 'story_tag', 'stories', $args );
 }
 
@@ -103,13 +103,13 @@ function create_stories_metabox()
 	$story_districtsize	= get_post_meta($post->ID, "story_districtsize", true);
 	$story_characteristic = unserialize(get_post_meta($post->ID, "story_characteristic", true));
 	$story_sidebar_content = get_post_meta($post->ID, "story_sidebar_content", true);
-	
+
 	$return = '';
 		$return .= '<div class="scp_adtnalflds">';
 			$return .= '<div class="wrprtext">Video</div>';
 			$return .= '<div class="wrprfld"><input type="text" name="story_video" value="'.$story_video.'" /></div>';
 		$return .= '</div>';
-		
+
 		$return .= '<div class="scp_adtnalflds">';
 			$return .= '<div class="wrprtext">Highlight</div>';
 			$return .= '<div class="wrprfld">';
@@ -125,7 +125,7 @@ function create_stories_metabox()
 					$return .= '</div>';
 			$return .= '</div>';
 		$return .= '</div>';
-		
+
 		$return .= '<div class="scp_adtnalflds">';
 			$return .= '<div class="wrprtext">Location</div>';
 			$return .= '<div class="wrprfld">
@@ -139,12 +139,12 @@ function create_stories_metabox()
 							<input type="text" name="story_zipcode" value="'. $story_zipcode .'" />
 						</div>';
 		$return .= '</div>';
-		
+
 		$return .= '<div class="scp_adtnalflds">';
 			$return .= '<div class="wrprtext">District Size</div>';
 			$return .= '<div class="wrprfld">';
 				$return .= '<select name="story_districtsize">';
-					$return  .= '<option value="">Select Distict Size</option>';	
+					$return  .= '<option value="">Select Distict Size</option>';
 					foreach($districtsize as $size)
 					{
 						if(isset($story_districtsize) && !empty($story_districtsize))
@@ -160,12 +160,12 @@ function create_stories_metabox()
 						}
 						$return  .= '<option value="'.$size.'" '.$check .'/>'.$size.'</option>';
 					}
-				$return .= '</select>';	
+				$return .= '</select>';
 			$return .= '</div>';
 		$return .= '</div>';
-		
+
 		$return .= '<div class="scp_adtnalflds">';
-			$return .= '<div class="wrprtext">Characteristic</div>';
+			$return .= '<div class="wrprtext">Community Type</div>';
 			$return .= '<div class="wrprfld">';
 					foreach($characteristics as $characteristic)
 					{
@@ -183,14 +183,14 @@ function create_stories_metabox()
 					}
 			$return .= '</div>';
 		$return .= '</div>';
-		
+
 		$return .= '<div class="scp_adtnalflds">';
 			$return .= '<div class="wrprtext">Additional Sidebar Content</div>';
 			$return .= '<div class="wrprfld">
 							<textarea name="story_sidebar_content">'.$story_sidebar_content.'</textarea>
 						</div>';
 		$return .= '</div>';
-		
+
 	echo $return;
 }
 
@@ -198,37 +198,37 @@ add_action('save_post', 'save_askquestion_metabox');
 function save_askquestion_metabox()
 {
 	global $post;
-	
+
 	if(isset($_POST['story_video']) && !empty($_POST['story_video']))
 	{
 		update_post_meta($post->ID, "story_video", $_POST['story_video']);
 	}
-	
+
 	if(isset($_POST['story_highlight']) && !empty($_POST['story_highlight']))
 	{
 		update_post_meta($post->ID, "story_highlight", $_POST['story_highlight']);
 	}
-	
+
 	if(isset($_POST['story_district']) && !empty($_POST['story_district']))
 	{
 		update_post_meta($post->ID, "story_district", $_POST['story_district']);
 	}
-	
+
 	if(isset($_POST['story_school']) && !empty($_POST['story_school']))
 	{
 		update_post_meta($post->ID, "story_school", $_POST['story_school']);
 	}
-	
+
 	if(isset($_POST['story_zipcode']) && !empty($_POST['story_zipcode']))
 	{
 		update_post_meta($post->ID, "story_zipcode", $_POST['story_zipcode']);
 	}
-	
+
 	if(isset($_POST['story_districtsize']) && !empty($_POST['story_districtsize']))
 	{
 		update_post_meta($post->ID, "story_districtsize", $_POST['story_districtsize']);
 	}
-	
+
 	if(isset($_POST['story_mapaddress']) && !empty($_POST['story_mapaddress']))
 	{
 		update_post_meta($post->ID, "story_mapaddress", $_POST['story_mapaddress']);
@@ -237,11 +237,11 @@ function save_askquestion_metabox()
 		{
         	$map = explode(',' ,$latlong);
         	$mapLatitude = $map[0];
-        	$mapLongitude = $map[1]; 
+        	$mapLongitude = $map[1];
 			save_metadata($post->ID, $mapLatitude, $mapLongitude);
 		}
 	}
-	
+
 	if(isset($_POST['story_characteristic']) && !empty($_POST['story_characteristic']))
 	{
 		$story_characteristic = serialize($_POST['story_characteristic']);
@@ -252,24 +252,24 @@ function save_askquestion_metabox()
 		$story_characteristic = serialize(array());
 		update_post_meta($post->ID, "story_characteristic", $story_characteristic);
 	}
-	
+
 	if(isset($_POST['story_sidebar_content']) && !empty($_POST['story_sidebar_content']))
 	{
 		update_post_meta($post->ID, "story_sidebar_content", $_POST['story_sidebar_content']);
 	}
-	
+
 }
 //Save Data
 function save_metadata($postid, $mapLatitude, $mapLongitude)
 {
 	global $wpdb;
 	$table_name = $wpdb->prefix . "scp_stories";
-	
+
 	$post = get_post($postid);
 	$title= $post->post_title;
 	$content =  substr(preg_replace('/[^A-Za-z0-9\-\(\) ]/', '', strip_tags($post->post_content)), 0, 100);
 	$image = wp_get_attachment_url( get_post_thumbnail_id($post->ID) );
-	
+
 	if($wpdb->get_results("select id from $table_name where postid=$postid"))
 	{
 		$wpdb->get_results("UPDATE $table_name SET title='$title', content='$content', image='$image', longitude='$mapLongitude', latitude='$mapLatitude' where postid=$postid");
@@ -302,22 +302,22 @@ function get_latitude_longitude($address)
 function get_story_search($searchtext=NULL, $taxonomy_state=NULL, $taxonomy_program=NULL, $taxonomy_grade_level=NULL, $district_location=NULL, $district_size=NULL,$taxonomy_tags=NULL)
 {
 	global $wpdb, $characteristics, $districtsize;
-	
-	$args = array('orderby'   => 'term_order', 
+
+	$args = array('orderby'   => 'term_order',
 				  'order'     => 'ASC',
 				  'hide_empty'=> false);
-				   
+
 	$states = get_terms('state', $args);
 	$programs = get_terms('program', $args);
 	$grades = get_terms('grade_level', $args);
 	$tags = get_terms('story_tag', $args);
-	
+
 	$stateoption = '<option value="">Select State</option>';
 	if(isset($states) && !empty($states))
 	{
 		foreach($states as $state)
 		{
-			if($taxonomy_state == $state->slug): $check = 'selected="selected"'; else: $check = ''; endif; 
+			if($taxonomy_state == $state->slug): $check = 'selected="selected"'; else: $check = ''; endif;
 			$stateoption .= '<option '.$check.' value="'.$state->slug.'">'.$state->name.'</option>';
 		}
 	}
@@ -326,7 +326,7 @@ function get_story_search($searchtext=NULL, $taxonomy_state=NULL, $taxonomy_prog
 	{
 		foreach($programs as $program)
 		{
-			if($taxonomy_program == $program->slug): $check = 'selected="selected"'; else: $check = ''; endif; 
+			if($taxonomy_program == $program->slug): $check = 'selected="selected"'; else: $check = ''; endif;
 			$programoption .= '<option '.$check.' value="'.$program->slug.'">'.$program->name.'</option>';
 		}
 	}
@@ -335,16 +335,16 @@ function get_story_search($searchtext=NULL, $taxonomy_state=NULL, $taxonomy_prog
 	{
 		foreach($grades as $grade)
 		{
-			if($taxonomy_grade_level == $grade->slug): $check = 'selected="selected"'; else: $check = ''; endif; 
+			if($taxonomy_grade_level == $grade->slug): $check = 'selected="selected"'; else: $check = ''; endif;
 			$gradeoption .= '<option '.$check.' value="'.$grade->slug.'">'.$grade->name.'</option>';
 		}
 	}
-	$district_locationoption = '<option value="">Select District Location</option>';
+	$district_locationoption = '<option value="">Select Community Type</option>';
 	if(isset($characteristics) && !empty($characteristics))
 	{
 		foreach($characteristics as $characteristic)
 		{
-			if($district_location == $characteristic): $check = 'selected="selected"'; else: $check = ''; endif; 
+			if($district_location == $characteristic): $check = 'selected="selected"'; else: $check = ''; endif;
 			$district_locationoption .= '<option '.$check.' value="'.$characteristic.'">'.$characteristic.'</option>';
 		}
 	}
@@ -353,11 +353,11 @@ function get_story_search($searchtext=NULL, $taxonomy_state=NULL, $taxonomy_prog
 	{
 		foreach($districtsize as $size)
 		{
-			if($district_size == $size): $check = 'selected="selected"'; else: $check = ''; endif; 
+			if($district_size == $size): $check = 'selected="selected"'; else: $check = ''; endif;
 			$district_sizeoption .= '<option '.$check.' value="'.$size.'">'.$size.'</option>';
 		}
 	}
-	
+
 	?>
     	<aside class="search_widget stry_srch_frm">
             <h3><?php if(isset($searchtext)) { echo "Refine Search"; }else { echo "EdTech Story"; }?></h3>
@@ -366,9 +366,9 @@ function get_story_search($searchtext=NULL, $taxonomy_state=NULL, $taxonomy_prog
                 <select name="taxonomy_state">
                     <?php echo $stateoption; ?>
                 </select>
-                <select name="taxonomy_program">
+                <!-- select name="taxonomy_program">
                     <?php echo $programoption; ?>
-                </select>
+                </select -->
                 <select name="taxonomy_grade_level">
                     <?php echo $gradeoption; ?>
                 </select>
@@ -390,7 +390,7 @@ function get_story_search($searchtext=NULL, $taxonomy_state=NULL, $taxonomy_prog
 											<input type="checkbox" '.$check.' name="story_tags[]" value="'.$tag->slug.'">
 											<label>'.$tag->name.'</label>
 										 </li>';
-							}               
+							}
                         ?>
                     </ul>
                 </div>
@@ -402,7 +402,7 @@ function get_story_search($searchtext=NULL, $taxonomy_state=NULL, $taxonomy_prog
             </form>
         </aside>
     <?php
-} 
+}
 //Functions for load template
 function get_story_template_part( $slug, $name = null )
 {

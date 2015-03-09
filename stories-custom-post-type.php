@@ -24,7 +24,7 @@ include_once(SCP_PATH.'init.php');
 function create_installation_table()
 {
 	global $wpdb;
-	
+
 	require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
 	//table that will record data of units
 	$table_name = $wpdb->prefix . "scp_stories";
@@ -38,28 +38,28 @@ function create_installation_table()
 		latitude varchar(255),
 		PRIMARY KEY (id));";
     dbDelta($sql);
-	
+
 	//check if the menu_order column exists;
 	$query = "SHOW COLUMNS FROM $wpdb->terms LIKE 'term_order'";
 	$result = $wpdb->query($query);
-	
+
 	if ($result == 0)
 	{
 		$query = "ALTER TABLE $wpdb->terms ADD `term_order` INT( 4 ) NULL DEFAULT '0'";
-		$result = $wpdb->query($query); 
+		$result = $wpdb->query($query);
 	}
-		
+
 	//make sure the vars are set as default
 	$options = get_option('scp_options');
 	if (!isset($options['autosort']))
 		$options['autosort'] = '1';
-		
+
 	if (!isset($options['adminsort']))
 		$options['adminsort'] = '1';
-		
+
 	if (!isset($options['level']))
 		$options['level'] = 8;
-		
+
 	update_option('scp_options', $options);
 }
 register_activation_hook(__FILE__, 'create_installation_table');
@@ -71,7 +71,7 @@ function scp_backside_scripts()
 	wp_enqueue_style('thickbox');
 	wp_enqueue_style('back-styles', SCP_URL.'css/back_styles.css');
 	wp_enqueue_style('ordercss', SCP_URL.'css/order.css');
-	
+
 	wp_enqueue_script('jquery');
 	wp_enqueue_script('media-upload');
 	wp_enqueue_script('thickbox');
@@ -90,38 +90,38 @@ function scp_frontside_scripts()
 	wp_enqueue_script('jquery');
 	wp_enqueue_script('front-scripts', SCP_URL.'js/front_scripts.js');
 	wp_enqueue_script('bxslider-scripts', SCP_URL.'js/jquery.bxslider.min.js');
-	
+
 }
 
 add_action('admin_menu', 'taxonomy_order', 99);
-function taxonomy_order() 
+function taxonomy_order()
 {
 	include (SCP_PATH . 'includes/interface.php');
 	include (SCP_PATH . 'includes/terms_walker.php');
-			
+
 	$options = get_option('scp_options');
-	
+
 	if (!isset($options['level']))
 		$options['level'] = 8;
-			
+
 	 //put a menu within all custom types if apply
 	$post_types = array('stories' => 'stories');//get_post_types();
-	foreach( $post_types as $post_type) 
+	foreach( $post_types as $post_type)
 	{
-			
+
 		//check if there are any taxonomy for this post type
 		$post_type_taxonomies = get_object_taxonomies($post_type);
-		
+
 		foreach ($post_type_taxonomies as $key => $taxonomy_name)
 		{
-			$taxonomy_info = get_taxonomy($taxonomy_name);  
-			if ($taxonomy_info->hierarchical !== TRUE) 
+			$taxonomy_info = get_taxonomy($taxonomy_name);
+			if ($taxonomy_info->hierarchical !== TRUE)
 				unset($post_type_taxonomies[$key]);
 		}
-			
+
 		if (count($post_type_taxonomies) == 0)
-			continue;                
-		
+			continue;
+
 		if ($post_type == 'post')
 			add_submenu_page('edit.php', __('Taxonomy Order', 'scp'), __('Taxonomy Order', 'scp'), 'level_'.$options['level'], 'ordersmenu-'.$post_type, 'ordersmenu' );
 		else
@@ -135,21 +135,21 @@ add_filter('get_terms_orderby', 'applyorderfilter', 10, 2);
 function applyorderfilter($orderby, $args)
 {
 	$options = get_option('scp_options');
-	
+
 	//if admin make sure use the admin setting
 	if (is_admin())
 	{
 		if ($options['adminsort'] == "1")
 			return 't.term_order';
-			
-		return $orderby;    
+
+		return $orderby;
 	}
 	//if autosort, then force the menu_order
 	/*if ($options['autosort'] == 1)
 	{
 		return 't.term_order';
 	}*/
-	return $orderby; 
+	return $orderby;
 }
 
 add_filter('get_terms_orderby', 'getterms_orderby', 1, 2);
@@ -157,20 +157,20 @@ function getterms_orderby($orderby, $args)
 {
 	if (isset($args['orderby']) && $args['orderby'] == "term_order" && $orderby != "term_order")
 		return "t.term_order";
-		
+
 	return $orderby;
 }
 
 add_action( 'wp_ajax_update-taxonomy-order', 'saveajaxorder' );
 function saveajaxorder()
 {
-	global $wpdb; 
+	global $wpdb;
 	$taxonomy = stripslashes($_POST['taxonomy']);
 	$data = stripslashes($_POST['order']);
 	$unserialised_data = unserialize($data);
-			
+
 	if (is_array($unserialised_data))
-	foreach($unserialised_data as $key => $values ) 
+	foreach($unserialised_data as $key => $values )
 	{
 		//$key_parent = str_replace("item_", "", $key);
 		$items = explode("&", $values);
@@ -179,12 +179,12 @@ function saveajaxorder()
 		{
 			$items[$item_key] = trim(str_replace("item[]=", "",$item_));
 		}
-		
+
 		if (is_array($items) && count($items) > 0)
-			foreach( $items as $item_key => $term_id ) 
+			foreach( $items as $item_key => $term_id )
 			{
 				$wpdb->update( $wpdb->terms, array('term_order' => ($item_key + 1)), array('term_id' => $term_id) );
-			} 
+			}
 	}
 	die();
 }
@@ -194,7 +194,7 @@ add_filter( 'template_include', 'scp_template_loader' );
 function scp_template_loader($template)
 {
 	$file = '';
-	
+
 	if ( is_single() && get_post_type() == 'stories' )
 	{
 		$file  = 'single-stories.php';
@@ -223,18 +223,18 @@ function scp_template_loader($template)
 		$term   = get_queried_object();
 		$file = 'taxonomy-' . $term->taxonomy . '.php';
 		$path  = SCP_PATH."templates/".$file;
-	} 
+	}
 	elseif (is_post_type_archive( 'stories' ))
 	{
 		$file 	= 'archive-stories.php';
 		$path  = SCP_PATH."templates/".$file;
 	}
-	
-	if ( isset($path) && !empty($path) ) 
+
+	if ( isset($path) && !empty($path) )
 	{
 		$template = $path;
 	}
-		
+
 	return $template;
 }
 //Function for getting map
@@ -253,7 +253,7 @@ function get_storiesmap($pageposts=NULL)
 			$postid .= $ids->ID.",";
 		}
 		$postid = trim($postid, ",");
-		$stories = $wpdb->get_results("select * from $table_name where postid IN ($postid)"); 
+		$stories = $wpdb->get_results("select * from $table_name where postid IN ($postid)");
 	}
 	?>
 	<link rel="stylesheet" type="text/css" href="<?php echo SCP_URL ; ?>css/demo.css" />
@@ -262,14 +262,14 @@ function get_storiesmap($pageposts=NULL)
          <div id="ss-container" class="ss-container">
          	<div id="map_canvas">
                 <div id="map">
-                    
-                </div> 
+
+                </div>
             </div>
          </div>
-     </div>       
+     </div>
    			<script type="text/javascript">
                     var locations = [
-                        <?php 
+                        <?php
                             if (isset($stories) && !empty($stories))
 							{
 								foreach ($stories as $story)
@@ -293,31 +293,32 @@ function get_storiesmap($pageposts=NULL)
 										foreach($states as $state)
 										{
 											$url = get_term_link($state->term_id, $state->taxonomy);
-											$stateurl = '<a target="_blank" href="'. $url .'">'.$state->name.'</a>';
+											//$stateurl = '<a target="_blank" href="'. $url .'">'.$state->name.'</a>';
+                                            $stateurl = $state->name;
 										}
 									}
 									echo "['<div class=info><h4><a href=$link target=_blank>$title</a></h4><div class=popupcntnr><img src=$image><div class=subinfo><p><b>$district</b>, <b>$stateurl</b></div></p>$content</div></div>', $latitude, $longitude],";
 								}
 							}
-							else 
+							else
 							{
 								echo "<h3 align='center'><font color='#ff0000'>No Content Found</font></h3>";
 							}
                         ?>];
-                    
+
                     // Setup the different icons and shadows
                     var iconURLPrefix = '<?php echo SCP_URL.'images/'?>';
-                    
+
                     var icons = [iconURLPrefix + 'marker2.png']
                     var icons_length = icons.length;
-                    
-                    
-                    var shadow = 
+
+
+                    var shadow =
                     {
                       anchor: new google.maps.Point(5,13),
                       url: iconURLPrefix + 'msmarker.shadow.png'
                     };
-                
+
                     var map = new google.maps.Map(document.getElementById('map'), {
                       zoom: -5,
                       center: new google.maps.LatLng(40.715618, -74.011133),
@@ -339,24 +340,24 @@ function get_storiesmap($pageposts=NULL)
 					  Height: 350,
                       maxHeight: 350
                     });
-                
+
                     var marker;
                     var markers = new Array();
-                    
+
                     var iconCounter = 0;
-                    
+
                     // Add the markers and infowindows to the map
                     for (var i = 0; i < locations.length; i++)
-                    {  
+                    {
 						  marker = new google.maps.Marker({
                             position: new google.maps.LatLng(locations[i][1], locations[i][2], locations[i][3], locations[i][4], locations[i][5]),
                             map: map,
                             icon : icons[iconCounter],
                             shadow: shadow
                           });
-                    
+
                           markers.push(marker);
-                    
+
                           google.maps.event.addListener(marker, 'click', (function(marker, i)
                           {
                             return function() {
@@ -364,14 +365,14 @@ function get_storiesmap($pageposts=NULL)
                               infowindow.open(map, marker);
                             }
                           })(marker, i));
-                          
+
                           iconCounter++;
                           if(iconCounter >= icons_length)
                           {
                             iconCounter = 0;
                           }
                     }
-            
+
                     function AutoCenter()
                     {
                       var bounds = new google.maps.LatLngBounds();
@@ -383,7 +384,7 @@ function get_storiesmap($pageposts=NULL)
                     }
                     AutoCenter();
               </script>
-               
+
     <?php
 }
 ?>

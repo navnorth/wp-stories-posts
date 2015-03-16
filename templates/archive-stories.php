@@ -39,13 +39,39 @@ get_header(); ?>
 					if(!empty($searchtext) || !empty($district_location) || !empty($district_size))
 					{
 						$s = trim($searchtext, " ");
+						if(!empty($district_location))
+						{
+							foreach($district_location as $location)
+							{
+								$searchlocation .=  "location.meta_value LIKE '%$location%' OR ";
+							}
+							$searchlocation = substr($searchlocation, 0, -3);
+						}
+						else
+						{
+							$searchlocation .=  "location.meta_value LIKE '%$s%'";
+						}
+						
+						if(!empty($district_size))
+						{
+							foreach($district_size as $size)
+							{
+								$searchsize .=  "size.meta_value LIKE '%$size%' OR ";
+							}
+							$searchsize = substr($searchsize, 0, -3);
+						}
+						else
+						{
+							$searchsize .=  "size.meta_value LIKE '%$s%'";
+						}
+						
 						$querystr = "SELECT ID FROM $wpdb->posts
 								 LEFT JOIN $wpdb->postmeta as location
 								 ON $wpdb->posts.ID = location.post_id
 								 LEFT JOIN $wpdb->postmeta as size
 								 ON $wpdb->posts.ID = size.post_id
-									WHERE (location.meta_value LIKE '%$district_location%'
-										AND size.meta_value LIKE '%$district_size%'
+									WHERE (($searchlocation)
+										AND ($searchsize)
 										AND ($wpdb->posts.post_content LIKE '%$s%'
 											 OR $wpdb->posts.post_title LIKE '%$s%'))
 								AND $wpdb->posts.post_type = 'stories'
@@ -54,17 +80,18 @@ get_header(); ?>
 								ORDER BY $wpdb->posts.post_date DESC";
 						$pageposts1 = $wpdb->get_results($querystr, OBJECT_K);
 					}
+					
 					if(!empty($taxonomy_state))
 					{
-						$searcharr[] = array('taxonomy' => 'state', 'field' => 'slug', 'terms' => array( "$taxonomy_state" ),);
+						$searcharr[] = array('taxonomy' => 'state', 'field' => 'slug', 'terms' => $taxonomy_state,);
 					}
 					if(!empty($taxonomy_program))
 					{
-						$searcharr[] = array('taxonomy' => 'program', 'field' => 'slug', 'terms' => array( "$taxonomy_program" ),);
+						$searcharr[] = array('taxonomy' => 'program', 'field' => 'slug', 'terms' => $taxonomy_program,);
 					}
 					if(!empty($taxonomy_grade_level))
 					{
-						$searcharr[] = array('taxonomy' => 'grade_level', 'field' => 'slug', 'terms' => array( "$taxonomy_grade_level" ),);
+						$searcharr[] = array('taxonomy' => 'grade_level', 'field' => 'slug', 'terms' => $taxonomy_grade_level,);
 					}
 					if(!empty($story_tags))
 					{
@@ -97,12 +124,11 @@ get_header(); ?>
 					{
 						$pageposts = $pageposts2;
 					}
-				
 									
 					if(isset($pageposts) && !empty($pageposts))
 					{ ?>
                         <div class="col-md-4 col-sm-12 col-xs-12 pblctn_right_sid_mtr">
-                        	<?php get_story_search($searchtext, $taxonomy_state, $taxonomy_program, $taxonomy_grade_level, $district_location, $district_size,$story_tags); ?>
+                        	<?php get_story_search($pageposts, $searchtext, $taxonomy_state, $taxonomy_program, $taxonomy_grade_level, $district_location, $district_size,$story_tags); ?>
                         </div>
 							
                         <div class="col-md-8 col-sm-12 col-xs-12 pblctn_lft_sid_img_cntnr map_cntnr">
@@ -111,7 +137,7 @@ get_header(); ?>
                             </div>
                             <header class="archive-header">
                                 <h1 class="archive-title">
-                                     <?php printf( __( 'Search Results', 'twentytwelve' ), '<span>' .$searchtext . '</span>' );?>
+                                     <?php printf( __( 'Search Results %s', 'twentytwelve' ), '<span>(' . count($pageposts).' Stories)</span>' );?>
                                 </h1>
                             </header><!-- .archive-header -->
     
@@ -131,7 +157,7 @@ get_header(); ?>
 					{
 						?>
                         <div class="col-md-4 col-sm-12 col-xs-12 pblctn_right_sid_mtr">
-                        <?php get_story_search($searchtext, $taxonomy_state, $taxonomy_program, $taxonomy_grade_level, $district_location, $district_size,$story_tags); ?>
+                        <?php get_story_search($pageposts, $searchtext, $taxonomy_state, $taxonomy_program, $taxonomy_grade_level, $district_location, $district_size,$story_tags); ?>
                         </div>
                         
                         <div class="col-md-8 col-sm-12 col-xs-12 pblctn_lft_sid_img_cntnr map_cntnr">
@@ -140,7 +166,7 @@ get_header(); ?>
                             </div>
                             <header class="archive-header">
                                 <h1 class="archive-title">
-                                     <?php printf( __( 'Search Results', 'twentytwelve' ), '<span>' .$searchtext . '</span>' );?>
+                                     <?php printf( __( 'Search Results %s', 'twentytwelve' ), '<span>( 0 Stories)</span>' );?>
                                 </h1>
                             </header><!-- .archive-header -->
                             <div class="col-md-12 pblctn_paramtr padding_left">
@@ -185,6 +211,7 @@ get_header(); ?>
 						<div class="col-md-12 col-sm-12 col-xs-12 pblctn_right_sid_mtr">
 							 <?php get_storiesmap();?>
                         </div>
+                        <!-- Slider -->
 						<div class="slidermainwrpr">
 							<div class="slidersubwrpr">
                         		<ul class="bxslider">
@@ -220,8 +247,7 @@ get_header(); ?>
                         		</ul>
                     		</div>
                         </div>
-                    
-					</div>
+                    </div>
                 <?php
 				}
 			}

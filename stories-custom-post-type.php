@@ -326,7 +326,7 @@ function get_storiesmap($pageposts=NULL)
                       mapTypeControl: true,
                       streetViewControl: true,
                       disableDefaultUI: false,
-                      panControl: false,
+                      panControl: true,
                       zoomControlOptions: {
                       position: google.maps.ControlPosition.LEFT_BOTTOM
                       }
@@ -386,5 +386,25 @@ function get_storiesmap($pageposts=NULL)
               </script>
 
     <?php
+}
+//Shortcode for tips
+//example : [tips title="your title"]your html content[/tips]
+add_shortcode("tips", "tips_function");
+function tips_function($attr, $content=NULL)
+{
+	extract($attr);
+	if(isset($title) && !empty($title))
+	{
+		$title = '<h4>'.$title.'</h4>';
+	}
+	else
+	{
+		$title = '';
+	}
+	$return = '<div class="col-md-12 col-sm-12 col-xs-12 blubrdr">
+               		'.$title.'
+					'.$content.'
+			   </div>';
+	return $return;
 }
 ?>

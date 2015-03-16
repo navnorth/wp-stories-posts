@@ -299,7 +299,7 @@ function get_latitude_longitude($address)
 	}
 }
 //Story Search
-function get_story_search($searchtext=NULL, $taxonomy_state=NULL, $taxonomy_program=NULL, $taxonomy_grade_level=NULL, $district_location=NULL, $district_size=NULL,$taxonomy_tags=NULL)
+function get_story_search($searchresult=NULL, $searchtext=NULL, $taxonomy_state=NULL, $taxonomy_program=NULL, $taxonomy_grade_level=NULL, $district_location=NULL, $district_size=NULL,$taxonomy_tags=NULL)
 {
 	global $wpdb, $characteristics, $districtsize;
 
@@ -308,54 +308,89 @@ function get_story_search($searchtext=NULL, $taxonomy_state=NULL, $taxonomy_prog
 				  'hide_empty'=> false);
 
 	$states = get_terms('state', $args);
-	$programs = get_terms('program', $args);
+	//$programs = get_terms('program', $args);
 	$grades = get_terms('grade_level', $args);
 	$tags = get_terms('story_tag', $args);
 
-	$stateoption = '<option value="">Select State</option>';
 	if(isset($states) && !empty($states))
 	{
+		if(isset($taxonomy_state) && !empty($taxonomy_state)): $display = 'block'; else: $display = 'none'; endif;
+		$stateoption .= '<div class="tglelemnt" style="display:'. $display.'">';
 		foreach($states as $state)
 		{
-			if($taxonomy_state == $state->slug): $check = 'selected="selected"'; else: $check = ''; endif;
-			$stateoption .= '<option '.$check.' value="'.$state->slug.'">'.$state->name.'</option>';
+			$count = get_counts($state->term_id, $searchresult);
+			if(in_array($state->slug, $taxonomy_state)): $check = 'checked="checked"'; else: $check = ''; endif;
+			$stateoption .= '<li>
+								<input type="checkbox" name="taxonomy_state[]" '.$check.' value="'.$state->slug.'">
+								<label>'.$state->name.'</label>
+								<span>['. $count.']</span>
+							</li>';
 		}
+		$stateoption .= '</div>';
 	}
-	$programoption = '<option value="">Select program</option>';
 	if(isset($programs) && !empty($programs))
 	{
+		if(isset($taxonomy_program) && !empty($taxonomy_program)): $display = 'block'; else: $display = 'none'; endif;
+		$programoption .= '<div class="tglelemnt" style="display:'. $display.'">';
 		foreach($programs as $program)
 		{
-			if($taxonomy_program == $program->slug): $check = 'selected="selected"'; else: $check = ''; endif;
-			$programoption .= '<option '.$check.' value="'.$program->slug.'">'.$program->name.'</option>';
+			$count = get_counts($program->term_id, $searchresult);
+			if(in_array($program->slug, $taxonomy_program)): $check = 'checked="checked"'; else: $check = ''; endif;
+			$programoption .= '<li>
+								<input type="checkbox" name="taxonomy_program[]" '.$check.' value="'.$program->slug.'">
+								<label>'.$program->name.'</label>
+								<span>['. $count.']</span>
+							  </li>';
 		}
+		$programoption .= '</div>';
 	}
-	$gradeoption = '<option value="">Select Grade</option>';
 	if(isset($grades) && !empty($grades))
 	{
+		if(isset($taxonomy_grade_level) && !empty($taxonomy_grade_level)): $display = 'block'; else: $display = 'none'; endif;
+		$gradeoption .= '<div class="tglelemnt" style="display:'. $display.'">';
 		foreach($grades as $grade)
 		{
-			if($taxonomy_grade_level == $grade->slug): $check = 'selected="selected"'; else: $check = ''; endif;
-			$gradeoption .= '<option '.$check.' value="'.$grade->slug.'">'.$grade->name.'</option>';
+			$count = get_counts($grade->term_id, $searchresult);
+			if(in_array($grade->slug, $taxonomy_grade_level)): $check = 'checked="checked"'; else: $check = ''; endif;
+			$gradeoption .= '<li>
+								<input type="checkbox" name="taxonomy_grade_level[]" '.$check.' value="'.$grade->slug.'">
+								<label>'.$grade->name.'</label>
+								<span>['. $count.']</span>
+							</li>';
 		}
+		$gradeoption .= '</div>';
 	}
-	$district_locationoption = '<option value="">Select Community Type</option>';
 	if(isset($characteristics) && !empty($characteristics))
 	{
+		if(isset($district_location) && !empty($district_location)): $display = 'block'; else: $display = 'none'; endif;
+		$district_locationoption .= '<div class="tglelemnt" style="display:'. $display.'">';
 		foreach($characteristics as $characteristic)
 		{
-			if($district_location == $characteristic): $check = 'selected="selected"'; else: $check = ''; endif;
-			$district_locationoption .= '<option '.$check.' value="'.$characteristic.'">'.$characteristic.'</option>';
+			$count = get_metacounts($characteristic, $searchresult);
+			if(in_array($characteristic, $district_location)): $check = 'checked="checked"'; else: $check = ''; endif;
+			$district_locationoption .= '<li>
+											<input type="checkbox" name="district_location[]" '.$check.' value="'.$characteristic.'">
+											<label>'.$characteristic.'</label>
+											<span>['. $count.']</span>
+										</li>';
 		}
+		$district_locationoption .= '</div>';
 	}
-	$district_sizeoption = '<option value="">Select District Size</option>';
 	if(isset($districtsize) && !empty($districtsize))
 	{
+		if(isset($district_size) && !empty($district_size)): $display = 'block'; else: $display = 'none'; endif;
+		$district_sizeoption .= '<div class="tglelemnt" style="display:'. $display.'">';
 		foreach($districtsize as $size)
 		{
-			if($district_size == $size): $check = 'selected="selected"'; else: $check = ''; endif;
-			$district_sizeoption .= '<option '.$check.' value="'.$size.'">'.$size.'</option>';
+			$count = get_metacounts($size, $searchresult);
+			if(in_array($size, $district_size)): $check = 'checked="checked"'; else: $check = ''; endif;
+			$district_sizeoption .= '<li>
+										<input type="checkbox" name="district_size[]" '.$check.' value="'.$size.'">
+										<label>'.$size.'</label>
+										<span>['. $count.']</span>
+									</li>';
 		}
+		$district_sizeoption .= '</div>';
 	}
 
 	?>
@@ -363,33 +398,59 @@ function get_story_search($searchtext=NULL, $taxonomy_state=NULL, $taxonomy_prog
             <h3><?php if(isset($searchtext)) { echo "Refine Search"; }else { echo "EdTech Story"; }?></h3>
             <form method="get">
                 <input type="text" name="searchtext" value="<?php echo $searchtext; ?>" />
-                <select name="taxonomy_state">
-                    <?php echo $stateoption; ?>
-                </select>
-                <!-- select name="taxonomy_program">
-                    <?php echo $programoption; ?>
-                </select -->
-                <select name="taxonomy_grade_level">
-                    <?php echo $gradeoption; ?>
-                </select>
-                <select name="district_location">
-                    <?php echo $district_locationoption; ?>
-                </select>
-                <select name="district_size">
-                    <?php echo $district_sizeoption; ?>
-                </select>
-                <?php if( isset($searchtext) ): ?>
+                <div class="srchtrmbxs">
+                    <ul class="cstmaccordian">
+                        <div class="cstmaccordiandv">
+                            <i class="fa fa-caret-right"></i>
+                            <h5>State</h5>
+                        </div>
+                        <?php echo $stateoption; ?>
+                    </ul>
+                </div> 
+                <div class="srchtrmbxs">
+                    <ul class="cstmaccordian">
+                    	<div class="cstmaccordiandv">
+                            <i class="fa fa-caret-right"></i>
+                            <h5>Grade</h5>
+                        </div>
+                        <?php echo $gradeoption; ?>
+                    </ul>
+                </div> 
+                <div class="srchtrmbxs">
+                    <ul class="cstmaccordian">
+                    	<div class="cstmaccordiandv">
+                            <i class="fa fa-caret-right"></i>
+                            <h5>Community Type</h5>
+                        </div>
+                        <?php echo $district_locationoption; ?>
+                    </ul>
+                </div> 
+                <div class="srchtrmbxs">
+                    <ul class="cstmaccordian">
+                        <div class="cstmaccordiandv">
+                            <i class="fa fa-caret-right"></i>
+                            <h5>District Size</h5>
+                        </div>
+                        <?php echo $district_sizeoption; ?>
+                    </ul>
+                </div>    
+                <!--<select name="taxonomy_program">
+                    <?php //echo $programoption; ?>
+                </select>-->
+				<?php if( isset($searchtext) ): ?>
 	            <div class="pplrstorytags">
-                	<ul>
+                	<h5>Topics</h5>
+                    <ul>
 						<?php
-         					foreach($tags as $tag)
+							foreach($tags as $tag)
 							{
-								if(isset($taxonomy_tags) && !empty($taxonomy_tags))
-									if(in_array( $tag->slug, $taxonomy_tags )): $check = 'checked="checked"'; else: $check = ''; endif;
-									echo '<li>
-											<input type="checkbox" '.$check.' name="story_tags[]" value="'.$tag->slug.'">
-											<label>'.$tag->name.'</label>
-										 </li>';
+								$count = get_counts($tag->term_id, $searchresult);
+								if(in_array( $tag->slug, $taxonomy_tags )): $check = 'checked="checked"'; else: $check = ''; endif;
+								echo '<li>
+										<input type="checkbox" '.$check.' name="story_tags[]" value="'.$tag->slug.'">
+										<label>'.$tag->name.'</label>
+										<span>['. $count.']</span>
+									 </li>';
 							}
                         ?>
                     </ul>
@@ -402,6 +463,40 @@ function get_story_search($searchtext=NULL, $taxonomy_state=NULL, $taxonomy_prog
             </form>
         </aside>
     <?php
+}
+
+function get_counts($termid, $searchresult)
+{
+	global $wpdb;
+	$query = "SELECT object_id from wp_term_relationships where term_taxonomy_id=(SELECT term_taxonomy_id from wp_term_taxonomy where term_id=$termid)";
+	$data = $wpdb->get_results($query, OBJECT_K);
+	if(!empty($data) && !empty($searchresult))
+	{
+		$result = array_intersect_key($searchresult, $data);
+		$count = count($result);
+	}
+	else
+	{
+		$count = 0;
+	}
+	return $count;
+}
+function get_metacounts($meta, $searchresult)
+{
+	global $wpdb;
+	$tablename = $wpdb->prefix."postmeta";
+	$query = "SELECT post_id from $tablename where meta_value LIKE '%$meta%'";
+	$data = $wpdb->get_results($query, OBJECT_K);
+	if(!empty($data) && !empty($searchresult))
+	{
+		$result = array_intersect_key($searchresult, $data);
+		$count = count($result);
+	}
+	else
+	{
+		$count = 0;
+	}
+	return $count;
 }
 //Functions for load template
 function get_story_template_part( $slug, $name = null )

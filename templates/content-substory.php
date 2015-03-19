@@ -10,10 +10,25 @@
 <?php global $post; ?>
 <?php 
 	$url = wp_get_attachment_url( get_post_thumbnail_id($post->ID) );
+	if(isset($_REQUEST['action']) && !empty($_REQUEST['action']) && $_REQUEST['action'] == 'Search')
+	{
+		if (parse_url(get_permalink($post->ID), PHP_URL_QUERY))
+		{
+			$link = get_permalink($post->ID)."&searchresult=story";
+		}
+		else
+		{
+			$link = get_permalink($post->ID)."?searchresult=story";
+		}
+	}
+	else
+	{
+		$link = get_permalink($post->ID);
+	}
 ?>
 <div class="col-md-12 pblctn_paramtr padding_left">
     <h3>
-        <a href="<?php echo get_the_permalink($post->ID); ?>">
+        <a href="<?php echo $link; ?>">
             <?php echo get_the_title($post->ID); ?>
         </a>
     </h3>
@@ -47,8 +62,8 @@
 				$postedin = '';
 				foreach($terms as $term)
 				{
-					$link = get_term_link($term->term_id, $term->taxonomy);
-					$postedin .= '<a href="'.$link.'">'.$term->name.'</a>, ';
+					$termlink = get_term_link($term->term_id, $term->taxonomy);
+					$postedin .= '<a href="'.$termlink.'">'.$term->name.'</a>, ';
 				}
 			}
 		?>

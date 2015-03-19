@@ -16,9 +16,11 @@ get_header(); ?>
 				if($_REQUEST['action'] == 'showall')
 				{
 					$postquery = new WP_Query(array('post_type' => 'stories', 'postperpage' => -1));
+					$table = $wpdb->prefix."posts";
+					$postarr = $wpdb->get_results("select ID from $table where post_type='stories'", OBJECT_K);
 					if ( $postquery->have_posts() ) ?>
 						<div class="col-md-4 col-sm-12 col-xs-12 pblctn_right_sid_mtr">
-							 <?php get_story_search(); ?>
+							 <?php get_story_search($postarr); ?>
 						</div>
 
 						<div class="col-md-8 col-sm-12 col-xs-12 pblctn_lft_sid_img_cntnr map_cntnr">
@@ -49,7 +51,8 @@ get_header(); ?>
 						}
 						else
 						{
-							$searchlocation .=  "location.meta_value LIKE '%$s%'";
+							$searchlocation .=  "$wpdb->posts.post_content LIKE '%$s%'
+											 		OR $wpdb->posts.post_title LIKE '%$s%'";
 						}
 
 						if(!empty($district_size))
@@ -62,7 +65,8 @@ get_header(); ?>
 						}
 						else
 						{
-							$searchsize .=  "size.meta_value LIKE '%$s%'";
+							$searchsize .=  "$wpdb->posts.post_content LIKE '%$s%'
+											 		OR $wpdb->posts.post_title LIKE '%$s%'";
 						}
 
 						$querystr = "SELECT ID FROM $wpdb->posts
@@ -198,9 +202,12 @@ get_header(); ?>
                  				<?php
 								foreach($tags as $tag)
 								{
-								  echo '<li>
-										  <a href="'.site_url().'/stories??searchtext=&story_tags[]='.$tag->slug.'&action=Search">'.ucfirst($tag->name).'</a>
-									    </li>';
+								 echo '<li>
+										  <a href="'.site_url().'/stories??searchtext=&story_tags[]='.$tag->slug.'&action=Search">
+										  	'.ucfirst($tag->name).'
+										  	<span>['.$tag->count.']</span>
+										  </a>
+										</li>';
 								}
 								?>
                             </ul>

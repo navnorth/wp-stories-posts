@@ -174,10 +174,16 @@
         <?php endif; ?>
     </div>
 </div>
-
+<?php
+	if(isset($_GET['searchresult']) && !empty($_GET['searchresult']) && $_GET['searchresult'] == 'story')
+	{
+		$backtosearch = ' <a href="'.$_SERVER["HTTP_REFERER"].'"> Back to Search Results </a>';
+	}
+?>
 <div class="col-md-8 col-sm-12 col-xs-12 pblctn_lft_sid_img_cntnr">
     <div class="col-md-12 pblctn_paramtr padding_left">
         <h3><?php echo get_the_title($post->ID); ?></h3>
+        <?php echo $backtosearch; ?>
         <p>
             <?php
                 $content = get_the_content($post->ID);

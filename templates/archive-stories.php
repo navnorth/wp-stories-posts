@@ -184,7 +184,14 @@ get_header(); ?>
 			}
 			else
 			{
-				 $args = array('post_type' => 'stories','post_status' => 'publish','meta_query' => array(array('key' => 'story_highlight','value' => 'true')));
+				// filter counts query, for search form
+                $search_postquery = new WP_Query(array('post_type' => 'stories', 'postperpage' => -1));
+                $search_table = $wpdb->prefix."posts";
+                $search_postarr = $wpdb->get_results("select ID from $search_table where post_type='stories'", OBJECT_K);
+
+
+                 // topics query
+                 $args = array('post_type' => 'stories','post_status' => 'publish','meta_query' => array(array('key' => 'story_highlight','value' => 'true')));
 				 $postquery = new WP_Query( $args );
 
 				 $args = array('orderby' => 'count', 'order' => 'DESC', 'number' => 10);
@@ -193,7 +200,7 @@ get_header(); ?>
 				 if ( $postquery->have_posts() )
 				 { ?>
 					<div class="col-md-4 col-sm-12 col-xs-12 pblctn_right_sid_mtr">
-						 <?php get_story_search(); ?>
+						 <?php get_story_search($search_postarr); ?>
                          <div class="topic_sidebar">
                          	<p class="hdng_mtr brdr_mrgn_none">
 	                            <a href="javascript:">Topics :</a>

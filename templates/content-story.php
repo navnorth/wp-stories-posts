@@ -27,7 +27,7 @@
         <?php endif; ?>
 
         <aside class="story_sharewidget">
-            <h3 class="story_sharewidgetttl">Share this story</h3>
+            <p class="rght_sid_wdgt_hedng">Share this story</p>
            <?php
                 echo '<div class="story_sharewidgeticns">';
                             echo do_shortcode("[ssba]");

@@ -20,7 +20,7 @@ get_header(); ?>
 						<div class="col-md-4 col-sm-12 col-xs-12 pblctn_right_sid_mtr">
 							 <?php get_story_search(); ?>
 						</div>
-						
+
 						<div class="col-md-8 col-sm-12 col-xs-12 pblctn_lft_sid_img_cntnr map_cntnr">
 							<div class="col-md-12 col-sm-12 col-xs-12 pblctn_right_sid_mtr">
 								 <?php get_storiesmap();?>
@@ -31,7 +31,7 @@ get_header(); ?>
 					 	</div>
 					<?php
 				}
-				
+
 				if($_REQUEST['action'] == 'Search')
 				{
 					extract($_REQUEST);
@@ -51,7 +51,7 @@ get_header(); ?>
 						{
 							$searchlocation .=  "location.meta_value LIKE '%$s%'";
 						}
-						
+
 						if(!empty($district_size))
 						{
 							foreach($district_size as $size)
@@ -64,7 +64,7 @@ get_header(); ?>
 						{
 							$searchsize .=  "size.meta_value LIKE '%$s%'";
 						}
-						
+
 						$querystr = "SELECT ID FROM $wpdb->posts
 								 LEFT JOIN $wpdb->postmeta as location
 								 ON $wpdb->posts.ID = location.post_id
@@ -80,7 +80,7 @@ get_header(); ?>
 								ORDER BY $wpdb->posts.post_date DESC";
 						$pageposts1 = $wpdb->get_results($querystr, OBJECT_K);
 					}
-					
+
 					if(!empty($taxonomy_state))
 					{
 						$searcharr[] = array('taxonomy' => 'state', 'field' => 'slug', 'terms' => $taxonomy_state,);
@@ -97,14 +97,14 @@ get_header(); ?>
 					{
 						$searcharr[] = array('taxonomy' => 'story_tag', 'field' => 'slug', 'terms' => $story_tags,);
 					}
-					
+
 					if(!empty($searcharr))
 					{
 						$args = array('post_type' => 'stories','tax_query' => array('relation' => 'AND',$searcharr),);
 						$query = new WP_Query( $args );
 						$pageposts2 = $wpdb->get_results($query->request, OBJECT_K);
 					}
-					
+
 					if(isset($pageposts1) && isset($pageposts2) )
 					{
 						if(!empty($pageposts1) && !empty($pageposts2) )
@@ -124,13 +124,13 @@ get_header(); ?>
 					{
 						$pageposts = $pageposts2;
 					}
-									
+
 					if(isset($pageposts) && !empty($pageposts))
 					{ ?>
                         <div class="col-md-4 col-sm-12 col-xs-12 pblctn_right_sid_mtr">
                         	<?php get_story_search($pageposts, $searchtext, $taxonomy_state, $taxonomy_program, $taxonomy_grade_level, $district_location, $district_size,$story_tags); ?>
                         </div>
-							
+
                         <div class="col-md-8 col-sm-12 col-xs-12 pblctn_lft_sid_img_cntnr map_cntnr">
                             <div class="col-md-12 col-sm-12 col-xs-12 pblctn_right_sid_mtr">
                                  <?php get_storiesmap($pageposts);?>
@@ -140,18 +140,18 @@ get_header(); ?>
                                      <?php printf( __( 'Search Results %s', 'twentytwelve' ), '<span>(' . count($pageposts).' Stories)</span>' );?>
                                 </h1>
                             </header><!-- .archive-header -->
-    
+
                             <?php
                                 foreach($pageposts as $key => $data )
                                 {
                                     $post = get_post($key);
-                                    setup_postdata($post);			
+                                    setup_postdata($post);
                                     get_story_template_part( 'content', 'substory' );
                                 }
                                 wp_reset_postdata();
                             ?>
                         </div>
-                    <?php    
+                    <?php
 					}
 					else
 					{
@@ -159,21 +159,21 @@ get_header(); ?>
                         <div class="col-md-4 col-sm-12 col-xs-12 pblctn_right_sid_mtr">
                         <?php get_story_search($pageposts, $searchtext, $taxonomy_state, $taxonomy_program, $taxonomy_grade_level, $district_location, $district_size,$story_tags); ?>
                         </div>
-                        
+
                         <div class="col-md-8 col-sm-12 col-xs-12 pblctn_lft_sid_img_cntnr map_cntnr">
                             <div class="col-md-12 col-sm-12 col-xs-12 pblctn_right_sid_mtr">
                                  <?php get_storiesmap();?>
                             </div>
                             <header class="archive-header">
                                 <h1 class="archive-title">
-                                     <?php printf( __( 'Search Results %s', 'twentytwelve' ), '<span>( 0 Stories)</span>' );?>
+                                     <?php printf( __( 'Search Results %s', 'twentytwelve' ), '<span>(0 Stories)</span>' );?>
                                 </h1>
                             </header><!-- .archive-header -->
                             <div class="col-md-12 pblctn_paramtr padding_left">
-                                <?php _e( 'Sorry, but nothing matched your search criteria. Please try again with some different keywords.' ); ?>    
+                                <?php _e( 'Sorry, but nothing matched your search criteria. Please try again with some different keywords.' ); ?>
                             </div>
                         </div>
-                        
+
                         <?php
 					}
 				}
@@ -182,10 +182,10 @@ get_header(); ?>
 			{
 				 $args = array('post_type' => 'stories','post_status' => 'publish','meta_query' => array(array('key' => 'story_highlight','value' => 'true')));
 				 $postquery = new WP_Query( $args );
-				 
+
 				 $args = array('orderby' => 'count', 'order' => 'DESC', 'number' => 10);
 				 $tags = get_terms('story_tag', $args);
-				 
+
 				 if ( $postquery->have_posts() )
 				 { ?>
 					<div class="col-md-4 col-sm-12 col-xs-12 pblctn_right_sid_mtr">
@@ -200,23 +200,26 @@ get_header(); ?>
 								{
 								  echo '<li>
 										  <a href="'.site_url().'/stories??searchtext=&story_tags[]='.$tag->slug.'&action=Search">'.ucfirst($tag->name).'</a>
-									    </li>'; 
+									    </li>';
 								}
-								?>           
+								?>
                             </ul>
                          </div>
 					</div>
-					
+
 					<div class="col-md-8 col-sm-12 col-xs-12 pblctn_lft_sid_img_cntnr map_cntnr">
 						<div class="col-md-12 col-sm-12 col-xs-12 pblctn_right_sid_mtr">
 							 <?php get_storiesmap();?>
+                        </div>
+                        <div class="col-md-12 col-sm-12 col-xs-12 pblctn_right_sid_mtr">
+                            <p class="stry_srch_desc">Use the search box and filtering options on the left to find examples of innovation happening across the nation. You can browse examples from your state or schools located in rural communities.</p>
                         </div>
                         <!-- Slider -->
 						<div class="slidermainwrpr">
 							<div class="slidersubwrpr">
                         		<ul class="bxslider">
 									<?php while ( $postquery->have_posts() ) : $postquery->the_post(); ?>
-                        
+
                                         	<li>
                                                 <div class="sliderinnrwrap">
                                                     <div class="sliderimgwrpr">
@@ -231,7 +234,7 @@ get_header(); ?>
                                                             </a>
                                                         </h3>
                                                         <p>
-                                                           <?php 
+                                                           <?php
 																$content = strip_tags(get_the_content($post->ID));
 																echo substr($content, 0, 200)."...";
 															?>
@@ -242,7 +245,7 @@ get_header(); ?>
                                                     </div>
                                                 </div>
                                             </li>
-                        
+
                                     <?php endwhile; ?>
                         		</ul>
                     		</div>
@@ -252,7 +255,7 @@ get_header(); ?>
 				}
 			}
 		?>
-         
+
 	</div><!-- #row -->
-	
+
 <?php get_footer(); ?>

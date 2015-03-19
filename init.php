@@ -395,7 +395,7 @@ function get_story_search($searchresult=NULL, $searchtext=NULL, $taxonomy_state=
 
 	?>
     	<aside class="search_widget stry_srch_frm">
-            <h3><?php if(isset($searchtext)) { echo "Refine Search"; }else { echo "EdTech Story"; }?></h3>
+            <h3><?php if(isset($searchtext)) { echo "Refine Search"; }else { echo "EdTech Example Engine"; }?></h3>
             <form method="get">
                 <input type="text" name="searchtext" value="<?php echo $searchtext; ?>" />
                 <div class="srchtrmbxs">
@@ -406,7 +406,7 @@ function get_story_search($searchresult=NULL, $searchtext=NULL, $taxonomy_state=
                         </div>
                         <?php echo $stateoption; ?>
                     </ul>
-                </div> 
+                </div>
                 <div class="srchtrmbxs">
                     <ul class="cstmaccordian">
                     	<div class="cstmaccordiandv">
@@ -415,7 +415,7 @@ function get_story_search($searchresult=NULL, $searchtext=NULL, $taxonomy_state=
                         </div>
                         <?php echo $gradeoption; ?>
                     </ul>
-                </div> 
+                </div>
                 <div class="srchtrmbxs">
                     <ul class="cstmaccordian">
                     	<div class="cstmaccordiandv">
@@ -424,7 +424,7 @@ function get_story_search($searchresult=NULL, $searchtext=NULL, $taxonomy_state=
                         </div>
                         <?php echo $district_locationoption; ?>
                     </ul>
-                </div> 
+                </div>
                 <div class="srchtrmbxs">
                     <ul class="cstmaccordian">
                         <div class="cstmaccordiandv">
@@ -433,7 +433,7 @@ function get_story_search($searchresult=NULL, $searchtext=NULL, $taxonomy_state=
                         </div>
                         <?php echo $district_sizeoption; ?>
                     </ul>
-                </div>    
+                </div>
                 <!--<select name="taxonomy_program">
                     <?php //echo $programoption; ?>
                 </select>-->
@@ -457,7 +457,7 @@ function get_story_search($searchresult=NULL, $searchtext=NULL, $taxonomy_state=
                 </div>
                 <?php endif; ?>
                 <div class="showallstories">
-                    <a href="<?php echo site_url();?>/stories/?action=showall"> Show All Stories</a>
+                    <a href="<?php echo site_url();?>/stories/?action=showall">Show All Examples</a>
                 </div>
                 <input type="submit" name="action" value="Search" />
             </form>

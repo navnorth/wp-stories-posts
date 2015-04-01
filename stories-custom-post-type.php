@@ -309,7 +309,7 @@ function get_storiesmap($pageposts=NULL)
                     // Setup the different icons and shadows
                     var iconURLPrefix = '<?php echo SCP_URL.'images/'?>';
 
-                    var icons = [iconURLPrefix + 'marker2.png']
+                    var icons = [iconURLPrefix + 'marker_solid.png']
                     var icons_length = icons.length;
 
 

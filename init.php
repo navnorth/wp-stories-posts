@@ -321,13 +321,14 @@ function get_story_search($searchresult=NULL, $searchtext=NULL, $taxonomy_state=
 			$count = get_counts($state->term_id, $searchresult);
 			if(in_array($state->slug, $taxonomy_state)): $check = 'checked="checked"'; else: $check = ''; endif;
 			$stateoption .= '<li>
-								<input type="checkbox" name="taxonomy_state[]" '.$check.' value="'.$state->slug.'">
-								<label>'.$state->name.'</label>
-								<span>['. $count.']</span>
+								<input type="checkbox" name="taxonomy_state[]" '.$check.' value="'.$state->slug.'" id="state'.$state->term_id.'">
+								<label for="state'.$state->term_id.'">'.$state->name.'</label>
+								<span>('. $count.')</span>
 							</li>';
 		}
 		$stateoption .= '</div>';
 	}
+	/* removing programs from search for now
 	if(isset($programs) && !empty($programs))
 	{
 		if(isset($taxonomy_program) && !empty($taxonomy_program)): $display = 'block'; else: $display = 'none'; endif;
@@ -337,13 +338,14 @@ function get_story_search($searchresult=NULL, $searchtext=NULL, $taxonomy_state=
 			$count = get_counts($program->term_id, $searchresult);
 			if(in_array($program->slug, $taxonomy_program)): $check = 'checked="checked"'; else: $check = ''; endif;
 			$programoption .= '<li>
-								<input type="checkbox" name="taxonomy_program[]" '.$check.' value="'.$program->slug.'">
-								<label>'.$program->name.'</label>
-								<span>['. $count.']</span>
+								<input type="checkbox" name="taxonomy_program[]" '.$check.' value="'.$program->slug.'" id="prog'.$program->term_id.'">
+								<label for="prog'.$program->term_id.'">'.$program->name.'</label>
+								<span>('. $count.')</span>
 							  </li>';
 		}
 		$programoption .= '</div>';
 	}
+	*/
 	if(isset($grades) && !empty($grades))
 	{
 		if(isset($taxonomy_grade_level) && !empty($taxonomy_grade_level)): $display = 'block'; else: $display = 'none'; endif;
@@ -353,9 +355,9 @@ function get_story_search($searchresult=NULL, $searchtext=NULL, $taxonomy_state=
 			$count = get_counts($grade->term_id, $searchresult);
 			if(in_array($grade->slug, $taxonomy_grade_level)): $check = 'checked="checked"'; else: $check = ''; endif;
 			$gradeoption .= '<li>
-								<input type="checkbox" name="taxonomy_grade_level[]" '.$check.' value="'.$grade->slug.'">
-								<label>'.$grade->name.'</label>
-								<span>['. $count.']</span>
+								<input type="checkbox" name="taxonomy_grade_level[]" '.$check.' value="'.$grade->slug.'" id="grade'.$grade->term_id.'">
+								<label for="grade'.$grade->term_id.'">'.$grade->name.'</label>
+								<span>('. $count.')</span>
 							</li>';
 		}
 		$gradeoption .= '</div>';
@@ -369,9 +371,9 @@ function get_story_search($searchresult=NULL, $searchtext=NULL, $taxonomy_state=
 			$count = get_metacounts($characteristic, $searchresult);
 			if(in_array($characteristic, $district_location)): $check = 'checked="checked"'; else: $check = ''; endif;
 			$district_locationoption .= '<li>
-											<input type="checkbox" name="district_location[]" '.$check.' value="'.$characteristic.'">
-											<label>'.$characteristic.'</label>
-											<span>['. $count.']</span>
+											<input type="checkbox" name="district_location[]" '.$check.' value="'.$characteristic.'" id="char'.$characteristic.'">
+											<label for="char'.$characteristic.'">'.$characteristic.'</label>
+											<span>('. $count.')</span>
 										</li>';
 		}
 		$district_locationoption .= '</div>';
@@ -385,9 +387,9 @@ function get_story_search($searchresult=NULL, $searchtext=NULL, $taxonomy_state=
 			$count = get_metacounts($size, $searchresult);
 			if(in_array($size, $district_size)): $check = 'checked="checked"'; else: $check = ''; endif;
 			$district_sizeoption .= '<li>
-										<input type="checkbox" name="district_size[]" '.$check.' value="'.$size.'">
-										<label>'.$size.'</label>
-										<span>['. $count.']</span>
+										<input type="checkbox" name="district_size[]" '.$check.' value="'.$size.'" id="size'.$size.'">
+										<label for="size'.$size.'">'.$size.'</label>
+										<span>('. $count.')</span>
 									</li>';
 		}
 		$district_sizeoption .= '</div>';
@@ -449,7 +451,7 @@ function get_story_search($searchresult=NULL, $searchtext=NULL, $taxonomy_state=
 								echo '<li>
 										<input type="checkbox" '.$check.' name="story_tags[]" value="'.$tag->slug.'">
 										<label>'.$tag->name.'</label>
-										<span>['. $count.']</span>
+										<span>('. $count.')</span>
 									 </li>';
 							}
                         ?>

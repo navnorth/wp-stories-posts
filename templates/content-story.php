@@ -11,6 +11,15 @@
 <div class="col-md-4 col-sm-12 col-xs-12 pblctn_right_sid_mtr">
     <div>
         <?php
+        $back_link = site_url().'/stories/';
+        if (isset($_GET['searchresult']) && !empty($_GET['searchresult']) && $_GET['searchresult'] == 'story')
+        {
+            $back_link = $_SERVER["HTTP_REFERER"];
+        }
+        ?>
+        <div class="col-md-12 col-sm-12 col-xs-12 noborder story_back"><a href="<?php echo $back_link; ?>"> Back to Stories </a></div>
+
+        <?php
             $url = wp_get_attachment_url( get_post_thumbnail_id($post->ID) );
             $videourl = get_post_meta( $post->ID, "story_video" , true );
         ?>
@@ -175,16 +184,10 @@
             <?php endif; ?>
     </div>
 </div>
-<?php
-	if(isset($_GET['searchresult']) && !empty($_GET['searchresult']) && $_GET['searchresult'] == 'story')
-	{
-		$backtosearch = ' <a href="'.$_SERVER["HTTP_REFERER"].'"> Back to Search Results </a>';
-	}
-?>
+
 <div class="col-md-8 col-sm-12 col-xs-12 pblctn_lft_sid_img_cntnr">
     <div class="col-md-12 pblctn_paramtr padding_left">
         <h3><?php echo get_the_title($post->ID); ?></h3>
-        <?php echo $backtosearch; ?>
         <p>
             <?php
                 $content = get_the_content($post->ID);

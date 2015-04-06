@@ -299,6 +299,7 @@ function get_latitude_longitude($address)
 	}
 }
 //Story Search
+/* disabling search for now. Just going to use browse Navigation
 function get_story_search($searchresult=NULL, $searchtext=NULL, $taxonomy_state=NULL, $taxonomy_program=NULL, $taxonomy_grade_level=NULL, $district_location=NULL, $district_size=NULL,$taxonomy_tags=NULL)
 {
 	global $wpdb, $characteristics, $districtsize;
@@ -328,7 +329,7 @@ function get_story_search($searchresult=NULL, $searchtext=NULL, $taxonomy_state=
 		}
 		$stateoption .= '</div>';
 	}
-	/* removing programs from search for now
+	// removing programs from search for now
 	if(isset($programs) && !empty($programs))
 	{
 		if(isset($taxonomy_program) && !empty($taxonomy_program)): $display = 'block'; else: $display = 'none'; endif;
@@ -345,7 +346,7 @@ function get_story_search($searchresult=NULL, $searchtext=NULL, $taxonomy_state=
 		}
 		$programoption .= '</div>';
 	}
-	*/
+
 	if(isset($grades) && !empty($grades))
 	{
 		if(isset($taxonomy_grade_level) && !empty($taxonomy_grade_level)): $display = 'block'; else: $display = 'none'; endif;
@@ -397,7 +398,8 @@ function get_story_search($searchresult=NULL, $searchtext=NULL, $taxonomy_state=
 
 	?>
     	<aside class="search_widget stry_srch_frm">
-            <h3><?php if(isset($searchtext)) { echo "Refine Search"; }else { echo "EdTech Example Engine"; }?></h3>
+            <h3>Stories of EdTech Innovation</h3>
+            <p class="stry_srch_desc">Use this tool to browse stories of innovation happening in schools across the nation. By sharing these stories, we hope to connect districts, schools, and educators trying similar things so that they can learn from each other's experiences.</p>
             <form method="get">
                 <input type="text" name="searchtext" value="<?php echo $searchtext; ?>" />
                 <div class="srchtrmbxs">
@@ -465,6 +467,180 @@ function get_story_search($searchresult=NULL, $searchtext=NULL, $taxonomy_state=
             </form>
         </aside>
     <?php
+}
+*/
+
+//Story Search
+function get_stories_side_nav($taxonomy_state=NULL, $taxonomy_program=NULL, $taxonomy_grade_level=NULL, $district_location=NULL, $district_size=NULL,$taxonomy_tags=NULL)
+{
+	global $wpdb, $characteristics, $districtsize;
+
+	$args = array('orderby'   => 'term_order',
+				  'order'     => 'ASC',
+				  'hide_empty'=> false);
+
+	$postquery = new WP_Query(array('post_type' => 'stories', 'postperpage' => -1));
+	$table = $wpdb->prefix."posts";
+	$countarr = $wpdb->get_results("select ID from $table where post_type='stories'", OBJECT_K);
+
+	$states = get_terms('state', $args);
+	//$programs = get_terms('program', $args);
+	$grades = get_terms('grade_level', $args);
+	$tags = get_terms('story_tag', $args);
+
+	if(isset($states) && !empty($states))
+	{
+		if(isset($taxonomy_state) && !empty($taxonomy_state)): $display = 'block'; else: $display = 'none'; endif;
+		$stateoption = '<div class="tglelemnt" style="display:'. $display.'">';
+		foreach($states as $state)
+		{
+			$count = get_counts($state->term_id, $countarr);
+			if(in_array($state->slug, $taxonomy_state)): $check = 'checked="checked"'; else: $check = ''; endif;
+			$stateoption .= '<li>
+								<a href="'.site_url().'/stories/?action=Search&taxonomy_state='.$state->slug.'">'.$state->name.' ('.$count.')</a>
+							</li>';
+		}
+		$stateoption .= '</div>';
+	}
+	/* removing programs from search for now
+	if(isset($programs) && !empty($programs))
+	{
+		if(isset($taxonomy_program) && !empty($taxonomy_program)): $display = 'block'; else: $display = 'none'; endif;
+		$programoption .= '<div class="tglelemnt" style="display:'. $display.'">';
+		foreach($programs as $program)
+		{
+			$count = get_counts($program->term_id, $countarr);
+			if(in_array($program->slug, $taxonomy_program)): $check = 'checked="checked"'; else: $check = ''; endif;
+			$programoption .= '<li>
+								<input type="checkbox" name="taxonomy_program[]" '.$check.' value="'.$program->slug.'" id="prog'.$program->term_id.'">
+								<label for="prog'.$program->term_id.'">'.$program->name.'</label>
+								<span>('. $count.')</span>
+							  </li>';
+		}
+		$programoption .= '</div>';
+	}
+	*/
+	if(isset($grades) && !empty($grades))
+	{
+		if(isset($taxonomy_grade_level) && !empty($taxonomy_grade_level)): $display = 'block'; else: $display = 'none'; endif;
+		$gradeoption = '<div class="tglelemnt" style="display:'. $display.'">';
+		foreach($grades as $grade)
+		{
+			$count = get_counts($grade->term_id, $countarr);
+			if(in_array($grade->slug, $taxonomy_grade_level)): $check = 'checked="checked"'; else: $check = ''; endif;
+			$gradeoption .= '<li>
+								<a href="'.site_url().'/stories/?action=Search&taxonomy_grade_level='.$grade->slug.'">'.$grade->name.' ('.$count.')</a>
+							</li>';
+		}
+		$gradeoption .= '</div>';
+	}
+	if(isset($characteristics) && !empty($characteristics))
+	{
+		if(isset($district_location) && !empty($district_location)): $display = 'block'; else: $display = 'none'; endif;
+		$district_locationoption = '<div class="tglelemnt" style="display:'. $display.'">';
+		foreach($characteristics as $characteristic)
+		{
+			$count = get_metacounts($characteristic, $countarr);
+			if(in_array($characteristic, $district_location)): $check = 'checked="checked"'; else: $check = ''; endif;
+			$district_locationoption .= '<li>
+											<a href="'.site_url().'/stories/?action=Search&district_location='.$characteristic.'">'.$characteristic.' ('.$count.')</a>
+										</li>';
+		}
+		$district_locationoption .= '</div>';
+	}
+	if(isset($districtsize) && !empty($districtsize))
+	{
+		if(isset($district_size) && !empty($district_size)): $display = 'block'; else: $display = 'none'; endif;
+		$district_sizeoption = '<div class="tglelemnt" style="display:'. $display.'">';
+		foreach($districtsize as $size)
+		{
+			$count = get_metacounts($size, $countarr);
+			if(in_array($size, $district_size)): $check = 'checked="checked"'; else: $check = ''; endif;
+			$district_sizeoption .= '<li>
+										<a href="'.site_url().'/stories/?action=Search&district_size='.$size.'">'.$size.' ('.$count.')</a>
+									</li>';
+		}
+		$district_sizeoption .= '</div>';
+	}
+	?>
+    	<aside class="search_widget stry_srch_frm">
+            <h3>
+            	<?php if(strlen($_SERVER["QUERY_STRING"]) != 0) { echo '<a href="'.site_url().'/stories/">'; } ?>
+            	Stories of EdTech Innovation
+            	<?php if(strlen($_SERVER["QUERY_STRING"]) != 0) { echo '</a>'; } ?>
+            </h3>
+            <p class="stry_srch_desc">Use this tool to browse stories of innovation happening in schools across the nation. By sharing these stories, we hope to connect districts, schools, and educators trying similar things so that they can learn from each other's experiences.</p>
+
+            <h5 class="hdng_mtr brdr_mrgn_none stry_browse_header">Browse Stories</h5>
+            <div class="srchtrmbxs">
+                <ul class="cstmaccordian">
+                    <div class="cstmaccordiandv">
+                        <i class="fa fa-caret-right"></i>
+                        <h5>State</h5>
+                    </div>
+                    <?php echo $stateoption; ?>
+                </ul>
+            </div>
+            <div class="srchtrmbxs">
+                <ul class="cstmaccordian">
+                	<div class="cstmaccordiandv">
+                        <i class="fa fa-caret-right"></i>
+                        <h5>Grade</h5>
+                    </div>
+                    <?php echo $gradeoption; ?>
+                </ul>
+            </div>
+            <div class="srchtrmbxs">
+                <ul class="cstmaccordian">
+                	<div class="cstmaccordiandv">
+                        <i class="fa fa-caret-right"></i>
+                        <h5>Community Type</h5>
+                    </div>
+                    <?php echo $district_locationoption; ?>
+                </ul>
+            </div>
+            <div class="srchtrmbxs">
+                <ul class="cstmaccordian">
+                    <div class="cstmaccordiandv">
+                        <i class="fa fa-caret-right"></i>
+                        <h5>District Size</h5>
+                    </div>
+                    <?php echo $district_sizeoption; ?>
+                </ul>
+            </div>
+            <!--<select name="taxonomy_program">
+                <?php //echo $programoption; ?>
+            </select>-->
+
+			<?php echo get_top_topics_nav() ?>
+
+            <div class="showallstories">
+                <a class="btn_dwnld" href="<?php echo site_url();?>/stories/?action=showall">Browse All Stories</a>
+            </div>
+
+        </aside>
+    <?php
+}
+
+function get_top_topics_nav()
+{
+	global $wpdb;
+	$args = array('orderby' => 'count', 'order' => 'DESC', 'number' => 10);
+	$tags = get_terms('story_tag', $args);
+	$topic_nav = '';
+
+	$topic_nav .= '<div class="topic_sidebar"><h5>Topics :</h5><ul>';
+
+	foreach($tags as $tag)
+	{
+		$topic_nav .= '<li>
+			  			 <a href="'.site_url().'/stories??searchtext=&story_tags[]='.$tag->slug.'&action=Search">'.ucfirst($tag->name).'
+			  			 <span>('.$tag->count.')</span></a>
+		  			   </li>';
+	}
+
+	$topic_nav .= '</ul></div>';
+	return $topic_nav;
 }
 
 function get_counts($termid, $searchresult)

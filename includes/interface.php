@@ -2,12 +2,12 @@
 function ordersmenu()
 {
 	global $wpdb, $wp_locale;
-	
+
 	$taxonomy = isset($_GET['taxonomy']) ? $_GET['taxonomy'] : '';
 	$post_type = isset($_GET['post_type']) ? $_GET['post_type'] : 'post';
-									
+
 	$post_type_data = get_post_type_object($post_type);
-	
+
 	if (!taxonomy_exists($taxonomy))
 		$taxonomy = '';
 
@@ -17,40 +17,40 @@ function ordersmenu()
 		<h2><?php _e( "Taxonomy Order", 'tto' ) ?></h2>
 
 		<div id="ajax-response"></div>
-		
+
 		<noscript>
 			<div class="error message">
-				<p><?php _e( "This plugin can't work without javascript, because it's use drag and drop and AJAX.", 'tto' ) ?></p>
+				<p><?php _e( "This plugin requires JavaScript in order to function. Please enable JavaScript in your browser to continue.", 'tto' ) ?></p>
 			</div>
 		</noscript>
 
 		<div class="clear"></div>
-		
+
 		<form action="edit.php" method="get" id="to_form">
 			<input type="hidden" name="page" value="ordersmenu-<?php echo $post_type ?>" />
 			<?php
-		
+
 			 if ($post_type != 'post')
 				echo '<input type="hidden" name="post_type" value="'. $post_type .'" />';
 
 			//output all available taxonomies for this post type
-			
+
 			$post_type_taxonomies = get_object_taxonomies($post_type);
-		
+
 			foreach ($post_type_taxonomies as $key => $taxonomy_name)
 			{
-				$taxonomy_info = get_taxonomy($taxonomy_name);  
-				if ($taxonomy_info->hierarchical !== TRUE) 
+				$taxonomy_info = get_taxonomy($taxonomy_name);
+				if ($taxonomy_info->hierarchical !== TRUE)
 					unset($post_type_taxonomies[$key]);
 			}
-				
+
 			//use the first taxonomy if emtpy taxonomy
 			if ($taxonomy == '' || !taxonomy_exists($taxonomy))
 			{
-				reset($post_type_taxonomies);   
+				reset($post_type_taxonomies);
 				$taxonomy = current($post_type_taxonomies);
 			}
-									
+
 			if (count($post_type_taxonomies) > 1)
 			{
 				?>
@@ -67,7 +67,7 @@ function ordersmenu()
 
 					<tbody id="the-list">
 					<?php
-						
+
 						$alternate = FALSE;
 						foreach ($post_type_taxonomies as $post_type_taxonomy)
 						{
@@ -91,16 +91,16 @@ function ordersmenu()
 					?>
 					</tbody>
 				</table>
-				<br /><br /> 
+				<br /><br />
 			<?php
 			}
 			?>
 
 		<div id="order-terms">
-			<div id="post-body">                    
+			<div id="post-body">
 					<ul class="sortable" id="tto_sortable">
-						<?php 
-							listTerms($taxonomy); 
+						<?php
+							listTerms($taxonomy);
 						?>
 					</ul>
 					<div class="clear"></div>
@@ -110,12 +110,12 @@ function ordersmenu()
 					<a href="javascript:;" class="save-order button-primary"><?php _e( "Update", 'tto' ) ?></a>
 				</p>
 			</div>
-		</div> 
+		</div>
 	</form>
-		
+
 	<script type="text/javascript">
         jQuery(document).ready(function() {
-            
+
             var NestedSortableSerializedData;
             jQuery("ul.sortable").sortable({
                     'tolerance':'intersect',
@@ -126,10 +126,10 @@ function ordersmenu()
                     'nested': 'ul'
                 });
         });
-        
-        
+
+
         jQuery(".save-order").bind( "click", function() {
-                    
+
                     var mySortable = new Array();
                     jQuery(".sortable").each(  function()
 					{
@@ -138,7 +138,7 @@ function ordersmenu()
                         parent_tag = parent_tag.toLowerCase()
                         	if (parent_tag == 'li')
                             {
-                                // 
+                                //
                                 var tag_id = jQuery(this).parent().attr('id');
                                 mySortable[tag_id] = serialized;
                             }
@@ -148,10 +148,10 @@ function ordersmenu()
                                 mySortable[0] = serialized;
                             }
                     });
-                    
+
                     //serialize the array
                     var serialize_data = serialize(mySortable);
-                                                                                
+
                     jQuery.post( ajaxurl, { action:'update-taxonomy-order', order: serialize_data, taxonomy : '<?php echo  $taxonomy ?>' }, function() {
                         jQuery("#ajax-response").html('<div class="message updated fade"><p><?php _e( "Items Order Updates", 'tto' ) ?></p></div>');
                         jQuery("#ajax-response div").delay(3000).hide("slow");
@@ -159,11 +159,11 @@ function ordersmenu()
                 });
     </script>
 	</div>
-	<?php 
+	<?php
 }
-    
-    
-function listTerms($taxonomy) 
+
+
+function listTerms($taxonomy)
 {
 	// Query pages.
 	$args = array(
@@ -177,13 +177,13 @@ function listTerms($taxonomy)
 	$output = '';
 	if (count($taxonomy_terms) > 0)
 	{
-		$output = callwalker($taxonomy_terms, $args['depth'], $args);    
+		$output = callwalker($taxonomy_terms, $args['depth'], $args);
 	}
-	echo $output; 
-}       
-function callwalker($taxonomy_terms, $depth, $r) 
+	echo $output;
+}
+function callwalker($taxonomy_terms, $depth, $r)
 {
-	$walker = new Custom_Terms_Walker; 
+	$walker = new Custom_Terms_Walker;
 	$args = array($taxonomy_terms, $depth, $r);
 	return call_user_func_array(array(&$walker, 'walk'), $args);
 }

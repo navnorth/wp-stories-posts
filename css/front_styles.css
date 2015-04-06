@@ -75,8 +75,9 @@
 	margin: 5px 0 15px 20px;
 }
 
-.slidercontentnrwrpr h3 { font-size: 20px;; line-height: 25px; margin-bottom: 20px; margin-top: 0; max-height: 53px; overflow: hidden}
-.sldr_top_hdng { font-size: 18px; font-style: italic;; margin-top: 10px; font-family: "Raleway-Semibold" !important}
+.slidercontentnrwrpr h3 { font-size: 20px; line-height: 25px; margin-bottom: 8px; margin-top: 0; max-height: 53px; overflow: hidden}
+.sldr_top_hdng { font-size: 18px; color: #e57200; margin-top: 10px; font-family: "Raleway-Bold" !important}
+.slidercontentnrwrpr h4 { margin-bottom: 15px; margin-top: -5px; font-size:14px !important; }
 .slidercontentnrwrpr h3 a { color: #000}
 .map_cntnr .archive-header { float: left; width: 100%}
 .map_cntnr .archive-header h1 { margin-bottom: 0}
@@ -107,7 +108,8 @@
     float: left;
     width: 100%;
 }
-.cstmaccordiandv > h5 {
+.cstmaccordiandv > h5,
+.topic_sidebar > h5 {
     float: left;
     font-size: 16px;
     font-weight: bold;
@@ -135,9 +137,13 @@
 .pplrstorytags ul { padding: 10px !important; border: 1px solid #ccc; max-height: 213px; overflow-y: auto }
 .archive-title > span { font-size: 25px;}
 
+.story_back { margin-top:15px !important;}
+.story_back a { font-size:15px; font-family: 'Raleway-Light' !important; color #ccc;}
 
+.stry_srch_desc { padding-top: 0px; padding-bottom: 5px; font-size:13px;}
 
-
+.stry_browse_header { font-size:18px !important; font-family: 'Raleway-Bold' !important;}
+.showallstories a.btn_dwnld { padding: 15px 15px; width:175px; }
 
 @media screen and (max-width: 992px) {
 	.stry_srch_frm { width: 100%}

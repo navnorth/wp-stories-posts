@@ -16,11 +16,10 @@ get_header(); ?>
 				if($_REQUEST['action'] == 'showall')
 				{
 					$postquery = new WP_Query(array('post_type' => 'stories', 'postperpage' => -1));
-					$table = $wpdb->prefix."posts";
-					$postarr = $wpdb->get_results("select ID from $table where post_type='stories'", OBJECT_K);
+
 					if ( $postquery->have_posts() ) ?>
 						<div class="col-md-4 col-sm-12 col-xs-12 pblctn_right_sid_mtr">
-							 <?php get_story_search($postarr); ?>
+							 <?php get_stories_side_nav(); ?>
 						</div>
 
 						<div class="col-md-8 col-sm-12 col-xs-12 pblctn_lft_sid_img_cntnr map_cntnr">
@@ -132,7 +131,7 @@ get_header(); ?>
 					if(isset($pageposts) && !empty($pageposts))
 					{ ?>
                         <div class="col-md-4 col-sm-12 col-xs-12 pblctn_right_sid_mtr">
-                        	<?php get_story_search($pageposts, $searchtext, $taxonomy_state, $taxonomy_program, $taxonomy_grade_level, $district_location, $district_size,$story_tags); ?>
+                        	<?php get_stories_side_nav($searchtext, $taxonomy_state, $taxonomy_program, $taxonomy_grade_level, $district_location, $district_size,$story_tags); ?>
                         </div>
 
                         <div class="col-md-8 col-sm-12 col-xs-12 pblctn_lft_sid_img_cntnr map_cntnr">
@@ -141,7 +140,7 @@ get_header(); ?>
                             </div>
                             <header class="archive-header">
                                 <h1 class="archive-title">
-                                     <?php printf( __( 'Search Results %s', 'twentytwelve' ), '<span>(' . count($pageposts).' Stories)</span>' );?>
+                                     <?php printf( __( 'Results %s', 'twentytwelve' ), '<span>(' . count($pageposts).' Stories)</span>' );?>
                                 </h1>
                             </header><!-- .archive-header -->
 
@@ -161,7 +160,7 @@ get_header(); ?>
 					{
 						?>
                         <div class="col-md-4 col-sm-12 col-xs-12 pblctn_right_sid_mtr">
-                        <?php get_story_search($pageposts, $searchtext, $taxonomy_state, $taxonomy_program, $taxonomy_grade_level, $district_location, $district_size,$story_tags); ?>
+                        <?php get_stories_side_nav($searchtext, $taxonomy_state, $taxonomy_program, $taxonomy_grade_level, $district_location, $district_size,$story_tags); ?>
                         </div>
 
                         <div class="col-md-8 col-sm-12 col-xs-12 pblctn_lft_sid_img_cntnr map_cntnr">
@@ -170,7 +169,7 @@ get_header(); ?>
                             </div>
                             <header class="archive-header">
                                 <h1 class="archive-title">
-                                     <?php printf( __( 'Search Results %s', 'twentytwelve' ), '<span>(0 Stories)</span>' );?>
+                                     <?php printf( __( 'Results %s', 'twentytwelve' ), '<span>(0 Stories)</span>' );?>
                                 </h1>
                             </header><!-- .archive-header -->
                             <div class="col-md-12 pblctn_paramtr padding_left">
@@ -184,81 +183,63 @@ get_header(); ?>
 			}
 			else
 			{
-    			// filter counts query, for search form
-                $search_postquery = new WP_Query(array('post_type' => 'stories', 'postperpage' => -1));
-                $search_table = $wpdb->prefix."posts";
-                $search_postarr = $wpdb->get_results("select ID from $search_table where post_type='stories'", OBJECT_K);
 
-                 // topics query
+                // topics query
                 $args = array('post_type' => 'stories','post_status' => 'publish','meta_query' => array(array('key' => 'story_highlight','value' => 'true')));
 				$postquery = new WP_Query( $args );
-
-				$args = array('orderby' => 'count', 'order' => 'DESC', 'number' => 10);
-				$tags = get_terms('story_tag', $args);
 
 				if ( $postquery->have_posts() )
 				{ ?>
 					<div class="col-md-4 col-sm-12 col-xs-12 pblctn_right_sid_mtr">
-						 <?php get_story_search($search_postarr); ?>
-                         <div class="topic_sidebar">
-                         	<p class="hdng_mtr brdr_mrgn_none">
-	                            <a href="javascript:">Topics :</a>
-                            </p>
-                            <ul>
-                 				<?php
-								foreach($tags as $tag)
-								{
-								 echo '<li>
-										  <a href="'.site_url().'/stories??searchtext=&story_tags[]='.$tag->slug.'&action=Search">
-										  	'.ucfirst($tag->name).'
-										  	<span>('.$tag->count.')</span>
-										  </a>
-										</li>';
-								}
-								?>
-                            </ul>
-                         </div>
+						 <?php get_stories_side_nav(); ?>
 					</div>
 
 					<div class="col-md-8 col-sm-12 col-xs-12 pblctn_lft_sid_img_cntnr map_cntnr">
 						<div class="col-md-12 col-sm-12 col-xs-12 pblctn_right_sid_mtr">
 							 <?php get_storiesmap();?>
                         </div>
-                        <div class="col-md-12 col-sm-12 col-xs-12 pblctn_right_sid_mtr">
-                            <p class="stry_srch_desc">Use the search box and filtering options on the left to find examples of innovation happening across the nation. You can browse examples from your state or schools located in rural communities.</p>
-                        </div>
                         <!-- Slider -->
 						<div class="slidermainwrpr">
 							<div class="slidersubwrpr">
                         		<ul class="bxslider">
 									<?php while ( $postquery->have_posts() ) : $postquery->the_post(); ?>
-
-                                        	<li>
-                                                <div class="sliderinnrwrap">
-                                                    <div class="sliderimgwrpr">
-                                                        <?php $url = wp_get_attachment_url( get_post_thumbnail_id($post->ID) );?>
-                                                        <img src="<?php echo $url; ?>" />
-                                                    </div>
-                                                    <div class="slidercontentnrwrpr">
-                                                    	<div class="sldr_top_hdng"> Featured Story: </div>
-                                                        <h3>
-                                                        	<a href="<?php echo get_the_permalink($post->ID); ?>">
-																<?php echo get_the_title($post->ID); ?>
-                                                            </a>
-                                                        </h3>
-                                                        <p>
-                                                           <?php
-																$content = strip_tags(get_the_content($post->ID));
-																echo substr($content, 0, 200)."...";
-															?>
-                                                        </p>
-                                                    </div>
-                                                    <div class="sldr_readmr_btn">
-                                                    	<a href="<?php echo get_permalink($post->ID);?>">Read More</a>
-                                                    </div>
+                                    	<li>
+                                            <div class="sliderinnrwrap">
+                                                <div class="sliderimgwrpr">
+                                                    <?php $url = wp_get_attachment_url( get_post_thumbnail_id($post->ID) );?>
+                                                    <img src="<?php echo $url; ?>" />
                                                 </div>
-                                            </li>
+                                                <div class="slidercontentnrwrpr">
+                                                	<div class="sldr_top_hdng"> Featured Story: </div>
+                                                    <h3>
+                                                    	<a href="<?php echo get_the_permalink($post->ID); ?>">
+															<?php echo get_the_title($post->ID); ?>
+                                                        </a>
+                                                    </h3>
 
+                                                    <?php
+                                                    $states = get_the_terms( $post->ID, "state" );
+                                                    if(isset($states) && !empty($states))
+                                                    {
+                                                        foreach($states as $state) {
+                                                            $state_name = $state->name;
+                                                        }
+                                                    }
+                                                    ?>
+
+                                                    <h4><?php echo get_post_meta($post->ID, "story_district", true) . ', ' . $state_name ?></h4>
+                                                    <p>
+                                                       <?php
+															$content = strip_tags(get_the_content($post->ID));
+															echo substr($content, 0, 200)."...";
+														?>
+                                                    </p>
+                                                </div>
+                                                <div class="sldr_readmr_btn">
+                                                	<a href="<?php echo get_permalink($post->ID);?>">Read More</a>
+                                                </div>
+                                            </div>
+                                        </li>
                                     <?php endwhile; ?>
                         		</ul>
                     		</div>

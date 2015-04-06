@@ -576,7 +576,7 @@ function get_stories_side_nav($taxonomy_state=NULL, $taxonomy_program=NULL, $tax
                 <ul class="cstmaccordian">
                     <div class="cstmaccordiandv">
                         <i class="fa fa-caret-right"></i>
-                        <h5>State</h5>
+                        <h5 tabindex="0">State</h5>
                     </div>
                     <?php echo $stateoption; ?>
                 </ul>
@@ -585,7 +585,7 @@ function get_stories_side_nav($taxonomy_state=NULL, $taxonomy_program=NULL, $tax
                 <ul class="cstmaccordian">
                 	<div class="cstmaccordiandv">
                         <i class="fa fa-caret-right"></i>
-                        <h5>Grade</h5>
+                        <h5 tabindex="0">Grade</h5>
                     </div>
                     <?php echo $gradeoption; ?>
                 </ul>
@@ -594,7 +594,7 @@ function get_stories_side_nav($taxonomy_state=NULL, $taxonomy_program=NULL, $tax
                 <ul class="cstmaccordian">
                 	<div class="cstmaccordiandv">
                         <i class="fa fa-caret-right"></i>
-                        <h5>Community Type</h5>
+                        <h5 tabindex="0">Community Type</h5>
                     </div>
                     <?php echo $district_locationoption; ?>
                 </ul>
@@ -603,7 +603,7 @@ function get_stories_side_nav($taxonomy_state=NULL, $taxonomy_program=NULL, $tax
                 <ul class="cstmaccordian">
                     <div class="cstmaccordiandv">
                         <i class="fa fa-caret-right"></i>
-                        <h5>District Size</h5>
+                        <h5 tabindex="0">District Size</h5>
                     </div>
                     <?php echo $district_sizeoption; ?>
                 </ul>

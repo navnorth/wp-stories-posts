@@ -1,6 +1,12 @@
 jQuery(document).ready(function(){
-  jQuery('.bxslider').bxSlider({'auto': true});
-
+  jQuery('.bxslider').bxSlider({
+	  pager: true,
+	  control: false,
+	  auto: true,
+	  autoHover: true,
+	  pause: 5000,
+	  controls: false
+  });
   jQuery(".cstmaccordiandv").click(function(){
 	 if(jQuery(this).children('i').hasClass("fa-caret-right"))
 	 {
@@ -22,5 +28,8 @@ jQuery(document).ready(function(){
                         jQuery(this).click();
                     }
   });
-
 });
+function formsubmit(ref)
+{
+	jQuery(ref).parent("form").submit();
+}

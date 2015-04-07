@@ -224,9 +224,26 @@ function scp_template_loader($template)
 		$file = 'taxonomy-' . $term->taxonomy . '.php';
 		$path  = SCP_PATH."templates/".$file;
 	}
+	elseif ( is_tax( 'characteristics' ) && get_post_type() == 'stories' )
+	{
+		$term   = get_queried_object();
+		$file = 'taxonomy-' . $term->taxonomy . '.php';
+		$path  = SCP_PATH."templates/".$file;
+	}
+	elseif ( is_tax( 'districtsize' ) && get_post_type() == 'stories' )
+	{
+		$term   = get_queried_object();
+		$file = 'taxonomy-' . $term->taxonomy . '.php';
+		$path  = SCP_PATH."templates/".$file;
+	}
 	elseif (is_post_type_archive( 'stories' ))
 	{
 		$file 	= 'archive-stories.php';
+		$path  = SCP_PATH."templates/".$file;
+	}
+	elseif(is_tax('program') || is_tax('state') || is_tax('story_tag') || is_tax('grade_level') || is_tax('characteristics') || is_tax('districtsize'))
+	{
+		$file 	= 'archive-404.php';
 		$path  = SCP_PATH."templates/".$file;
 	}
 
@@ -250,7 +267,7 @@ function get_storiesmap($pageposts=NULL)
 	{
 		foreach($pageposts  as $ids)
 		{
-			$postid .= $ids->ID.",";
+			$postid .= $ids.",";
 		}
 		$postid = trim($postid, ",");
 		$stories = $wpdb->get_results("select * from $table_name where postid IN ($postid)");

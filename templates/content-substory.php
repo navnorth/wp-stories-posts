@@ -37,33 +37,48 @@
             <img class="featured_item_image" src="<?php echo $url; ?>" />
         </div>
     <?php endif; ?>
+    <h5>
+    	<?php
+    		if(get_post_meta($post->ID, "story_district", true))
+			{
+				echo get_post_meta($post->ID, "story_district", true).', ';
+			}
+			$states = get_the_terms( $post->ID , 'state' );
+			if(isset($states) && !empty($states))
+			{
+				foreach($states as $state)
+				{
+					echo $state->name.' - ';
+					break;
+				}
+			}
+			$grades = get_the_terms( $post->ID , 'grade_level' );
+			if(isset($grades) && !empty($grades))
+			{
+				foreach($grades as $grade)
+				{
+					echo $grade->name;
+					break;
+				}
+			}
+		?>	
+    </h5>
     <p>
         <?php 
 		    $content = get_the_content($post->ID);
-		    echo substr($content, 0, 300);
+		    echo substr($content, 0, 300).'...';
         ?>
     </p>
     <p>
     	<?php
-			$state = get_the_terms( $post->ID , 'state' );
-			$program = get_the_terms( $post->ID , 'program' );
-			$grade_level = get_the_terms( $post->ID , 'grade_level' );
-			
-			if(!isset($state) || empty($state) )
-				$state = array();
-			if(!isset($program) || empty($program) )
-				$program = array();
-			if(!isset($grade_level) || empty($grade_level) )
-				$grade_level = array();
-			
-			$terms = array_merge($state,$program,$grade_level);
-			if(isset($terms) && !empty($terms))
+			$topics = get_the_terms( $post->ID , 'story_tag' );
+			if(isset($topics) && !empty($topics))
 			{
 				$postedin = '';
-				foreach($terms as $term)
+				foreach($topics as $topic)
 				{
-					$termlink = get_term_link($term->term_id, $term->taxonomy);
-					$postedin .= '<a href="'.$termlink.'">'.$term->name.'</a>, ';
+					$termlink = get_term_link($topic->term_id, $topic->taxonomy);
+					$postedin .= '<a href="'.$termlink.'">'.$topic->name.'</a>, ';
 				}
 			}
 		?>

@@ -23,9 +23,11 @@ function create_managment_taxonomies()
 	register_post_type( 'stories', $args );
 
 	$texonomy_array = array(
-						'program'	 => 'Program',
-						'state'	 => 'State',
-						'grade_level'=> 'Grade Level');
+						'program' => 'Program',
+						'state' => 'State',
+						'grade_level' => 'Grade Level',
+						'characteristics' => 'Characteristics',
+						'districtsize' => 'District Size');
 
 	foreach($texonomy_array as $texonomy_key => $texonomy_value)
 	{
@@ -100,8 +102,6 @@ function create_stories_metabox()
 	$story_school 		= get_post_meta($post->ID, "story_school", true);
 	$story_mapaddress 	= get_post_meta($post->ID, "story_mapaddress", true);
 	$story_zipcode 		= get_post_meta($post->ID, "story_zipcode", true);
-	$story_districtsize	= get_post_meta($post->ID, "story_districtsize", true);
-	$story_characteristic = unserialize(get_post_meta($post->ID, "story_characteristic", true));
 	$story_sidebar_content = get_post_meta($post->ID, "story_sidebar_content", true);
 
 	$return = '';
@@ -138,50 +138,6 @@ function create_stories_metabox()
 							<span>Zipcode</span>
 							<input type="text" name="story_zipcode" value="'. $story_zipcode .'" />
 						</div>';
-		$return .= '</div>';
-
-		$return .= '<div class="scp_adtnalflds">';
-			$return .= '<div class="wrprtext">District Size</div>';
-			$return .= '<div class="wrprfld">';
-				$return .= '<select name="story_districtsize">';
-					$return  .= '<option value="">Select Distict Size</option>';
-					foreach($districtsize as $size)
-					{
-						if(isset($story_districtsize) && !empty($story_districtsize))
-						{
-							if($size == $story_districtsize)
-							{
-								$check = 'selected="selected"';
-							}
-							else
-							{
-								$check = '';
-							}
-						}
-						$return  .= '<option value="'.$size.'" '.$check .'/>'.$size.'</option>';
-					}
-				$return .= '</select>';
-			$return .= '</div>';
-		$return .= '</div>';
-
-		$return .= '<div class="scp_adtnalflds">';
-			$return .= '<div class="wrprtext">Community Type</div>';
-			$return .= '<div class="wrprfld">';
-					foreach($characteristics as $characteristic)
-					{
-						if(isset($story_characteristic) && is_array($story_characteristic))
-						{
-							if(in_array($characteristic, $story_characteristic))
-							{
-								$check = 'checked="checked"';
-							}
-						}
-						$return  .= '<div>
-										<input type="checkbox" name="story_characteristic[]" value="'.$characteristic.'" '.$check .'/>
-										<label>'.$characteristic.'</label>
-									</div>';
-					}
-			$return .= '</div>';
 		$return .= '</div>';
 
 		$return .= '<div class="scp_adtnalflds">';
@@ -297,6 +253,281 @@ function get_latitude_longitude($address)
 	{
 		return false;
 	}
+}
+
+//Story Search
+function get_stories_side_nav($taxonomy=NULL, $taxonomy_name=NULL)
+{
+	global $wpdb;
+	
+	$args = array('orderby'   => 'term_order',
+				  'order'     => 'ASC',
+				  'hide_empty'=> false);
+
+	$states = get_terms('state', $args);
+	$grades = get_terms('grade_level', $args);
+	$characteristics = get_terms('characteristics', $args);
+	$districtsize = get_terms('districtsize', $args);	
+	$tags = get_terms('story_tag', $args);
+	
+	if(isset($states) && !empty($states))
+	{
+		if(isset($taxonomy) && !empty($taxonomy) && $taxonomy == 'state'): $display = 'block'; else: $display = 'none'; endif;
+		$stateoption = '<div class="tglelemnt" style="display:'. $display.'">';
+		foreach($states as $state)
+		{
+			if(isset($taxonomy_name) && !empty($taxonomy_name) && $state->slug == $taxonomy_name):
+				$check = 'checked';
+			else:
+				$check = '';
+			endif;
+			$stateoption .= '<li class="'.$check.'">
+								<a href="'.site_url().'/state/'.$state->slug.'">'.$state->name.' ('.$state->count.')</a>
+							</li>';
+		}
+		$stateoption .= '</div>';
+	}
+	
+	if(isset($grades) && !empty($grades))
+	{
+		if(isset($taxonomy) && !empty($taxonomy) && $taxonomy == 'grade_level'): $display = 'block'; else: $display = 'none'; endif;
+		$gradeoption = '<div class="tglelemnt" style="display:'. $display.'">';
+		foreach($grades as $grade)
+		{
+			if(isset($taxonomy_name) && !empty($taxonomy_name) && $grade->slug == $taxonomy_name):
+				$check = 'checked';
+			else:
+				$check = '';
+			endif;
+			$gradeoption .= '<li class="'.$check.'">
+								<a href="'.site_url().'/grade_level/'.$grade->slug.'">'.$grade->name.' ('.$grade->count.')</a>
+							</li>';
+		}
+		$gradeoption .= '</div>';
+	}
+	
+	if(isset($characteristics) && !empty($characteristics))
+	{
+		if(isset($taxonomy) && !empty($taxonomy) && $taxonomy == 'characteristics'): $display = 'block'; else: $display = 'none'; endif;
+		$district_locationoption = '<div class="tglelemnt" style="display:'. $display.'">';
+		foreach($characteristics as $characteristic)
+		{
+			if(isset($taxonomy_name) && !empty($taxonomy_name) && $characteristic->slug == $taxonomy_name):
+				$check = 'checked';
+			else:
+				$check = '';
+			endif;
+			$district_locationoption .= '<li class="'.$check.'">
+											<a href="'.site_url().'/characteristics/'.$characteristic->slug.'">
+												'.$characteristic->name.' ('.$characteristic->count.')
+											</a>
+										</li>';
+		}
+		$district_locationoption .= '</div>';
+	}
+	
+	if(isset($districtsize) && !empty($districtsize))
+	{
+		if(isset($taxonomy) && !empty($taxonomy) && $taxonomy == 'districtsize'): $display = 'block'; else: $display = 'none'; endif;
+		$district_sizeoption = '<div class="tglelemnt" style="display:'. $display.'">';
+		foreach($districtsize as $size)
+		{
+			if(isset($taxonomy_name) && !empty($taxonomy_name) && $size->slug == $taxonomy_name):
+				$check = 'checked';
+			else:
+				$check = '';
+			endif;
+			$district_sizeoption .= '<li class="'.$check.'">
+										<a href="'.site_url().'/districtsize/'.$size->slug.'">'.$size->name.' ('.$size->count.')</a>
+									</li>';
+		}
+		$district_sizeoption .= '</div>';
+	}
+	?>
+    	<aside class="search_widget stry_srch_frm">
+            <h3>
+            	<?php if(strlen($_SERVER["QUERY_STRING"]) != 0) { echo '<a href="'.site_url().'/stories/">'; } ?>
+            	Stories of EdTech Innovation
+            	<?php if(strlen($_SERVER["QUERY_STRING"]) != 0) { echo '</a>'; } ?>
+            </h3>
+            <p class="stry_srch_desc">
+            	Use this tool to browse stories of innovation happening in schools across the nation. By sharing these stories, we hope to connect districts, schools, and educators trying similar things so that they can learn from each other's experiences.
+            </p>
+
+            <h5 class="hdng_mtr brdr_mrgn_none stry_browse_header">Browse Stories</h5>
+            <div class="srchtrmbxs">
+                <ul class="cstmaccordian">
+                    <div class="cstmaccordiandv ">
+                    	<?php
+							if(isset($taxonomy) && !empty($taxonomy) && $taxonomy == 'state'):
+								$class = 'fa-caret-down'; else: $class = 'fa-caret-right';
+							endif;
+						?>
+                        <i class="fa fa-caret-right"></i>
+                        <h5 tabindex="0">State</h5>
+                    </div>
+                    <?php echo $stateoption; ?>
+                </ul>
+            </div>
+            <div class="srchtrmbxs">
+                <ul class="cstmaccordian">
+                	<div class="cstmaccordiandv">
+                        <?php
+							if(isset($taxonomy) && !empty($taxonomy) && $taxonomy == 'grade_level'):
+								$class = 'fa-caret-down'; else: $class = 'fa-caret-right';
+							endif;
+						?>
+                        <i class="fa <?php echo $class; ?>"></i>
+                        <h5 tabindex="0">Grade</h5>
+                    </div>
+                    <?php echo $gradeoption; ?>
+                </ul>
+            </div>
+            <div class="srchtrmbxs">
+                <ul class="cstmaccordian">
+                	<div class="cstmaccordiandv">
+                        <?php
+							if(isset($taxonomy) && !empty($taxonomy) && $taxonomy == 'characteristics'):
+								$class = 'fa-caret-down'; else: $class = 'fa-caret-right';
+							endif;
+						?>
+                        <i class="fa <?php echo $class; ?>"></i>
+                        <h5 tabindex="0">Community Type</h5>
+                    </div>
+                    <?php echo $district_locationoption; ?>
+                </ul>
+            </div>
+            <div class="srchtrmbxs">
+                <ul class="cstmaccordian">
+                    <div class="cstmaccordiandv">
+                        <?php
+							if(isset($taxonomy) && !empty($taxonomy) && $taxonomy == 'districtsize'):
+								$class = 'fa-caret-down'; else: $class = 'fa-caret-right';
+							endif;
+						?>
+                        <i class="fa <?php echo $class; ?>"></i>
+                        <h5 tabindex="0">District Size</h5>
+                    </div>
+                    <?php echo $district_sizeoption; ?>
+                </ul>
+            </div>
+            
+			<?php echo get_top_topics_nav($taxonomy, $taxonomy_name) ?>
+
+            <div class="showallstories">
+                <a class="btn_dwnld" href="<?php echo site_url();?>/stories/?action=showall">Browse All Stories</a>
+            </div>
+
+        </aside>
+    <?php
+}
+
+function get_top_topics_nav($taxonomy=NULL, $taxonomy_name=NULL)
+{
+	global $wpdb;
+	$args = array('orderby' => 'count', 'order' => 'DESC', 'number' => 10);
+	$tags = get_terms('story_tag', $args);
+	$topic_nav = '';
+
+	$topic_nav .= '<div class="topic_sidebar"><h5>Topics :</h5><ul>';
+
+	foreach($tags as $tag)
+	{
+		if(isset($taxonomy_name) && !empty($taxonomy_name) && $taxonomy_name == $tag->slug):
+			$class = "checkedtag";
+		else:
+			$class = '';
+		endif;		
+		$topic_nav .= '<li class="'.$class.'">
+			  			 <a href="'.site_url().'/story_tag/'.$tag->slug.'">'.ucfirst($tag->name).'
+			  			 <span>('.$tag->count.')</span></a>
+		  			   </li>';
+	}
+
+	$topic_nav .= '</ul></div>';
+	return $topic_nav;
+}
+
+function get_counts($termid, $searchresult)
+{
+	global $wpdb;
+	$query = "SELECT object_id from wp_term_relationships where term_taxonomy_id=(SELECT term_taxonomy_id from wp_term_taxonomy where term_id=$termid)";
+	$data = $wpdb->get_results($query, OBJECT_K);
+	if(!empty($data) && !empty($searchresult))
+	{
+		$data = array_keys($data);
+		$result = array_intersect($searchresult, $data);
+		echo $count = count($result);
+	}
+	else
+	{
+		$count = 0;
+	}
+	return $count;
+}
+
+function get_metacounts($meta, $searchresult)
+{
+	global $wpdb;
+	$tablename = $wpdb->prefix."postmeta";
+	$query = "SELECT post_id from $tablename where meta_value LIKE '%$meta%'";
+	$data = $wpdb->get_results($query, OBJECT_K);
+	if(!empty($data) && !empty($searchresult))
+	{
+		$result = array_intersect_key($searchresult, $data);
+		$count = count($result);
+	}
+	else
+	{
+		$count = 0;
+	}
+	return $count;
+}
+
+//Functions for load template
+function get_story_template_part( $slug, $name = null )
+{
+	do_action( "get_story_template_part_{$slug}", $slug, $name );
+
+	$templates = array();
+	$name = (string) $name;
+	if ( '' !== $name )
+		$templates[] = "{$slug}-{$name}.php";
+
+	$templates[] = "{$slug}.php";
+
+	locate_story_template($templates, true, false);
+}
+function locate_story_template($template_names, $load = false, $require_once = true )
+{
+	$located = '';
+	foreach ( (array) $template_names as $template_name )
+	{
+		if ( !$template_name )
+			continue;
+		if ( file_exists(SCP_PATH . 'templates/' . $template_name))
+		{
+			$located = SCP_PATH . 'templates/' . $template_name;
+			break;
+		}
+	}
+
+	if ( $load && '' != $located )
+		load_story_template( $located, $require_once );
+
+	return $located;
+}
+function load_story_template( $_template_file, $require_once = true )
+{
+	global $posts, $post, $wp_did_header, $wp_query, $wp_rewrite, $wpdb, $wp_version, $wp, $id, $comment, $user_ID;
+
+	if ( is_array( $wp_query->query_vars ) )
+		extract( $wp_query->query_vars, EXTR_SKIP );
+
+	if ( $require_once )
+		require_once( $_template_file );
+	else
+		require( $_template_file );
 }
 //Story Search
 /* disabling search for now. Just going to use browse Navigation
@@ -469,256 +700,4 @@ function get_story_search($searchresult=NULL, $searchtext=NULL, $taxonomy_state=
     <?php
 }
 */
-
-//Story Search
-function get_stories_side_nav($taxonomy_state=NULL, $taxonomy_program=NULL, $taxonomy_grade_level=NULL, $district_location=NULL, $district_size=NULL,$taxonomy_tags=NULL)
-{
-	global $wpdb, $characteristics, $districtsize;
-
-	$args = array('orderby'   => 'term_order',
-				  'order'     => 'ASC',
-				  'hide_empty'=> false);
-
-	$postquery = new WP_Query(array('post_type' => 'stories', 'postperpage' => -1));
-	$table = $wpdb->prefix."posts";
-	$countarr = $wpdb->get_results("select ID from $table where post_type='stories'", OBJECT_K);
-
-	$states = get_terms('state', $args);
-	//$programs = get_terms('program', $args);
-	$grades = get_terms('grade_level', $args);
-	$tags = get_terms('story_tag', $args);
-
-	if(isset($states) && !empty($states))
-	{
-		if(isset($taxonomy_state) && !empty($taxonomy_state)): $display = 'block'; else: $display = 'none'; endif;
-		$stateoption = '<div class="tglelemnt" style="display:'. $display.'">';
-		foreach($states as $state)
-		{
-			$count = get_counts($state->term_id, $countarr);
-			if(in_array($state->slug, $taxonomy_state)): $check = 'checked="checked"'; else: $check = ''; endif;
-			$stateoption .= '<li>
-								<a href="'.site_url().'/stories/?action=Search&taxonomy_state='.$state->slug.'">'.$state->name.' ('.$count.')</a>
-							</li>';
-		}
-		$stateoption .= '</div>';
-	}
-	/* removing programs from search for now
-	if(isset($programs) && !empty($programs))
-	{
-		if(isset($taxonomy_program) && !empty($taxonomy_program)): $display = 'block'; else: $display = 'none'; endif;
-		$programoption .= '<div class="tglelemnt" style="display:'. $display.'">';
-		foreach($programs as $program)
-		{
-			$count = get_counts($program->term_id, $countarr);
-			if(in_array($program->slug, $taxonomy_program)): $check = 'checked="checked"'; else: $check = ''; endif;
-			$programoption .= '<li>
-								<input type="checkbox" name="taxonomy_program[]" '.$check.' value="'.$program->slug.'" id="prog'.$program->term_id.'">
-								<label for="prog'.$program->term_id.'">'.$program->name.'</label>
-								<span>('. $count.')</span>
-							  </li>';
-		}
-		$programoption .= '</div>';
-	}
-	*/
-	if(isset($grades) && !empty($grades))
-	{
-		if(isset($taxonomy_grade_level) && !empty($taxonomy_grade_level)): $display = 'block'; else: $display = 'none'; endif;
-		$gradeoption = '<div class="tglelemnt" style="display:'. $display.'">';
-		foreach($grades as $grade)
-		{
-			$count = get_counts($grade->term_id, $countarr);
-			if(in_array($grade->slug, $taxonomy_grade_level)): $check = 'checked="checked"'; else: $check = ''; endif;
-			$gradeoption .= '<li>
-								<a href="'.site_url().'/stories/?action=Search&taxonomy_grade_level='.$grade->slug.'">'.$grade->name.' ('.$count.')</a>
-							</li>';
-		}
-		$gradeoption .= '</div>';
-	}
-	if(isset($characteristics) && !empty($characteristics))
-	{
-		if(isset($district_location) && !empty($district_location)): $display = 'block'; else: $display = 'none'; endif;
-		$district_locationoption = '<div class="tglelemnt" style="display:'. $display.'">';
-		foreach($characteristics as $characteristic)
-		{
-			$count = get_metacounts($characteristic, $countarr);
-			if(in_array($characteristic, $district_location)): $check = 'checked="checked"'; else: $check = ''; endif;
-			$district_locationoption .= '<li>
-											<a href="'.site_url().'/stories/?action=Search&district_location='.$characteristic.'">'.$characteristic.' ('.$count.')</a>
-										</li>';
-		}
-		$district_locationoption .= '</div>';
-	}
-	if(isset($districtsize) && !empty($districtsize))
-	{
-		if(isset($district_size) && !empty($district_size)): $display = 'block'; else: $display = 'none'; endif;
-		$district_sizeoption = '<div class="tglelemnt" style="display:'. $display.'">';
-		foreach($districtsize as $size)
-		{
-			$count = get_metacounts($size, $countarr);
-			if(in_array($size, $district_size)): $check = 'checked="checked"'; else: $check = ''; endif;
-			$district_sizeoption .= '<li>
-										<a href="'.site_url().'/stories/?action=Search&district_size='.$size.'">'.$size.' ('.$count.')</a>
-									</li>';
-		}
-		$district_sizeoption .= '</div>';
-	}
-	?>
-    	<aside class="search_widget stry_srch_frm">
-            <h3>
-            	<?php if(strlen($_SERVER["QUERY_STRING"]) != 0) { echo '<a href="'.site_url().'/stories/">'; } ?>
-            	Stories of EdTech Innovation
-            	<?php if(strlen($_SERVER["QUERY_STRING"]) != 0) { echo '</a>'; } ?>
-            </h3>
-            <p class="stry_srch_desc">Use this tool to browse stories of innovation happening in schools across the nation. By sharing these stories, we hope to connect districts, schools, and educators trying similar things so that they can learn from each other's experiences.</p>
-
-            <h5 class="hdng_mtr brdr_mrgn_none stry_browse_header">Browse Stories</h5>
-            <div class="srchtrmbxs">
-                <ul class="cstmaccordian">
-                    <div class="cstmaccordiandv">
-                        <i class="fa fa-caret-right"></i>
-                        <h5 tabindex="0">State</h5>
-                    </div>
-                    <?php echo $stateoption; ?>
-                </ul>
-            </div>
-            <div class="srchtrmbxs">
-                <ul class="cstmaccordian">
-                	<div class="cstmaccordiandv">
-                        <i class="fa fa-caret-right"></i>
-                        <h5 tabindex="0">Grade</h5>
-                    </div>
-                    <?php echo $gradeoption; ?>
-                </ul>
-            </div>
-            <div class="srchtrmbxs">
-                <ul class="cstmaccordian">
-                	<div class="cstmaccordiandv">
-                        <i class="fa fa-caret-right"></i>
-                        <h5 tabindex="0">Community Type</h5>
-                    </div>
-                    <?php echo $district_locationoption; ?>
-                </ul>
-            </div>
-            <div class="srchtrmbxs">
-                <ul class="cstmaccordian">
-                    <div class="cstmaccordiandv">
-                        <i class="fa fa-caret-right"></i>
-                        <h5 tabindex="0">District Size</h5>
-                    </div>
-                    <?php echo $district_sizeoption; ?>
-                </ul>
-            </div>
-            <!--<select name="taxonomy_program">
-                <?php //echo $programoption; ?>
-            </select>-->
-
-			<?php echo get_top_topics_nav() ?>
-
-            <div class="showallstories">
-                <a class="btn_dwnld" href="<?php echo site_url();?>/stories/?action=showall">Browse All Stories</a>
-            </div>
-
-        </aside>
-    <?php
-}
-
-function get_top_topics_nav()
-{
-	global $wpdb;
-	$args = array('orderby' => 'count', 'order' => 'DESC', 'number' => 10);
-	$tags = get_terms('story_tag', $args);
-	$topic_nav = '';
-
-	$topic_nav .= '<div class="topic_sidebar"><h5>Topics :</h5><ul>';
-
-	foreach($tags as $tag)
-	{
-		$topic_nav .= '<li>
-			  			 <a href="'.site_url().'/stories??searchtext=&story_tags[]='.$tag->slug.'&action=Search">'.ucfirst($tag->name).'
-			  			 <span>('.$tag->count.')</span></a>
-		  			   </li>';
-	}
-
-	$topic_nav .= '</ul></div>';
-	return $topic_nav;
-}
-
-function get_counts($termid, $searchresult)
-{
-	global $wpdb;
-	$query = "SELECT object_id from wp_term_relationships where term_taxonomy_id=(SELECT term_taxonomy_id from wp_term_taxonomy where term_id=$termid)";
-	$data = $wpdb->get_results($query, OBJECT_K);
-	if(!empty($data) && !empty($searchresult))
-	{
-		$result = array_intersect_key($searchresult, $data);
-		$count = count($result);
-	}
-	else
-	{
-		$count = 0;
-	}
-	return $count;
-}
-function get_metacounts($meta, $searchresult)
-{
-	global $wpdb;
-	$tablename = $wpdb->prefix."postmeta";
-	$query = "SELECT post_id from $tablename where meta_value LIKE '%$meta%'";
-	$data = $wpdb->get_results($query, OBJECT_K);
-	if(!empty($data) && !empty($searchresult))
-	{
-		$result = array_intersect_key($searchresult, $data);
-		$count = count($result);
-	}
-	else
-	{
-		$count = 0;
-	}
-	return $count;
-}
-//Functions for load template
-function get_story_template_part( $slug, $name = null )
-{
-	do_action( "get_story_template_part_{$slug}", $slug, $name );
-
-	$templates = array();
-	$name = (string) $name;
-	if ( '' !== $name )
-		$templates[] = "{$slug}-{$name}.php";
-
-	$templates[] = "{$slug}.php";
-
-	locate_story_template($templates, true, false);
-}
-function locate_story_template($template_names, $load = false, $require_once = true )
-{
-	$located = '';
-	foreach ( (array) $template_names as $template_name )
-	{
-		if ( !$template_name )
-			continue;
-		if ( file_exists(SCP_PATH . 'templates/' . $template_name))
-		{
-			$located = SCP_PATH . 'templates/' . $template_name;
-			break;
-		}
-	}
-
-	if ( $load && '' != $located )
-		load_story_template( $located, $require_once );
-
-	return $located;
-}
-function load_story_template( $_template_file, $require_once = true )
-{
-	global $posts, $post, $wp_did_header, $wp_query, $wp_rewrite, $wpdb, $wp_version, $wp, $id, $comment, $user_ID;
-
-	if ( is_array( $wp_query->query_vars ) )
-		extract( $wp_query->query_vars, EXTR_SKIP );
-
-	if ( $require_once )
-		require_once( $_template_file );
-	else
-		require( $_template_file );
-}
 ?>

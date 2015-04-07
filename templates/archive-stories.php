@@ -32,8 +32,8 @@ get_header(); ?>
 					 	</div>
 					<?php
 				}
-
-				if($_REQUEST['action'] == 'Search')
+				
+				/*?>if($_REQUEST['action'] == 'Search')
 				{
 					extract($_REQUEST);
 					$searcharr = array();
@@ -179,7 +179,7 @@ get_header(); ?>
 
                         <?php
 					}
-				}
+				}<?php */
 			}
 			else
 			{

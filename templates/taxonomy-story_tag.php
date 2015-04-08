@@ -17,7 +17,7 @@ get_header(); ?>
 	{
 		$postids = array_keys($postids);
 	}
-	
+
 	$args = array('orderby' => 'term_order','order' => 'ASC','hide_empty' => false);
 	$tags = get_terms('story_tag', $args);
 ?>
@@ -27,12 +27,12 @@ get_header(); ?>
 				{
 					extract($_REQUEST);
 					$searcharr = array();
-					
+
 					if(!empty($story_tag))
 					{
 						$searcharr[] = array('taxonomy' => 'story_tag', 'field' => 'slug', 'terms' => $story_tag,);
 					}
-					
+
 					if(!empty($searcharr))
 					{
 						$args = array('post_type' => 'stories','tax_query' => array($searcharr));
@@ -58,7 +58,7 @@ get_header(); ?>
                                     <form method="get" action="<?php echo site_url();?>/stories">
                                         <input type="hidden" name="action" value="search" />
                                         <select name="story_tag" onchange="formsubmit(this);">
-                                            <option value="">Select Topics</option>
+                                            <option value="">Filter by Topic</option>
                                             <?php
 												foreach($tags as $tag)
 												{
@@ -136,7 +136,7 @@ get_header(); ?>
 					<div class="col-md-4 col-sm-12 col-xs-12 pblctn_right_sid_mtr">
 						 <?php get_stories_side_nav($termobject->taxonomy, $termobject->slug); ?>
 					</div>
-		
+
 					<div class="col-md-8 col-sm-12 col-xs-12 pblctn_lft_sid_img_cntnr map_cntnr">
 						<div class="col-md-12 col-sm-12 col-xs-12 pblctn_right_sid_mtr">
 							 <?php get_storiesmap($postids);?>
@@ -172,5 +172,5 @@ get_header(); ?>
 				}
 			?>
 	</div>
-    
+
 <?php get_footer(); ?>

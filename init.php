@@ -259,7 +259,7 @@ function get_latitude_longitude($address)
 function get_stories_side_nav($taxonomy=NULL, $taxonomy_name=NULL)
 {
 	global $wpdb;
-	
+
 	$args = array('orderby'   => 'term_order',
 				  'order'     => 'ASC',
 				  'hide_empty'=> false);
@@ -267,9 +267,9 @@ function get_stories_side_nav($taxonomy=NULL, $taxonomy_name=NULL)
 	$states = get_terms('state', $args);
 	$grades = get_terms('grade_level', $args);
 	$characteristics = get_terms('characteristics', $args);
-	$districtsize = get_terms('districtsize', $args);	
+	$districtsize = get_terms('districtsize', $args);
 	$tags = get_terms('story_tag', $args);
-	
+
 	if(isset($states) && !empty($states))
 	{
 		if(isset($taxonomy) && !empty($taxonomy) && $taxonomy == 'state'): $display = 'block'; else: $display = 'none'; endif;
@@ -282,12 +282,12 @@ function get_stories_side_nav($taxonomy=NULL, $taxonomy_name=NULL)
 				$check = '';
 			endif;
 			$stateoption .= '<li class="'.$check.'">
-								<a href="'.site_url().'/state/'.$state->slug.'">'.$state->name.' ('.$state->count.')</a>
+								<a href="'.site_url().'/stories/state/'.$state->slug.'">'.$state->name.' ('.$state->count.')</a>
 							</li>';
 		}
 		$stateoption .= '</div>';
 	}
-	
+
 	if(isset($grades) && !empty($grades))
 	{
 		if(isset($taxonomy) && !empty($taxonomy) && $taxonomy == 'grade_level'): $display = 'block'; else: $display = 'none'; endif;
@@ -300,12 +300,12 @@ function get_stories_side_nav($taxonomy=NULL, $taxonomy_name=NULL)
 				$check = '';
 			endif;
 			$gradeoption .= '<li class="'.$check.'">
-								<a href="'.site_url().'/grade_level/'.$grade->slug.'">'.$grade->name.' ('.$grade->count.')</a>
+								<a href="'.site_url().'/stories/grade_level/'.$grade->slug.'">'.$grade->name.' ('.$grade->count.')</a>
 							</li>';
 		}
 		$gradeoption .= '</div>';
 	}
-	
+
 	if(isset($characteristics) && !empty($characteristics))
 	{
 		if(isset($taxonomy) && !empty($taxonomy) && $taxonomy == 'characteristics'): $display = 'block'; else: $display = 'none'; endif;
@@ -318,14 +318,14 @@ function get_stories_side_nav($taxonomy=NULL, $taxonomy_name=NULL)
 				$check = '';
 			endif;
 			$district_locationoption .= '<li class="'.$check.'">
-											<a href="'.site_url().'/characteristics/'.$characteristic->slug.'">
+											<a href="'.site_url().'/stories/characteristics/'.$characteristic->slug.'">
 												'.$characteristic->name.' ('.$characteristic->count.')
 											</a>
 										</li>';
 		}
 		$district_locationoption .= '</div>';
 	}
-	
+
 	if(isset($districtsize) && !empty($districtsize))
 	{
 		if(isset($taxonomy) && !empty($taxonomy) && $taxonomy == 'districtsize'): $display = 'block'; else: $display = 'none'; endif;
@@ -338,7 +338,7 @@ function get_stories_side_nav($taxonomy=NULL, $taxonomy_name=NULL)
 				$check = '';
 			endif;
 			$district_sizeoption .= '<li class="'.$check.'">
-										<a href="'.site_url().'/districtsize/'.$size->slug.'">'.$size->name.' ('.$size->count.')</a>
+										<a href="'.site_url().'/stories/districtsize/'.$size->slug.'">'.$size->name.' ('.$size->count.')</a>
 									</li>';
 		}
 		$district_sizeoption .= '</div>';
@@ -411,7 +411,7 @@ function get_stories_side_nav($taxonomy=NULL, $taxonomy_name=NULL)
                     <?php echo $district_sizeoption; ?>
                 </ul>
             </div>
-            
+
 			<?php echo get_top_topics_nav($taxonomy, $taxonomy_name) ?>
 
             <div class="showallstories">
@@ -437,9 +437,9 @@ function get_top_topics_nav($taxonomy=NULL, $taxonomy_name=NULL)
 			$class = "checkedtag";
 		else:
 			$class = '';
-		endif;		
+		endif;
 		$topic_nav .= '<li class="'.$class.'">
-			  			 <a href="'.site_url().'/story_tag/'.$tag->slug.'">'.ucfirst($tag->name).'
+			  			 <a href="'.site_url().'/stories/story_tag/'.$tag->slug.'">'.ucfirst($tag->name).'
 			  			 <span>('.$tag->count.')</span></a>
 		  			   </li>';
 	}

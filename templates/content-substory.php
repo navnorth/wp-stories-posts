@@ -6,9 +6,9 @@
  * @subpackage Twenty_Twelve
  * @since Twenty Twelve 1.0
  */
-?> 
+?>
 <?php global $post; ?>
-<?php 
+<?php
 	$url = wp_get_attachment_url( get_post_thumbnail_id($post->ID) );
 	if(isset($_REQUEST['action']) && !empty($_REQUEST['action']) && $_REQUEST['action'] == 'Search')
 	{
@@ -37,7 +37,7 @@
             <img class="featured_item_image" src="<?php echo $url; ?>" />
         </div>
     <?php endif; ?>
-    <h5>
+    <h4 class="substory_loc">
     	<?php
     		if(get_post_meta($post->ID, "story_district", true))
 			{
@@ -61,27 +61,30 @@
 					break;
 				}
 			}
-		?>	
-    </h5>
+		?>
+    </h4>
     <p>
-        <?php 
+        <?php
 		    $content = get_the_content($post->ID);
 		    echo substr($content, 0, 300).'...';
         ?>
     </p>
-    <p>
-    	<?php
-			$topics = get_the_terms( $post->ID , 'story_tag' );
-			if(isset($topics) && !empty($topics))
+
+	<?php
+		$topics = get_the_terms( $post->ID , 'story_tag' );
+		if(isset($topics) && !empty($topics))
+		{
+			$postedin = '<strong>Topic';
+            if (count(topics) > 1) $postedin .= 's';
+            $postedin .= ':</strong> ';
+
+			foreach($topics as $topic)
 			{
-				$postedin = '';
-				foreach($topics as $topic)
-				{
-					$termlink = get_term_link($topic->term_id, $topic->taxonomy);
-					$postedin .= '<a href="'.$termlink.'">'.$topic->name.'</a>, ';
-				}
+				$termlink = get_term_link($topic->term_id, $topic->taxonomy);
+                $postedin .= '<a href="'.$termlink.'">'.$topic->name.'</a>, ';
 			}
-		?>
-       	Posted in : <?php echo trim($postedin,','); ?>
-    </p>    
+            echo '<p>' . trim($postedin,', ') . '</p>';
+		}
+	?>
+
 </div>

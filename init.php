@@ -286,7 +286,9 @@ function get_stories_side_nav($taxonomy=NULL, $taxonomy_name=NULL)
 							</li>';
 		}
 		$stateoption .= '</div>';*/
-		$stateoption = '<select name="state" id="statedropdown">';
+		if(isset($taxonomy) && !empty($taxonomy) && $taxonomy == 'state'): $display = 'block'; else: $display = 'none'; endif;
+		$stateoption = '<div class="tglelemnt" style="display:'. $display.'">';
+		$stateoption .= '<select name="state" id="statedropdown">';
 		$stateoption .= '<option value="">Filter by State</option>';
 		foreach($states as $state)
 		{
@@ -297,7 +299,7 @@ function get_stories_side_nav($taxonomy=NULL, $taxonomy_name=NULL)
 			endif;
 			$stateoption .= '<option '.$check.' value="'.site_url().'/stories/state/'.$state->slug.'">'.$state->name.' ('.$state->count.')</option>';
 		}
-		$stateoption .= '</select>';
+		$stateoption .= '</select></div>';
 	}
 
 	if(isset($grades) && !empty($grades))
@@ -369,6 +371,15 @@ function get_stories_side_nav($taxonomy=NULL, $taxonomy_name=NULL)
             <h5 class="hdng_mtr brdr_mrgn_none stry_browse_header">Browse Stories</h5>
             <div class="srchtrmbxs">
                 <ul class="cstmaccordian">
+                	<div class="cstmaccordiandv">
+                        <?php
+							if(isset($taxonomy) && !empty($taxonomy) && $taxonomy == 'state'):
+								$class = 'fa-caret-down'; else: $class = 'fa-caret-right';
+							endif;
+						?>
+                        <i class="fa <?php echo $class; ?>"></i>
+                        <h5 tabindex="0">State</h5>
+                    </div>
                     <?php echo $stateoption; ?>
                 </ul>
             </div>

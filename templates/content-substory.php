@@ -75,7 +75,7 @@
 		if(isset($topics) && !empty($topics))
 		{
 			$postedin = '<strong>Topic';
-            if (count(topics) > 1) $postedin .= 's';
+            if (count($topics) > 1) $postedin .= 's';
             $postedin .= ':</strong> ';
 
 			foreach($topics as $topic)

@@ -17,9 +17,10 @@
 .showallstories { float: left; width: 90%; margin-top: 10px; font-size:18px;}
 .stry_srch_frm  input[type="text"],
 .stry_srch_frm  select {
-	width: 100%;
+	width: 65%;
 	margin-top: 5px;
-	/*border: 1px solid #ccc;*/
+	margin-left: 20px;
+    /*border: 1px solid #ccc;*/
 	-webkit-box-sizing: border-box;
 	-moz-box-sizing: border-box;
 	-ms-box-sizing: border-box;
@@ -158,7 +159,7 @@ header.tax-header {
 h1.tax-title {
     float: left;
     width: auto;
-    font-size: 30px;
+    font-size: 28px;
 }
 .topics-search-box {
     float: right;

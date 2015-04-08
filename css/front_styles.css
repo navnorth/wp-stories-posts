@@ -19,7 +19,7 @@
 .stry_srch_frm  select {
 	width: 100%;
 	margin-top: 5px;
-	border: 1px solid #ccc;
+	/*border: 1px solid #ccc;*/
 	-webkit-box-sizing: border-box;
 	-moz-box-sizing: border-box;
 	-ms-box-sizing: border-box;
@@ -42,7 +42,7 @@
 	cursor: pointer;
 }
 .stry_srch_frm input[type="text"]:hover,
-.stry_srch_frm select:hover { border-color: #999 }
+.stry_srch_frm select:hover { /*border-color: #999*/ }
 .stry_srch_frm  input[type="submit"]:hover { background: #0c61b0;}
 .noborder{ border: none !important; padding: 0!important;}
 .nomargintop{ margin-top: 0!important}

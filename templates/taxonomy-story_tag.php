@@ -17,7 +17,7 @@ get_header(); ?>
 	{
 		$postids = array_keys($postids);
 	}
-
+	
 	$args = array('orderby' => 'term_order','order' => 'ASC','hide_empty' => false);
 	$tags = get_terms('story_tag', $args);
 ?>
@@ -27,15 +27,14 @@ get_header(); ?>
 				{
 					extract($_REQUEST);
 					$searcharr = array();
-
-					if(!empty($story_tag))
+					if(!empty($story_taxonomy))
 					{
-						$searcharr[] = array('taxonomy' => 'story_tag', 'field' => 'slug', 'terms' => $story_tag,);
+						$searcharr = array('taxonomy' => $story_taxonomy, 'field' => 'slug', 'terms' => $term);
 					}
-
+					
 					if(!empty($searcharr))
 					{
-						$args = array('post_type' => 'stories','tax_query' => array($searcharr));
+						$args = array('post_type' => 'stories','post__in' => $postids, 'tax_query' => array($searcharr));
 						$query = new WP_Query( $args );
 						$pageposts = $wpdb->get_results($query->request, OBJECT_K);
 					}
@@ -45,7 +44,6 @@ get_header(); ?>
                         <div class="col-md-4 col-sm-12 col-xs-12 pblctn_right_sid_mtr">
                         	<?php get_stories_side_nav($termobject->taxonomy, $termobject->slug); ?>
                         </div>
-
                         <div class="col-md-8 col-sm-12 col-xs-12 pblctn_lft_sid_img_cntnr map_cntnr">
                             <div class="col-md-12 col-sm-12 col-xs-12 pblctn_right_sid_mtr">
                                  <?php get_storiesmap(array_keys($pageposts));?>
@@ -55,16 +53,16 @@ get_header(); ?>
                                      <?php printf( __( 'Results: %s', 'twentytwelve' ), '<i>'.$termobject->name.'</i>' );?>
                                 </h1>
                                 <div class="topics-search-box">
-                                    <form method="get" action="<?php echo site_url();?>/stories">
+                                    <form method="get">
                                         <input type="hidden" name="action" value="search" />
-                                        <select name="story_tag" onchange="formsubmit(this);">
+                                        <input type="hidden" name="story_taxonomy" value="story_tag" />
+                                        <select name="term" onchange="formsubmit(this);">
                                             <option value="">Filter by Topic</option>
                                             <?php
 												foreach($tags as $tag)
 												{
-													$postids = array_keys($pageposts);
 													$count = get_counts($tag->term_id,$postids);
-													if(isset($termobject->slug) && !empty($termobject->slug) && $termobject->slug == $tag->slug):
+													if(isset($term) && !empty($term) && $term == $tag->slug):
 														$check='selected="selected"'; else: $check = '';
 													endif;
 													echo '<option '. $check .' value="'.$tag->slug.'">'.$tag->name.' ('.$count.')</option>';
@@ -93,7 +91,6 @@ get_header(); ?>
                         <div class="col-md-4 col-sm-12 col-xs-12 pblctn_right_sid_mtr">
                         	<?php get_stories_side_nav($termobject->taxonomy, $termobject->slug); ?>
                         </div>
-
                         <div class="col-md-8 col-sm-12 col-xs-12 pblctn_lft_sid_img_cntnr map_cntnr">
                             <div class="col-md-12 col-sm-12 col-xs-12 pblctn_right_sid_mtr">
                                  <?php get_storiesmap();?>
@@ -103,16 +100,16 @@ get_header(); ?>
                                      <?php printf( __( 'Results: %s', 'twentytwelve' ), '<i>'.$termobject->name.'</i>' );?>
                                 </h1>
                                 <div class="topics-search-box">
-                                    <form method="get" action="<?php echo site_url();?>/stories">
+                                    <form method="get">
                                         <input type="hidden" name="action" value="search" />
-                                        <select name="story_tag" onchange="formsubmit(this);">
-                                            <option value="">Select Topics</option>
+                                        <input type="hidden" name="story_taxonomy" value="story_tag" />
+                                        <select name="term" onchange="formsubmit(this);">
+                                            <option value="">Filter by Topic</option>
                                             <?php
 												foreach($tags as $tag)
 												{
-													$postids = array();
 													$count = get_counts($tag->term_id,$postids);
-													if(isset($termobject->slug) && !empty($termobject->slug) && $termobject->slug == $tag->slug):
+													if(isset($term) && !empty($term) && $term == $tag->slug):
 														$check='selected="selected"'; else: $check = '';
 													endif;
 													echo '<option '. $check .' value="'.$tag->slug.'">'.$tag->name.' ('.$count.')</option>';
@@ -126,7 +123,6 @@ get_header(); ?>
                                 <?php _e( 'Sorry, but nothing matched your search criteria. Please try again with some different keywords.' ); ?>
                             </div>
                         </div>
-
                         <?php
 					}
 				}
@@ -136,7 +132,6 @@ get_header(); ?>
 					<div class="col-md-4 col-sm-12 col-xs-12 pblctn_right_sid_mtr">
 						 <?php get_stories_side_nav($termobject->taxonomy, $termobject->slug); ?>
 					</div>
-
 					<div class="col-md-8 col-sm-12 col-xs-12 pblctn_lft_sid_img_cntnr map_cntnr">
 						<div class="col-md-12 col-sm-12 col-xs-12 pblctn_right_sid_mtr">
 							 <?php get_storiesmap($postids);?>
@@ -146,17 +141,18 @@ get_header(); ?>
                                  <?php printf( __( 'Results: %s', 'twentytwelve' ), '<i>'.$termobject->name.'</i>' );?>
                             </h1>
                             <div class="topics-search-box">
-                                <form method="get" action="<?php echo site_url();?>/stories">
+                                <form method="get">
                                     <input type="hidden" name="action" value="search" />
-                                    <select name="story_tag" onchange="formsubmit(this);">
-                                        <option value="">Select Topics</option>
+                                    <input type="hidden" name="story_taxonomy" value="story_tag" />
+                                    <select name="term" onchange="formsubmit(this);">
+                                        <option value="">Filter by Topic</option>
                                         <?php
                                             foreach($tags as $tag)
                                             {
-												$count = get_counts($tag->term_id,$postids);
-												if(isset($termobject->slug) && !empty($termobject->slug) && $termobject->slug == $tag->slug):
-													$check='selected="selected"'; else: $check = '';
-												endif;
+                                                $count = get_counts($tag->term_id,$postids);
+                                                if(isset($termobject->slug) && !empty($termobject->slug) && $termobject->slug == $tag->slug):
+                                                    $check='selected="selected"'; else: $check = '';
+                                                endif;
                                                 echo '<option '. $check .' value="'.$tag->slug.'">'.$tag->name.' ('.$count.')</option>';
                                             }
                                         ?>
@@ -171,6 +167,5 @@ get_header(); ?>
                     <?php
 				}
 			?>
-	</div>
-
+	</div>    
 <?php get_footer(); ?>

@@ -1,6 +1,6 @@
 <?php
 // hook into the init action and call create_managment_taxonomies when it fires
-add_action( 'after_setup_theme', 'create_managment_taxonomies');
+add_action( 'init', 'create_managment_taxonomies');
 
 // create taxonomies, for the post type "ask_question"
 function create_managment_taxonomies()
@@ -272,7 +272,7 @@ function get_stories_side_nav($taxonomy=NULL, $taxonomy_name=NULL)
 
 	if(isset($states) && !empty($states))
 	{
-		if(isset($taxonomy) && !empty($taxonomy) && $taxonomy == 'state'): $display = 'block'; else: $display = 'none'; endif;
+		/*if(isset($taxonomy) && !empty($taxonomy) && $taxonomy == 'state'): $display = 'block'; else: $display = 'none'; endif;
 		$stateoption = '<div class="tglelemnt" style="display:'. $display.'">';
 		foreach($states as $state)
 		{
@@ -285,7 +285,19 @@ function get_stories_side_nav($taxonomy=NULL, $taxonomy_name=NULL)
 								<a href="'.site_url().'/stories/state/'.$state->slug.'">'.$state->name.' ('.$state->count.')</a>
 							</li>';
 		}
-		$stateoption .= '</div>';
+		$stateoption .= '</div>';*/
+		$stateoption = '<select name="state" id="statedropdown">';
+		$stateoption .= '<option value="">Filter by State</option>';
+		foreach($states as $state)
+		{
+			if(isset($taxonomy_name) && !empty($taxonomy_name) && $state->slug == $taxonomy_name):
+				$check = 'selected="selected"';
+			else:
+				$check = '';
+			endif;
+			$stateoption .= '<option '.$check.' value="'.site_url().'/stories/state/'.$state->slug.'">'.$state->name.' ('.$state->count.')</option>';
+		}
+		$stateoption .= '</select>';
 	}
 
 	if(isset($grades) && !empty($grades))
@@ -357,15 +369,6 @@ function get_stories_side_nav($taxonomy=NULL, $taxonomy_name=NULL)
             <h5 class="hdng_mtr brdr_mrgn_none stry_browse_header">Browse Stories</h5>
             <div class="srchtrmbxs">
                 <ul class="cstmaccordian">
-                    <div class="cstmaccordiandv ">
-                    	<?php
-							if(isset($taxonomy) && !empty($taxonomy) && $taxonomy == 'state'):
-								$class = 'fa-caret-down'; else: $class = 'fa-caret-right';
-							endif;
-						?>
-                        <i class="fa fa-caret-right"></i>
-                        <h5 tabindex="0">State</h5>
-                    </div>
                     <?php echo $stateoption; ?>
                 </ul>
             </div>
@@ -457,7 +460,7 @@ function get_counts($termid, $searchresult)
 	{
 		$data = array_keys($data);
 		$result = array_intersect($searchresult, $data);
-		echo $count = count($result);
+		$count = count($result);
 	}
 	else
 	{

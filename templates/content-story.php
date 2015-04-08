@@ -49,15 +49,25 @@
             $states = get_the_terms( $post->ID, "state" );
             $grade_levels = get_the_terms( $post->ID, "grade_level" );
             $story_tags = get_the_terms( $post->ID, "story_tag" );
+			$characteristics = get_the_terms( $post->ID, "characteristics" );
 
             $story_highlight = get_post_meta($post->ID, "story_highlight", true);
             $story_district = get_post_meta($post->ID, "story_district", true);
             $story_school = get_post_meta($post->ID, "story_school", true);
             $story_mapaddress = get_post_meta($post->ID, "story_mapaddress", true);
-            $story_characteristic = unserialize(get_post_meta($post->ID, "story_characteristic", true));
             $story_sidebar_content = get_post_meta($post->ID, "story_sidebar_content", true);
 
-            if(isset($states) && !empty($states))
+            if(isset($characteristics) && !empty($characteristics))
+            {
+                foreach($characteristics as $characteristic)
+                {
+                    $url = get_term_link($characteristic->term_id, $characteristic->taxonomy);
+                    $characteristicurl .= '<a target="_blank" href="'. $url .'">'.$characteristic->name.'</a>, ';
+                }
+				$characteristicurl = trim($characteristicurl, ', ');
+            }
+			
+			if(isset($states) && !empty($states))
             {
                 foreach($states as $state)
                 {
@@ -130,9 +140,9 @@
                      <b>Grade :</b> <?php echo $gradeurl; ?>
                  </p>
             <?php endif; ?>
-            <?php if(isset($story_characteristic) && !empty($story_characteristic)) : ?>
+            <?php if(isset($characteristicurl) && !empty($characteristicurl)) : ?>
                  <p class="margn_none">
-                     <b>Community Type :</b> <?php echo implode(", ", $story_characteristic); ?>
+                     <b>Community Type :</b> <?php echo $characteristicurl; ?>
                  </p>
             <?php endif; ?>
             <?php if(isset($programurl) && !empty($programurl)) : ?>

@@ -50,7 +50,7 @@ get_header(); ?>
                             </div>
                             <header class="tax-header">
                                 <h1 class="tax-title">
-                                     <?php printf( __( 'Results: %s', 'twentytwelve' ), '<i>'.$termobject->name.'</i>' );?>
+                                     <?php printf( __( 'Results: %s', 'twentytwelve' ), '<i>'.$termobject->name.'</i> <span>(' .count($pageposts).' '.story_plural(count($pageposts)).')</span>' );?>
                                 </h1>
                                 <div class="topics-search-box">
                                     <form method="get">
@@ -100,7 +100,7 @@ get_header(); ?>
                             </div>
                             <header class="tax-header">
                                 <h1 class="tax-title">
-                                     <?php printf( __( 'Results: %s', 'twentytwelve' ), '<i>'.$termobject->name.'</i>' );?>
+                                     <?php printf( __( 'Results: %s', 'twentytwelve' ), '<i>'.$termobject->name.'</i> <span>(' .count($postids).' '.story_plural(count($postids)).')</span>' );?>
                                 </h1>
                                 <div class="topics-search-box">
                                     <form method="get">
@@ -144,7 +144,7 @@ get_header(); ?>
 						</div>
                         <header class="tax-header">
                             <h1 class="tax-title">
-                                 <?php printf( __( 'Results: %s', 'twentytwelve' ), '<i>'.$termobject->name.'</i>' );?>
+                                 <?php printf( __( 'Results: %s', 'twentytwelve' ), '<i>'.$termobject->name.'</i> <span>(' .count($postids).' '.story_plural(count($postids)).')</span>' );?>
                             </h1>
                             <div class="topics-search-box">
                                 <form method="get">

@@ -546,19 +546,13 @@ function load_story_template( $_template_file, $require_once = true )
 		require( $_template_file );
 }
 
-//Back link: use referer or main stories page
-function stories_back_link( $link_text = 'Back to Stories', $referer = null )
+//simply return Story or Stories depending on count
+function story_plural( $count = null )
 {
-	$stories_home_URL = site_url().'/stories/';
-	$back_link = '<a href="';
-	if(strlen($referer) != 0) {
-		$back_link .= $referer;
-	} else {
-		$back_link .= $stories_home_URL;
-	}
-	$back_link .= '">' . $link_text . '</a>';
-
-	return $back_link;
+	if (!empty($count) && ($count > 1))
+		return 'Stories';
+	else
+		return 'Story';
 }
 
 //Story Search

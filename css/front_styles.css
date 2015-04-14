@@ -168,7 +168,10 @@ header.tax-header {
 h1.tax-title {
     float: left;
     width: auto;
-    font-size: 28px;
+    font-size: 26px;
+}
+h1.tax-title span {
+    font-size:20px;
 }
 .topics-search-box {
     float: right;

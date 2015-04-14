@@ -34,7 +34,7 @@ get_header(); ?>
 
                             <header class="tax-header">
                                 <h1 class="tax-title">
-                                     <?php printf( __( 'Results: %s', 'twentytwelve' ), '<i>All Stories</i>' );?>
+                                     <?php printf( __( 'Results: %s', 'twentytwelve' ), '<i>All Stories</i> <span>(' .count($post_ids).' '.story_plural(count($postids)).')</span>' );?>
                                 </h1>
                                 <div class="topics-search-box">
                                     <form method="get">

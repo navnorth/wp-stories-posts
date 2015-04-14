@@ -31,7 +31,7 @@
 
 .bx-wrapper .bx-viewport {
 	background: #f5f5f5;
-	
+
 	/*fix other elements on the page moving (on Chrome)*/
 	-webkit-transform: translatez(0);
 	-moz-transform: translatez(0);
@@ -92,7 +92,8 @@
 }
 
 .bx-wrapper .bx-pager.bx-default-pager a:hover,
-.bx-wrapper .bx-pager.bx-default-pager a.active {
+.bx-wrapper .bx-pager.bx-default-pager a.active,
+.bx-wrapper .bx-pager.bx-default-pager a:focus {
 	background: #000;
 }
 
@@ -108,11 +109,13 @@
 	background: url(images/controls.png) no-repeat -43px -32px;
 }
 
-.bx-wrapper .bx-prev:hover {
+.bx-wrapper .bx-prev:hover,
+.bx-wrapper .bx-prev:focus {
 	background-position: 0 0;
 }
 
-.bx-wrapper .bx-next:hover {
+.bx-wrapper .bx-next:hover,
+.bx-wrapper .bx-next:focus {
 	background-position: -43px 0;
 }
 
@@ -148,7 +151,8 @@
 }
 
 .bx-wrapper .bx-controls-auto .bx-start:hover,
-.bx-wrapper .bx-controls-auto .bx-start.active {
+.bx-wrapper .bx-controls-auto .bx-start.active,
+.bx-wrapper .bx-controls-auto .bx-start:focus {
 	background-position: -86px 0;
 }
 
@@ -163,6 +167,7 @@
 }
 
 .bx-wrapper .bx-controls-auto .bx-stop:hover,
+.bx-wrapper .bx-controls-auto .bx-stop:focus,
 .bx-wrapper .bx-controls-auto .bx-stop.active {
 	background-position: -86px -33px;
 }

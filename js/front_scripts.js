@@ -28,10 +28,15 @@ jQuery(document).ready(function(){
                         jQuery(this).click();
                     }
   });
-  
- 
+
+
     jQuery('#statedropdown').change( function () {
 		var value = jQuery(this).val();
+        window.location.href = value;
+    });
+
+    jQuery('#showalltopic').change( function () {
+        var value = jQuery(this).val();
         window.location.href = value;
     });
 

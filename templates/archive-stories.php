@@ -17,6 +17,11 @@ get_header(); ?>
 				{
 					$postquery = new WP_Query(array('post_type' => 'stories', 'postperpage' => -1));
 
+                    $post_ids = wp_list_pluck( $postquery->posts, 'ID' );
+
+                    $args = array('orderby' => 'term_order','order' => 'ASC','hide_empty' => false);
+                    $tags = get_terms('story_tag', $args);
+
 					if ( $postquery->have_posts() ) ?>
 						<div class="col-md-4 col-sm-12 col-xs-12 pblctn_right_sid_mtr">
 							 <?php get_stories_side_nav(); ?>
@@ -26,13 +31,38 @@ get_header(); ?>
 							<div class="col-md-12 col-sm-12 col-xs-12 pblctn_right_sid_mtr">
 								 <?php get_storiesmap();?>
 							</div>
+
+                            <header class="tax-header">
+                                <h1 class="tax-title">
+                                     <?php printf( __( 'Results: %s', 'twentytwelve' ), '<i>All Stories</i>' );?>
+                                </h1>
+                                <div class="topics-search-box">
+                                    <form method="get">
+                                        <input type="hidden" name="action" value="showall" />
+                                        <select name="term" id="showalltopic">
+                                            <option value="">Filter by Topic</option>
+                                            <?php
+                                                foreach($tags as $tag)
+                                                {
+                                                    $count = get_counts($tag->term_id,$post_ids);
+                                                    if(isset($term) && !empty($term) && $term == $tag->slug):
+                                                        $check='selected="selected"'; else: $check = '';
+                                                    endif;
+                                                    echo '<option '. $check .' value="'.site_url().'/stories/story_tag/'.$tag->slug.'">'.$tag->name.' ('.$count.')</option>';
+                                                }
+                                            ?>
+                                        </select>
+                                    </form>
+                                </div>
+                            </header>
+
 							<?php while ( $postquery->have_posts() ) : $postquery->the_post(); ?>
                                     <?php get_story_template_part( 'content', 'substory' ); ?>
                             <?php endwhile; ?>
 					 	</div>
 					<?php
 				}
-				
+
 				/*?>if($_REQUEST['action'] == 'Search')
 				{
 					extract($_REQUEST);

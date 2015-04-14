@@ -289,7 +289,7 @@ function get_stories_side_nav($taxonomy=NULL, $taxonomy_name=NULL)
 		if(isset($taxonomy) && !empty($taxonomy) && $taxonomy == 'state'): $display = 'block'; else: $display = 'none'; endif;
 		$stateoption = '<div class="tglelemnt" style="display:'. $display.'">';
 		$stateoption .= '<select name="state" id="statedropdown">';
-		$stateoption .= '<option value="">Filter by State</option>';
+		$stateoption .= '<option value="">Browse by State</option>';
 		foreach($states as $state)
 		{
 			if(isset($taxonomy_name) && !empty($taxonomy_name) && $state->slug == $taxonomy_name):

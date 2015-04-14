@@ -50,7 +50,8 @@
 
 .stry_srch_desc { font-size: 15px; padding-top:10px; }
 
-.topics-search-box select {
+.topics-search-box select,
+#statedropdown {
     background-color: #fff;
     border: 1px solid #e57200;
     padding: 4px 4px;

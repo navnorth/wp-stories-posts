@@ -50,6 +50,14 @@
 
 .stry_srch_desc { font-size: 15px; padding-top:10px; }
 
+.topics-search-box select {
+    background-color: #fff;
+    border: 1px solid #e57200;
+    padding: 4px 4px;
+    font-size: 12px;
+    vertical-align: middle;
+}
+
 .slidermainwrpr { width: 100%; float: left; margin-top: 10px }
 .slidersubwrpr { margin: 0 auto; width: 100%; }
 .sliderimgwrpr { width: 40%; float: right; margin: 10px 10px 0px 20px; }

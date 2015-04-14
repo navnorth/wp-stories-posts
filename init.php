@@ -357,12 +357,14 @@ function get_stories_side_nav($taxonomy=NULL, $taxonomy_name=NULL)
 		}
 		$district_sizeoption .= '</div>';
 	}
+
+	$stories_home_URL = site_url().'/stories/';
 	?>
     	<aside class="search_widget stry_srch_frm">
             <h3>
-            	<?php if(strlen($_SERVER["QUERY_STRING"]) != 0) { echo '<a href="'.site_url().'/stories/">'; } ?>
+            	<?php if($_SERVER["REQUEST_URI"] != $stories_home_URL) { echo '<a href="'.$stories_home_URL.'">'; } ?>
             	Stories of EdTech Innovation
-            	<?php if(strlen($_SERVER["QUERY_STRING"]) != 0) { echo '</a>'; } ?>
+            	<?php if($_SERVER["REQUEST_URI"] != $stories_home_URL) { echo '</a>'; } ?>
             </h3>
             <p class="stry_srch_desc">
             	Use this tool to browse stories of innovation happening in schools across the nation. By sharing these stories, we hope to connect districts, schools, and educators trying similar things so that they can learn from each other's experiences.
@@ -543,6 +545,22 @@ function load_story_template( $_template_file, $require_once = true )
 	else
 		require( $_template_file );
 }
+
+//Back link: use referer or main stories page
+function stories_back_link( $link_text = 'Back to Stories', $referer = null )
+{
+	$stories_home_URL = site_url().'/stories/';
+	$back_link = '<a href="';
+	if(strlen($referer) != 0) {
+		$back_link .= $referer;
+	} else {
+		$back_link .= $stories_home_URL;
+	}
+	$back_link .= '">' . $link_text . '</a>';
+
+	return $back_link;
+}
+
 //Story Search
 /* disabling search for now. Just going to use browse Navigation
 function get_story_search($searchresult=NULL, $searchtext=NULL, $taxonomy_state=NULL, $taxonomy_program=NULL, $taxonomy_grade_level=NULL, $district_location=NULL, $district_size=NULL,$taxonomy_tags=NULL)

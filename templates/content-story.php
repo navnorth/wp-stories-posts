@@ -11,13 +11,19 @@
 <div class="col-md-4 col-sm-12 col-xs-12 pblctn_right_sid_mtr">
     <div>
         <?php
-        $back_link = site_url().'/stories/';
-        if (isset($_GET['searchresult']) && !empty($_GET['searchresult']) && $_GET['searchresult'] == 'story')
+        $back_link_URL = site_url().'/stories/';
+        $back_link_text = 'Back to Stories';
+        if (isset($_GET['back']) && !empty($_GET['back']))
         {
-            $back_link = $_SERVER["HTTP_REFERER"];
+            $back_link_URL = esc_html($_GET['back']);
+            $back_link_text = 'Back to Results';
         }
         ?>
-        <div class="col-md-12 col-sm-12 col-xs-12 noborder story_back"><a href="<?php echo $back_link; ?>"> Back to Stories </a></div>
+        <div class="col-md-12 col-sm-12 col-xs-12 noborder story_back">
+            <a href="<?php echo $back_link_URL; ?>">
+                <?php echo $back_link_text; ?>
+            </a>
+        </div>
 
         <?php
             $url = wp_get_attachment_url( get_post_thumbnail_id($post->ID) );
@@ -66,7 +72,7 @@
                 }
 				$characteristicurl = trim($characteristicurl, ', ');
             }
-			
+
 			if(isset($states) && !empty($states))
             {
                 foreach($states as $state)

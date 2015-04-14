@@ -12,7 +12,8 @@
 	$url = wp_get_attachment_url( get_post_thumbnail_id($post->ID) );
 	if(isset($_REQUEST['action']) && !empty($_REQUEST['action']) && $_REQUEST['action'] == 'Search')
 	{
-		if (parse_url(get_permalink($post->ID), PHP_URL_QUERY))
+		/* these appear to be the same thing
+        if (parse_url(get_permalink($post->ID), PHP_URL_QUERY))
 		{
 			$link = get_permalink($post->ID)."&searchresult=story";
 		}
@@ -20,10 +21,12 @@
 		{
 			$link = get_permalink($post->ID)."?searchresult=story";
 		}
+        */
+        $link = get_permalink($post->ID)."?searchresult=story&back=".urlencode($_SERVER['REQUEST_URI']);
 	}
 	else
 	{
-		$link = get_permalink($post->ID);
+		$link = get_permalink($post->ID)."?back=".urlencode($_SERVER['REQUEST_URI']);
 	}
 ?>
 <div class="col-md-12 pblctn_paramtr padding_left">

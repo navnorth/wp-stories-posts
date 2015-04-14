@@ -318,7 +318,7 @@ function get_storiesmap($pageposts=NULL)
 										$content = substr($content, 0 ,60);
 										$content = $content."...";
 									}
-									$link = get_the_permalink($story->postid);
+									$link = get_the_permalink($story->postid)."?back=".urlencode($_SERVER['REQUEST_URI']);
 									$district = get_post_meta($story->postid,"story_district",true);
 									$states = get_the_terms( $story->postid, "state" );
 									if(isset($states) && !empty($states))
@@ -330,7 +330,7 @@ function get_storiesmap($pageposts=NULL)
                                             $stateurl = $state->name;
 										}
 									}
-									echo "['<div class=info><h4><a href=$link target=_blank>$title</a></h4><div class=popupcntnr><img src=$image><div class=subinfo><p><b>$district</b>, <b>$stateurl</b></div></p>$content</div></div>', $latitude, $longitude],";
+									echo "['<div class=info><h4><a href=$link>$title</a></h4><div class=popupcntnr><img src=$image><div class=subinfo><p><b>$district</b>, <b>$stateurl</b></div></p>$content</div></div>', $latitude, $longitude],";
 								}
 							}
 							else
@@ -374,6 +374,16 @@ function get_storiesmap($pageposts=NULL)
                       maxHeight: 350
                     });
 
+                    var iconSVG = {
+                        path: "m 51.181656,3.9153604 c -16.876105,0 -30.606194,15.0340656 -30.606194,33.5151036 0,4.674622 1.254665,13.195031 12.10588,33.135792 5.549381,10.196603 11.020402,18.615602 11.251034,18.969563 l 7.24928,11.129771 7.250171,-11.129771 C 58.661567,89.182832 64.132588,80.762859 69.68286,70.566256 80.534074,50.625495 81.788741,42.105086 81.788741,37.430464 81.78785,18.949426 68.057761,3.9153604 51.181656,3.9153604 Z",
+                        fillColor: '#00529f',
+                        fillOpacity: 1,
+                        anchor: new google.maps.Point(54,100),
+                        strokeWeight: 2,
+                        strokeColor: '#cccccc',
+                        scale: 1/3
+                    }
+
                     var marker;
                     var markers = new Array();
 
@@ -385,7 +395,7 @@ function get_storiesmap($pageposts=NULL)
 						  marker = new google.maps.Marker({
                             position: new google.maps.LatLng(locations[i][1], locations[i][2], locations[i][3], locations[i][4], locations[i][5]),
                             map: map,
-                            icon : icons[iconCounter],
+                            icon : iconSVG,
                             shadow: shadow
                           });
 

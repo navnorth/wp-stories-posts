@@ -17,8 +17,8 @@ get_header(); ?>
 	{
 		$postids = array_keys($postids);
 	}
-	
-	$args = array('orderby' => 'term_order','order' => 'ASC','hide_empty' => false);
+
+	$args = array('orderby' => 'term_order','order' => 'ASC','hide_empty' => true);
 	$tags = get_terms('story_tag', $args);
 ?>
 	<div class="row">
@@ -31,7 +31,7 @@ get_header(); ?>
 					{
 						$searcharr = array('taxonomy' => $story_taxonomy, 'field' => 'slug', 'terms' => $term);
 					}
-					
+
 					if(!empty($searcharr))
 					{
 						$args = array('post_type' => 'stories','post__in' => $postids, 'tax_query' => array($searcharr));
@@ -62,10 +62,13 @@ get_header(); ?>
 												foreach($tags as $tag)
 												{
 													$count = get_counts($tag->term_id,$postids);
-													if(isset($term) && !empty($term) && $term == $tag->slug):
-														$check='selected="selected"'; else: $check = '';
-													endif;
-													echo '<option '. $check .' value="'.$tag->slug.'">'.$tag->name.' ('.$count.')</option>';
+													if ($count > 0)
+                                                    {
+                                                        if(isset($term) && !empty($term) && $term == $tag->slug):
+    														$check='selected="selected"'; else: $check = '';
+    													endif;
+    													echo '<option '. $check .' value="'.$tag->slug.'">'.$tag->name.' ('.$count.')</option>';
+                                                    }
 												}
 											?>
                                         </select>
@@ -109,10 +112,13 @@ get_header(); ?>
 												foreach($tags as $tag)
 												{
 													$count = get_counts($tag->term_id,$postids);
-													if(isset($term) && !empty($term) && $term == $tag->slug):
-														$check='selected="selected"'; else: $check = '';
-													endif;
-													echo '<option '. $check .' value="'.$tag->slug.'">'.$tag->name.' ('.$count.')</option>';
+													if ($count > 0)
+                                                    {
+                                                        if(isset($term) && !empty($term) && $term == $tag->slug):
+    														$check='selected="selected"'; else: $check = '';
+    													endif;
+    													echo '<option '. $check .' value="'.$tag->slug.'">'.$tag->name.' ('.$count.')</option>';
+                                                    }
 												}
 											?>
                                         </select>
@@ -150,10 +156,13 @@ get_header(); ?>
                                             foreach($tags as $tag)
                                             {
                                                 $count = get_counts($tag->term_id,$postids);
-                                                if(isset($termobject->slug) && !empty($termobject->slug) && $termobject->slug == $tag->slug):
-                                                    $check='selected="selected"'; else: $check = '';
-                                                endif;
-                                                echo '<option '. $check .' value="'.$tag->slug.'">'.$tag->name.' ('.$count.')</option>';
+                                                if ($count > 0)
+                                                {
+                                                    if(isset($termobject->slug) && !empty($termobject->slug) && $termobject->slug == $tag->slug):
+                                                        $check='selected="selected"'; else: $check = '';
+                                                    endif;
+                                                    echo '<option '. $check .' value="'.$tag->slug.'">'.$tag->name.' ('.$count.')</option>';
+                                                }
                                             }
                                         ?>
                                     </select>
@@ -167,5 +176,5 @@ get_header(); ?>
                     <?php
 				}
 			?>
-	</div>    
+	</div>
 <?php get_footer(); ?>

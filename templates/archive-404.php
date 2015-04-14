@@ -10,17 +10,17 @@ get_header(); ?>
 <?php
 	global $wpdb;
 	$table = $wpdb->prefix."term_relationships";
-	
+
 	$termobject = get_queried_object();
 	$term_id = $termobject->term_id;
 	$postids = $wpdb->get_results("select object_id from $table where term_taxonomy_id=".$term_id,OBJECT_K);
-	
+
 	if(!empty($postids))
 	{
 		$postids = array_keys($postids);
 	}
-	
-	$args = array('orderby' => 'term_order','order' => 'ASC','hide_empty' => false);
+
+	$args = array('orderby' => 'term_order','order' => 'ASC','hide_empty' => true);
 	$tags = get_terms('story_tag', $args);
 ?>
 	<div class="row">
@@ -31,7 +31,7 @@ get_header(); ?>
             <div class="col-md-12 col-sm-12 col-xs-12 pblctn_right_sid_mtr">
                <?php get_storiesmap($postids);?>
             </div>
-            
+
             <header class="tax-header">
                 <h1 class="tax-title">
                 	Nothing Found
@@ -51,11 +51,11 @@ get_header(); ?>
                             </select>
                         </form>
                 </div>
-            </header>    
+            </header>
             <div class="entry-content">
                 <p>Apologies, but no results were found. Perhaps searching will help find a related post.</p>
            	</div>
-            
+
         </div>
     </div><!-- #row -->
 

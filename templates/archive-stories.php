@@ -19,7 +19,7 @@ get_header(); ?>
 
                     $post_ids = wp_list_pluck( $postquery->posts, 'ID' );
 
-                    $args = array('orderby' => 'term_order','order' => 'ASC','hide_empty' => false);
+                    $args = array('orderby' => 'term_order','order' => 'ASC','hide_empty' => true);
                     $tags = get_terms('story_tag', $args);
 
 					if ( $postquery->have_posts() ) ?>

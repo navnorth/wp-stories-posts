@@ -467,7 +467,9 @@ function get_top_topics_nav($taxonomy=NULL, $taxonomy_name=NULL)
 function get_counts($termid, $searchresult)
 {
 	global $wpdb;
-	$query = "SELECT object_id from wp_term_relationships where term_taxonomy_id=(SELECT term_taxonomy_id from wp_term_taxonomy where term_id=$termid)";
+	$taxon_tablename = $wpdb->prefix."term_taxonomy";
+	$term_rel_tablename = $wpdb->prefix."term_relationships";
+	$query = "SELECT object_id from $term_rel_tablename where term_taxonomy_id=(SELECT term_taxonomy_id from $taxon_tablename where term_id=$termid)";
 	$data = $wpdb->get_results($query, OBJECT_K);
 	if(!empty($data) && !empty($searchresult))
 	{

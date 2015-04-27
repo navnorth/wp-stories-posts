@@ -300,7 +300,8 @@ function get_storiesmap($pageposts=NULL)
             </div>
          </div>
      </div>
-   			<script type="text/javascript">
+   			<script type="text/javascript" src="<?php echo SCP_URL ; ?>js/jquery.a11yfy.gmaps.js"></script>
+            <script type="text/javascript">
                     var locations = [
                         <?php
                             if (isset($stories) && !empty($stories))
@@ -330,7 +331,7 @@ function get_storiesmap($pageposts=NULL)
                                             $stateurl = $state->name;
 										}
 									}
-									echo "['<div class=info><h4><a href=$link>$title</a></h4><div class=popupcntnr><img src=$image alt=\"Story Thumbnail\"><div class=subinfo><p><b>$district</b>, <b>$stateurl</b></div></p>$content</div></div>', $latitude, $longitude],";
+									echo "['<div class=info tabindex=0><h4><a href=$link>$title</a></h4><div class=popupcntnr><img src=$image alt=\"Story Thumbnail\"><div class=subinfo><p><b>$district</b>, <b>$stateurl</b></div></p>$content</div></div>', $latitude, $longitude, '$title'],";
 								}
 							}
 							else
@@ -344,7 +345,6 @@ function get_storiesmap($pageposts=NULL)
 
                     var icons = [iconURLPrefix + 'marker_solid.png']
                     var icons_length = icons.length;
-
 
                     var shadow =
                     {
@@ -395,6 +395,7 @@ function get_storiesmap($pageposts=NULL)
 						  marker = new google.maps.Marker({
                             position: new google.maps.LatLng(locations[i][1], locations[i][2], locations[i][3], locations[i][4], locations[i][5]),
                             map: map,
+                            title : locations[i][3],
                             icon : iconSVG,
                             shadow: shadow
                           });
@@ -426,6 +427,9 @@ function get_storiesmap($pageposts=NULL)
                       map.fitBounds(bounds);
                     }
                     AutoCenter();
+
+                    // load the accessibility hacks for the map
+                    jQuery(document).gmaps();
               </script>
 
     <?php

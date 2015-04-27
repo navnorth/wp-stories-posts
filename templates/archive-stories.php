@@ -236,8 +236,14 @@ get_header(); ?>
                                     	<li>
                                             <div class="sliderinnrwrap">
                                                 <div class="sliderimgwrpr">
-                                                    <?php $url = wp_get_attachment_url( get_post_thumbnail_id($post->ID) );?>
-                                                    <img src="<?php echo $url; ?>" />
+                                                    <?php
+                                                    $img_url = wp_get_attachment_url( get_post_thumbnail_id($post->ID) );
+                                                    $img_alt = get_post_meta(get_post_thumbnail_id($post->ID), '_wp_attachment_image_alt', true);
+                                                    if(isset($img_url) && !empty($img_url))
+                                                    {
+                                                        echo '<img src="'.$img_url.'" alt="'.$img_alt. '" />';
+                                                    }
+                                                    ?>
                                                 </div>
                                                 <div class="slidercontentnrwrpr">
                                                 	<div class="sldr_top_hdng"> Featured Story: </div>

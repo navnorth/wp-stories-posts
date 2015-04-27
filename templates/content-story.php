@@ -26,19 +26,20 @@
         </div>
 
         <?php
-            $url = wp_get_attachment_url( get_post_thumbnail_id($post->ID) );
-            $videourl = get_post_meta( $post->ID, "story_video" , true );
+            $img_url = wp_get_attachment_url( get_post_thumbnail_id($post->ID) );
+            $img_alt = get_post_meta(get_post_thumbnail_id($post->ID), '_wp_attachment_image_alt', true);
+            $video_url = get_post_meta( $post->ID, "story_video" , true );
         ?>
-        <?php if(isset($url) && !empty($url) && empty($videourl)) : ?>
-                <div class="col-md-12 col-sm-12 col-xs-12 noborder nomargintop">
-                    <img src="<?php echo $url; ?>" />
-                </div>
+        <?php if(isset($img_url) && !empty($img_url) && empty($video_url)) : ?>
+            <div class="col-md-12 col-sm-12 col-xs-12 noborder nomargintop">
+                <img src="<?php echo $img_url; ?>" alt="<?php echo $img_alt; ?>" />
+            </div>
         <?php endif; ?>
 
-        <?php if(isset($videourl) && !empty($videourl)) : ?>
-                <div class="col-md-12 col-sm-12 col-xs-12 noborder nomargintop">
-                    <iframe src="<?php echo $videourl; ?>" height="250"></iframe>
-                </div>
+        <?php if(isset($video_url) && !empty($video_url)) : ?>
+            <div class="col-md-12 col-sm-12 col-xs-12 noborder nomargintop">
+                <iframe src="<?php echo $video_url; ?>" height="250"></iframe>
+            </div>
         <?php endif; ?>
 
         <aside class="story_sharewidget">

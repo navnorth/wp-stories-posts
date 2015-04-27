@@ -9,7 +9,21 @@
 ?>
 <?php global $post; ?>
 <?php
-	$url = wp_get_attachment_url( get_post_thumbnail_id($post->ID) );
+	$img_url = wp_get_attachment_url( get_post_thumbnail_id($post->ID) );
+    $img_alt = get_post_meta(get_post_thumbnail_id($post->ID), '_wp_attachment_image_alt', true);
+
+    /*
+    $img_args = array( 'post_type' => 'attachment', 'orderby' => 'menu_order', 'order' => 'ASC', 'post_mime_type' => 'image' ,'post_status' => null, 'numberposts' => null, 'post_parent' => $post->ID );
+
+    $attachments = get_posts($img_args);
+    if ($attachments) {
+        foreach ( $attachments as $attachment ) {
+            $img_alt = get_post_meta($attachment->ID, '_wp_attachment_image_alt', true);
+            $img_url = wp_get_attachment_url( $attachment->ID );
+        }
+    }
+    */
+
 	if(isset($_REQUEST['action']) && !empty($_REQUEST['action']) && $_REQUEST['action'] == 'Search')
 	{
 		/* these appear to be the same thing
@@ -35,9 +49,9 @@
             <?php echo get_the_title($post->ID); ?>
         </a>
     </h3>
-    <?php if(isset($url) && !empty($url)) : ?>
+    <?php if(isset($img_url) && !empty($img_url)) : ?>
         <div class="scp_feature_image">
-            <img class="featured_item_image" src="<?php echo $url; ?>" />
+            <img class="featured_item_image" src="<?php echo $img_url; ?>" alt="<?php echo $img_alt; ?>" />
         </div>
     <?php endif; ?>
     <h4 class="substory_loc">

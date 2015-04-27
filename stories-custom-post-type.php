@@ -3,7 +3,7 @@
  Plugin Name: Story Custom Post Type
  Plugin URI: http://www.navigationnorth.com/wordpress/stories-plugin
  Description: Stories as a custom post type, with custom metadata and display. Developed in collaboration with Monad Infotech (http://monadinfotech.com)
- Version: 0.2.1
+ Version: 0.2.2
  Author: Navigation North
  Author URI: http://www.navigationnorth.com
 
@@ -330,7 +330,7 @@ function get_storiesmap($pageposts=NULL)
                                             $stateurl = $state->name;
 										}
 									}
-									echo "['<div class=info><h4><a href=$link>$title</a></h4><div class=popupcntnr><img src=$image><div class=subinfo><p><b>$district</b>, <b>$stateurl</b></div></p>$content</div></div>', $latitude, $longitude],";
+									echo "['<div class=info><h4><a href=$link>$title</a></h4><div class=popupcntnr><img src=$image alt=\"Story Thumbnail\"><div class=subinfo><p><b>$district</b>, <b>$stateurl</b></div></p>$content</div></div>', $latitude, $longitude],";
 								}
 							}
 							else

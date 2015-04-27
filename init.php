@@ -376,11 +376,15 @@ function get_stories_side_nav($taxonomy=NULL, $taxonomy_name=NULL)
                 	<div class="cstmaccordiandv">
                         <?php
 							if(isset($taxonomy) && !empty($taxonomy) && $taxonomy == 'state'):
-								$class = 'fa-caret-down'; else: $class = 'fa-caret-right';
+								$class = 'fa-caret-down';
+								$accordian_title = 'Collapse';
+							else:
+								$class = 'fa-caret-right';
+								$accordian_title = 'Expand';
 							endif;
 						?>
                         <i class="fa <?php echo $class; ?>"></i>
-                        <h5 tabindex="0">State</h5>
+                        <a tabindex="0" title="<?php echo $accordian_title; ?> State Menu" class="accordian_section_title">State</a>
                     </div>
                     <?php echo $stateoption; ?>
                 </ul>
@@ -390,11 +394,15 @@ function get_stories_side_nav($taxonomy=NULL, $taxonomy_name=NULL)
                 	<div class="cstmaccordiandv">
                         <?php
 							if(isset($taxonomy) && !empty($taxonomy) && $taxonomy == 'grade_level'):
-								$class = 'fa-caret-down'; else: $class = 'fa-caret-right';
+								$class = 'fa-caret-down';
+								$accordian_title = 'Collapse';
+							else:
+								$class = 'fa-caret-right';
+								$accordian_title = 'Expand';
 							endif;
 						?>
                         <i class="fa <?php echo $class; ?>"></i>
-                        <h5 tabindex="0">Grade</h5>
+                        <a tabindex="0" title="<?php echo $accordian_title; ?> Grade Menu" class="accordian_section_title">Grade</a>
                     </div>
                     <?php echo $gradeoption; ?>
                 </ul>
@@ -404,11 +412,15 @@ function get_stories_side_nav($taxonomy=NULL, $taxonomy_name=NULL)
                 	<div class="cstmaccordiandv">
                         <?php
 							if(isset($taxonomy) && !empty($taxonomy) && $taxonomy == 'characteristics'):
-								$class = 'fa-caret-down'; else: $class = 'fa-caret-right';
+								$class = 'fa-caret-down';
+								$accordian_title = 'Collapse';
+							else:
+								$class = 'fa-caret-right';
+								$accordian_title = 'Expand';
 							endif;
 						?>
                         <i class="fa <?php echo $class; ?>"></i>
-                        <h5 tabindex="0">Community Type</h5>
+                        <a tabindex="0" title="<?php echo $accordian_title; ?> Community Type Menu" class="accordian_section_title">Community Type</a>
                     </div>
                     <?php echo $district_locationoption; ?>
                 </ul>
@@ -418,11 +430,15 @@ function get_stories_side_nav($taxonomy=NULL, $taxonomy_name=NULL)
                     <div class="cstmaccordiandv">
                         <?php
 							if(isset($taxonomy) && !empty($taxonomy) && $taxonomy == 'districtsize'):
-								$class = 'fa-caret-down'; else: $class = 'fa-caret-right';
+								$class = 'fa-caret-down';
+								$accordian_title = 'Collapse';
+							else:
+								$class = 'fa-caret-right';
+								$accordian_title = 'Expand';
 							endif;
 						?>
                         <i class="fa <?php echo $class; ?>"></i>
-                        <h5 tabindex="0">District Size</h5>
+                        <a tabindex="0" title="<?php echo $accordian_title; ?> District Size Menu" class="accordian_section_title">District Size</a>
                     </div>
                     <?php echo $district_sizeoption; ?>
                 </ul>

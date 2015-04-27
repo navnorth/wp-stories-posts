@@ -12,11 +12,13 @@ jQuery(document).ready(function(){
 	 {
 		jQuery(this).children('i').removeClass("fa-caret-right");
 		jQuery(this).children('i').addClass("fa-caret-down");
+        jQuery(this).children('a').attr("title",jQuery(this).children('a').attr("title").replace("Expand","Collapse"));;
 	 }
 	 else if(jQuery(this).children('i').hasClass("fa-caret-down"))
 	 {
-		 jQuery(this).children('i').removeClass("fa-caret-down");
-		 jQuery(this).children('i').addClass("fa-caret-right");
+		jQuery(this).children('i').removeClass("fa-caret-down");
+		jQuery(this).children('i').addClass("fa-caret-right");
+        jQuery(this).children('a').attr("title",jQuery(this).children('a').attr("title").replace("Collapse","Expand"));;
 	 }
 	 jQuery(this).next(".tglelemnt").slideToggle();
   });

@@ -122,13 +122,15 @@
     float: left;
     width: 100%;
 }
-.cstmaccordiandv > h5,
+.cstmaccordiandv .accordian_section_title,
 .topic_sidebar > h5 {
     float: left;
     font-size: 16px;
     font-weight: bold;
     margin: 0 !important;
     padding: 0;
+    text-decoration: none;
+    color: #000;
 }
 .cstmaccordiandv .fa { float: left; width: 20px; line-height: 19px}
 .cstmaccordiandv{ cursor: pointer;}

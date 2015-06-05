@@ -155,7 +155,7 @@ function save_askquestion_metabox()
 {
 	global $post;
 
-	if(isset($_POST['story_video']) && !empty($_POST['story_video']))
+	if(isset($_POST['story_video']))
 	{
 		update_post_meta($post->ID, "story_video", $_POST['story_video']);
 	}
@@ -165,17 +165,17 @@ function save_askquestion_metabox()
 		update_post_meta($post->ID, "story_highlight", $_POST['story_highlight']);
 	}
 
-	if(isset($_POST['story_district']) && !empty($_POST['story_district']))
+	if(isset($_POST['story_district']))
 	{
 		update_post_meta($post->ID, "story_district", $_POST['story_district']);
 	}
 
-	if(isset($_POST['story_school']) && !empty($_POST['story_school']))
+	if(isset($_POST['story_school']))
 	{
 		update_post_meta($post->ID, "story_school", $_POST['story_school']);
 	}
 
-	if(isset($_POST['story_zipcode']) && !empty($_POST['story_zipcode']))
+	if(isset($_POST['story_zipcode']))
 	{
 		update_post_meta($post->ID, "story_zipcode", $_POST['story_zipcode']);
 	}
@@ -209,7 +209,7 @@ function save_askquestion_metabox()
 		update_post_meta($post->ID, "story_characteristic", $story_characteristic);
 	}
 
-	if(isset($_POST['story_sidebar_content']) && !empty($_POST['story_sidebar_content']))
+	if(isset($_POST['story_sidebar_content']))
 	{
 		update_post_meta($post->ID, "story_sidebar_content", $_POST['story_sidebar_content']);
 	}
@@ -438,7 +438,7 @@ function get_stories_side_nav($taxonomy=NULL, $taxonomy_name=NULL)
 							endif;
 						?>
                         <i class="fa <?php echo $class; ?>"></i>
-                        <a tabindex="0" title="<?php echo $accordian_title; ?> District Size Menu" class="accordian_section_title">District Size</a>
+                        <a tabindex="0" title="<?php echo $accordian_title; ?> Institution Size Menu" class="accordian_section_title">Institution Size</a>
                     </div>
                     <?php echo $district_sizeoption; ?>
                 </ul>

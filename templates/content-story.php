@@ -193,7 +193,7 @@
                     foreach( $stories as $story)
                     {
                         echo '<p class="padding_top_btm">
-                                <a target="_blank" href="'.get_the_permalink($story->ID).'">'.get_the_title($story->ID).'</a>
+                                <a href="'.get_the_permalink($story->ID).'">'.get_the_title($story->ID).'</a>
                               </p>';
                     }
                 ?>

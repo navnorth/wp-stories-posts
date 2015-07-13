@@ -15,7 +15,7 @@ get_header(); ?>
 				global $wpdb;
 				if($_REQUEST['action'] == 'showall')
 				{
-					$postquery = new WP_Query(array('post_type' => 'stories', 'postperpage' => -1));
+					$postquery = new WP_Query(array('post_type' => 'stories', 'posts_per_page' => -1));
 
                     $post_ids = wp_list_pluck( $postquery->posts, 'ID' );
 
@@ -61,6 +61,7 @@ get_header(); ?>
                             <?php endwhile; ?>
 					 	</div>
 					<?php
+					
 				}
 
 				/*?>if($_REQUEST['action'] == 'Search')

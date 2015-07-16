@@ -275,19 +275,21 @@ function get_storiesmap($pageposts=NULL)
 {
 	global $wpdb;
 	$table_name = $wpdb->prefix . "scp_stories";
-	if(empty($pageposts) || $pageposts == NULL)
+	// run posts through WP_Query so we don't get private, draft, or trashed Stories
+    $map_post_args = array('post_type' => 'stories');
+    if(!empty($pageposts))
 	{
-		$stories = $wpdb->get_results("select * from $table_name");
-	}
-	else
-	{
-		foreach($pageposts  as $ids)
-		{
-			$postid .= $ids.",";
-		}
-		$postid = trim($postid, ",");
-		$stories = $wpdb->get_results("select * from $table_name where postid IN ($postid)");
-	}
+        $map_post_args['post__in'] = $pageposts;
+    }
+    $pageposts = new WP_Query( $map_post_args );
+    while ( $pageposts->have_posts() ) : $pageposts->the_post();
+        $postid .= get_the_ID().",";
+    endwhile;
+
+    $postid = trim($postid, ",");
+
+	$stories = $wpdb->get_results("select * from $table_name where postid IN ($postid)");
+
 	?>
 	<link rel="stylesheet" type="text/css" href="<?php echo SCP_URL ; ?>css/demo.css" />
    	<script src="http://maps.google.com/maps/api/js?sensor=false" type="text/javascript"></script>
@@ -300,6 +302,7 @@ function get_storiesmap($pageposts=NULL)
             </div>
          </div>
      </div>
+
    			<script type="text/javascript" src="<?php echo SCP_URL ; ?>js/jquery.a11yfy.gmaps.js"></script>
             <script type="text/javascript">
                     var locations = [

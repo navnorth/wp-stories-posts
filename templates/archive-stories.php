@@ -15,7 +15,7 @@ get_header(); ?>
 				global $wpdb;
 				if($_REQUEST['action'] == 'showall')
 				{
-					$postquery = new WP_Query(array('post_type' => 'stories', 'postperpage' => -1));
+					$postquery = new WP_Query(array('post_type' => 'stories', 'posts_per_page' => -1));
 
                     $post_ids = wp_list_pluck( $postquery->posts, 'ID' );
 
@@ -34,7 +34,7 @@ get_header(); ?>
 
                             <header class="tax-header">
                                 <h1 class="tax-title">
-                                     <?php printf( __( 'Results: %s', 'twentytwelve' ), '<i>All Stories</i> <span>(' .count($post_ids).' '.story_plural(count($postids)).')</span>' );?>
+                                     <?php printf( __( 'Results: %s', 'twentytwelve' ), '<i>All Stories</i> <span>(' .count($post_ids).' '.story_plural(count($post_ids)).')</span>' );?>
                                 </h1>
                                 <div class="topics-search-box">
                                     <form method="get">
@@ -61,6 +61,7 @@ get_header(); ?>
                             <?php endwhile; ?>
 					 	</div>
 					<?php
+					
 				}
 
 				/*?>if($_REQUEST['action'] == 'Search')

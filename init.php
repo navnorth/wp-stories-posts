@@ -97,17 +97,31 @@ function create_stories_metabox()
 {
 	global $post, $characteristics, $districtsize;
 	$story_video 		= get_post_meta($post->ID, "story_video", true);
+	$story_video_host 	= get_post_meta($post->ID, "story_video_host", true);
 	$story_highlight 	= get_post_meta($post->ID, "story_highlight", true);
 	$story_district 	= get_post_meta($post->ID, "story_district", true);
 	$story_school 		= get_post_meta($post->ID, "story_school", true);
 	$story_mapaddress 	= get_post_meta($post->ID, "story_mapaddress", true);
 	$story_zipcode 		= get_post_meta($post->ID, "story_zipcode", true);
 	$story_sidebar_content = get_post_meta($post->ID, "story_sidebar_content", true);
-
+	
 	$return = '';
 		$return .= '<div class="scp_adtnalflds">';
-			$return .= '<div class="wrprtext">Video</div>';
+			$return .= '<div class="wrprtext">Video ID</div>';
 			$return .= '<div class="wrprfld"><input type="text" name="story_video" value="'.$story_video.'" /></div>';
+		$return .= '</div>';
+		
+		$return .= '<div class="scp_adtnalflds">';
+			$return .= '<div class="wrprtext">Video Host</div>';
+			$return .= '<div class="wrprfld">
+					<select name="story_video_host">
+						<option value="0">Select Video Host</option>';
+			$status = ($story_video_host=="1")?"selected":"";
+			$return .=		'<option value="1" '.$status.'>YouTube</option>';
+			$status = ($story_video_host=="2")?"selected":"";
+			$return .=		'<option value="2" '.$status.'>Vimeo</option>';
+			$return .=	'</select>
+					</div>';
 		$return .= '</div>';
 
 		$return .= '<div class="scp_adtnalflds">';
@@ -158,6 +172,11 @@ function save_askquestion_metabox()
 	if(isset($_POST['story_video']) && !empty($_POST['story_video']))
 	{
 		update_post_meta($post->ID, "story_video", $_POST['story_video']);
+	}
+	
+	if(isset($_POST['story_video_host']) && !empty($_POST['story_video_host']))
+	{
+		update_post_meta($post->ID, "story_video_host", $_POST['story_video_host']);
 	}
 
 	if(isset($_POST['story_highlight']) && !empty($_POST['story_highlight']))

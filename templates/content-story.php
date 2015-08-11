@@ -28,15 +28,17 @@
         <?php
             $img_url = wp_get_attachment_url( get_post_thumbnail_id($post->ID) );
             $img_alt = get_post_meta(get_post_thumbnail_id($post->ID), '_wp_attachment_image_alt', true);
-            $video_url = get_post_meta( $post->ID, "story_video" , true );
+            $video_id = get_post_meta( $post->ID, "story_video" , true );
         ?>
-        <?php if(isset($img_url) && !empty($img_url) && empty($video_url)) : ?>
+        <?php if(isset($img_url) && !empty($img_url) && empty($video_id)) : ?>
             <div class="col-md-12 col-sm-12 col-xs-12 noborder nomargintop">
                 <img src="<?php echo $img_url; ?>" alt="<?php echo $img_alt; ?>" />
             </div>
         <?php endif; ?>
 
-        <?php if(isset($video_url) && !empty($video_url)) : ?>
+        <?php if(isset($video_id) && !empty($video_id)) :
+		$video_url = "//www.youtube.com/embed/".$video_id."?enablejsapi=1";
+	?>
             <div class="col-md-12 col-sm-12 col-xs-12 noborder nomargintop">
                 <iframe src="<?php echo $video_url; ?>" height="250"></iframe>
             </div>

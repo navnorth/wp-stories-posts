@@ -6,6 +6,11 @@
  * @subpackage Twenty_Twelve
  * @since Twenty Twelve 1.0
  */
+function add_vimeo_script(){
+    $script_url = SCP_URL."js/vimeo.ga.min.js";
+    $tracking_script = "<script type='text/javascript' src='".$script_url."'></script>";
+    echo $tracking_script;
+}
 ?>
 <?php global $post; ?>
 <div class="col-md-4 col-sm-12 col-xs-12 pblctn_right_sid_mtr">
@@ -28,17 +33,80 @@
         <?php
             $img_url = wp_get_attachment_url( get_post_thumbnail_id($post->ID) );
             $img_alt = get_post_meta(get_post_thumbnail_id($post->ID), '_wp_attachment_image_alt', true);
-            $video_url = get_post_meta( $post->ID, "story_video" , true );
+            $video_id = get_post_meta( $post->ID, "story_video" , true );
+	    $story_video_host 	= get_post_meta($post->ID, "story_video_host", true);
         ?>
-        <?php if(isset($img_url) && !empty($img_url) && empty($video_url)) : ?>
+        <?php if(isset($img_url) && !empty($img_url) && empty($video_id)) : ?>
             <div class="col-md-12 col-sm-12 col-xs-12 noborder nomargintop">
                 <img src="<?php echo $img_url; ?>" alt="<?php echo $img_alt; ?>" />
             </div>
         <?php endif; ?>
 
-        <?php if(isset($video_url) && !empty($video_url)) : ?>
+        <?php
+	    if(isset($video_id) && !empty($video_id)) :
+		if ($story_video_host==1) {
+		    $tracking_script = "<script type='text/javascript'>\n";
+	    
+		    $tracking_script .= " 	// This code loads the IFrame Player API code asynchronously \n".
+					    "var tag = document.createElement('script'); \n".
+					    "tag.src = \"http://www.youtube.com/iframe_api\"; \n ".
+					    "var firstScriptTag = document.getElementsByTagName('script')[0]; \n".
+					    "firstScriptTag.parentNode.insertBefore(tag, firstScriptTag); \n".
+					    "	// This code is called by the YouTube API to create the player object \n".
+					    "function onYouTubeIframeAPIReady(event) { \n".
+					    "	player = new YT.Player('".$video_id."', { \n".
+					    "	videoId: '', \n".
+					    "	playerVars: { \n".
+					    "		'autoplay': 0, \n".
+					    "		'controls': 1, \n".
+					    "		'rel' : 0 \n".
+					    "	}, \n".
+					    "	events: { \n".
+					    "		'onReady': onPlayerReady, \n".
+					    "		'onStateChange': onPlayerStateChange \n".
+					    "		} \n".
+					    "	}); \n".
+					    "}\n".
+					    "	var pauseFlag = false; \n".
+					    "function onPlayerReady(event) { \n".
+					    "	// do nothing, no tracking needed \n".
+					    "} \n".
+					    "function onPlayerStateChange(event) { \n".
+					    "	var url = event.target.getVideoUrl(); \n".
+					    "	var match = url.match(/[?&]v=([^&]+)/); \n".
+					    "	if( match != null) \n".
+					    "	{ \n ".
+					    "		var videoId = match[1]; \n".
+					    "	} \n".
+					    "	videoId = String(videoId); \n".
+					    "	// track when user clicks to Play \n".
+					    "	if (event.data == YT.PlayerState.PLAYING) { \n".
+					    "		console.log('playing'); \n".
+					    "		ga('send','event','".$post->post_title." Video','Play', videoId);\n".
+					    "		pauseFlag = true; \n".
+					    "	}\n".
+					    "	// track when user clicks to Pause \n".
+					    "	if (event.data == YT.PlayerState.PAUSED && pauseFlag) { \n".
+					    "		ga('send','event', '".$post->post_title." Video', 'Pause', videoId); \n".
+					    "		pauseFlag = false; \n ".
+					    "	} \n".
+					    "	// track when video ends \n".
+					    "	if (event.data == YT.PlayerState.ENDED) { \n".
+					    "		ga('send', 'event', '".$post->post_title." Video', 'Finished', videoId); \n".
+					    "	}\n".
+					    "} \n";
+					    
+		    $tracking_script .= "</script>";
+		    echo $tracking_script;
+		    $video_url = "//www.youtube.com/embed/".$video_id."?enablejsapi=1";
+		}
+		elseif ($story_video_host==2) {
+		    add_action('wp_footer','add_vimeo_script');
+		    $video_url = "https://player.vimeo.com/video/".$video_id."?api=1&player_id=".$video_id;
+		}
+	?>
             <div class="col-md-12 col-sm-12 col-xs-12 noborder nomargintop">
-                <iframe src="<?php echo $video_url; ?>" height="250"></iframe>
+                <iframe id="<?php echo $video_id; ?>" src="<?php echo $video_url; ?>" <?php if ($story_video_host==2) echo "data-progress='true' data-seek='true' data-bounce='true'"; ?> height="250"></iframe>
             </div>
         <?php endif; ?>
 
@@ -193,7 +261,7 @@
                     foreach( $stories as $story)
                     {
                         echo '<p class="padding_top_btm">
-                                <a href="'.get_the_permalink($story->ID).'">'.get_the_title($story->ID).'</a>
+                                <a target="_blank" href="'.get_the_permalink($story->ID).'">'.get_the_title($story->ID).'</a>
                               </p>';
                     }
                 ?>

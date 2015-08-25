@@ -97,17 +97,31 @@ function create_stories_metabox()
 {
 	global $post, $characteristics, $districtsize;
 	$story_video 		= get_post_meta($post->ID, "story_video", true);
+	$story_video_host 	= get_post_meta($post->ID, "story_video_host", true);
 	$story_highlight 	= get_post_meta($post->ID, "story_highlight", true);
 	$story_district 	= get_post_meta($post->ID, "story_district", true);
 	$story_school 		= get_post_meta($post->ID, "story_school", true);
 	$story_mapaddress 	= get_post_meta($post->ID, "story_mapaddress", true);
 	$story_zipcode 		= get_post_meta($post->ID, "story_zipcode", true);
 	$story_sidebar_content = get_post_meta($post->ID, "story_sidebar_content", true);
-
+	
 	$return = '';
 		$return .= '<div class="scp_adtnalflds">';
-			$return .= '<div class="wrprtext">Video</div>';
+			$return .= '<div class="wrprtext">Video ID</div>';
 			$return .= '<div class="wrprfld"><input type="text" name="story_video" value="'.$story_video.'" /></div>';
+		$return .= '</div>';
+		
+		$return .= '<div class="scp_adtnalflds">';
+			$return .= '<div class="wrprtext">Video Host</div>';
+			$return .= '<div class="wrprfld">
+					<select name="story_video_host">
+						<option value="0">Select Video Host</option>';
+			$status = ($story_video_host=="1")?"selected":"";
+			$return .=		'<option value="1" '.$status.'>YouTube</option>';
+			$status = ($story_video_host=="2")?"selected":"";
+			$return .=		'<option value="2" '.$status.'>Vimeo</option>';
+			$return .=	'</select>
+					</div>';
 		$return .= '</div>';
 
 		$return .= '<div class="scp_adtnalflds">';
@@ -155,9 +169,14 @@ function save_askquestion_metabox()
 {
 	global $post;
 
-	if(isset($_POST['story_video']))
+	if(isset($_POST['story_video']) && !empty($_POST['story_video']))
 	{
 		update_post_meta($post->ID, "story_video", $_POST['story_video']);
+	}
+	
+	if(isset($_POST['story_video_host']) && !empty($_POST['story_video_host']))
+	{
+		update_post_meta($post->ID, "story_video_host", $_POST['story_video_host']);
 	}
 
 	if(isset($_POST['story_highlight']) && !empty($_POST['story_highlight']))
@@ -165,17 +184,17 @@ function save_askquestion_metabox()
 		update_post_meta($post->ID, "story_highlight", $_POST['story_highlight']);
 	}
 
-	if(isset($_POST['story_district']))
+	if(isset($_POST['story_district']) && !empty($_POST['story_district']))
 	{
 		update_post_meta($post->ID, "story_district", $_POST['story_district']);
 	}
 
-	if(isset($_POST['story_school']))
+	if(isset($_POST['story_school']) && !empty($_POST['story_school']))
 	{
 		update_post_meta($post->ID, "story_school", $_POST['story_school']);
 	}
 
-	if(isset($_POST['story_zipcode']))
+	if(isset($_POST['story_zipcode']) && !empty($_POST['story_zipcode']))
 	{
 		update_post_meta($post->ID, "story_zipcode", $_POST['story_zipcode']);
 	}
@@ -209,7 +228,7 @@ function save_askquestion_metabox()
 		update_post_meta($post->ID, "story_characteristic", $story_characteristic);
 	}
 
-	if(isset($_POST['story_sidebar_content']))
+	if(isset($_POST['story_sidebar_content']) && !empty($_POST['story_sidebar_content']))
 	{
 		update_post_meta($post->ID, "story_sidebar_content", $_POST['story_sidebar_content']);
 	}
@@ -289,13 +308,7 @@ function get_stories_side_nav($taxonomy=NULL, $taxonomy_name=NULL)
 		if(isset($taxonomy) && !empty($taxonomy) && $taxonomy == 'state'): $display = 'block'; else: $display = 'none'; endif;
 		$stateoption = '<div class="tglelemnt" style="display:'. $display.'">';
 		$stateoption .= '<select name="state" id="statedropdown">';
-
-		if(isset($taxonomy) && !empty($taxonomy) && $taxonomy == 'state') {
-			$stateoption .= '<option value="'.site_url().'/stories/">All States</option>';
-		} else {
-			$stateoption .= '<option value="">Browse by State</option>';
-		}
-
+		$stateoption .= '<option value="">Browse by State</option>';
 		foreach($states as $state)
 		{
 			if(isset($taxonomy_name) && !empty($taxonomy_name) && $state->slug == $taxonomy_name):
@@ -444,7 +457,7 @@ function get_stories_side_nav($taxonomy=NULL, $taxonomy_name=NULL)
 							endif;
 						?>
                         <i class="fa <?php echo $class; ?>"></i>
-                        <a tabindex="0" title="<?php echo $accordian_title; ?> Institution Size Menu" class="accordian_section_title">Institution Size</a>
+                        <a tabindex="0" title="<?php echo $accordian_title; ?> District Size Menu" class="accordian_section_title">District Size</a>
                     </div>
                     <?php echo $district_sizeoption; ?>
                 </ul>

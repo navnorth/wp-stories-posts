@@ -46,7 +46,7 @@ function add_vimeo_script(){
 	    if(isset($video_id) && !empty($video_id)) :
 		if ($story_video_host==1) {
 		    $tracking_script = "<script type='text/javascript'>\n";
-	    
+
 		    $tracking_script .= " 	// This code loads the IFrame Player API code asynchronously \n".
 					    "var tag = document.createElement('script'); \n".
 					    "tag.src = \"http://www.youtube.com/iframe_api\"; \n ".
@@ -82,20 +82,20 @@ function add_vimeo_script(){
 					    "	// track when user clicks to Play \n".
 					    "	if (event.data == YT.PlayerState.PLAYING) { \n".
 					    "		console.log('playing'); \n".
-					    "		ga('send','event','".$post->post_title." Video','Play', videoId);\n".
+					    "		ga('send','event','Story Video: ".$post->post_title."', 'Play', videoId);\n".
 					    "		pauseFlag = true; \n".
 					    "	}\n".
 					    "	// track when user clicks to Pause \n".
 					    "	if (event.data == YT.PlayerState.PAUSED && pauseFlag) { \n".
-					    "		ga('send','event', '".$post->post_title." Video', 'Pause', videoId); \n".
+					    "		ga('send','event','Story Video: ".$post->post_title."', 'Pause', videoId); \n".
 					    "		pauseFlag = false; \n ".
 					    "	} \n".
 					    "	// track when video ends \n".
 					    "	if (event.data == YT.PlayerState.ENDED) { \n".
-					    "		ga('send', 'event', '".$post->post_title." Video', 'Finished', videoId); \n".
+					    "		ga('send', 'event','Story Video: ".$post->post_title."', 'Finished', videoId); \n".
 					    "	}\n".
 					    "} \n";
-					    
+
 		    $tracking_script .= "</script>";
 		    echo $tracking_script;
 		    $video_url = "//www.youtube.com/embed/".$video_id."?enablejsapi=1";

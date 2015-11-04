@@ -49,7 +49,7 @@ function add_vimeo_script(){
 
 		    $tracking_script .= " 	// This code loads the IFrame Player API code asynchronously \n".
 					    "var tag = document.createElement('script'); \n".
-					    "tag.src = \"http://www.youtube.com/iframe_api\"; \n ".
+					    "tag.src = \"//www.youtube.com/iframe_api\"; \n ".
 					    "var firstScriptTag = document.getElementsByTagName('script')[0]; \n".
 					    "firstScriptTag.parentNode.insertBefore(tag, firstScriptTag); \n".
 					    "	// This code is called by the YouTube API to create the player object \n".

@@ -98,7 +98,8 @@ function add_vimeo_script(){
 
 		    $tracking_script .= "</script>";
 		    echo $tracking_script;
-		    $video_url = "//www.youtube.com/embed/".$video_id."?enablejsapi=1";
+		    $origin = get_site_url();
+		    $video_url = "//www.youtube.com/embed/".$video_id."?enablejsapi=1&origin=".$origin;
 		}
 		elseif ($story_video_host==2) {
 		    add_action('wp_footer','add_vimeo_script');

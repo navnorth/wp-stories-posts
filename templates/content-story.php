@@ -47,14 +47,30 @@ function add_vimeo_script(){
 		if ($story_video_host==1) {
 		    $tracking_script = "<script type='text/javascript'>\n";
 
-		    $tracking_script .= " 	// This code loads the IFrame Player API code asynchronously \n".
-					    "var tag = document.createElement('script'); \n".
+		    $tracking_script .= " function loadPlayer() { \n".
+					    "	if (typeof(YT) == 'undefined' || typeof(YT.Player) == 'undefined') { \n".
+					    "	    var tag = document.createElement('script'); \n ".
+					    "	    tag.src = '//www.youtube.com/iframe_api'; \n ".
+					    "	    var firstScriptTag = document.getElementsByTagName('script')[0]; \n".
+					    "	    firstScriptTag.parentNode.insertBefore(tag, firstScriptTag); \n".
+					    "	    window.onYouTubeIframeAPIReady = function() { \n ".
+					    "		onYouTubeIframeAPIReady_LoadPlayer(); \n ".
+					    "	    }; \n ".
+					    "	} else { \n ".
+					    "	    onYouTubeIframeAPIReady_LoadPlayer(); \n ".
+					    "	} \n".
+					    "    } \n".
+					    "    // This code loads the IFrame Player API code asynchronously \n".
+					    "/*var tag = document.createElement('script'); \n".
 					    "tag.src = \"//www.youtube.com/iframe_api\"; \n ".
 					    "var firstScriptTag = document.getElementsByTagName('script')[0]; \n".
-					    "firstScriptTag.parentNode.insertBefore(tag, firstScriptTag); \n".
+					    "firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);*/ \n".
 					    "	// This code is called by the YouTube API to create the player object \n".
-					    "function onYouTubeIframeAPIReady(event) { \n".
+					    "var player;\n".
+					    "function onYouTubeIframeAPIReady_LoadPlayer() { \n".
 					    "	player = new YT.Player('".$video_id."', { \n".
+					    "	width: '', \n".
+					    "	height: '', \n".
 					    "	videoId: '', \n".
 					    "	playerVars: { \n".
 					    "		'autoplay': 0, \n".
@@ -66,6 +82,7 @@ function add_vimeo_script(){
 					    "		'onStateChange': onPlayerStateChange \n".
 					    "		} \n".
 					    "	}); \n".
+					    "	console.log(player); \n".
 					    "}\n".
 					    "	var pauseFlag = false; \n".
 					    "function onPlayerReady(event) { \n".
@@ -81,25 +98,30 @@ function add_vimeo_script(){
 					    "	videoId = String(videoId); \n".
 					    "	// track when user clicks to Play \n".
 					    "	if (event.data == YT.PlayerState.PLAYING) { \n".
-					    "		console.log('playing'); \n".
-					    "		ga('send','event','Story Video: ".$post->post_title."', 'Play', videoId);\n".
+					    "		ga('send', 'event', 'video', 'Play', 'Story Video: ".$post->post_title." (' + videoId + ')' );\n".
+					    "		console.log(ga); \n".
 					    "		pauseFlag = true; \n".
 					    "	}\n".
 					    "	// track when user clicks to Pause \n".
 					    "	if (event.data == YT.PlayerState.PAUSED && pauseFlag) { \n".
-					    "		ga('send','event','Story Video: ".$post->post_title."', 'Pause', videoId); \n".
+					    "		ga('send',  'event', 'video', 'Pause', 'Story Video: ".$post->post_title." (' + videoId + ')'  ); \n".
 					    "		pauseFlag = false; \n ".
 					    "	} \n".
 					    "	// track when video ends \n".
 					    "	if (event.data == YT.PlayerState.ENDED) { \n".
-					    "		ga('send', 'event','Story Video: ".$post->post_title."', 'Finished', videoId); \n".
+					    "		ga('send', 'event', 'video', 'Finished', 'Story Video: ".$post->post_title." (' + videoId + ')' ); \n".
 					    "	}\n".
 					    "} \n";
 
 		    $tracking_script .= "</script>";
+		    $tracking_script .= "<script>\n ".
+					    "jQuery(document).ready(function(e) { \n".
+					    "	loadPlayer(); \n ".
+					    "}); \n ".
+					    "</script>";
 		    echo $tracking_script;
 		    $origin = get_site_url();
-		    $video_url = "//www.youtube.com/embed/".$video_id."?enablejsapi=1&origin=".$origin;
+		    $video_url = "https://www.youtube.com/embed/".$video_id."?enablejsapi=1&#038;origin=".$origin;
 		}
 		elseif ($story_video_host==2) {
 		    add_action('wp_footer','add_vimeo_script');

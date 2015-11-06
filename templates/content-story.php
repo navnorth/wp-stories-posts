@@ -98,18 +98,18 @@ function add_vimeo_script(){
 					    "	videoId = String(videoId); \n".
 					    "	// track when user clicks to Play \n".
 					    "	if (event.data == YT.PlayerState.PLAYING) { \n".
-					    "		ga('send', 'event', 'video', 'Play', 'Story Video: ".$post->post_title." (' + videoId + ')' );\n".
+					    "		ga('send', 'event', 'Story Video: " . $post->post_title . "', 'Play', videoId );\n".
 					    "		console.log(ga); \n".
 					    "		pauseFlag = true; \n".
 					    "	}\n".
 					    "	// track when user clicks to Pause \n".
 					    "	if (event.data == YT.PlayerState.PAUSED && pauseFlag) { \n".
-					    "		ga('send',  'event', 'video', 'Pause', 'Story Video: ".$post->post_title." (' + videoId + ')'  ); \n".
+					    "		ga('send',  'event', 'Story Video: " . $post->post_title . "', 'Pause', videoId ); \n".
 					    "		pauseFlag = false; \n ".
 					    "	} \n".
 					    "	// track when video ends \n".
 					    "	if (event.data == YT.PlayerState.ENDED) { \n".
-					    "		ga('send', 'event', 'video', 'Finished', 'Story Video: ".$post->post_title." (' + videoId + ')' ); \n".
+					    "		ga('send', 'event', 'Story Video: " . $post->post_title . "', 'Finished', videoId  ); \n".
 					    "	}\n".
 					    "} \n";
 

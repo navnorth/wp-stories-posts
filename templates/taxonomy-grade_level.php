@@ -16,7 +16,6 @@ get_header(); ?>
 	if(!empty($postids))
 	{
 		$postids = array_keys($postids);
-		print_r($postids);
 	}
 
 	$args = array('orderby' => 'term_order','order' => 'ASC','hide_empty' => true);
@@ -38,6 +37,7 @@ get_header(); ?>
 						$args = array('post_type' => 'stories','post__in' => $postids, 'posts_per_page' => -1, 'tax_query' => array($searcharr));
 						$query = new WP_Query( $args );
 						$pageposts = $wpdb->get_results($query->request, OBJECT_K);
+						print_r($pageposts);
 					}
 
 					if(isset($pageposts) && !empty($pageposts))

@@ -288,7 +288,7 @@ function get_storiesmap($pageposts=NULL)
 		$postid = trim($postid, ",");
 		$sql = "select * from $table_name where postid IN ($postid)";
 		$stories = $wpdb->get_results($sql);
-		
+		print_r($stories);
 	}
 	?>
 	<link rel="stylesheet" type="text/css" href="<?php echo SCP_URL ; ?>css/demo.css" />
@@ -335,7 +335,7 @@ function get_storiesmap($pageposts=NULL)
 										}
 									}
 									if ($story_status == 'publish')
-										echo "['<div class=info tabindex=0><h4><a href=$link>$title</a></h4><div class=popupcntnr><img src=$image alt=\"Story Thumbnail\"><div class=subinfo><p><b>$district</b>, <b>$stateurl</b></div></p>$content</div></div>', $latitude, $longitude, '$title'],";
+										echo "['<div class=info tabindex=0><h4><a href=$link>$title</a></h4><div class=popupcntnr><img src=$image alt=\"Story Thumbnail\"><div class=subinfo><p><b>$district</b>, <b>$stateurl</b></div></p>$content</div></div>', $latitude, $longitude, '$title - $story->postid'],";
 								}
 							}
 							else

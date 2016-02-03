@@ -310,6 +310,8 @@ function get_storiesmap($pageposts=NULL)
 							{
 								foreach ($stories as $story)
 								{
+									$story_status = get_post_status($story->postid);
+									$fake_status = get_post_status(30000);
 									$id = $story->id;
 									$title = $story->title;
 									$latitude = $story->latitude;
@@ -333,7 +335,7 @@ function get_storiesmap($pageposts=NULL)
                                             $stateurl = $state->name;
 										}
 									}
-									echo "['<div class=info tabindex=0><h4><a href=$link>$title</a></h4><div class=popupcntnr><img src=$image alt=\"Story Thumbnail\"><div class=subinfo><p><b>$district</b>, <b>$stateurl</b></div></p>$content</div></div>', $latitude, $longitude, '$title - $story->postid'],";
+									echo "['<div class=info tabindex=0><h4><a href=$link>$title</a></h4><div class=popupcntnr><img src=$image alt=\"Story Thumbnail\"><div class=subinfo><p><b>$district</b>, <b>$stateurl</b></div></p>$content</div></div>', $latitude, $longitude, '$title - $story_status - $fake_status'],";
 								}
 							}
 							else

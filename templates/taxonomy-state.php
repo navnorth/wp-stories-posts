@@ -34,7 +34,7 @@ get_header(); ?>
 
 					if(!empty($searcharr))
 					{
-						$args = array('post_type' => 'stories','post__in' => $postids, 'tax_query' => array($searcharr));
+						$args = array('post_type' => 'stories','post__in' => $postids, 'posts_per_page' => -1, 'tax_query' => array($searcharr));
 						$query = new WP_Query( $args );
 						$pageposts = $wpdb->get_results($query->request, OBJECT_K);
 					}

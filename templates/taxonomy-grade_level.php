@@ -170,16 +170,9 @@ get_header(); ?>
                             </div>
                         </header>
 						<?php
-						extract($_REQUEST);
-						$searcharr = array();
-						if(!empty($story_taxonomy))
-						{	
-							$searcharr = array('taxonomy' => $story_taxonomy, 'field' => 'slug', 'terms' => $term);
-						}
-						if(!empty($searcharr))
-						{
-							$args = array('post_type' => 'stories', 'posts_per_page' => -1, 'tax_query' => array($searcharr));
-						}
+						
+						$args = array('post_type' => 'stories', 'post__in' => $postids, 'posts_per_page' => -1, 'tax_query' => array($searcharr));
+						
 						$postquery = new WP_Query( $args );
 						while ( $postquery->have_posts() ) : $postquery->the_post(); ?>
 							<?php get_story_template_part( 'content', 'substory' ); ?>

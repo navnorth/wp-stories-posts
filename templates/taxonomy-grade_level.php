@@ -37,7 +37,6 @@ get_header(); ?>
 						$args = array('post_type' => 'stories','post__in' => $postids, 'posts_per_page' => -1, 'tax_query' => array($searcharr));
 						$query = new WP_Query( $args );
 						$pageposts = $wpdb->get_results($query->request, OBJECT_K);
-						var_dump($pageposts);
 					}
 
 					if(isset($pageposts) && !empty($pageposts))
@@ -78,6 +77,7 @@ get_header(); ?>
                             </header>
 
                             <?php
+				var_dump($pageposts);
                                 foreach($pageposts as $key => $data )
                                 {
                                     $post = get_post($key);

@@ -309,8 +309,6 @@ function get_storiesmap($pageposts=NULL)
 							{
 								foreach ($stories as $story)
 								{
-									$spost = get_post_status($story->id);
-									print_r($spost);
 									$id = $story->id;
 									$title = $story->title;
 									$latitude = $story->latitude;

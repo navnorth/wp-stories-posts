@@ -286,8 +286,9 @@ function get_storiesmap($pageposts=NULL)
 			$postid .= $ids.",";
 		}
 		$postid = trim($postid, ",");
-		print_r($postid);
-		$stories = $wpdb->get_results("select * from $table_name where postid IN ($postid)");
+		$sql = "select * from $table_name where postid IN ($postid)";
+		print_r($sql);
+		$stories = $wpdb->get_results($sql);
 		
 	}
 	?>

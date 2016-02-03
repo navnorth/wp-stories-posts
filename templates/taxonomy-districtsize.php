@@ -16,7 +16,6 @@ get_header(); ?>
 	if(!empty($postids))
 	{
 		$postids = array_keys($postids);
-		print_r($postids);
 	}
 
 	$args = array('orderby' => 'term_order','order' => 'ASC','hide_empty' => true);

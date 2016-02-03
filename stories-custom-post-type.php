@@ -333,7 +333,7 @@ function get_storiesmap($pageposts=NULL)
                                             $stateurl = $state->name;
 										}
 									}
-									echo "['<div class=info tabindex=0><h4><a href=$link>$title</a></h4><div class=popupcntnr><img src=$image alt=\"Story Thumbnail\"><div class=subinfo><p><b>$district</b>, <b>$stateurl</b></div></p>$content</div></div>', $latitude, $longitude, '$title - $id'],";
+									echo "['<div class=info tabindex=0><h4><a href=$link>$title</a></h4><div class=popupcntnr><img src=$image alt=\"Story Thumbnail\"><div class=subinfo><p><b>$district</b>, <b>$stateurl</b></div></p>$content</div></div>', $latitude, $longitude, '$title - $story->postid'],";
 								}
 							}
 							else

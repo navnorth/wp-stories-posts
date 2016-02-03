@@ -336,7 +336,7 @@ function get_storiesmap($pageposts=NULL)
 							}
 							else
 							{
-								echo "<h3 align='center'><font color='#ff0000'>No Content Found</font></h3>";
+								echo "['<h3 align='center'><font color='#ff0000'>No Content Found</font></h3>']";
 							}
                         ?>];
 

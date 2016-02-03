@@ -171,7 +171,7 @@ get_header(); ?>
                         </header>
 						<?php
 						
-						$args = array('post_type' => 'stories', 'post__in' => $postids, 'posts_per_page' => -1, 'tax_query' => array($searcharr));
+						$args = array('post_type' => 'stories', 'post__in' => $postids, 'posts_per_page' => -1);
 						
 						$postquery = new WP_Query( $args );
 						while ( $postquery->have_posts() ) : $postquery->the_post(); ?>

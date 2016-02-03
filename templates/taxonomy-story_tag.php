@@ -169,7 +169,12 @@ get_header(); ?>
                                 </form>
                             </div>
                         </header>
-						<?php while ( have_posts() ) : the_post(); ?>
+						<?php
+						//Change query to show all
+						$args = array('post_type' => 'stories', 'post__in' => $postids, 'posts_per_page' => -1);
+						
+						$postquery = new WP_Query( $args );
+						while ( $postquery->have_posts() ) : $postquery->the_post(); ?>
 							<?php get_story_template_part( 'content', 'substory' ); ?>
 						<?php endwhile; // end of the loop. ?>
 					</div>

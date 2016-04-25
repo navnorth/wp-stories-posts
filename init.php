@@ -168,8 +168,8 @@ add_action('save_post', 'save_askquestion_metabox');
 function save_askquestion_metabox()
 {
 	global $post;
-
-	if(isset($_POST['story_video']) && !empty($_POST['story_video']))
+	
+	if(isset($_POST['story_video']))
 	{
 		update_post_meta($post->ID, "story_video", $_POST['story_video']);
 	}

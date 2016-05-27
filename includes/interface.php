@@ -14,13 +14,13 @@ function ordersmenu()
 	?>
 	<div class="wrap">
 		<div class="icon32" id="icon-edit"><br></div>
-		<h2><?php _e( "Taxonomy Order", 'tto' ) ?></h2>
+		<h2><?php _e( "Taxonomy Order", 'nn-story-custom-post-type' ) ?></h2>
 
 		<div id="ajax-response"></div>
 
 		<noscript>
 			<div class="error message">
-				<p><?php _e( "This plugin requires JavaScript in order to function. Please enable JavaScript in your browser to continue.", 'tto' ) ?></p>
+				<p><?php _e( "This plugin requires JavaScript in order to function. Please enable JavaScript in your browser to continue.", 'nn-story-custom-post-type' ) ?></p>
 			</div>
 		</noscript>
 
@@ -54,13 +54,13 @@ function ordersmenu()
 			if (count($post_type_taxonomies) > 1)
 			{
 				?>
-				<h2 class="subtitle"><?php echo ucfirst($post_type_data->labels->name) ?> <?php _e( "Taxonomies", 'scp' ) ?></h2>
+				<h2 class="subtitle"><?php echo ucfirst($post_type_data->labels->name) ?> <?php _e( "Taxonomies", 'nn-story-custom-post-type' ) ?></h2>
 				<table cellspacing="0" class="wp-list-taxonomy">
 					<thead>
 						<tr>
 							<th style="" class="column-cb check-column" id="cb" scope="col">&nbsp;</th>
-							<th style="" class="" id="author" scope="col"><?php _e( "Taxonomy Title", 'scp' ) ?></th>
-							<th style="" class="manage-column" id="categories" scope="col"><?php _e( "Total  Posts", 'scp' ) ?></th>
+							<th style="" class="" id="author" scope="col"><?php _e( "Taxonomy Title", 'nn-story-custom-post-type' ) ?></th>
+							<th style="" class="manage-column" id="categories" scope="col"><?php _e( "Total Posts", 'nn-story-custom-post-type' ) ?></th>
 						</tr>
 					</thead>
 
@@ -107,7 +107,7 @@ function ordersmenu()
 			</div>
 			<div class="alignleft actions">
 				<p class="submit">
-					<a href="javascript:;" class="save-order button-primary"><?php _e( "Update", 'tto' ) ?></a>
+					<a href="javascript:;" class="save-order button-primary"><?php _e( "Update", 'nn-story-custom-post-type' ) ?></a>
 				</p>
 			</div>
 		</div>
@@ -153,7 +153,7 @@ function ordersmenu()
                     var serialize_data = serialize(mySortable);
 
                     jQuery.post( ajaxurl, { action:'update-taxonomy-order', order: serialize_data, taxonomy : '<?php echo  $taxonomy ?>' }, function() {
-                        jQuery("#ajax-response").html('<div class="message updated fade"><p><?php _e( "Items Order Updates", 'tto' ) ?></p></div>');
+                        jQuery("#ajax-response").html('<div class="message updated fade"><p><?php _e( "Items Order Updates", 'nn-story-custom-post-type' ) ?></p></div>');
                         jQuery("#ajax-response div").delay(3000).hide("slow");
                     });
                 });

@@ -6,6 +6,7 @@
  Version: 0.2.8
  Author: Navigation North
  Author URI: http://www.navigationnorth.com
+ Text Domain: nn-story-custom-post-type
 
  Copyright (C) 2015 Navigation North
 
@@ -79,6 +80,12 @@ function create_installation_table()
 	update_option('scp_options', $options);
 }
 register_activation_hook(__FILE__, 'create_installation_table');
+
+//Load localization directory
+add_action('plugins_loaded', 'load_story_textdomain');
+function load_story_textdomain() {
+	load_plugin_textdomain( 'nn-story-custom-post-type', false, dirname( plugin_basename(__FILE__) ) . '/lang/' );
+}
 
 //scripts and styles on backend
 add_action('admin_enqueue_scripts', 'scp_backside_scripts');

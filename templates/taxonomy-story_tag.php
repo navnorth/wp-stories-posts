@@ -126,7 +126,7 @@ get_header(); ?>
                                 </div>
                             </header>
                             <div class="col-md-12 pblctn_paramtr padding_left">
-                                <?php _e( 'Sorry, but nothing matched your search criteria. Please try again with some different keywords.' ); ?>
+                                <?php _e( 'Sorry, but nothing matched your search criteria. Please try again with some different keywords.', 'nn-story-custom-post-type' ); ?>
                             </div>
                         </div>
                         <?php

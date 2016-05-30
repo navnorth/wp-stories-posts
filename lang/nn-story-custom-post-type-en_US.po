@@ -79,3 +79,51 @@ msgstr ""
 #: ../templates/archive-stories.php:276
 msgid "Read More"
 msgstr ""
+
+#: ../templates/content-story.php:20
+msgid "Back to Stories"
+msgstr ""
+
+#: ../templates/content-story.php:24
+msgid "Back to Results"
+msgstr ""
+
+#: ../templates/content-story.php:137
+msgid "Share this story"
+msgstr ""
+
+#: ../templates/content-story.php:215
+msgid "Story Snapshot"
+msgstr ""
+
+#: ../templates/content-story.php:218
+msgid "School :"
+msgstr ""
+
+#: ../templates/content-story.php:228
+msgid "District :"
+msgstr ""
+
+#: ../templates/content-story.php:233
+msgid "State :"
+msgstr ""
+
+#: ../templates/content-story.php:238
+msgid "Grade :"
+msgstr ""
+
+#: ../templates/content-story.php:243
+msgid "Community Type :"
+msgstr ""
+
+#: ../templates/content-story.php:248
+msgid "Program :"
+msgstr ""
+
+#: ../templates/content-story.php:253
+msgid "Related Tags :"
+msgstr ""
+
+#: ../templates/content-story.php:282
+msgid "Related Stories"
+msgstr ""

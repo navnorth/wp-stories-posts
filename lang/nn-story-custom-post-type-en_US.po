@@ -51,3 +51,15 @@ msgstr ""
 #: ../templates/taxonomy-story_tag.php:129
 msgid "Sorry, but nothing matched your search criteria. Please try again with some different keywords."
 msgstr ""
+
+#: ../templates/archive-404.php:37
+msgid "Nothing Found"
+msgstr ""
+
+#: ../templates/archive-404.php:43
+msgid "Select Topics"
+msgstr ""
+
+#: ../templates/archive-404.php:43
+msgid "Apologies, but no results were found. Perhaps searching will help find a related post."
+msgstr ""

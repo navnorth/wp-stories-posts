@@ -34,13 +34,13 @@ get_header(); ?>
 
             <header class="tax-header">
                 <h1 class="tax-title">
-                	Nothing Found
+                	<?php _e( "Nothing Found", "nn-story-custom-post-type" ) ?>
                 </h1>
                 <div class="topics-search-box">
                     	<form method="get" action="<?php echo site_url();?>/stories">
                             <input type="hidden" name="action" value="search" />
                             <select name="story_tag" onchange="formsubmit(this);">
-                                <option value="">Select Topics</option>
+                                <option value=""><?php _e( "Select Topics", "nn-story-custom-post-type" ); ?></option>
                                 <?php
                                     foreach($tags as $tag)
                                     {
@@ -53,7 +53,7 @@ get_header(); ?>
                 </div>
             </header>
             <div class="entry-content">
-                <p>Apologies, but no results were found. Perhaps searching will help find a related post.</p>
+                <p><?php _e( "Apologies, but no results were found. Perhaps searching will help find a related post.", "nn-story-custom-post-type" ); ?></p>
            	</div>
 
         </div>

@@ -43,10 +43,11 @@ msgstr ""
 msgid "Items Order Updates"
 msgstr ""
 
-#: ../templates/taxonomy_characteristics.php:129
-msgid "Sorry, but nothing matched your search criteria. Please try again with some different keywords."
-msgstr ""
-
-#: ../templates/taxonomy_districtsize.php:129
+#: ../templates/taxonomy-characteristics.php:129
+#: ../templates/taxonomy-districtsize.php:129
+#: ../templates/taxonomy-grade_level.php:129
+#: ../templates/taxonomy-program.php:129
+#: ../templates/taxonomy-state.php:129
+#: ../templates/taxonomy-story_tag.php:129
 msgid "Sorry, but nothing matched your search criteria. Please try again with some different keywords."
 msgstr ""

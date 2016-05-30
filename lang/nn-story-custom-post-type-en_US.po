@@ -127,3 +127,7 @@ msgstr ""
 #: ../templates/content-story.php:282
 msgid "Related Stories"
 msgstr ""
+
+#: ../templates/content-substory.php:94
+msgid "Topic"
+msgstr ""

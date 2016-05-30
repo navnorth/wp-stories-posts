@@ -91,7 +91,7 @@
 		$topics = get_the_terms( $post->ID , 'story_tag' );
 		if(isset($topics) && !empty($topics))
 		{
-			$postedin = '<strong>Topic';
+			$postedin = '<strong>'.__( 'Topic' , 'nn-story-custom-post-type' );
             if (count($topics) > 1) $postedin .= 's';
             $postedin .= ':</strong> ';
 

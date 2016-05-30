@@ -34,13 +34,13 @@ get_header(); ?>
 
                             <header class="tax-header">
                                 <h1 class="tax-title">
-                                     <?php printf( __( 'Results: %s', 'twentytwelve' ), '<i>All Stories</i> <span>(' .count($post_ids).' '.story_plural(count($post_ids)).')</span>' );?>
+                                     <?php printf( __( 'Results: %s', 'nn-story-custom-post-type' ), '<i>All Stories</i> <span>(' .count($post_ids).' '.story_plural(count($post_ids)).')</span>' );?>
                                 </h1>
                                 <div class="topics-search-box">
                                     <form method="get">
                                         <input type="hidden" name="action" value="showall" />
                                         <select name="term" id="showalltopic">
-                                            <option value="">Filter by Topic</option>
+                                            <option value=""><?php _e( "Filter by Topic", "nn-story-custom-post-type" ); ?></option>
                                             <?php
                                                 foreach($tags as $tag)
                                                 {
@@ -247,7 +247,7 @@ get_header(); ?>
                                                     ?>
                                                 </div>
                                                 <div class="slidercontentnrwrpr">
-                                                	<div class="sldr_top_hdng"> Featured Story: </div>
+                                                	<div class="sldr_top_hdng"> <?php _e( "Featured Story:", "nn-story-custom-post-type" ); ?> </div>
                                                     <h3>
                                                     	<a href="<?php echo get_the_permalink($post->ID); ?>">
 															<?php echo get_the_title($post->ID); ?>
@@ -273,7 +273,7 @@ get_header(); ?>
                                                     </p>
                                                 </div>
                                                 <div class="sldr_readmr_btn">
-                                                	<a href="<?php echo get_permalink($post->ID);?>">Read More</a>
+                                                	<a href="<?php echo get_permalink($post->ID);?>"><?php _e( "Read More" , "nn-story-custom-post-type" ); ?></a>
                                                 </div>
                                             </div>
                                         </li>

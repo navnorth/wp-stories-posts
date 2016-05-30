@@ -65,10 +65,16 @@ msgid "Apologies, but no results were found. Perhaps searching will help find a 
 msgstr ""
 
 #: ../templates/archive-stories.php:37
+#: ../templates/taxonomy-characteristics.php:53
+#: ../templates/taxonomy-characteristics.php:103
+#: ../templates/taxonomy-characteristics.php:147
 msgid "Results: %s"
 msgstr ""
 
 #: ../templates/archive-stories.php:43
+#: ../templates/taxonomy-characteristics.php:60
+#: ../templates/taxonomy-characteristics.php:110
+#: ../templates/taxonomy-characteristics.php:154
 msgid "Filter by Topic"
 msgstr ""
 

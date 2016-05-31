@@ -71,6 +71,9 @@ msgstr ""
 #: ../templates/taxonomy-districtsize.php:53
 #: ../templates/taxonomy-districtsize.php:103
 #: ../templates/taxonomy-districtsize.php:147
+#: ../templates/taxonomy-grade_level.php:53
+#: ../templates/taxonomy-grade_level.php:103
+#: ../templates/taxonomy-grade_level.php:147
 msgid "Results: %s"
 msgstr ""
 
@@ -81,6 +84,9 @@ msgstr ""
 #: ../templates/taxonomy-districtsize.php:60
 #: ../templates/taxonomy-districtsize.php:110
 #: ../templates/taxonomy-districtsize.php:154
+#: ../templates/taxonomy-grade_level.php:60
+#: ../templates/taxonomy-grade_level.php:110
+#: ../templates/taxonomy-grade_level.php:154
 msgid "Filter by Topic"
 msgstr ""
 

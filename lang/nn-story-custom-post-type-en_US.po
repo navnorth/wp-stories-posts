@@ -68,6 +68,9 @@ msgstr ""
 #: ../templates/taxonomy-characteristics.php:53
 #: ../templates/taxonomy-characteristics.php:103
 #: ../templates/taxonomy-characteristics.php:147
+#: ../templates/taxonomy-districtsize.php:53
+#: ../templates/taxonomy-districtsize.php:103
+#: ../templates/taxonomy-districtsize.php:147
 msgid "Results: %s"
 msgstr ""
 
@@ -75,6 +78,9 @@ msgstr ""
 #: ../templates/taxonomy-characteristics.php:60
 #: ../templates/taxonomy-characteristics.php:110
 #: ../templates/taxonomy-characteristics.php:154
+#: ../templates/taxonomy-districtsize.php:60
+#: ../templates/taxonomy-districtsize.php:110
+#: ../templates/taxonomy-districtsize.php:154
 msgid "Filter by Topic"
 msgstr ""
 

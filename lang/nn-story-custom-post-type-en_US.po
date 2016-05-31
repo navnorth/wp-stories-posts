@@ -77,6 +77,9 @@ msgstr ""
 #: ../templates/taxonomy-program.php:53
 #: ../templates/taxonomy-program.php:103
 #: ../templates/taxonomy-program.php:147
+#: ../templates/taxonomy-state.php:53
+#: ../templates/taxonomy-state.php:103
+#: ../templates/taxonomy-state.php:147
 msgid "Results: %s"
 msgstr ""
 
@@ -93,6 +96,9 @@ msgstr ""
 #: ../templates/taxonomy-program.php:60
 #: ../templates/taxonomy-program.php:110
 #: ../templates/taxonomy-program.php:154
+#: ../templates/taxonomy-state.php:60
+#: ../templates/taxonomy-state.php:110
+#: ../templates/taxonomy-state.php:154
 msgid "Filter by Topic"
 msgstr ""
 

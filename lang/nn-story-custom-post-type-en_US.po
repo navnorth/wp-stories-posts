@@ -74,6 +74,9 @@ msgstr ""
 #: ../templates/taxonomy-grade_level.php:53
 #: ../templates/taxonomy-grade_level.php:103
 #: ../templates/taxonomy-grade_level.php:147
+#: ../templates/taxonomy-program.php:53
+#: ../templates/taxonomy-program.php:103
+#: ../templates/taxonomy-program.php:147
 msgid "Results: %s"
 msgstr ""
 
@@ -87,6 +90,9 @@ msgstr ""
 #: ../templates/taxonomy-grade_level.php:60
 #: ../templates/taxonomy-grade_level.php:110
 #: ../templates/taxonomy-grade_level.php:154
+#: ../templates/taxonomy-program.php:60
+#: ../templates/taxonomy-program.php:110
+#: ../templates/taxonomy-program.php:154
 msgid "Filter by Topic"
 msgstr ""
 

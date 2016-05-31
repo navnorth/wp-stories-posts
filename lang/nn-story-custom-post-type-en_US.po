@@ -80,6 +80,9 @@ msgstr ""
 #: ../templates/taxonomy-state.php:53
 #: ../templates/taxonomy-state.php:103
 #: ../templates/taxonomy-state.php:147
+#: ../templates/taxonomy-story_tag.php:53
+#: ../templates/taxonomy-story_tag.php:103
+#: ../templates/taxonomy-story_tag.php:147
 msgid "Results: %s"
 msgstr ""
 
@@ -99,6 +102,9 @@ msgstr ""
 #: ../templates/taxonomy-state.php:60
 #: ../templates/taxonomy-state.php:110
 #: ../templates/taxonomy-state.php:154
+#: ../templates/taxonomy-story_tag.php:60
+#: ../templates/taxonomy-story_tag.php:110
+#: ../templates/taxonomy-story_tag.php:154
 msgid "Filter by Topic"
 msgstr ""
 

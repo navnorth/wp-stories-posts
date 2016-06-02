@@ -34,6 +34,7 @@ define( 'SCP_URL', plugin_dir_url(__FILE__) );
 define( 'SCP_PATH', plugin_dir_path(__FILE__) );
 define( 'SCP_SLUG','story-custom-posttype' );
 define( 'SCP_FILE',__FILE__);
+define( 'SCP_VERSION' , '0.2.8');
 
 include_once(SCP_PATH.'init.php');
 
@@ -84,7 +85,7 @@ register_activation_hook(__FILE__, 'create_installation_table');
 //Load localization directory
 add_action('plugins_loaded', 'load_story_textdomain');
 function load_story_textdomain() {
-	load_plugin_textdomain( 'nn-story-custom-post-type', false, dirname( plugin_basename(__FILE__) ) . '/lang/' );
+	load_plugin_textdomain( 'story-custom-posttype', false, dirname( plugin_basename(__FILE__) ) . '/lang/' );
 }
 
 //scripts and styles on backend
@@ -146,9 +147,9 @@ function taxonomy_order()
 			continue;
 
 		if ($post_type == 'post')
-			add_submenu_page('edit.php', __('Taxonomy Order', 'scp'), __('Taxonomy Order', 'scp'), 'level_'.$options['level'], 'ordersmenu-'.$post_type, 'ordersmenu' );
+			add_submenu_page('edit.php', __('Taxonomy Order', SCP_SLUG), __('Taxonomy Order', SCP_SLUG), 'level_'.$options['level'], 'ordersmenu-'.$post_type, 'ordersmenu' );
 		else
-			add_submenu_page('edit.php?post_type='.$post_type, __('Taxonomy Order', 'scp'), __('Taxonomy Order', 'scp'), 'level_'.$options['level'], 'ordersmenu-'.$post_type, 'ordersmenu' );
+			add_submenu_page('edit.php?post_type='.$post_type, __('Taxonomy Order', SCP_SLUG), __('Taxonomy Order', SCP_SLUG), 'level_'.$options['level'], 'ordersmenu-'.$post_type, 'ordersmenu' );
 	}
 }
 
@@ -464,5 +465,20 @@ function tips_function($attr, $content=NULL)
 					'.$content.'
 			   </div>';
 	return $return;
+}
+
+/**
+ * Add Settings Submenu
+ **/
+add_action( 'admin_menu' , 'story_settings_menu', 100 );
+function story_settings_menu() {
+	add_submenu_page(
+			 'edit.php?post_type=stories',
+			 __( 'Stories Custom Post Type Settings' , SCP_SLUG ),
+			 __( 'Settings' , SCP_SLUG ),
+			 'manage_options',
+			 'stories-settings-page',
+			 'show_settings_page'
+			 );
 }
 ?>

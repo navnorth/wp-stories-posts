@@ -50,14 +50,14 @@ get_header(); ?>
                             </div>
                             <header class="tax-header">
                                 <h1 class="tax-title">
-                                     <?php printf( __( 'Results: %s', 'nn-story-custom-post-type' ), '<i>'.$termobject->name.'</i> <span>(' .count($pageposts).' '.story_plural(count($pageposts)).')</span>' );?>
+                                     <?php printf( __( 'Results: %s', SCP_SLUG ), '<i>'.$termobject->name.'</i> <span>(' .count($pageposts).' '.story_plural(count($pageposts)).')</span>' );?>
                                 </h1>
                                 <div class="topics-search-box">
                                     <form method="get">
                                         <input type="hidden" name="action" value="search" />
                                         <input type="hidden" name="story_taxonomy" value="story_tag" />
                                         <select name="term" onchange="formsubmit(this);">
-                                            <option value=""><?php _e( 'Filter by Topic' , 'nn-story-custom-post-type' ); ?></option>
+                                            <option value=""><?php _e( 'Filter by Topic' , SCP_SLUG ); ?></option>
                                             <?php
 												foreach($tags as $tag)
 												{
@@ -100,14 +100,14 @@ get_header(); ?>
                             </div>
                             <header class="tax-header">
                                 <h1 class="tax-title">
-                                     <?php printf( __( 'Results: %s', 'nn-story-custom-post-type' ), '<i>'.$termobject->name.'</i> <span>(' .count($postids).' '.story_plural(count($postids)).')</span>' );?>
+                                     <?php printf( __( 'Results: %s', SCP_SLUG ), '<i>'.$termobject->name.'</i> <span>(' .count($postids).' '.story_plural(count($postids)).')</span>' );?>
                                 </h1>
                                 <div class="topics-search-box">
                                     <form method="get">
                                         <input type="hidden" name="action" value="search" />
                                         <input type="hidden" name="story_taxonomy" value="story_tag" />
                                         <select name="term" onchange="formsubmit(this);">
-                                            <option value=""><?php _e( 'Filter by Topic' , 'nn-story-custom-post-type' ); ?></option>
+                                            <option value=""><?php _e( 'Filter by Topic' , SCP_SLUG ); ?></option>
                                             <?php
 												foreach($tags as $tag)
 												{
@@ -126,7 +126,7 @@ get_header(); ?>
                                 </div>
                             </header>
                             <div class="col-md-12 pblctn_paramtr padding_left">
-                                <?php _e( 'Sorry, but nothing matched your search criteria. Please try again with some different keywords.', 'nn-story-custom-post-type' ); ?>
+                                <?php _e( 'Sorry, but nothing matched your search criteria. Please try again with some different keywords.', SCP_SLUG ); ?>
                             </div>
                         </div>
                         <?php
@@ -144,14 +144,14 @@ get_header(); ?>
 						</div>
                         <header class="tax-header">
                             <h1 class="tax-title">
-                                 <?php printf( __( 'Results: %s', 'nn-story-custom-post-type' ), '<i>'.$termobject->name.'</i> <span>(' .count($postids).' '.story_plural(count($postids)).')</span>' );?>
+                                 <?php printf( __( 'Results: %s', SCP_SLUG ), '<i>'.$termobject->name.'</i> <span>(' .count($postids).' '.story_plural(count($postids)).')</span>' );?>
                             </h1>
                             <div class="topics-search-box">
                                 <form method="get">
                                     <input type="hidden" name="action" value="search" />
                                     <input type="hidden" name="story_taxonomy" value="story_tag" />
                                     <select name="term" onchange="formsubmit(this);">
-                                        <option value=""><?php _e( 'Filter by Topic' , 'nn-story-custom-post-type' ); ?></option>
+                                        <option value=""><?php _e( 'Filter by Topic' , SCP_SLUG ); ?></option>
                                         <?php
                                             foreach($tags as $tag)
                                             {

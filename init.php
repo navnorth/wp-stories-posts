@@ -6,7 +6,7 @@ add_action( 'init', 'create_managment_taxonomies');
 function create_managment_taxonomies()
 {
 	$args = array(
-		'labels'             => array('name' =>  _x( 'Stories', 'post type general name', 'nn-story-custom-post-type' )),
+		'labels'             => array('name' =>  _x( 'Stories', 'post type general name', SCP_SLUG )),
 		'public'             => true,
 		'publicly_queryable' => true,
 		'show_ui'            => true,

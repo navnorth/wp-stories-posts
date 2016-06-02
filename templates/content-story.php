@@ -17,11 +17,11 @@ function add_vimeo_script(){
     <div>
         <?php
         $back_link_URL = site_url().'/stories/';
-        $back_link_text = __( 'Back to Stories', 'nn-story-custom-post-type' );
+        $back_link_text = __( 'Back to Stories', SCP_SLUG );
         if (isset($_GET['back']) && !empty($_GET['back']))
         {
             $back_link_URL = esc_html($_GET['back']);
-            $back_link_text = __( 'Back to Results', 'nn-story-custom-post-type' );
+            $back_link_text = __( 'Back to Results', SCP_SLUG );
         }
         ?>
         <div class="col-md-12 col-sm-12 col-xs-12 noborder story_back">
@@ -134,7 +134,7 @@ function add_vimeo_script(){
         <?php endif; ?>
 
         <aside class="story_sharewidget">
-            <p class="rght_sid_wdgt_hedng"><?php _e( 'Share this story' , 'nn-story-custom-post-type' ); ?></p>
+            <p class="rght_sid_wdgt_hedng"><?php _e( 'Share this story' , SCP_SLUG ); ?></p>
            <?php
                 echo '<div class="story_sharewidgeticns">';
                             echo do_shortcode("[ssba]");
@@ -212,10 +212,10 @@ function add_vimeo_script(){
 
         <div class="col-md-12 col-sm-12 col-xs-12">
             <div class="pblctn_box"><span class="socl_icns fa-stack"><i class="fa fa-star "></i></span></div>
-            <p class="rght_sid_wdgt_hedng"><?php _e( 'Story Snapshot' , 'nn-story-custom-post-type'); ?> </p>
+            <p class="rght_sid_wdgt_hedng"><?php _e( 'Story Snapshot' , SCP_SLUG); ?> </p>
             <?php if(isset($story_school) && !empty($story_school)) : ?>
                  <p class="margn_none">
-                     <b><?php _e( 'School :' , 'nn-story-custom-post-type' ); ?></b> <?php echo $story_school; ?>
+                     <b><?php _e( 'School :' , SCP_SLUG ); ?></b> <?php echo $story_school; ?>
                  </p>
             <?php endif; ?>
             <?php //if(isset($story_mapaddress) && !empty($story_mapaddress)) : ?>
@@ -225,32 +225,32 @@ function add_vimeo_script(){
             <?php // endif; ?>
             <?php if(isset($story_district) && !empty($story_district)) : ?>
                  <p class="margn_none">
-                     <b><?php _e( 'District :' , 'nn-story-custom-post-type' ); ?></b> <?php echo $story_district; ?>
+                     <b><?php _e( 'District :' , SCP_SLUG ); ?></b> <?php echo $story_district; ?>
                  </p>
             <?php endif; ?>
             <?php if(isset($stateurl) && !empty($stateurl)) : ?>
                  <p class="margn_none">
-                     <b><?php _e( 'State :' , 'nn-story-custom-post-type' ); ?></b> <?php echo $stateurl; ?>
+                     <b><?php _e( 'State :' , SCP_SLUG ); ?></b> <?php echo $stateurl; ?>
                  </p>
             <?php endif; ?>
             <?php if(isset($gradeurl) && !empty($gradeurl)) : ?>
                  <p class="margn_none">
-                     <b><?php _e( 'Grade :' , 'nn-story-custom-post-type' ); ?></b> <?php echo $gradeurl; ?>
+                     <b><?php _e( 'Grade :' , SCP_SLUG ); ?></b> <?php echo $gradeurl; ?>
                  </p>
             <?php endif; ?>
             <?php if(isset($characteristicurl) && !empty($characteristicurl)) : ?>
                  <p class="margn_none">
-                     <b><?php _e( 'Community Type :' , 'nn-story-custom-post-type' ); ?></b> <?php echo $characteristicurl; ?>
+                     <b><?php _e( 'Community Type :' , SCP_SLUG ); ?></b> <?php echo $characteristicurl; ?>
                  </p>
             <?php endif; ?>
             <?php if(isset($programurl) && !empty($programurl)) : ?>
                  <p class="margn_none">
-                     <b><?php _e( 'Program :' , 'nn-story-custom-post-type' ); ?></b> <?php echo $programurl; ?>
+                     <b><?php _e( 'Program :' , SCP_SLUG ); ?></b> <?php echo $programurl; ?>
                  </p>
             <?php endif; ?>
             <?php if(isset($tagurl) && !empty($tagurl)) : ?>
                  <p class="margn_none">
-                     <b><?php _e( 'Related Tags :' , 'nn-story-custom-post-type' ); ?></b> <?php echo $tagurl; ?>
+                     <b><?php _e( 'Related Tags :' , SCP_SLUG ); ?></b> <?php echo $tagurl; ?>
                  </p>
             <?php endif; ?>
 
@@ -279,7 +279,7 @@ function add_vimeo_script(){
 
             <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="pblctn_box"><span class="socl_icns fa-stack"><i class="fa fa-star "></i></span></div>
-                <p class="rght_sid_wdgt_hedng"><?php _e( 'Related Stories' , 'nn-story-custom-post-type' ); ?></p>
+                <p class="rght_sid_wdgt_hedng"><?php _e( 'Related Stories' , SCP_SLUG ); ?></p>
                 <?php
                     foreach( $stories as $story)
                     {

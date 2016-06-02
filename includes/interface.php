@@ -14,13 +14,13 @@ function ordersmenu()
 	?>
 	<div class="wrap">
 		<div class="icon32" id="icon-edit"><br></div>
-		<h2><?php _e( "Taxonomy Order", 'nn-story-custom-post-type' ) ?></h2>
+		<h2><?php _e( "Taxonomy Order", SCP_SLUG ) ?></h2>
 
 		<div id="ajax-response"></div>
 
 		<noscript>
 			<div class="error message">
-				<p><?php _e( "This plugin requires JavaScript in order to function. Please enable JavaScript in your browser to continue.", 'nn-story-custom-post-type' ) ?></p>
+				<p><?php _e( "This plugin requires JavaScript in order to function. Please enable JavaScript in your browser to continue.", SCP_SLUG ) ?></p>
 			</div>
 		</noscript>
 
@@ -54,13 +54,13 @@ function ordersmenu()
 			if (count($post_type_taxonomies) > 1)
 			{
 				?>
-				<h2 class="subtitle"><?php echo ucfirst($post_type_data->labels->name) ?> <?php _e( "Taxonomies", 'nn-story-custom-post-type' ) ?></h2>
+				<h2 class="subtitle"><?php echo ucfirst($post_type_data->labels->name) ?> <?php _e( "Taxonomies", SCP_SLUG ) ?></h2>
 				<table cellspacing="0" class="wp-list-taxonomy">
 					<thead>
 						<tr>
 							<th style="" class="column-cb check-column" id="cb" scope="col">&nbsp;</th>
-							<th style="" class="" id="author" scope="col"><?php _e( "Taxonomy Title", 'nn-story-custom-post-type' ) ?></th>
-							<th style="" class="manage-column" id="categories" scope="col"><?php _e( "Total Posts", 'nn-story-custom-post-type' ) ?></th>
+							<th style="" class="" id="author" scope="col"><?php _e( "Taxonomy Title", SCP_SLUG ) ?></th>
+							<th style="" class="manage-column" id="categories" scope="col"><?php _e( "Total Posts", SCP_SLUG ) ?></th>
 						</tr>
 					</thead>
 
@@ -107,7 +107,7 @@ function ordersmenu()
 			</div>
 			<div class="alignleft actions">
 				<p class="submit">
-					<a href="javascript:;" class="save-order button-primary"><?php _e( "Update", 'nn-story-custom-post-type' ) ?></a>
+					<a href="javascript:;" class="save-order button-primary"><?php _e( "Update", SCP_SLUG ) ?></a>
 				</p>
 			</div>
 		</div>
@@ -153,7 +153,7 @@ function ordersmenu()
                     var serialize_data = serialize(mySortable);
 
                     jQuery.post( ajaxurl, { action:'update-taxonomy-order', order: serialize_data, taxonomy : '<?php echo  $taxonomy ?>' }, function() {
-                        jQuery("#ajax-response").html('<div class="message updated fade"><p><?php _e( "Items Order Updates", 'nn-story-custom-post-type' ) ?></p></div>');
+                        jQuery("#ajax-response").html('<div class="message updated fade"><p><?php _e( "Items Order Updates", SCP_SLUG ) ?></p></div>');
                         jQuery("#ajax-response div").delay(3000).hide("slow");
                     });
                 });
@@ -187,4 +187,20 @@ function callwalker($taxonomy_terms, $depth, $r)
 	$args = array($taxonomy_terms, $depth, $r);
 	return call_user_func_array(array(&$walker, 'walk'), $args);
 }
+
+// Display settings page
+function show_settings_page(){
+?>
+	<div class="wrap">
+		<div class="icon32" id="icon-edit"><br></div>
+		<h2><?php _e( "Stories Custom Post Type Settings", SCP_SLUG ) ?></h2>
+	</div>
+	<div class="plugin-footer">
+		<div class="plugin-info"><?php echo GAT_PLUGIN_NAME . " " . GAT_PLUGIN_VERSION .""; ?></div>
+		<div class="plugin-link"><a href='<?php echo GAT_PLUGIN_INFO ?>' target='_blank'>More info</a></div>
+		<div class="clear"></div>
+	    </div>
+<?php
+}
+
 ?>

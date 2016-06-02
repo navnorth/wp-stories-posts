@@ -34,7 +34,7 @@ get_header(); ?>
 
                             <header class="tax-header">
                                 <h1 class="tax-title">
-                                     <?php printf( __( 'Results: %s', 'nn-story-custom-post-type' ), '<i>All Stories</i> <span>(' .count($post_ids).' '.story_plural(count($post_ids)).')</span>' );?>
+                                     <?php printf( __( 'Results: %s', SCP_SLUG ), '<i>All Stories</i> <span>(' .count($post_ids).' '.story_plural(count($post_ids)).')</span>' );?>
                                 </h1>
                                 <div class="topics-search-box">
                                     <form method="get">

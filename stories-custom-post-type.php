@@ -40,6 +40,8 @@ define( 'SCP_VERSION' , '0.2.8');
 
 include_once(SCP_PATH.'init.php');
 
+$_bootstrap = get_option('load_bootstrap');
+
 //plugin activation task
 function create_installation_table()
 {
@@ -110,13 +112,22 @@ function scp_backside_scripts()
 add_action('wp_enqueue_scripts', 'scp_frontside_scripts');
 function scp_frontside_scripts()
 {
+	global $_bootstrap;
+	
 	wp_enqueue_style('front-styles', SCP_URL.'css/front_styles.css');
 	wp_enqueue_style('bxslider-styles', SCP_URL.'css/jquery.bxslider.css');
+	
+	if ($_bootstrap) {
+		wp_enqueue_style('bootstrap-style', SCP_URL.'css/bootstrap.min.css');
+	}
 
 	wp_enqueue_script('jquery');
 	wp_enqueue_script('front-scripts', SCP_URL.'js/front_scripts.js');
 	wp_enqueue_script('bxslider-scripts', SCP_URL.'js/jquery.bxslider.min.js');
 
+	if ($_bootstrap) {
+		wp_enqueue_script('bootstrap-script', SCP_URL.'js/bootstrap.min.js');
+	}
 }
 
 add_action('admin_menu', 'taxonomy_order', 99);
@@ -500,11 +511,50 @@ function plugin_add_settings_link( $links ) {
 add_action( 'admin_init' , 'setup_settings_form' );
 function setup_settings_form() {
 	add_settings_section(
-			     'first-section',
+			     'stories-settings-section',
 			     '',
-			     false,
-			     'manage_options'
+			     'first_section_callback',
+			     'stories-settings-page'
 			     );
+	add_settings_field(
+			'load_bootstrap',
+			__( 'Load Bootstrap?' , SCP_SLUG ),
+			'setup_settings_field',
+			'stories-settings-page',
+			'stories-settings-section',
+			array(
+				'uid' => 'load_bootstrap',
+				'type' => 'checkbox',
+				'description' => __('necessary for display if your WP theme does not use bootstrap', SCP_SLUG)
+			)
+			   );
+	register_setting( 'stories-settings-section' , 'load_bootstrap' );
+}
+
+function first_section_callback() {
+	
+}
+
+function setup_settings_field( $arguments ) {
+	$selected = "";
+	
+	$value = get_option($arguments['uid']);
+	
+	if ($value) {
+		$selected = "checked";
+	}
+	
+	echo '<input name="'.$arguments['uid'].'" id="'.$arguments['uid'].'" type="'.$arguments['type'].'" value="1" ' . checked(1,$value, false) . ' />';
+	
+	//Show Helper Text if specified
+	if ($helper = $arguments['helper']) {
+		printf( '<span class="helper"> %s</span>' , $helper );
+	}
+	
+	//Show Description if specified
+	if( $description = $arguments['description'] ){
+		printf( '<p class="description">%s</p>', $description ); 
+	}
 }
 
 ?>

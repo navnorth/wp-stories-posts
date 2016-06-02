@@ -194,10 +194,10 @@ function show_settings_page(){
 	<div class="wrap">
 		<div class="icon32" id="icon-edit"><br></div>
 		<h2><?php _e( "Stories Custom Post Type Settings", SCP_SLUG ) ?></h2>
-		<form action="edit.php?post_type=stories&page=stories-settings-page" method="post" id="stories_settings_form">
+		<form action="options.php" method="post">
 			<?php
-			    settings_fields( 'manage_options' );
-			    do_settings_sections( 'manage_options' );
+			    settings_fields( 'stories-settings-section' );
+			    do_settings_sections( 'stories-settings-page' );
 			    submit_button();
 			?>
 		</form>

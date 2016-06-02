@@ -183,3 +183,11 @@ msgstr ""
 #: ../stories-custom-post-type.php:492
 msgid "Settings"
 msgstr ""
+
+#: ../stories-custom-post-type.php:510
+msgid "Load Bootstrap?"
+msgstr ""
+
+#: ../stories-custom-post-type.php:517
+msgid "necessary for display if your WP theme does not use bootstrap"
+msgstr ""

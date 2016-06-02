@@ -34,6 +34,8 @@ define( 'SCP_URL', plugin_dir_url(__FILE__) );
 define( 'SCP_PATH', plugin_dir_path(__FILE__) );
 define( 'SCP_SLUG','story-custom-posttype' );
 define( 'SCP_FILE',__FILE__);
+define( 'SCP_PLUGIN_NAME' , 'Story Custom Post Type' );
+define( 'SCP_PLUGIN_INFO' , '#' );
 define( 'SCP_VERSION' , '0.2.8');
 
 include_once(SCP_PATH.'init.php');
@@ -481,4 +483,28 @@ function story_settings_menu() {
 			 'show_settings_page'
 			 );
 }
+
+/**
+ * Add Settings link on Plugins page
+ **/
+add_filter( "plugin_action_links_" . plugin_basename(__FILE__) , 'plugin_add_settings_link', 0 );
+function plugin_add_settings_link( $links ) {
+    $settings_link = '<a href="edit.php?post_type=stories&page=stories-settings-page">' . __( 'Settings', SCP_SLUG ) . '</a>';
+    array_unshift( $links, $settings_link );
+  	return $links;
+}
+
+/**
+ * Add options on Settings page
+ **/
+add_action( 'admin_init' , 'setup_settings_form' );
+function setup_settings_form() {
+	add_settings_section(
+			     'first-section',
+			     '',
+			     false,
+			     'manage_options'
+			     );
+}
+
 ?>

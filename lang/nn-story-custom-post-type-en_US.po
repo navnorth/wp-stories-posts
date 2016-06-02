@@ -16,6 +16,8 @@ msgstr ""
 "X-Poedit-SearchPath-0: .\n"
 
 #: ../includes/interface.php:17
+#: ../stories-custom-post-type.php:152
+#: ../stories-custom-post-type.php:154
 msgid "Taxonomy Order"
 msgstr ""
 
@@ -41,6 +43,15 @@ msgstr ""
 
 #: ../includes/interface.php:156
 msgid "Items Order Updates"
+msgstr ""
+
+#: ../includes/interface.php:196
+#: ../stories-custom-post-type.php:479
+msgid "Stories Custom Post Type Settings"
+msgstr ""
+
+#: ../includes/interface.php:207
+msgid "More info"
 msgstr ""
 
 #: ../templates/taxonomy-characteristics.php:129
@@ -166,4 +177,9 @@ msgstr ""
 
 #: ../templates/content-substory.php:94
 msgid "Topic"
+msgstr ""
+
+#: ../stories-custom-post-type.php:480
+#: ../stories-custom-post-type.php:492
+msgid "Settings"
 msgstr ""

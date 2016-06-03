@@ -40,7 +40,8 @@ define( 'SCP_VERSION' , '0.2.8');
 
 include_once(SCP_PATH.'init.php');
 
-$_bootstrap = get_option('load_bootstrap');
+$_bootstrap = get_option( 'load_bootstrap' );
+$_fontawesome = get_option( 'load_font_awesome' );
 
 //plugin activation task
 function create_installation_table()
@@ -112,13 +113,16 @@ function scp_backside_scripts()
 add_action('wp_enqueue_scripts', 'scp_frontside_scripts');
 function scp_frontside_scripts()
 {
-	global $_bootstrap;
+	global $_bootstrap,  $_fontawesome;
 	
 	wp_enqueue_style('front-styles', SCP_URL.'css/front_styles.css');
 	wp_enqueue_style('bxslider-styles', SCP_URL.'css/jquery.bxslider.css');
 	
 	if ($_bootstrap) {
 		wp_enqueue_style('bootstrap-style', SCP_URL.'css/bootstrap.min.css');
+	}
+	if ($_fontawesome) {
+		wp_enqueue_style('fontawesome-style', SCP_URL.'css/font-awesome.min.css');
 	}
 
 	wp_enqueue_script('jquery');
@@ -528,7 +532,20 @@ function setup_settings_form() {
 				'description' => __('necessary for display if your WP theme does not use bootstrap', SCP_SLUG)
 			)
 			   );
+	add_settings_field(
+			'load_font_awesome',
+			__( 'Load Font Awesome?' , SCP_SLUG ),
+			'setup_settings_field',
+			'stories-settings-page',
+			'stories-settings-section',
+			array(
+				'uid' => 'load_font_awesome',
+				'type' => 'checkbox',
+				'description' => __('necessary for display if your WP theme does not load font awesome', SCP_SLUG)
+			)
+			   );
 	register_setting( 'stories-settings-section' , 'load_bootstrap' );
+	register_setting( 'stories-settings-section' , 'load_font_awesome' );
 }
 
 function first_section_callback() {

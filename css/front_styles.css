@@ -107,7 +107,7 @@
 .pplrstorytags input[type="checkbox"] { float: left; margin: 4px 8px 0 0;}
 
 .topic_sidebar { float: left; width: 100%; margin-top: 20px}
-.topic_sidebar ul { width: 100%; margin-top: 10px}
+.topic_sidebar ul { width: 100%; margin-top: 10px; float:left; padding-left: 0; list-style: none; }
 .topic_sidebar li {
 	border: 1px solid #f0f0f0;
     display: inline-block;
@@ -180,6 +180,17 @@ h1.tax-title span {
     margin-bottom: 10px;
     margin-top: 25px;
     width: auto;
+}
+.btn_dwnld {
+    margin: 15px 0 0;
+    text-align: center;
+    background: #e57200;
+    border: none;
+    color: #fff;
+    border-radius: 3px;
+    cursor: pointer;
+    float: left;
+    font-family: 'Raleway-Regular';
 }
 
 @media screen and (max-width: 992px) {

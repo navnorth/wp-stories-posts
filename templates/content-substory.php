@@ -79,10 +79,12 @@
 				    }
 			    }
 		    ?>
-	</h4><p>
+	</h4>
+	<p>
 	    <?php
-			remove_filter( 'the_content', 'wpautop' );
 			$content = get_the_content($post->ID);
+			$content = preg_replace( '#<p>\s*+(<br\s*/*>)?\s*</p>#i', '', $content );
+			$content = preg_replace( '~\s?<p>(\s|&nbsp;)+</p>\s?~', '', $content );
 			echo substr($content, 0, 300).'...';
 	    ?>
 	</p>

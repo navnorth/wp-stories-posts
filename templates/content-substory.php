@@ -79,9 +79,9 @@
 				    }
 			    }
 		    ?>
-	</h4>
-	<p>
+	</h4><p>
 	    <?php
+			remove_filter( 'the_content', 'wpautop' );
 			$content = get_the_content($post->ID);
 			echo substr($content, 0, 300).'...';
 	    ?>

@@ -81,12 +81,23 @@
 			    }
 		    ?>
 	</h4>
-	<p>
 	    <?php
 			$content = get_the_content($post->ID);
-			echo substr($content, 0, 300).'...';
+			
+			//Fixing issue with blockquotes inside the paragraph tags causing extra p tags before and after
+			$pos = strpos($content,"<blockquote>");
+			
+			if ($pos === false) {
+				echo '<p>'.substr($content, 0, 300).'...</p>';
+			} else {
+				//Filter block quote
+				$startPos = strpos($content,"<blockquote>");
+				$endPos = strpos($content,"</blockquote>") + 13;
+				$blockquote = substr($content,$startPos,$endPos);
+				$other_content = "<p>".trim(substr($content,$endPos, strlen($content)-$endPos))."</p>";
+				echo $blockquote.$other_content;	
+			}
 	    ?>
-	</p>
 	    <?php
 		    $topics = get_the_terms( $post->ID , 'story_tag' );
 		    if(isset($topics) && !empty($topics))

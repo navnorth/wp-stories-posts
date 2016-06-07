@@ -359,13 +359,18 @@ function get_storiesmap($pageposts=NULL)
                                             $stateurl = $state->name;
 										}
 									}
-									if ($story_status == 'publish')
-										echo "['<div class=info tabindex=0><h4><a href=$link>$title</a></h4><div class=popupcntnr><img src=$image alt=\"Story Thumbnail\"><div class=subinfo><p><b>$district</b>, <b>$stateurl</b></div></p>$content</div></div>', $latitude, $longitude, '$title - $story->postid'],";
+									if ($story_status == 'publish') {
+										if($image) {
+											echo "['<div class=info tabindex=0><h4><a href=$link>$title</a></h4><div class=popupcntnr><img src=$image alt=\"Story Thumbnail\"><div class=subinfo><p><b>$district</b>, <b>$stateurl</b></p></div>$content</div></div>', $latitude, $longitude, '$title - $story->postid'],";
+										} else {
+											echo "['<div class=info tabindex=0><h4><a href=$link>$title</a></h4><div class=popupcntnr fullpopwidth><div class=subinfo><p><b>$district</b>, <b>$stateurl</b></p></div>$content</div></div>', $latitude, $longitude, '$title - $story->postid'],";
+										}
+									}
 								}
 							}
 							else
 							{
-								echo "<h3 align='center'><font color='#ff0000'>No Content Found</font></h3>";
+								echo "\"<h3 align='center'><font color='#ff0000'>No Content Found</font></h3>\"";
 							}
                         ?>];
 

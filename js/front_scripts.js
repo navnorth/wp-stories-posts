@@ -41,6 +41,9 @@ jQuery(document).ready(function(){
         var value = jQuery(this).val();
         window.location.href = value;
     });
+    
+    /** Remove empty p tags **/
+    jQuery('p').filter(function () { return jQuery.trim(this.innerHTML) == "" }).remove();
 
 });
 function formsubmit(ref)

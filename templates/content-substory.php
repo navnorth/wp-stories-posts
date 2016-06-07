@@ -81,10 +81,12 @@
 			    }
 		    ?>
 	</h4>
+	<p>
 	    <?php
 			$content = get_the_content($post->ID);
-			echo '<p>'.substr($content, 0, 300).'...</p>';
+			echo substr($content, 0, 300).'...';
 	    ?>
+	</p>
 	    <?php
 		    $topics = get_the_terms( $post->ID , 'story_tag' );
 		    if(isset($topics) && !empty($topics))

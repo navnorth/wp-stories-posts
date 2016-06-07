@@ -363,7 +363,7 @@ function get_storiesmap($pageposts=NULL)
 										if($image) {
 											echo "['<div class=info tabindex=0><h4><a href=$link>$title</a></h4><div class=popupcntnr><img src=$image alt=\"Story Thumbnail\"><div class=subinfo><p><b>$district</b>, <b>$stateurl</b></p></div>$content</div></div>', $latitude, $longitude, '$title - $story->postid'],";
 										} else {
-											echo "['<div class=info tabindex=0><h4><a href=$link>$title</a></h4><div class=popupcntnr fullpopwidth><div class=subinfo><p><b>$district</b>, <b>$stateurl</b></p></div>$content</div></div>', $latitude, $longitude, '$title - $story->postid'],";
+											echo "['<div class=info tabindex=0><h4><a href=$link>$title</a></h4><div class=\'popupcntnr fullpopwidth\'><div class=subinfo><p><b>$district</b>, <b>$stateurl</b></p></div>$content</div></div>', $latitude, $longitude, '$title - $story->postid'],";
 										}
 									}
 								}

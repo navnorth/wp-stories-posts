@@ -82,7 +82,7 @@
 	</h4>
 	    <?php
 			$content = get_the_content($post->ID);
-			echo '<p>'.substr($content, 0, 300).'...</p>';
+			echo ''.substr($content, 0, 300).'...';
 	    ?>
 	    <?php
 		    $topics = get_the_terms( $post->ID , 'story_tag' );

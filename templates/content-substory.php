@@ -80,14 +80,10 @@
 			    }
 		    ?>
 	</h4>
-	<p>
 	    <?php
 			$content = get_the_content($post->ID);
-			$content = preg_replace( '#<p>\s*+(<br\s*/*>)?\s*</p>#i', '', $content );
-			$content = preg_replace( '~\s?<p>(\s|&nbsp;)+</p>\s?~', '', $content );
-			echo substr($content, 0, 300).'...';
+			echo '<p>'.substr($content, 0, 300).'...</p>';
 	    ?>
-	</p>
 	    <?php
 		    $topics = get_the_terms( $post->ID , 'story_tag' );
 		    if(isset($topics) && !empty($topics))

@@ -9,6 +9,7 @@
 ?>
 <?php global $post; ?>
 <?php
+	remove_filter ('the_content', 'wpautop');
 	$img_url = wp_get_attachment_url( get_post_thumbnail_id($post->ID) );
     $img_alt = get_post_meta(get_post_thumbnail_id($post->ID), '_wp_attachment_image_alt', true);
 
@@ -82,7 +83,7 @@
 	</h4>
 	    <?php
 			$content = get_the_content($post->ID);
-			echo ''.substr($content, 0, 300).'...';
+			echo '<p>'.substr($content, 0, 300).'...</p>';
 	    ?>
 	    <?php
 		    $topics = get_the_terms( $post->ID , 'story_tag' );

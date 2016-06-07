@@ -83,12 +83,12 @@
 	</h4>
 	    <?php
 			$content = get_the_content($post->ID);
-			
+			$content = substr($content, 0, 300).'...';
 			//Fixing issue with blockquotes inside the paragraph tags causing extra p tags before and after
 			$pos = strpos($content,"<blockquote>");
 			
 			if ($pos === false) {
-				echo '<p>'.substr($content, 0, 300).'...</p>';
+				echo '<p>'.$content.'</p>';
 			} else {
 				//Filter block quote
 				$startPos = strpos($content,"<blockquote>");

@@ -200,7 +200,14 @@ h1.tax-title span {
     float: left;
     font-family: 'Raleway-Regular';
 }
-
+.btn-load-more {
+    display: block;
+    background: #F78020;
+    padding: 10px;
+    color: #ffffff;
+    text-align:center;
+    cursor:pointer;
+}
 @media screen and (max-width: 992px) {
 	.stry_srch_frm { width: 100%}
 	.pblctn_lft_sid_img_cntnr { padding-left: 0 !important}

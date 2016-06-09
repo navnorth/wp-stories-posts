@@ -144,7 +144,10 @@ get_header(); ?>
 						</div>
                         <header class="tax-header">
                             <h1 class="tax-title">
-                                 <?php printf( __( 'Results: %s', SCP_SLUG ), '<i>'.$termobject->name.'</i> <span>(' .count($postids).' '.story_plural(count($postids)).')</span>' );?>
+                                 <?php
+				 $post_count = count($postids);
+				 printf( __( 'Results: %s', SCP_SLUG ), '<i>'.$termobject->name.'</i> <span>(' .$post_count.' '.story_plural($post_count).')</span>' );
+				 ?>
                             </h1>
                             <div class="topics-search-box">
                                 <form method="get">
@@ -171,12 +174,16 @@ get_header(); ?>
                         </header>
 						<?php
 						
-						$args = array('post_type' => 'stories', 'post__in' => $postids, 'posts_per_page' => -1);
+						$args = array('post_type' => 'stories', 'post__in' => $postids, 'posts_per_page' => 10);
 						
 						$postquery = new WP_Query( $args );
 						while ( $postquery->have_posts() ) : $postquery->the_post(); ?>
 							<?php get_story_template_part( 'content', 'substory' ); ?>
-						<?php endwhile; // end of the loop. ?>
+						<?php endwhile; // end of the loop.
+						if ($post_count>10) {
+							echo '<div class="col-md-12 pblctn_paramtr padding_left"><a href="#p=2" class="btn-load-more">Load More</a></div>';		
+						}
+						?>
 					</div>
                     <?php
 				}

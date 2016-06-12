@@ -579,4 +579,11 @@ function setup_settings_field( $arguments ) {
 	}
 }
 
+/* load ajax script */
+function load_ajax_script(){
+	wp_enqueue_script( "ajax-script", plugin_dir_url(__FILE__)."js/front-ajax.js", array("jquery"));
+	wp_localize_script( 'ajax-script', 'the_ajax_script', array( 'ajaxurl' => admin_url( 'admin-ajax.php' ) ) );	
+}
+add_action('wp_print_scripts', 'load_ajax_script');
+
 ?>

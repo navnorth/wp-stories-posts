@@ -586,4 +586,16 @@ function load_ajax_script(){
 }
 add_action('wp_print_scripts', 'load_ajax_script');
 
+/* Ajax Calback */
+function load_more_stories() {
+	global $wpdb;
+	if (isset($_POST["post_var"])) {
+		$response = $_POST["post_var"];
+		echo $response;
+		die();
+	}
+}
+add_action('wp_ajax_load_more', 'load_more_stories');
+add_action('wp_ajax_nopriv_load_more', 'load_more_stories');
+
 ?>

@@ -208,6 +208,7 @@ h1.tax-title span {
     text-align:center;
     cursor:pointer;
 }
+.btn-hidden { display:none; }
 @media screen and (max-width: 992px) {
 	.stry_srch_frm { width: 100%}
 	.pblctn_lft_sid_img_cntnr { padding-left: 0 !important}

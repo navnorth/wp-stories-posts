@@ -590,8 +590,16 @@ add_action('wp_print_scripts', 'load_ajax_script');
 function load_more_stories() {
 	global $wpdb;
 	if (isset($_POST["post_var"])) {
-		$response = $_POST["post_var"];
-		echo $response;
+		$page_num = $_POST["post_var"];
+		$postquery = new WP_Query(array(
+						'post_type' => 'stories',
+						'posts_per_page' => 10,
+						'paged' => $page_num
+						));
+				
+		while ( $postquery->have_posts() ) : $postquery->the_post();
+		    get_story_template_part( 'content', 'substory' );
+		endwhile;
 		die();
 	}
 }

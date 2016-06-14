@@ -59,15 +59,25 @@ get_header(); ?>
                                 </div>
                             </header>
 				<?php
-				//Reset Post query to show only 10 posts
 				$postquery = new WP_Query(array('post_type' => 'stories', 'posts_per_page' => 10));
+				$max_page = $postquery->max_num_pages;
 				
+				$paged = 1;
+				if ($_GET['paged'])
+						$paged = (int)$_GET['paged'];
+						
+				//Reset Post query to show only 10 posts
+				$postquery = new WP_Query(array('post_type' => 'stories', 'posts_per_page' => 10 * $paged));
+		
 				while ( $postquery->have_posts() ) : $postquery->the_post();
                                     get_story_template_part( 'content', 'substory' );
 				endwhile;
 				
-				if ($post_count>10) {
-						echo '<div class="col-md-12 pblctn_paramtr padding_left"><a href="#p=2" class="btn-load-more">Load More</a></div>';		
+				if ($post_count>10 & $paged<$max_page) {
+						$base_url = "http" . (($_SERVER['SERVER_PORT'] == 443) ? "s://" : "://") . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
+						if (strpos($base_url,"paged"))
+								$base_url = substr($base_url,0,strpos($base_url, "paged")-1);
+						echo '<div class="col-md-12 pblctn_paramtr padding_left"><a href="&paged='.($paged+1).'" data-page-number="'.($paged+1).'" data-base-url="'.$base_url.'" data-max-page="'.$max_page.'" class="btn-load-more">Load More</a></div>';		
 				}
 				
 				?>

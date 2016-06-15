@@ -586,16 +586,25 @@ function load_ajax_script(){
 }
 add_action('wp_print_scripts', 'load_ajax_script');
 
-/* Ajax Calback */
+/* Ajax Callback */
 function load_more_stories() {
 	global $wpdb;
+	
 	if (isset($_POST["post_var"])) {
 		$page_num = $_POST["post_var"];
-		$postquery = new WP_Query(array(
-						'post_type' => 'stories',
-						'posts_per_page' => 10,
-						'paged' => $page_num
-						));
+		
+		$args = array(
+				'post_type' => 'stories',
+				'posts_per_page' => 10,
+				'paged' => $page_num
+				);
+		
+		if (isset($_POST['post_ids'])) {
+			$post_ids = json_decode($_POST['post_ids']);
+			$args['post__in'] = $post_ids;
+		}
+		
+		$postquery = new WP_Query($args);
 				
 		while ( $postquery->have_posts() ) : $postquery->the_post();
 		    get_story_template_part( 'content', 'substory' );

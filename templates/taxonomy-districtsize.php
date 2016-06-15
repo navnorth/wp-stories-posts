@@ -182,7 +182,7 @@ get_header(); ?>
 							$paged = (int)$_GET['page'];
 						
 						//Change query to show just  10
-						$args = array('post_type' => 'stories', 'post__in' => $postids, 'posts_per_page' => 10);
+						$args = array('post_type' => 'stories', 'post__in' => $postids, 'posts_per_page' => 10*$paged);
 						$postquery = new WP_Query( $args );
 						while ( $postquery->have_posts() ) : $postquery->the_post(); ?>
 							<?php get_story_template_part( 'content', 'substory' ); ?>

@@ -6,6 +6,7 @@
  * @subpackage Twenty_Twelve
  * @since Twenty Twelve 1.0
  */
+include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
 function add_vimeo_script(){
     $script_url = SCP_URL."js/vimeo.ga.min.js";
     $tracking_script = "<script type='text/javascript' src='".$script_url."'></script>";
@@ -137,7 +138,12 @@ function add_vimeo_script(){
             <p class="rght_sid_wdgt_hedng"><?php _e( 'Share this story' , SCP_SLUG ); ?></p>
            <?php
                 echo '<div class="story_sharewidgeticns">';
-                            echo do_shortcode("[ssba]");
+			//Checks if ShareThis is installed and active
+			if (is_plugin_active("share-this/sharethis.php")){
+                            do_action('load_sharethis_widget');
+			} else {
+			    echo do_shortcode("[ssba]");
+			}
                 echo '</div>';
            ?>
         </aside>

@@ -615,4 +615,10 @@ function load_more_stories() {
 add_action('wp_ajax_load_more', 'load_more_stories');
 add_action('wp_ajax_nopriv_load_more', 'load_more_stories');
 
+/* Load ShareThis buttons*/
+function print_sharethis_widget( ){
+    print st_widget_head();
+    print st_add_widget('');
+}
+add_action( 'load_sharethis_widget', 'print_sharethis_widget' );
 ?>

@@ -140,7 +140,11 @@ function add_vimeo_script(){
                 echo '<div class="story_sharewidgeticns">';
 			//Checks if ShareThis is installed and active
 			if (is_plugin_active("share-this/sharethis.php")){
-                            do_action('load_sharethis_widget');
+			    if (function_exists('sharethis_button')) {
+				echo "<p>";
+				sharethis_button();
+				echo "</p>";
+			    }
 			} else {
 			    echo do_shortcode("[ssba]");
 			}

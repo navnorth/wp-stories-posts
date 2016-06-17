@@ -211,6 +211,7 @@ h1.tax-title span {
 .btn-hidden { display:none; }
 .story_sharewidgeticns .stButton span { min-height:24px; height:auto; }
 .story_sharewidgeticns .st_sharethis_buttons { display:none; }
+.gm-style-iw .info h4 a { outline:none;border:none; }
 @media screen and (max-width: 992px) {
 	.stry_srch_frm { width: 100%}
 	.pblctn_lft_sid_img_cntnr { padding-left: 0 !important}

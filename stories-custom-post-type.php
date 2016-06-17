@@ -342,12 +342,14 @@ function get_storiesmap($pageposts=NULL)
 									$longitude = $story->longitude;
 									$image = $story->image;
 									$content = $story->content;
+									$link = get_the_permalink($story->postid)."?back=".urlencode($_SERVER['REQUEST_URI']);
+									
 									if(!empty($content))
 									{
 										$content = substr($content, 0 ,60);
-										$content = $content."...";
+										$content = $content."... <a href=$link>Read More</a>";
 									}
-									$link = get_the_permalink($story->postid)."?back=".urlencode($_SERVER['REQUEST_URI']);
+									
 									$district = get_post_meta($story->postid,"story_district",true);
 									$states = get_the_terms( $story->postid, "state" );
 									if(isset($states) && !empty($states))

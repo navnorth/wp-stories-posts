@@ -6,7 +6,7 @@
  Version: 0.2.8
  Author: Navigation North
  Author URI: http://www.navigationnorth.com
- Text Domain: nn-story-custom-post-type
+ Text Domain: wp-stories-posts
 
  Copyright (C) 2015 Navigation North
 
@@ -32,7 +32,7 @@ $districtsize = array("Less than 1,000 students","1,001-10,000 students","10,001
 
 define( 'SCP_URL', plugin_dir_url(__FILE__) );
 define( 'SCP_PATH', plugin_dir_path(__FILE__) );
-define( 'SCP_SLUG','story-custom-posttype' );
+define( 'SCP_SLUG','wp-stories-posts' );
 define( 'SCP_FILE',__FILE__);
 define( 'SCP_PLUGIN_NAME' , 'Story Custom Post Type' );
 define( 'SCP_PLUGIN_INFO' , '#' );
@@ -90,7 +90,7 @@ register_activation_hook(__FILE__, 'create_installation_table');
 //Load localization directory
 add_action('plugins_loaded', 'load_story_textdomain');
 function load_story_textdomain() {
-	load_plugin_textdomain( 'story-custom-posttype', false, dirname( plugin_basename(__FILE__) ) . '/lang/' );
+	load_plugin_textdomain( 'wp-stories-posts', false, dirname( plugin_basename(__FILE__) ) . '/lang/' );
 }
 
 //scripts and styles on backend

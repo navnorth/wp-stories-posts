@@ -382,11 +382,11 @@ function get_stories_side_nav($taxonomy=NULL, $taxonomy_name=NULL)
     	<aside class="search_widget stry_srch_frm">
             <h3>
             	<?php if($_SERVER["REQUEST_URI"] != $stories_home_URL) { echo '<a href="'.$stories_home_URL.'">'; } ?>
-            	Stories of EdTech Innovation
+            	<?php _e( "Stories of EdTech Innovation", SCP_SLUG); ?>
             	<?php if($_SERVER["REQUEST_URI"] != $stories_home_URL) { echo '</a>'; } ?>
             </h3>
             <p class="stry_srch_desc">
-            	Use this tool to browse stories of innovation happening in schools across the nation. By sharing these stories, we hope to connect districts, schools, and educators trying similar things so that they can learn from each other's experiences.
+            	<?php _e( "Use this tool to browse stories of innovation happening in schools across the nation. By sharing these stories, we hope to connect districts, schools, and educators trying similar things so that they can learn from each other's experiences.", SCP_SLUG); ?>
             </p>
 
             <h5 class="hdng_mtr brdr_mrgn_none stry_browse_header">Browse Stories</h5>

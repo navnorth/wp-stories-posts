@@ -616,4 +616,55 @@ function load_more_stories() {
 }
 add_action('wp_ajax_load_more', 'load_more_stories');
 add_action('wp_ajax_nopriv_load_more', 'load_more_stories');
+
+/**
+ * Override spacious_header_title function applicable only to Spacious Theme
+ **/
+function spacious_header_title() {
+	if( is_archive() ) {
+		if (get_post_type()=='stories'):
+		    $spacious_header_title = __( 'Stories of EdTech Innovation', SCP_SLUG );
+		else:
+		    $spacious_header_title = __( 'Archives',  SCP_SLUG );
+		endif;
+	}
+	elseif( is_404() ) {
+		$spacious_header_title = __( 'Page NOT Found', SCP_SLUG );
+	}
+	elseif( is_search() ) {
+		$spacious_header_title = __( 'Search Results', SCP_SLUG );
+	}
+	elseif( is_page()  ) {
+		$spacious_header_title = get_the_title();
+	}
+	elseif( is_single()  ) {
+		if (get_post_type()=='stories'):
+			$spacious_header_title = __("Stories: ", SCP_SLUG) . get_the_title();
+		else:
+			$spacious_header_title = get_the_title();
+		endif;
+	}
+	elseif( is_home() ){
+		$queried_id = get_option( 'page_for_posts' );
+		$spacious_header_title = get_the_title( $queried_id );
+	}
+	else {
+		$spacious_header_title = '';
+	}
+
+	return $spacious_header_title;
+
+}
+
+/** Check if theme used is Spacious then allow hiding of title in story page **/
+function title_can_be_hidden(){
+	$hidden = false;
+	
+	$current_theme = wp_get_theme();
+	
+	if ($current_theme['Name']=="Spacious Child")
+		$hidden = true;
+		
+	return $hidden;
+}
 ?>

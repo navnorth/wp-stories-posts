@@ -380,11 +380,13 @@ function get_stories_side_nav($taxonomy=NULL, $taxonomy_name=NULL)
 	$stories_home_URL = site_url().'/stories/';
 	?>
     	<aside class="search_widget stry_srch_frm">
+	    <?php if (!(title_can_be_hidden())): ?>
             <h3>
             	<?php if($_SERVER["REQUEST_URI"] != $stories_home_URL) { echo '<a href="'.$stories_home_URL.'">'; } ?>
             	<?php _e( "Stories of EdTech Innovation", SCP_SLUG); ?>
             	<?php if($_SERVER["REQUEST_URI"] != $stories_home_URL) { echo '</a>'; } ?>
             </h3>
+	    <?php endif; ?>
             <p class="stry_srch_desc">
             	<?php _e( "Use this tool to browse stories of innovation happening in schools across the nation. By sharing these stories, we hope to connect districts, schools, and educators trying similar things so that they can learn from each other's experiences.", SCP_SLUG); ?>
             </p>

@@ -1,0 +1,298 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Stories Custom Post Type\n"
+"POT-Creation-Date: 2016-06-23 20:55+0800\n"
+"PO-Revision-Date: 2016-06-23 21:02+0800\n"
+"Language-Team: Navigation North\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.8.8\n"
+"X-Poedit-Basepath: ..\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Poedit-KeywordsList: __;_e\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"Last-Translator: \n"
+"Language: en_US\n"
+"X-Poedit-SearchPath-0: .\n"
+
+#: includes/interface.php:17 stories-custom-post-type.php:167
+#: stories-custom-post-type.php:169
+msgid "Taxonomy Order"
+msgstr ""
+
+#: includes/interface.php:23
+msgid ""
+"This plugin requires JavaScript in order to function. Please enable "
+"JavaScript in your browser to continue."
+msgstr ""
+
+#: includes/interface.php:57
+msgid "Taxonomies"
+msgstr ""
+
+#: includes/interface.php:62
+msgid "Taxonomy Title"
+msgstr ""
+
+#: includes/interface.php:63
+msgid "Total Posts"
+msgstr ""
+
+#: includes/interface.php:110
+msgid "Update"
+msgstr ""
+
+#: includes/interface.php:156
+msgid "Items Order Updates"
+msgstr ""
+
+#: includes/interface.php:196 stories-custom-post-type.php:501
+msgid "Stories Custom Post Type Settings"
+msgstr ""
+
+#: includes/interface.php:207
+msgid "More info"
+msgstr ""
+
+#: init.php:38
+msgid "Search "
+msgstr ""
+
+#: init.php:39
+msgid "All "
+msgstr ""
+
+#: init.php:40 init.php:41
+msgid "Parent "
+msgstr ""
+
+#: init.php:42
+msgid "Edit "
+msgstr ""
+
+#: init.php:43
+msgid "Update "
+msgstr ""
+
+#: init.php:44
+msgid "Add New "
+msgstr ""
+
+#: init.php:45
+msgid "New "
+msgstr ""
+
+#: init.php:62
+msgid "Search Tags"
+msgstr ""
+
+#: init.php:63
+msgid "Popular Tags"
+msgstr ""
+
+#: init.php:64
+msgid "All Tags"
+msgstr ""
+
+#: init.php:67
+msgid "Edit Tag"
+msgstr ""
+
+#: init.php:68
+msgid "Update Tag"
+msgstr ""
+
+#: init.php:69
+msgid "Add New Tag"
+msgstr ""
+
+#: init.php:70
+msgid "New Tag Name"
+msgstr ""
+
+#: init.php:71
+msgid "Separate Tag with commas"
+msgstr ""
+
+#: init.php:72
+msgid "Add or remove Tag"
+msgstr ""
+
+#: init.php:73
+msgid "Choose from the most used Tag"
+msgstr ""
+
+#: init.php:74
+msgid "No found."
+msgstr ""
+
+#: init.php:75
+msgid "Tags"
+msgstr ""
+
+#: init.php:386 stories-custom-post-type.php:626
+msgid "Stories of EdTech Innovation"
+msgstr ""
+
+#: init.php:391
+msgid ""
+"Use this tool to browse stories of innovation happening in schools across "
+"the nation. By sharing these stories, we hope to connect districts, schools, "
+"and educators trying similar things so that they can learn from each other's "
+"experiences."
+msgstr ""
+
+#: stories-custom-post-type.php:502 stories-custom-post-type.php:514
+msgid "Settings"
+msgstr ""
+
+#: stories-custom-post-type.php:532
+msgid "Load Bootstrap?"
+msgstr ""
+
+#: stories-custom-post-type.php:539
+msgid "necessary for display if your WP theme does not use bootstrap"
+msgstr ""
+
+#: stories-custom-post-type.php:544
+msgid "Load Font Awesome?"
+msgstr ""
+
+#: stories-custom-post-type.php:551
+msgid "necessary for display if your WP theme does not load font awesome"
+msgstr ""
+
+#: stories-custom-post-type.php:628
+msgid "Archives"
+msgstr ""
+
+#: stories-custom-post-type.php:632
+msgid "Page NOT Found"
+msgstr ""
+
+#: stories-custom-post-type.php:635
+msgid "Search Results"
+msgstr ""
+
+#: stories-custom-post-type.php:642
+msgid "Stories: "
+msgstr ""
+
+#: templates/archive-404.php:37
+msgid "Nothing Found"
+msgstr ""
+
+#: templates/archive-404.php:43
+msgid "Select Topics"
+msgstr ""
+
+#: templates/archive-404.php:56
+msgid ""
+"Apologies, but no results were found. Perhaps searching will help find a "
+"related post."
+msgstr ""
+
+#: templates/archive-stories.php:39 templates/taxonomy-characteristics.php:53
+#: templates/taxonomy-characteristics.php:103
+#: templates/taxonomy-characteristics.php:149
+#: templates/taxonomy-districtsize.php:53
+#: templates/taxonomy-districtsize.php:103
+#: templates/taxonomy-districtsize.php:149
+#: templates/taxonomy-grade_level.php:53 templates/taxonomy-grade_level.php:103
+#: templates/taxonomy-grade_level.php:149 templates/taxonomy-program.php:53
+#: templates/taxonomy-program.php:103 templates/taxonomy-program.php:149
+#: templates/taxonomy-state.php:53 templates/taxonomy-state.php:103
+#: templates/taxonomy-state.php:149 templates/taxonomy-story_tag.php:53
+#: templates/taxonomy-story_tag.php:103 templates/taxonomy-story_tag.php:149
+#, php-format
+msgid "Results: %s"
+msgstr ""
+
+#: templates/archive-stories.php:46 templates/taxonomy-characteristics.php:60
+#: templates/taxonomy-characteristics.php:110
+#: templates/taxonomy-characteristics.php:157
+#: templates/taxonomy-districtsize.php:60
+#: templates/taxonomy-districtsize.php:110
+#: templates/taxonomy-districtsize.php:157
+#: templates/taxonomy-grade_level.php:60 templates/taxonomy-grade_level.php:110
+#: templates/taxonomy-grade_level.php:157 templates/taxonomy-program.php:60
+#: templates/taxonomy-program.php:110 templates/taxonomy-program.php:156
+#: templates/taxonomy-state.php:60 templates/taxonomy-state.php:110
+#: templates/taxonomy-state.php:157 templates/taxonomy-story_tag.php:60
+#: templates/taxonomy-story_tag.php:110 templates/taxonomy-story_tag.php:156
+msgid "Filter by Topic"
+msgstr ""
+
+#: templates/archive-stories.php:276
+msgid "Featured Story:"
+msgstr ""
+
+#: templates/archive-stories.php:302
+msgid "Read More"
+msgstr ""
+
+#: templates/content-story.php:21
+msgid "Back to Stories"
+msgstr ""
+
+#: templates/content-story.php:25
+msgid "Back to Results"
+msgstr ""
+
+#: templates/content-story.php:138
+msgid "Share this story"
+msgstr ""
+
+#: templates/content-story.php:225
+msgid "Story Snapshot"
+msgstr ""
+
+#: templates/content-story.php:228
+msgid "School :"
+msgstr ""
+
+#: templates/content-story.php:238
+msgid "District :"
+msgstr ""
+
+#: templates/content-story.php:243
+msgid "State :"
+msgstr ""
+
+#: templates/content-story.php:248
+msgid "Grade :"
+msgstr ""
+
+#: templates/content-story.php:253
+msgid "Community Type :"
+msgstr ""
+
+#: templates/content-story.php:258
+msgid "Program :"
+msgstr ""
+
+#: templates/content-story.php:263
+msgid "Related Tags :"
+msgstr ""
+
+#: templates/content-story.php:292
+msgid "Related Stories"
+msgstr ""
+
+#: templates/content-substory.php:105
+msgid "Topic"
+msgstr ""
+
+#: templates/single-stories.php:21
+msgid "Post navigation"
+msgstr ""
+
+#: templates/taxonomy-characteristics.php:129
+#: templates/taxonomy-districtsize.php:129
+#: templates/taxonomy-grade_level.php:129 templates/taxonomy-program.php:129
+#: templates/taxonomy-state.php:129 templates/taxonomy-story_tag.php:129
+msgid ""
+"Sorry, but nothing matched your search criteria. Please try again with some "
+"different keywords."
+msgstr ""

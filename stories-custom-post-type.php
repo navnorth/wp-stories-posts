@@ -39,6 +39,7 @@ define( 'SCP_PLUGIN_INFO' , '#' );
 define( 'SCP_VERSION' , '0.2.8');
 
 include_once(SCP_PATH.'init.php');
+include_once(SCP_PATH.'/includes/widgets.php');
 
 $_bootstrap = get_option( 'load_bootstrap' );
 $_fontawesome = get_option( 'load_font_awesome' );
@@ -667,4 +668,10 @@ function title_can_be_hidden(){
 		
 	return $hidden;
 }
+
+/** Register Widgets **/
+function register_stories_widgets(){
+	register_widget( 'WP_Widget_Recent_Stories' );
+}
+add_action( 'widgets_init', 'register_stories_widgets' );
 ?>

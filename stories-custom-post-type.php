@@ -672,6 +672,7 @@ function title_can_be_hidden(){
 /** Register Widgets **/
 function register_stories_widgets(){
 	register_widget( 'WP_Widget_Recent_Stories' );
+	register_widget( 'WP_Widget_Single_Story' );
 }
 add_action( 'widgets_init', 'register_stories_widgets' );
 ?>

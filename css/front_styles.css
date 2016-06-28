@@ -219,6 +219,7 @@ h1.tax-title span {
 .recent_story_content_full { width:100%; float:none; }
 .recent_story_content h3, .recent_story_content_full h3 { font-size:24px;margin-bottom:0;padding-bottom:0;line-height:1em; }
 h4.recent_story_loc { line-height:1.25em;font-size:18px; }
+.widget_recent_stories ul li:last-child { border-bottom:none !important; }
 @media screen and (max-width: 992px) {
 	.stry_srch_frm { width: 100%}
 	.pblctn_lft_sid_img_cntnr { padding-left: 0 !important}

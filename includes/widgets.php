@@ -46,6 +46,8 @@ class WP_Widget_Recent_Stories extends WP_Widget {
 		if ( ! $number )
 			$number = 5;
 		$show_date = isset( $instance['show_date'] ) ? $instance['show_date'] : false;
+		
+		$display_site = isset( $instance['display_site'] ) ? $instance['display_site'] : false;
 
 		/**
 		 * Filter the arguments for the Recent Posts widget.
@@ -85,35 +87,40 @@ class WP_Widget_Recent_Stories extends WP_Widget {
                                 <?php endif; ?>
                                 <div class="recent_story_content<?php if(empty($img_url)) : ?>_full<?php endif; ?>">
 				<h3><a href="<?php the_permalink(); ?>"><?php get_the_title() ? the_title() : the_ID(); ?></a></h3>
-                                <h4 class="recent_story_loc">
-                                <?php
-                                    if(get_post_meta($post_id, "story_district", true))
-                                    {
-                                            echo get_post_meta($post_id, "story_district", true).', ';
-                                    }
-                                    $states = get_the_terms( $post_id , 'state' );
-                                    if(isset($states) && !empty($states))
-                                    {
-                                            foreach($states as $state)
-                                            {
-                                                    echo $state->name.' - ';
-                                                    break;
-                                            }
-                                    }
-                                    $grades = get_the_terms( $post_id , 'grade_level' );
-                                    if(isset($grades) && !empty($grades))
-                                    {
-                                            foreach($grades as $grade)
-                                            {
-                                                    echo $grade->name;
-                                                    break;
-                                            }
-                                    }
-                                ?>
-                            </h4>
-			<?php if ( $show_date ) : ?>
-				<span class="post-date">posted <?php echo get_the_date(); ?></span>
-			<?php endif; ?>
+				<?php if ($display_site): ?>
+					<h4 class="recent_story_loc">
+					<?php
+					    if($story_district = get_post_meta($post_id, "story_district", true))
+					    {
+						if (strlen($story_district)>0)
+						    echo get_post_meta($post_id, "story_district", true).', ';
+					    }
+					    $states = get_the_terms( $post_id , 'state' );
+					    if(isset($states) && !empty($states))
+					    {
+						    foreach($states as $state)
+						    {
+							    echo $state->name;
+							    break;
+						    }
+					    }
+					    $grades = get_the_terms( $post_id , 'grade_level' );
+					    if(isset($grades) && !empty($grades))
+					    {
+						if ($states)
+							echo ' - ';
+						    foreach($grades as $grade)
+						    {
+							    echo $grade->name;
+							    break;
+						    }
+					    }
+					?>
+					</h4>
+				<?php endif; ?>
+				<?php if ( $show_date ) : ?>
+					<span class="post-date">posted <?php echo get_the_date(); ?></span>
+				<?php endif; ?>
                             </div>
 			</li>
 		<?php endwhile; ?>
@@ -168,7 +175,7 @@ class WP_Widget_Recent_Stories extends WP_Widget {
 		<label for="<?php echo $this->get_field_id( 'show_date' ); ?>"><?php _e( 'Display post date?' ); ?></label></p>
                 
                 <p><input class="checkbox" type="checkbox" <?php checked( $display_site ); ?> id="<?php echo $this->get_field_id( 'display_site' ); ?>" name="<?php echo $this->get_field_name( 'display_site' ); ?>" />
-		<label for="<?php echo $this->get_field_id( 'display_site' ); ?>"><?php _e( 'Display site?' ); ?></label></p>
+		<label for="<?php echo $this->get_field_id( 'display_site' ); ?>"><?php _e( 'Display organization and location?' ); ?></label></p>
 <?php
 	}
 }

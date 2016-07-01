@@ -594,6 +594,20 @@ function story_plural( $count = null )
 		return 'Story';
 }
 
+function display_story_content($post_id) {
+	$story = "";
+	
+	$post = get_post($post_id);
+	
+	if ($post->post_excerpt) {
+		$story =  $post->post_excerpt;
+	} else {
+		$content = strip_tags(get_the_content($post_id));
+		$story = substr($content, 0, 200)."...";
+	}
+	return $story;
+}
+
 //Story Search
 /* disabling search for now. Just going to use browse Navigation
 function get_story_search($searchresult=NULL, $searchtext=NULL, $taxonomy_state=NULL, $taxonomy_program=NULL, $taxonomy_grade_level=NULL, $district_location=NULL, $district_size=NULL,$taxonomy_tags=NULL)

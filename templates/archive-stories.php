@@ -293,9 +293,8 @@ get_header(); ?>
                                                     <h4><?php echo get_post_meta($post->ID, "story_district", true) . ', ' . $state_name ?></h4>
                                                     <p>
                                                        <?php
-															$content = strip_tags(get_the_content($post->ID));
-															echo substr($content, 0, 200)."...";
-														?>
+								echo display_story_content($post->ID);
+								?>
                                                     </p>
                                                 </div>
                                                 <div class="sldr_readmr_btn">

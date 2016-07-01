@@ -675,4 +675,10 @@ function register_stories_widgets(){
 	register_widget( 'WP_Widget_Single_Story' );
 }
 add_action( 'widgets_init', 'register_stories_widgets' );
+
+/** Add Excerpt on Story Editor - Backend **/
+add_action( 'init', 'add_excerpts_to_stories' );
+function add_excerpts_to_stories() {
+     add_post_type_support( 'stories', 'excerpt' );
+}
 ?>

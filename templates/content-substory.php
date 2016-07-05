@@ -57,33 +57,37 @@
     <?php endif; ?>
 	<h4 class="substory_loc">
 	    <?php
-		    if(get_post_meta($post->ID, "story_district", true))
+		    if($story_district = get_post_meta($post->ID, "story_district", true))
 			    {
-				    echo get_post_meta($post->ID, "story_district", true).', ';
+				if (strlen($story_district)>0)
+				    echo $story_district.', ';
 			    }
 			    $states = get_the_terms( $post->ID , 'state' );
 			    if(isset($states) && !empty($states))
 			    {
 				    foreach($states as $state)
 				    {
-					    echo $state->name.' - ';
+					    echo $state->name;
 					    break;
 				    }
 			    }
 			    $grades = get_the_terms( $post->ID , 'grade_level' );
 			    if(isset($grades) && !empty($grades))
 			    {
-				    foreach($grades as $grade)
-				    {
-					    echo $grade->name;
-					    break;
-				    }
+				if ($states)
+					echo ' - ';
+					
+				foreach($grades as $grade)
+				{
+					echo $grade->name;
+					break;
+				}
 			    }
 		    ?>
 	</h4>
 	    <?php
-			$content = get_the_content($post->ID);
-			$content = substr($content, 0, 300).'...';
+			$content = display_story_content($post->ID);
+			
 			//Fixing issue with blockquotes inside the paragraph tags causing extra p tags before and after
 			$pos = strpos($content,"<blockquote>");
 			

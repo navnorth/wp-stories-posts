@@ -594,7 +594,7 @@ function story_plural( $count = null )
 		return 'Story';
 }
 
-function display_story_content($post_id) {
+function display_story_content($post_id, $limit = 200) {
 	$story = "";
 	
 	$post = get_post($post_id);
@@ -603,7 +603,7 @@ function display_story_content($post_id) {
 		$story =  $post->post_excerpt;
 	} else {
 		$content = strip_tags(get_the_content($post_id));
-		$story = substr($content, 0, 200)."...";
+		$story = substr($content, 0, $limit)."...";
 	}
 	return $story;
 }

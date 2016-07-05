@@ -369,7 +369,7 @@ class WP_Widget_Single_Story extends WP_Widget {
 					    if($story_district = get_post_meta($post_id, "story_district", true))
 					    {
 						if (strlen($story_district)>0)
-						    echo get_post_meta($post_id, "story_district", true).', ';
+						    echo $story_district.', ';
 					    }
 					    $states = get_the_terms( $post_id , 'state' );
 					    if(isset($states) && !empty($states))

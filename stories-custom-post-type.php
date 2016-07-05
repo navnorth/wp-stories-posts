@@ -681,4 +681,15 @@ add_action( 'init', 'add_excerpts_to_stories' );
 function add_excerpts_to_stories() {
      add_post_type_support( 'stories', 'excerpt' );
 }
+
+
+function story_search_template($template){
+    global $wp_query;
+    if (!$wp_query->is_search)
+        return $template;
+
+    return dirname( __FILE__ ) . '/templates/search.php';
+
+}
+add_filter('template_include','story_search_template');
 ?>

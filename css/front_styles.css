@@ -234,6 +234,14 @@ h4.recent_story_loc { line-height:1.25em;font-size:18px;padding-bottom:10px; }
 	width: 100%;
 	height: 100%;
 }
+.search-results article.stories {
+    overflow:hidden;
+    margin-bottom:15px;
+}
+.search_story_image { width:20%; float:left; }
+.search_story_featured_image { width:225px; height:auto; }
+.search_story_content { width:80%; float:right; }
+.search_story_content_full h3, .search_story_content h3{ margin-bottom:0;padding-bottom:0; }
 @media screen and (max-width: 992px) {
 	.stry_srch_frm { width: 100%}
 	.pblctn_lft_sid_img_cntnr { padding-left: 0 !important}

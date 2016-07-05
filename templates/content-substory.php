@@ -86,7 +86,7 @@
 		    ?>
 	</h4>
 	    <?php
-			$content = display_story_content($post->ID);
+			$content = display_story_content($post->ID, 300);
 			
 			//Fixing issue with blockquotes inside the paragraph tags causing extra p tags before and after
 			$pos = strpos($content,"<blockquote>");

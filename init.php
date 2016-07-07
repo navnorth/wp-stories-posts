@@ -445,31 +445,32 @@ function get_stories_side_nav($taxonomy=NULL, $taxonomy_name=NULL)
                     </div>
                     <?php echo $district_locationoption; ?>
                 </ul>
-            </div>
-            <div class="srchtrmbxs">
-                <ul class="cstmaccordian">
-                    <div class="cstmaccordiandv">
-                        <?php
-							if(isset($taxonomy) && !empty($taxonomy) && $taxonomy == 'districtsize'):
-								$class = 'fa-caret-down';
-								$accordian_title = 'Collapse';
-							else:
-								$class = 'fa-caret-right';
-								$accordian_title = 'Expand';
-							endif;
-						?>
-                        <i class="fa <?php echo $class; ?>"></i>
-                        <a tabindex="0" title="<?php echo $accordian_title; ?> District Size Menu" class="accordian_section_title">District Size</a>
-                    </div>
-                    <?php echo $district_sizeoption; ?>
-                </ul>
-            </div>
+		</div>
+		<div class="srchtrmbxs">
+			<ul class="cstmaccordian">
+			    <div class="cstmaccordiandv">
+				<?php
+								if(isset($taxonomy) && !empty($taxonomy) && $taxonomy == 'districtsize'):
+									$class = 'fa-caret-down';
+									$accordian_title = 'Collapse';
+								else:
+									$class = 'fa-caret-right';
+									$accordian_title = 'Expand';
+								endif;
+							?>
+				<i class="fa <?php echo $class; ?>"></i>
+				<a tabindex="0" title="<?php echo $accordian_title; ?> District Size Menu" class="accordian_section_title">District Size</a>
+			    </div>
+			    <?php echo $district_sizeoption; ?>
+			</ul>
+		</div>
+		
+		<?php echo get_story_search($taxonomy, $taxonomy_name); ?>
+		<?php echo get_top_topics_nav($taxonomy, $taxonomy_name) ?>
 
-			<?php echo get_top_topics_nav($taxonomy, $taxonomy_name) ?>
-
-            <div class="showallstories">
-                <a class="btn_dwnld" href="<?php echo site_url();?>/stories/?action=showall">Browse All Stories</a>
-            </div>
+		<div class="showallstories">
+		    <a class="btn_dwnld" href="<?php echo site_url();?>/stories/?action=showall">Browse All Stories</a>
+		</div>
 
         </aside>
     <?php
@@ -608,6 +609,18 @@ function display_story_content($post_id, $limit = 200) {
 	return $story;
 }
 
+/** Text-based search on the sidebar **/
+function get_story_search($taxonomy=NULL, $taxonomy_name=NULL) {
+	$search_form = '<div class="srchtrmbxs">
+				<form action="" class="search-form searchform clearfix" method="get" _lpchecked="1">
+					<div class="search-wrap">
+						<input type="text" placeholder="Search" class="s field" name="s">
+						<button class="search-icon" type="submit"></button>
+					</div>
+				</form><!-- .searchform -->
+			</div>';
+	return $search_form;
+}
 //Story Search
 /* disabling search for now. Just going to use browse Navigation
 function get_story_search($searchresult=NULL, $searchtext=NULL, $taxonomy_state=NULL, $taxonomy_program=NULL, $taxonomy_grade_level=NULL, $district_location=NULL, $district_size=NULL,$taxonomy_tags=NULL)

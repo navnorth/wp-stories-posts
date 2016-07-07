@@ -779,4 +779,49 @@ function get_story_search($searchresult=NULL, $searchtext=NULL, $taxonomy_state=
     <?php
 }
 */
+
+function story_entry_meta() {
+   if ( 'stories' == get_post_type() ) :
+      echo '<footer class="entry-meta-bar clearfix">';
+      echo '<div class="entry-meta clearfix">';
+      ?>
+
+      <span class="by-author author vcard"><a class="url fn n" href="<?php echo get_author_posts_url( get_the_author_meta( 'ID' ) ); ?>"><?php the_author(); ?></a></span>
+
+      <?php
+      $time_string = '<time class="entry-date published" datetime="%1$s">%2$s</time>';
+      if ( get_the_time( 'U' ) !== get_the_modified_time( 'U' ) ) {
+         $time_string .= '<time class="updated" datetime="%3$s">%4$s</time>';
+      }
+      $time_string = sprintf( $time_string,
+         esc_attr( get_the_date( 'c' ) ),
+         esc_html( get_the_date() ),
+         esc_attr( get_the_modified_date( 'c' ) ),
+         esc_html( get_the_modified_date() )
+      );
+      printf( __( '<span class="date"><a href="%1$s" title="%2$s" rel="bookmark">%3$s</a></span>', 'spacious' ),
+         esc_url( get_permalink() ),
+         esc_attr( get_the_time() ),
+         $time_string
+      ); ?>
+
+      <?php if( has_category() ) { ?>
+         <span class="category"><?php the_category(', '); ?></span>
+      <?php } ?>
+
+      <?php if ( comments_open() ) { ?>
+         <span class="comments"><?php comments_popup_link( __( 'No Comments', 'spacious' ), __( '1 Comment', 'spacious' ), __( '% Comments', 'spacious' ), '', __( 'Comments Off', 'spacious' ) ); ?></span>
+      <?php } ?>
+
+      <?php edit_post_link( __( 'Edit', 'spacious' ), '<span class="edit-link">', '</span>' ); ?>
+
+      <?php if ( ( spacious_options( 'spacious_archive_display_type', 'blog_large' ) != 'blog_full_content' ) && !is_single() ) { ?>
+         <span class="read-more-link"><a class="read-more" href="<?php the_permalink(); ?>"><?php _e( 'Read more', 'spacious' ); ?></a></span>
+      <?php } ?>
+
+      <?php
+      echo '</div>';
+      echo '</footer>';
+   endif;
+}
 ?>

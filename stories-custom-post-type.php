@@ -235,9 +235,16 @@ function saveajaxorder()
 add_filter( 'template_include', 'scp_template_loader' );
 function scp_template_loader($template)
 {
+	global $wp_query;
+	
 	$file = '';
 
-	if ( is_single() && get_post_type() == 'stories' )
+	if ($wp_query->is_search)
+	{
+		$file = 'search.php';
+		$path = SCP_PATH."templates/".$file;
+	}
+	elseif ( is_single() && get_post_type() == 'stories' )
 	{
 		$file  = 'single-stories.php';
 		$path  = SCP_PATH."templates/".$file;
@@ -681,15 +688,4 @@ add_action( 'init', 'add_excerpts_to_stories' );
 function add_excerpts_to_stories() {
      add_post_type_support( 'stories', 'excerpt' );
 }
-
-
-function story_search_template($template){
-    global $wp_query;
-    if (!$wp_query->is_search)
-        return $template;
-
-    return dirname( __FILE__ ) . '/templates/search.php';
-
-}
-add_filter('template_include','story_search_template');
 ?>

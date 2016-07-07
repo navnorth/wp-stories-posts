@@ -238,6 +238,63 @@ h4.recent_story_loc { line-height:1.25em;font-size:18px;padding-bottom:10px; }
     overflow:hidden;
     margin-bottom:15px;
 }
+.search-results article.stories .entry-content { overflow:hidden;margin-bottom:15px; }
+.search-results article.stories .entry-meta {
+    border: 1px solid #EAEAEA;
+    font-size: 14px;
+    color: #666666;
+    margin: 0 0 20px;
+}
+article.stories .entry-meta span:first-child {
+    border-left: none;
+}
+article.stories .entry-meta .by-author,
+article.stories .entry-meta .date,
+article.stories .entry-meta .category,
+article.stories .entry-meta .comments,
+article.stories .entry-meta .edit-link {
+    padding: 5px 10px;
+}
+article.stories .entry-meta span {
+    float: left;
+    padding: 0 6px 0 6px;
+}
+article.stories .entry-meta .by-author:before {
+    content: '\f304';
+}
+article.stories .entry-meta .by-author:before,
+article.stories .entry-meta .date:before,
+article.stories .entry-meta .category:before,
+article.stories .entry-meta .comments:before,
+article.stories .entry-meta .edit-link:before {
+    display: inline-block;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font: normal 18px/1 'Genericons';
+    vertical-align: top;
+}
+article.stories .entry-meta .date:before {
+    content: '\f307';
+}
+article.stories .entry-meta a, .type-page .entry-meta a {
+    color: #666666;
+}
+article.stories .entry-meta .read-more-link:hover {
+    -webkit-box-shadow: 0 0 2px rgba(0, 0, 0, 0.6);
+    -moz-box-shadow: 0 0 2px rgba(0, 0, 0, 0.6);
+    box-shadow: 0 0 2px rgba(0, 0, 0, 0.6);
+}
+article.stories .entry-meta .read-more-link {
+    background-color: #f78020;
+}
+article.stories .entry-meta .read-more-link {
+    padding: 5px 10px;
+    float: right;
+    border-right: none;
+}
+article.stories .entry-meta a.read-more, article.stories .entry-meta a.read-more:hover {
+    color: #ffffff;
+}
 .search_story_image { width:20%; float:left; }
 .search_story_featured_image { width:225px; height:auto; }
 .search_story_content { width:80%; float:right; }

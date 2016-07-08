@@ -614,7 +614,8 @@ function get_story_search($taxonomy=NULL, $taxonomy_name=NULL) {
 	$search_form = '<div class="srchtrmbxs">
 				<form action="" class="search-form searchform clearfix" method="get" _lpchecked="1">
 					<div class="search-wrap">
-						<input type="text" placeholder="Search" class="s field" name="s">
+						<input type="hidden" name="action" value="search">
+						<input type="text" placeholder="Search" class="s field" name="search_text">
 						<button class="search-icon" type="submit"></button>
 					</div>
 				</form><!-- .searchform -->

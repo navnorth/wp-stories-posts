@@ -89,7 +89,185 @@ get_header(); ?>
 					<?php
 					
 				}
+				
+				// Story Text-Based Search Result
+				if ($_REQUEST['action'] == 'search') {
+						
+						extract($_REQUEST);
+						
+						if (!empty($search_text)){
+								// Search Query
+								$args = array(
+										'post_type' => 'stories',
+										'posts_per_page' => -1,
+										's' => $search_text
+								);
+								$search_query = new WP_Query($args);
+								
+								// Meta Query
+								$args = array(
+										'post_type' => 'stories',
+										'posts_per_page' => -1,
+										'meta_query' => array(
+												'relation' => 'OR',
+												array(
+													'key'     => 'story_district',
+													'value'   => $search_text,
+													'compare' => 'LIKE'
+												),
+												array(
+													'key'     => 'story_school',
+													'value'   => $search_text,
+													'compare' => 'LIKE'
+												),
+												array(
+													'key'     => 'story_mapaddress',
+													'value'   => $search_text,
+													'compare' => 'LIKE'
+												),
+												array(
+													'key'     => 'story_zipcode',
+													'value'   => $search_text,
+													'compare' => 'LIKE'
+												)
+										),
+								);
+								$meta_query = new WP_Query($args);
+								
+								//Tax Query
+								$args = array(
+										'post_type' => 'stories',
+										'posts_per_page' => -1,
+										'tax_query' => array(
+												'relation' => 'OR',
+												array(
+													'taxonomy'     => 'program',
+													'field'   => 'name',
+													'terms' => $search_text
+												),
+												array(
+													'taxonomy'     => 'state',
+													'field'   => 'name',
+													'terms' => $search_text
+												),
+												array(
+													'taxonomy'     => 'grade_level',
+													'field'   => 'name',
+													'terms' => $search_text
+												),
+												array(
+													'taxonomy'     => 'characteristics',
+													'field'   => 'name',
+													'terms' => $search_text
+												),
+												array(
+													'taxonomy'     => 'districtsize',
+													'field'   => 'name',
+													'terms' => $search_text
+												)
+										)
+								);
+								$tax_query = new WP_Query($args);
+								
+								$wp_query = new WP_Query();
+								$wp_query->posts = array_merge($search_query->posts, $meta_query->posts, $tax_query->posts);
+								
+								$post_ids = array();
+								foreach( $wp_query->posts as $item ) {
+								    $post_ids[] = $item->ID;
+								}
+								
+								$unique = array_unique($post_ids);
+								
+								$args = array(
+								    'post_type' => 'stories',
+								    'post__in' => $unique,
+								    'post_status' => 'publish',
+								    'posts_per_page' => -1
+								    );
+								
+								$stories =  new WP_Query($args);
+								
+								if ($stories->have_posts()) {
+										?>
+										<div class="col-md-4 col-sm-12 col-xs-12 pblctn_right_sid_mtr">
+												<?php get_stories_side_nav(); ?>
+										       </div>
+				       
+										       <div class="col-md-8 col-sm-12 col-xs-12 pblctn_lft_sid_img_cntnr map_cntnr">
+											       <div class="col-md-12 col-sm-12 col-xs-12 pblctn_right_sid_mtr">
+													<?php get_storiesmap();?>
+											       </div>
+				       
+								   <header class="tax-header">
+								       <h1 class="tax-title">
+									    <?php
+										       $post_count = count($unique);
+										       printf( __( 'Results: %s', SCP_SLUG ), '<i>All Stories</i> <span>(' .$post_count.' '.story_plural($post_count).')</span>' );
+									    ?>
+								       </h1>
+								       <div class="topics-search-box">
+									   <form method="get">
+									       <input type="hidden" name="action" value="showall" />
+									       <select name="term" id="showalltopic">
+										   <option value=""><?php _e( "Filter by Topic", "nn-story-custom-post-type" ); ?></option>
+										   <?php
+										       foreach($tags as $tag)
+										       {
+											   $count = get_counts($tag->term_id,$post_ids);
+											   if(isset($term) && !empty($term) && $term == $tag->slug):
+											       $check='selected="selected"'; else: $check = '';
+											   endif;
+											   echo '<option '. $check .' value="'.site_url().'/stories/story_tag/'.$tag->slug.'">'.$tag->name.' ('.$count.')</option>';
+										       }
+										   ?>
+									       </select>
+									   </form>
+								       </div>
+								   </header>
+								       <?php
+								       //Get number of pages
+								       $postquery = new WP_Query(array(
+												'post_type' => 'stories',
+												'post__in' => $unique,
+												'post_status' => 'publish',
+												'posts_per_page' => 10
+												));
+								       $max_page = $postquery->max_num_pages;
+								       								       
+								       $paged = 1;
+								       if ($_GET['page'])
+										       $paged = (int)$_GET['page'];
+										       
+								       //Reset Post query to show only 10 stories
+								       $postquery = new WP_Query(array(
+												'post_type' => 'stories',
+												'post__in' => $unique,
+												'post_status' => 'publish',
+												'posts_per_page' => 10 * $paged
+												));
+								       
+								       //Display initial stories
+								       while ( $postquery->have_posts() ) : $postquery->the_post();
+									   get_story_template_part( 'content', 'substory' );
+								       endwhile;
+								       
+								       //Show load more button
+								       if ($post_count>10 & $paged<$max_page) {
+										       $base_url = "http" . (($_SERVER['SERVER_PORT'] == 443) ? "s://" : "://") . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
+										       if (strpos($base_url,"page"))
+												       $base_url = substr($base_url,0,strpos($base_url, "page")-1);
+										       echo '<div class="col-md-12 pblctn_paramtr padding_left"><a href="&page='.($paged+1).'" data-page-number="'.($paged+1).'" data-base-url="'.$base_url.'" data-max-page="'.$max_page.'" class="btn-load-more">Load More</a></div>';		
+								       }
+								       
+								       ?>
+										       
+										       </div>
+									       <?php
+								}
 
+						}
+				}
 				/*?>if($_REQUEST['action'] == 'Search')
 				{
 					extract($_REQUEST);

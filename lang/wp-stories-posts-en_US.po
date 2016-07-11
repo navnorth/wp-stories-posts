@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Stories Custom Post Type\n"
 "POT-Creation-Date: 2016-06-23 20:55+0800\n"
-"PO-Revision-Date: 2016-06-23 21:02+0800\n"
+"PO-Revision-Date: 2016-07-11 19:47+0800\n"
 "Language-Team: Navigation North\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -16,15 +16,12 @@ msgstr ""
 "Language: en_US\n"
 "X-Poedit-SearchPath-0: .\n"
 
-#: includes/interface.php:17 stories-custom-post-type.php:167
-#: stories-custom-post-type.php:169
+#: includes/interface.php:17 stories-custom-post-type.php:167 stories-custom-post-type.php:169
 msgid "Taxonomy Order"
 msgstr ""
 
 #: includes/interface.php:23
-msgid ""
-"This plugin requires JavaScript in order to function. Please enable "
-"JavaScript in your browser to continue."
+msgid "This plugin requires JavaScript in order to function. Please enable JavaScript in your browser to continue."
 msgstr ""
 
 #: includes/interface.php:57
@@ -133,15 +130,12 @@ msgstr ""
 
 #: init.php:386 stories-custom-post-type.php:626
 msgid "Stories of EdTech Innovation"
-msgstr ""
+msgstr "Stories of Teacher Leadership"
 
 #: init.php:391
-msgid ""
-"Use this tool to browse stories of innovation happening in schools across "
-"the nation. By sharing these stories, we hope to connect districts, schools, "
-"and educators trying similar things so that they can learn from each other's "
-"experiences."
+msgid "Use this tool to browse stories of innovation happening in schools across the nation. By sharing these stories, we hope to connect districts, schools, and educators trying similar things so that they can learn from each other's experiences."
 msgstr ""
+"<p>Use this tool to browse a variety of teacher leadership stories happening in schools and districts across the nation. By sharing these stories, we hope to highlight successful teacher-led projects, share ideas for creating new opportunities for teacher leadership, and encourage individuals at all levels to commit to expanding teacher leadership in their own communities.</p><p>Want to suggest a story? Send us a message at <br/><a href=\"mailto:Info@teachtolead.org\">Info@teachtolead.org</a></p>"
 
 #: stories-custom-post-type.php:502 stories-custom-post-type.php:514
 msgid "Settings"
@@ -188,39 +182,17 @@ msgid "Select Topics"
 msgstr ""
 
 #: templates/archive-404.php:56
-msgid ""
-"Apologies, but no results were found. Perhaps searching will help find a "
-"related post."
+msgid "Apologies, but no results were found. Perhaps searching will help find a related post."
 msgstr ""
 
-#: templates/archive-stories.php:39 templates/taxonomy-characteristics.php:53
-#: templates/taxonomy-characteristics.php:103
-#: templates/taxonomy-characteristics.php:149
-#: templates/taxonomy-districtsize.php:53
-#: templates/taxonomy-districtsize.php:103
-#: templates/taxonomy-districtsize.php:149
-#: templates/taxonomy-grade_level.php:53 templates/taxonomy-grade_level.php:103
-#: templates/taxonomy-grade_level.php:149 templates/taxonomy-program.php:53
-#: templates/taxonomy-program.php:103 templates/taxonomy-program.php:149
-#: templates/taxonomy-state.php:53 templates/taxonomy-state.php:103
-#: templates/taxonomy-state.php:149 templates/taxonomy-story_tag.php:53
-#: templates/taxonomy-story_tag.php:103 templates/taxonomy-story_tag.php:149
+#: templates/archive-stories.php:39 templates/taxonomy-characteristics.php:53 templates/taxonomy-characteristics.php:103 templates/taxonomy-characteristics.php:149 templates/taxonomy-districtsize.php:53 templates/taxonomy-districtsize.php:103 templates/taxonomy-districtsize.php:149 templates/taxonomy-grade_level.php:53 templates/taxonomy-grade_level.php:103 templates/taxonomy-grade_level.php:149 templates/taxonomy-program.php:53 templates/taxonomy-program.php:103 templates/taxonomy-program.php:149
+#: templates/taxonomy-state.php:53 templates/taxonomy-state.php:103 templates/taxonomy-state.php:149 templates/taxonomy-story_tag.php:53 templates/taxonomy-story_tag.php:103 templates/taxonomy-story_tag.php:149
 #, php-format
 msgid "Results: %s"
 msgstr ""
 
-#: templates/archive-stories.php:46 templates/taxonomy-characteristics.php:60
-#: templates/taxonomy-characteristics.php:110
-#: templates/taxonomy-characteristics.php:157
-#: templates/taxonomy-districtsize.php:60
-#: templates/taxonomy-districtsize.php:110
-#: templates/taxonomy-districtsize.php:157
-#: templates/taxonomy-grade_level.php:60 templates/taxonomy-grade_level.php:110
-#: templates/taxonomy-grade_level.php:157 templates/taxonomy-program.php:60
-#: templates/taxonomy-program.php:110 templates/taxonomy-program.php:156
-#: templates/taxonomy-state.php:60 templates/taxonomy-state.php:110
-#: templates/taxonomy-state.php:157 templates/taxonomy-story_tag.php:60
-#: templates/taxonomy-story_tag.php:110 templates/taxonomy-story_tag.php:156
+#: templates/archive-stories.php:46 templates/taxonomy-characteristics.php:60 templates/taxonomy-characteristics.php:110 templates/taxonomy-characteristics.php:157 templates/taxonomy-districtsize.php:60 templates/taxonomy-districtsize.php:110 templates/taxonomy-districtsize.php:157 templates/taxonomy-grade_level.php:60 templates/taxonomy-grade_level.php:110 templates/taxonomy-grade_level.php:157 templates/taxonomy-program.php:60 templates/taxonomy-program.php:110 templates/taxonomy-program.php:156
+#: templates/taxonomy-state.php:60 templates/taxonomy-state.php:110 templates/taxonomy-state.php:157 templates/taxonomy-story_tag.php:60 templates/taxonomy-story_tag.php:110 templates/taxonomy-story_tag.php:156
 msgid "Filter by Topic"
 msgstr ""
 
@@ -288,11 +260,6 @@ msgstr ""
 msgid "Post navigation"
 msgstr ""
 
-#: templates/taxonomy-characteristics.php:129
-#: templates/taxonomy-districtsize.php:129
-#: templates/taxonomy-grade_level.php:129 templates/taxonomy-program.php:129
-#: templates/taxonomy-state.php:129 templates/taxonomy-story_tag.php:129
-msgid ""
-"Sorry, but nothing matched your search criteria. Please try again with some "
-"different keywords."
+#: templates/taxonomy-characteristics.php:129 templates/taxonomy-districtsize.php:129 templates/taxonomy-grade_level.php:129 templates/taxonomy-program.php:129 templates/taxonomy-state.php:129 templates/taxonomy-story_tag.php:129
+msgid "Sorry, but nothing matched your search criteria. Please try again with some different keywords."
 msgstr ""

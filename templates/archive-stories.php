@@ -191,7 +191,7 @@ get_header(); ?>
 								if ($stories->have_posts()) {
 										?>
 										<div class="col-md-4 col-sm-12 col-xs-12 pblctn_right_sid_mtr">
-												<?php get_stories_side_nav(); ?>
+												<?php get_stories_side_nav($search_text); ?>
 										       </div>
 				       
 										       <div class="col-md-8 col-sm-12 col-xs-12 pblctn_lft_sid_img_cntnr map_cntnr">
@@ -203,27 +203,9 @@ get_header(); ?>
 								       <h1 class="tax-title">
 									    <?php
 										       $post_count = count($unique);
-										       printf( __( 'Results: %s', SCP_SLUG ), '<i>All Stories</i> <span>(' .$post_count.' '.story_plural($post_count).')</span>' );
+										       printf( __( 'Search Results: %s', SCP_SLUG ), '<i>' . $search_text . '</i> <span>(' .$post_count.' '.story_plural($post_count).')</span>' );
 									    ?>
 								       </h1>
-								       <div class="topics-search-box">
-									   <form method="get">
-									       <input type="hidden" name="action" value="showall" />
-									       <select name="term" id="showalltopic">
-										   <option value=""><?php _e( "Filter by Topic", "nn-story-custom-post-type" ); ?></option>
-										   <?php
-										       foreach($tags as $tag)
-										       {
-											   $count = get_counts($tag->term_id,$post_ids);
-											   if(isset($term) && !empty($term) && $term == $tag->slug):
-											       $check='selected="selected"'; else: $check = '';
-											   endif;
-											   echo '<option '. $check .' value="'.site_url().'/stories/story_tag/'.$tag->slug.'">'.$tag->name.' ('.$count.')</option>';
-										       }
-										   ?>
-									       </select>
-									   </form>
-								       </div>
 								   </header>
 								       <?php
 								       //Get number of pages

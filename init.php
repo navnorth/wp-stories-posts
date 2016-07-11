@@ -275,7 +275,7 @@ function get_latitude_longitude($address)
 }
 
 //Story Search
-function get_stories_side_nav($taxonomy=NULL, $taxonomy_name=NULL)
+function get_stories_side_nav($search_text=NULL, $taxonomy=NULL, $taxonomy_name=NULL)
 {
 	global $wpdb;
 
@@ -465,7 +465,7 @@ function get_stories_side_nav($taxonomy=NULL, $taxonomy_name=NULL)
 			</ul>
 		</div>
 		
-		<?php echo get_story_search($taxonomy, $taxonomy_name); ?>
+		<?php echo get_story_search($search_text, $taxonomy, $taxonomy_name); ?>
 		<?php echo get_top_topics_nav($taxonomy, $taxonomy_name) ?>
 
 		<div class="showallstories">
@@ -610,12 +610,17 @@ function display_story_content($post_id, $limit = 200) {
 }
 
 /** Text-based search on the sidebar **/
-function get_story_search($taxonomy=NULL, $taxonomy_name=NULL) {
+function get_story_search($search_text=NULL, $taxonomy=NULL, $taxonomy_name=NULL) {
+	$search_value="";
+	
+	if (isset($search_text))
+		$search_value=' value="'.$search_text.'"';
+		
 	$search_form = '<div class="srchtrmbxs">
 				<form action="" class="search-form searchform clearfix" method="get" _lpchecked="1">
 					<div class="search-wrap">
 						<input type="hidden" name="action" value="search">
-						<input type="text" placeholder="Search" class="s field" name="search_text">
+						<input type="text" placeholder="Search" class="s field" name="search_text"'. $search_value .'>
 						<button class="search-icon" type="submit"></button>
 					</div>
 				</form><!-- .searchform -->

@@ -169,9 +169,9 @@ msgstr ""
 msgid "Search Results"
 msgstr ""
 
-#: stories-custom-post-type.php:642
+#: stories-custom-post-type.php:650
 msgid "Stories: "
-msgstr ""
+msgstr "Stories of Teacher Leadership:"
 
 #: templates/archive-404.php:37
 msgid "Nothing Found"

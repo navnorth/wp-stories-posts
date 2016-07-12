@@ -130,7 +130,9 @@ function add_vimeo_script(){
 		}
 	?>
             <div class="col-md-12 col-sm-12 col-xs-12 noborder nomargintop">
-                <iframe id="<?php echo $video_id; ?>" src="<?php echo $video_url; ?>" <?php if ($story_video_host==2) echo "data-progress='true' data-seek='true' data-bounce='true'"; ?> height="250"></iframe>
+		<div class="vid-wrap">
+		    <iframe id="<?php echo $video_id; ?>" src="<?php echo $video_url; ?>" <?php if ($story_video_host==2) echo "data-progress='true' data-seek='true' data-bounce='true'"; ?> height="250"></iframe>
+		</div>
             </div>
         <?php endif; ?>
 

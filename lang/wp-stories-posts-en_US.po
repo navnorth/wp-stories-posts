@@ -171,7 +171,7 @@ msgstr ""
 
 #: stories-custom-post-type.php:650
 msgid "Stories: "
-msgstr "Stories of Teacher Leadership:"
+msgstr "Stories of Teacher Leadership: "
 
 #: templates/archive-404.php:37
 msgid "Nothing Found"

@@ -344,6 +344,9 @@ article.stories .entry-meta a.read-more, article.stories .entry-meta a.read-more
     font-size: 18px !important;
     font-weight:bold;
 }
+.single-stories ul, .single-stories ol { margin-left:1em;padding-left:1em;line-height:25px; }
+.single-stories li { margin-left:1em; padding-left:0; }
+.single-stories ul li { list-style-type:disc; }
 @media screen and (max-width: 992px) {
 	.stry_srch_frm { width: 100%}
 	/*.pblctn_lft_sid_img_cntnr { padding-left: 0 !important}*/

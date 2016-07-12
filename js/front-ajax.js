@@ -33,4 +33,9 @@ jQuery(document).ready(function($){
         });
         return false;
     });
+    
+    /** Sorting of List of Stories Widget **/
+    $('.sort-selectbox').change(function(){
+        var data = {}
+    });
 });

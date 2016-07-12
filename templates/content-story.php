@@ -135,7 +135,7 @@ function add_vimeo_script(){
         <?php endif; ?>
 
         <aside class="story_sharewidget">
-            <p class="rght_sid_wdgt_hedng"><?php _e( 'Share this story' , SCP_SLUG ); ?></p>
+            <h3 class="rght_sid_wdgt_hedng"><?php _e( 'Share this story' , SCP_SLUG ); ?></h3>
            <?php
                 echo '<div class="story_sharewidgeticns">';
 			//Checks if ShareThis is installed and active

@@ -44,7 +44,18 @@ jQuery(document).ready(function(){
     
     /** Remove empty p tags **/
     jQuery('p').filter(function () { return jQuery.trim(this.innerHTML) == "" }).remove();
-
+    
+    /** Sort Script **/
+    jQuery('.sort-story').click(function(){
+      jQuery('.sort-options').fadeToggle('fast');
+    });
+    
+    jQuery('.sort-options ul li a').click(function(){
+      jQuery('.sort-options ul li').removeClass('cs-selected');
+      jQuery(this).parent().addClass('cs-selected');
+      jQuery('.sortoption').text(jQuery(this).text());
+      jQuery('.sort-selectbox').val(jQuery(this).parent().attr('data-value'));
+    });
 });
 function formsubmit(ref)
 {

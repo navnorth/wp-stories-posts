@@ -346,7 +346,7 @@ article.stories .entry-meta a.read-more, article.stories .entry-meta a.read-more
 }
 @media screen and (max-width: 992px) {
 	.stry_srch_frm { width: 100%}
-	.pblctn_lft_sid_img_cntnr { padding-left: 0 !important}
+	/*.pblctn_lft_sid_img_cntnr { padding-left: 0 !important}*/
 	.stry_srch_frm  h3 { text-align: left}
 
 }
@@ -356,7 +356,7 @@ article.stories .entry-meta a.read-more, article.stories .entry-meta a.read-more
 	.sliderimgwrpr:after { content: ""; position: absolute; top: 10px; right: 10px; bottom: 10px; left: 10px; background: rgba(255,255,255,.7); }
 	.slidercontentnrwrpr { margin: 35px; position: absolute}
 	.slidercontentnrwrpr h3 { margin-bottom: 0}
-
+	.single-stories #main { padding:10px 0; }
 }
 
 @media screen and (max-width: 400px) {

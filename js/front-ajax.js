@@ -36,6 +36,13 @@ jQuery(document).ready(function($){
     
     /** Sorting of List of Stories Widget **/
     $('.sort-selectbox').change(function(){
-        var data = {}
+        var data = {
+            action: 'sort_stories',
+            sort: $(this).val()
+        };
+        
+        $.post(the_ajax_script.ajaxurl, data).done(function(response) {
+            console.log(response);
+        });
     });
 });

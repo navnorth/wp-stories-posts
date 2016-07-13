@@ -56,25 +56,25 @@ get_header(); ?>
                                             ?>
                                         </select>
                                     </form>
-                                </div>
-				<div class="sort-box">
-						<span class="sortoption"></span>
-						<span class="sort-story" title="Sort stories"><i class="fa fa-sort" aria-hidden="true"></i></span>
-						<div class="sort-options">
-							<ul>
-								<li data-value="0" class="cs-selected"><a href="javascript:void(0);"><span>Newest first (default)</span></a></li>
-								<li data-value="1"><a href="javascript:void(0);"><span>Oldest first</span></a></li>
-								<li data-value="2"><a href="javascript:void(0);"><span>A-Z</span></a></li>
-								<li data-value="3"><a href="javascript:void(0);"><span>Z-A</span></a></li>
-							</ul>
+						<div class="sort-box">
+								<span class="sortoption"></span>
+								<span class="sort-story" title="Sort stories"><i class="fa fa-sort" aria-hidden="true"></i></span>
+								<div class="sort-options">
+									<ul>
+										<li data-value="0" class="cs-selected"><a href="javascript:void(0);"><span>Newest first (default)</span></a></li>
+										<li data-value="1"><a href="javascript:void(0);"><span>Oldest first</span></a></li>
+										<li data-value="2"><a href="javascript:void(0);"><span>A-Z</span></a></li>
+										<li data-value="3"><a href="javascript:void(0);"><span>Z-A</span></a></li>
+									</ul>
+								</div>
+								<select class="sort-selectbox">
+									<option value="0" disabled selected>Newest first (default)</option>
+									<option value="1">Oldest first</option>
+									<option value="2">A-Z</option>
+									<option value="3">Z-A</option>
+								</select>
 						</div>
-						<select class="sort-selectbox">
-							<option value="0" disabled selected>Newest first (default)</option>
-							<option value="1">Oldest first</option>
-							<option value="2">A-Z</option>
-							<option value="3">Z-A</option>
-						</select>
-				</div>
+                                </div>
                             </header>
 				<?php
 				//Get number of pages
@@ -209,7 +209,7 @@ get_header(); ?>
 								if ($stories->have_posts()) {
 										?>
 										<div class="col-md-4 col-sm-12 col-xs-12 pblctn_right_sid_mtr">
-												<?php get_stories_side_nav($search_text); ?>
+												<?php get_stories_side_nav(null, null, $search_text); ?>
 										       </div>
 				       
 										       <div class="col-md-8 col-sm-12 col-xs-12 pblctn_lft_sid_img_cntnr map_cntnr">

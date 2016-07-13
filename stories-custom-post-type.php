@@ -625,6 +625,34 @@ function load_more_stories() {
 add_action('wp_ajax_load_more', 'load_more_stories');
 add_action('wp_ajax_nopriv_load_more', 'load_more_stories');
 
+/** Sort Stories **/
+function sort_stories(){
+	global $wpdb;
+	
+	if (isset($_POST["sort"])) {
+		
+		$args = array('post_type' => 'stories', 'posts_per_page' => -1);
+		
+		switch($_POST["sort"]){
+			case 0:
+				break;
+			case 1:
+				break;
+			case 2:
+				break;
+			case 3:
+				break;
+		}
+		
+		$postquery = new WP_Query($args);
+		
+		
+	}
+}
+add_action('wp_ajax_sort_stories', 'sort_stories');
+add_action('wp_ajax_nopriv_sort_stories', 'sort_stories');
+
+
 /**
  * Override spacious_header_title function applicable only to Spacious Theme
  **/

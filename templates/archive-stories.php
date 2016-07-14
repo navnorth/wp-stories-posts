@@ -88,10 +88,12 @@ get_header(); ?>
 				//Reset Post query to show only 10 stories
 				$postquery = new WP_Query(array('post_type' => 'stories', 'posts_per_page' => 10 * $paged));
 				
+				echo '<div id="content-stories">';
 				//Display initial stories
 				while ( $postquery->have_posts() ) : $postquery->the_post();
                                     get_story_template_part( 'content', 'substory' );
 				endwhile;
+				echo '</div>';
 				
 				//Show load more button
 				if ($post_count>10 & $paged<$max_page) {
@@ -265,10 +267,12 @@ get_header(); ?>
 												'posts_per_page' => 10 * $paged
 												));
 								       
+								       echo '<div id="content-stories">';
 								       //Display initial stories
 								       while ( $postquery->have_posts() ) : $postquery->the_post();
 									   get_story_template_part( 'content', 'substory' );
 								       endwhile;
+								       echo '</div>';
 								       
 								       //Show load more button
 								       if ($post_count>10 & $paged<$max_page) {

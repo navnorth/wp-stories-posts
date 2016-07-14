@@ -58,6 +58,7 @@ jQuery(document).ready(function(){
       jQuery('.sortoption').text(jQuery(this).text());
       jQuery('.sort-selectbox').val(jQuery(this).parent().attr('data-value'));
       jQuery('.sort-options').fadeToggle('fast');
+      jQuery('.sort-selectbox').trigger("change");
     });
 });
 function formsubmit(ref)

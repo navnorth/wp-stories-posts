@@ -598,9 +598,7 @@ add_action('wp_print_scripts', 'load_ajax_script');
 
 /* Ajax Callback */
 function load_more_stories() {
-	global $wpdb, $wp_query, $wp_the_query;
-	
-	var_dump($wp_the_query);
+	global $wpdb, $wp_query;
 	
 	if (isset($_POST["post_var"])) {
 		$page_num = $_POST["post_var"];
@@ -614,6 +612,28 @@ function load_more_stories() {
 		if (isset($_POST['post_ids'])) {
 			$post_ids = json_decode($_POST['post_ids']);
 			$args['post__in'] = $post_ids;
+		}
+		
+		//Sorting Results
+		if (isset($_POST['sort'])) {
+			switch($_POST["sort"]){
+				case 0:
+					$args['orderby'] = 'post_date';
+					$args['order'] = 'DESC';
+					break;
+				case 1:
+					$args['orderby'] = 'post_date';
+					$args['order'] = 'ASC';
+					break;
+				case 2:
+					$args['orderby'] = 'post_title';
+					$args['order'] = 'ASC';
+					break;
+				case 3:
+					$args['orderby'] = 'post_title';
+					$args['order'] = 'DESC';
+					break;
+			}
 		}
 		
 		$postquery = new WP_Query($args);
@@ -664,10 +684,10 @@ function sort_stories(){
 		$max_page = $max_stories->max_num_pages;
 		
 		$paged = 1;
-		if ($_GET['page'])
-			$paged = (int)$_GET['page'];
-		
-		$args['posts_per_page'] = 10 * $paged;
+		if ($_POST['post_var']){
+			$paged = (int)$_POST['post_var'];
+			$args['posts_per_page'] = 10 * $paged;
+		}
 		
 		$postquery = new WP_Query($args);
 		

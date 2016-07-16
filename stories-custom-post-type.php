@@ -115,10 +115,10 @@ add_action('wp_enqueue_scripts', 'scp_frontside_scripts');
 function scp_frontside_scripts()
 {
 	global $_bootstrap,  $_fontawesome;
-	
+
 	wp_enqueue_style('front-styles', SCP_URL.'css/front_styles.css');
 	wp_enqueue_style('bxslider-styles', SCP_URL.'css/jquery.bxslider.css');
-	
+
 	if ($_bootstrap) {
 		wp_enqueue_style('bootstrap-style', SCP_URL.'css/bootstrap.min.css');
 	}
@@ -236,7 +236,7 @@ add_filter( 'template_include', 'scp_template_loader' );
 function scp_template_loader($template)
 {
 	global $wp_query;
-	
+
 	$file = '';
 
 	if ($wp_query->is_search)
@@ -351,13 +351,13 @@ function get_storiesmap($pageposts=NULL)
 									$image = $story->image;
 									$content = $story->post_excerpt ? $story->post_excerpt : $story->content;
 									$link = get_the_permalink($story->postid)."?back=".urlencode($_SERVER['REQUEST_URI']);
-									
+
 									if(!empty($content))
 									{
 										$content = substr($content, 0 ,95);
 										$content = $content."... <a href=$link>Read More</a>";
 									}
-									
+
 									$district = get_post_meta($story->postid,"story_district",true);
 									$states = get_the_terms( $story->postid, "state" );
 									if(isset($states) && !empty($states))
@@ -564,56 +564,56 @@ function setup_settings_form() {
 }
 
 function first_section_callback() {
-	
+
 }
 
 function setup_settings_field( $arguments ) {
 	$selected = "";
-	
+
 	$value = get_option($arguments['uid']);
-	
+
 	if ($value) {
 		$selected = "checked";
 	}
-	
+
 	echo '<input name="'.$arguments['uid'].'" id="'.$arguments['uid'].'" type="'.$arguments['type'].'" value="1" ' . checked(1,$value, false) . ' />';
-	
+
 	//Show Helper Text if specified
 	if ($helper = $arguments['helper']) {
 		printf( '<span class="helper"> %s</span>' , $helper );
 	}
-	
+
 	//Show Description if specified
 	if( $description = $arguments['description'] ){
-		printf( '<p class="description">%s</p>', $description ); 
+		printf( '<p class="description">%s</p>', $description );
 	}
 }
 
 /* load ajax script */
 function load_ajax_script(){
 	wp_enqueue_script( "ajax-script", plugin_dir_url(__FILE__)."js/front-ajax.js", array("jquery"));
-	wp_localize_script( 'ajax-script', 'the_ajax_script', array( 'ajaxurl' => admin_url( 'admin-ajax.php' ) ) );	
+	wp_localize_script( 'ajax-script', 'the_ajax_script', array( 'ajaxurl' => admin_url( 'admin-ajax.php' ) ) );
 }
 add_action('wp_print_scripts', 'load_ajax_script');
 
 /* Ajax Callback */
 function load_more_stories() {
 	global $wpdb, $wp_query;
-	
+
 	if (isset($_POST["post_var"])) {
 		$page_num = $_POST["post_var"];
-		
+
 		$args = array(
 				'post_type' => 'stories',
 				'posts_per_page' => 10,
 				'paged' => $page_num
 				);
-		
+
 		if (isset($_POST['post_ids'])) {
 			$post_ids = json_decode($_POST['post_ids']);
 			$args['post__in'] = $post_ids;
 		}
-		
+
 		//Sorting Results
 		if (isset($_POST['sort'])) {
 			switch($_POST["sort"]){
@@ -635,9 +635,9 @@ function load_more_stories() {
 					break;
 			}
 		}
-		
+
 		$postquery = new WP_Query($args);
-				
+
 		while ( $postquery->have_posts() ) : $postquery->the_post();
 		    get_story_template_part( 'content', 'substory' );
 		endwhile;
@@ -650,17 +650,17 @@ add_action('wp_ajax_nopriv_load_more', 'load_more_stories');
 /** Sort Stories **/
 function sort_stories(){
 	global $wpdb;
-	
+
 	if (isset($_POST["sort"])) {
-		
+
 		$stories = new WP_Query(array('post_type' => 'stories', 'posts_per_page' => -1));
 
                 $post_ids = wp_list_pluck( $stories->posts, 'ID' );
-		
+
 		$post_count = count($post_ids);
-		
+
 		$args = array('post_type' => 'stories', 'posts_per_page' => 10);
-		
+
 		switch($_POST["sort"]){
 			case 0:
 				$args['orderby'] = 'post_date';
@@ -679,22 +679,22 @@ function sort_stories(){
 				$args['order'] = 'DESC';
 				break;
 		}
-		
+
 		$max_stories = new WP_Query($args);
 		$max_page = $max_stories->max_num_pages;
-		
+
 		$paged = 1;
 		if ($_POST['post_var']){
 			$paged = (int)$_POST['post_var'];
 			$args['posts_per_page'] = 10 * $paged;
 		}
-		
+
 		$postquery = new WP_Query($args);
-		
+
 		while ( $postquery->have_posts() ) : $postquery->the_post();
 		    get_story_template_part( 'content', 'substory' );
 		endwhile;
-		
+
 		die();
 	}
 }
@@ -724,7 +724,8 @@ function spacious_header_title() {
 	}
 	elseif( is_single()  ) {
 		if (get_post_type()=='stories'):
-			$spacious_header_title = __("Stories: ", SCP_SLUG) . get_the_title();
+			$spacious_header_title = __( 'Stories of EdTech Innovation', SCP_SLUG );
+            //$spacious_header_title = __("Stories: ", SCP_SLUG) . get_the_title();
 		else:
 			$spacious_header_title = get_the_title();
 		endif;
@@ -744,12 +745,12 @@ function spacious_header_title() {
 /** Check if theme used is Spacious then allow hiding of title in story page **/
 function title_can_be_hidden(){
 	$hidden = false;
-	
+
 	$current_theme = wp_get_theme();
-	
+
 	if ($current_theme['Name']=="Spacious Child")
 		$hidden = true;
-		
+
 	return $hidden;
 }
 

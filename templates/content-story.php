@@ -307,10 +307,10 @@ function add_vimeo_script(){
 
 <div class="col-md-8 col-sm-12 col-xs-12 pblctn_lft_sid_img_cntnr">
     <div class="col-md-12 pblctn_paramtr padding_left">
-        <h3><?php
-	    if (!(title_can_be_hidden()))
+        <h2><?php
+	    //if (!(title_can_be_hidden()))
 		echo get_the_title($post->ID);
-	?></h3>
+	?></h2>
         <p>
             <?php
                 $content = get_the_content($post->ID);

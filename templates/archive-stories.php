@@ -61,15 +61,15 @@ get_header(); ?>
 								<span class="sort-story" title="Sort stories"><i class="fa fa-sort" aria-hidden="true"></i></span>
 								<div class="sort-options">
 									<ul>
-										<li data-value="0" class="cs-selected"><a href="javascript:void(0);"><span>Newest first (default)</span></a></li>
-										<li data-value="1"><a href="javascript:void(0);"><span>Oldest first</span></a></li>
+										<li data-value="0" class="cs-selected"><a href="javascript:void(0);"><span>Newest</span></a></li>
+										<li data-value="1"><a href="javascript:void(0);"><span>Oldest</span></a></li>
 										<li data-value="2"><a href="javascript:void(0);"><span>A-Z</span></a></li>
 										<li data-value="3"><a href="javascript:void(0);"><span>Z-A</span></a></li>
 									</ul>
 								</div>
 								<select class="sort-selectbox">
-									<option value="0" disabled selected>Newest first (default)</option>
-									<option value="1">Oldest first</option>
+									<option value="0" disabled selected>Newest</option>
+									<option value="1">Oldest</option>
 									<option value="2">A-Z</option>
 									<option value="3">Z-A</option>
 								</select>
@@ -80,41 +80,41 @@ get_header(); ?>
 				//Get number of pages
 				$postquery = new WP_Query(array('post_type' => 'stories', 'posts_per_page' => 10));
 				$max_page = $postquery->max_num_pages;
-				
+
 				$paged = 1;
 				if ($_GET['page'])
 						$paged = (int)$_GET['page'];
-						
+
 				//Reset Post query to show only 10 stories
 				$postquery = new WP_Query(array('post_type' => 'stories', 'posts_per_page' => 10 * $paged));
-				
+
 				echo '<div id="content-stories">';
 				//Display initial stories
 				while ( $postquery->have_posts() ) : $postquery->the_post();
                                     get_story_template_part( 'content', 'substory' );
 				endwhile;
 				echo '</div>';
-				
+
 				//Show load more button
 				if ($post_count>10 & $paged<$max_page) {
 						$base_url = "http" . (($_SERVER['SERVER_PORT'] == 443) ? "s://" : "://") . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
 						if (strpos($base_url,"page"))
 								$base_url = substr($base_url,0,strpos($base_url, "page")-1);
-						echo '<div class="col-md-12 pblctn_paramtr padding_left"><a href="&page='.($paged+1).'" data-page-number="'.($paged+1).'" data-base-url="'.$base_url.'" data-max-page="'.$max_page.'" class="btn-load-more">Load More</a></div>';		
+						echo '<div class="col-md-12 pblctn_paramtr padding_left"><a href="&page='.($paged+1).'" data-page-number="'.($paged+1).'" data-base-url="'.$base_url.'" data-max-page="'.$max_page.'" class="btn-load-more">Load More</a></div>';
 				}
-				
+
 				?>
-						
+
 					 	</div>
 					<?php
-					
+
 				}
-				
+
 				// Story Text-Based Search Result
 				if ($_REQUEST['action'] == 'search') {
-						
+
 						extract($_REQUEST);
-						
+
 						if (!empty($search_text)){
 								// Search Query
 								$args = array(
@@ -123,7 +123,7 @@ get_header(); ?>
 										's' => $search_text
 								);
 								$search_query = new WP_Query($args);
-								
+
 								// Meta Query
 								$args = array(
 										'post_type' => 'stories',
@@ -153,7 +153,7 @@ get_header(); ?>
 										),
 								);
 								$meta_query = new WP_Query($args);
-								
+
 								//Tax Query
 								$args = array(
 										'post_type' => 'stories',
@@ -188,37 +188,37 @@ get_header(); ?>
 										)
 								);
 								$tax_query = new WP_Query($args);
-								
+
 								$wp_query = new WP_Query();
 								$wp_query->posts = array_merge($search_query->posts, $meta_query->posts, $tax_query->posts);
-								
+
 								$post_ids = array();
 								foreach( $wp_query->posts as $item ) {
 								    $post_ids[] = $item->ID;
 								}
-								
+
 								$unique = array_unique($post_ids);
-								
+
 								$args = array(
 								    'post_type' => 'stories',
 								    'post__in' => $unique,
 								    'post_status' => 'publish',
 								    'posts_per_page' => -1
 								    );
-								
+
 								$stories =  new WP_Query($args);
-								
+
 								if ($stories->have_posts()) {
 										?>
 										<div class="col-md-4 col-sm-12 col-xs-12 pblctn_right_sid_mtr">
 												<?php get_stories_side_nav(null, null, $search_text); ?>
 										       </div>
-				       
+
 										       <div class="col-md-8 col-sm-12 col-xs-12 pblctn_lft_sid_img_cntnr map_cntnr">
 											       <div class="col-md-12 col-sm-12 col-xs-12 pblctn_right_sid_mtr">
 													<?php get_storiesmap();?>
 											       </div>
-				       
+
 								   <header class="tax-header">
 								       <h1 class="tax-title">
 									    <?php
@@ -231,15 +231,15 @@ get_header(); ?>
 												<span class="sort-story" title="Sort stories"><i class="fa fa-sort" aria-hidden="true"></i></span>
 												<div class="sort-options">
 													<ul>
-														<li data-value="0" class="cs-selected"><a href="javascript:void(0);"><span>Newest first (default)</span></a></li>
-														<li data-value="1"><a href="javascript:void(0);"><span>Oldest first</span></a></li>
+														<li data-value="0" class="cs-selected"><a href="javascript:void(0);"><span>Newest</span></a></li>
+														<li data-value="1"><a href="javascript:void(0);"><span>Oldest</span></a></li>
 														<li data-value="2"><a href="javascript:void(0);"><span>A-Z</span></a></li>
 														<li data-value="3"><a href="javascript:void(0);"><span>Z-A</span></a></li>
 													</ul>
 												</div>
 												<select class="sort-selectbox">
-													<option value="0" disabled selected>Newest first (default)</option>
-													<option value="1">Oldest first</option>
+													<option value="0" disabled selected>Newest</option>
+													<option value="1">Oldest</option>
 													<option value="2">A-Z</option>
 													<option value="3">Z-A</option>
 												</select>
@@ -254,11 +254,11 @@ get_header(); ?>
 												'posts_per_page' => 10
 												));
 								       $max_page = $postquery->max_num_pages;
-								       								       
+
 								       $paged = 1;
 								       if ($_GET['page'])
 										       $paged = (int)$_GET['page'];
-										       
+
 								       //Reset Post query to show only 10 stories
 								       $postquery = new WP_Query(array(
 												'post_type' => 'stories',
@@ -266,24 +266,24 @@ get_header(); ?>
 												'post_status' => 'publish',
 												'posts_per_page' => 10 * $paged
 												));
-								       
+
 								       echo '<div id="content-stories">';
 								       //Display initial stories
 								       while ( $postquery->have_posts() ) : $postquery->the_post();
 									   get_story_template_part( 'content', 'substory' );
 								       endwhile;
 								       echo '</div>';
-								       
+
 								       //Show load more button
 								       if ($post_count>10 & $paged<$max_page) {
 										       $base_url = "http" . (($_SERVER['SERVER_PORT'] == 443) ? "s://" : "://") . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
 										       if (strpos($base_url,"page"))
 												       $base_url = substr($base_url,0,strpos($base_url, "page")-1);
-										       echo '<div class="col-md-12 pblctn_paramtr padding_left"><a href="&page='.($paged+1).'" data-page-number="'.($paged+1).'" data-base-url="'.$base_url.'" data-max-page="'.$max_page.'" class="btn-load-more">Load More</a></div>';		
+										       echo '<div class="col-md-12 pblctn_paramtr padding_left"><a href="&page='.($paged+1).'" data-page-number="'.($paged+1).'" data-base-url="'.$base_url.'" data-max-page="'.$max_page.'" class="btn-load-more">Load More</a></div>';
 								       }
-								       
+
 								       ?>
-										       
+
 										       </div>
 									       <?php
 								}

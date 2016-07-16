@@ -598,7 +598,7 @@ add_action('wp_print_scripts', 'load_ajax_script');
 
 /* Ajax Callback */
 function load_more_stories() {
-	global $wpdb;
+	global $wpdb, $wp_query;
 	
 	if (isset($_POST["post_var"])) {
 		$page_num = $_POST["post_var"];
@@ -614,6 +614,28 @@ function load_more_stories() {
 			$args['post__in'] = $post_ids;
 		}
 		
+		//Sorting Results
+		if (isset($_POST['sort'])) {
+			switch($_POST["sort"]){
+				case 0:
+					$args['orderby'] = 'post_date';
+					$args['order'] = 'DESC';
+					break;
+				case 1:
+					$args['orderby'] = 'post_date';
+					$args['order'] = 'ASC';
+					break;
+				case 2:
+					$args['orderby'] = 'post_title';
+					$args['order'] = 'ASC';
+					break;
+				case 3:
+					$args['orderby'] = 'post_title';
+					$args['order'] = 'DESC';
+					break;
+			}
+		}
+		
 		$postquery = new WP_Query($args);
 				
 		while ( $postquery->have_posts() ) : $postquery->the_post();
@@ -624,6 +646,61 @@ function load_more_stories() {
 }
 add_action('wp_ajax_load_more', 'load_more_stories');
 add_action('wp_ajax_nopriv_load_more', 'load_more_stories');
+
+/** Sort Stories **/
+function sort_stories(){
+	global $wpdb;
+	
+	if (isset($_POST["sort"])) {
+		
+		$stories = new WP_Query(array('post_type' => 'stories', 'posts_per_page' => -1));
+
+                $post_ids = wp_list_pluck( $stories->posts, 'ID' );
+		
+		$post_count = count($post_ids);
+		
+		$args = array('post_type' => 'stories', 'posts_per_page' => 10);
+		
+		switch($_POST["sort"]){
+			case 0:
+				$args['orderby'] = 'post_date';
+				$args['order'] = 'DESC';
+				break;
+			case 1:
+				$args['orderby'] = 'post_date';
+				$args['order'] = 'ASC';
+				break;
+			case 2:
+				$args['orderby'] = 'post_title';
+				$args['order'] = 'ASC';
+				break;
+			case 3:
+				$args['orderby'] = 'post_title';
+				$args['order'] = 'DESC';
+				break;
+		}
+		
+		$max_stories = new WP_Query($args);
+		$max_page = $max_stories->max_num_pages;
+		
+		$paged = 1;
+		if ($_POST['post_var']){
+			$paged = (int)$_POST['post_var'];
+			$args['posts_per_page'] = 10 * $paged;
+		}
+		
+		$postquery = new WP_Query($args);
+		
+		while ( $postquery->have_posts() ) : $postquery->the_post();
+		    get_story_template_part( 'content', 'substory' );
+		endwhile;
+		
+		die();
+	}
+}
+add_action('wp_ajax_sort_stories', 'sort_stories');
+add_action('wp_ajax_nopriv_sort_stories', 'sort_stories');
+
 
 /**
  * Override spacious_header_title function applicable only to Spacious Theme

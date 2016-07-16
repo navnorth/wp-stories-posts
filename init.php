@@ -275,7 +275,7 @@ function get_latitude_longitude($address)
 }
 
 //Story Search
-function get_stories_side_nav($search_text=NULL, $taxonomy=NULL, $taxonomy_name=NULL)
+function get_stories_side_nav($taxonomy=NULL, $taxonomy_name=NULL, $search_text=NULL)
 {
 	global $wpdb;
 

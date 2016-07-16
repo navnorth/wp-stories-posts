@@ -46,6 +46,8 @@ jQuery(document).ready(function(){
     jQuery('p').filter(function () { return jQuery.trim(this.innerHTML) == "" }).remove();
     
     /** Sort Script **/
+    jQuery('.sortoption').text(jQuery('.sort-options').find('li.cs-selected').text());
+    
     jQuery('.sort-story').click(function(){
       jQuery('.sort-options').fadeToggle('fast');
     });
@@ -55,6 +57,8 @@ jQuery(document).ready(function(){
       jQuery(this).parent().addClass('cs-selected');
       jQuery('.sortoption').text(jQuery(this).text());
       jQuery('.sort-selectbox').val(jQuery(this).parent().attr('data-value'));
+      jQuery('.sort-options').fadeToggle('fast');
+      jQuery('.sort-selectbox').trigger("change");
     });
 });
 function formsubmit(ref)

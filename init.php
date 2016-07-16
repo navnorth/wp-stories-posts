@@ -104,13 +104,13 @@ function create_stories_metabox()
 	$story_mapaddress 	= get_post_meta($post->ID, "story_mapaddress", true);
 	$story_zipcode 		= get_post_meta($post->ID, "story_zipcode", true);
 	$story_sidebar_content = get_post_meta($post->ID, "story_sidebar_content", true);
-	
+
 	$return = '';
 		$return .= '<div class="scp_adtnalflds">';
 			$return .= '<div class="wrprtext">Video ID</div>';
 			$return .= '<div class="wrprfld"><input type="text" name="story_video" value="'.$story_video.'" /></div>';
 		$return .= '</div>';
-		
+
 		$return .= '<div class="scp_adtnalflds">';
 			$return .= '<div class="wrprtext">Video Host</div>';
 			$return .= '<div class="wrprfld">
@@ -168,12 +168,12 @@ add_action('save_post', 'save_askquestion_metabox');
 function save_askquestion_metabox()
 {
 	global $post;
-	
+
 	if(isset($_POST['story_video']))
 	{
 		update_post_meta($post->ID, "story_video", $_POST['story_video']);
 	}
-	
+
 	if(isset($_POST['story_video_host']) && !empty($_POST['story_video_host']))
 	{
 		update_post_meta($post->ID, "story_video_host", $_POST['story_video_host']);
@@ -391,7 +391,7 @@ function get_stories_side_nav($taxonomy=NULL, $taxonomy_name=NULL, $search_text=
             	<?php _e( "Use this tool to browse stories of innovation happening in schools across the nation. By sharing these stories, we hope to connect districts, schools, and educators trying similar things so that they can learn from each other's experiences.", SCP_SLUG); ?>
             </p>
 
-            <h5 class="hdng_mtr brdr_mrgn_none stry_browse_header">Browse Stories</h5>
+            <h4 class="hdng_mtr brdr_mrgn_none stry_browse_header">Browse Stories</h4>
             <div class="srchtrmbxs">
                 <ul class="cstmaccordian">
                 	<div class="cstmaccordiandv">
@@ -465,7 +465,7 @@ function get_stories_side_nav($taxonomy=NULL, $taxonomy_name=NULL, $search_text=
 			    <?php echo $district_sizeoption; ?>
 			</ul>
 		</div>
--->		
+-->
 		<?php echo get_story_search($search_text, $taxonomy, $taxonomy_name); ?>
 		<?php echo get_top_topics_nav($taxonomy, $taxonomy_name) ?>
 
@@ -484,7 +484,7 @@ function get_top_topics_nav($taxonomy=NULL, $taxonomy_name=NULL)
 	$tags = get_terms('story_tag', $args);
 	$topic_nav = '';
 
-	$topic_nav .= '<div class="topic_sidebar"><h5>Topics :</h5><ul>';
+	$topic_nav .= '<div class="topic_sidebar"><h4 class="hdng_mtr brdr_mrgn_none stry_topics_header">Topics :</h4><ul>';
 
 	foreach($tags as $tag)
 	{
@@ -598,9 +598,9 @@ function story_plural( $count = null )
 
 function display_story_content($post_id, $limit = 200) {
 	$story = "";
-	
+
 	$post = get_post($post_id);
-	
+
 	if ($post->post_excerpt) {
 		$story =  $post->post_excerpt;
 	} else {
@@ -613,15 +613,15 @@ function display_story_content($post_id, $limit = 200) {
 /** Text-based search on the sidebar **/
 function get_story_search($search_text=NULL, $taxonomy=NULL, $taxonomy_name=NULL) {
 	$search_value="";
-	
+
 	if (isset($search_text))
 		$search_value=' value="'.$search_text.'"';
-		
+
 	$search_form = '<div class="srchtrmbxs">
-				<form action="" class="search-form searchform clearfix" method="get" _lpchecked="1">
+				<form action="'.site_url().'/stories/" class="search-form searchform clearfix" method="get" _lpchecked="1">
 					<div class="search-wrap">
 						<input type="hidden" name="action" value="search">
-						<input type="text" placeholder="Search" class="s field" name="search_text"'. $search_value .'>
+						<input type="text" placeholder="Search stories..." class="s field" name="search_text"'. $search_value .'>
 						<button class="search-icon" type="submit"></button>
 					</div>
 				</form><!-- .searchform -->

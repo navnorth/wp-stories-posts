@@ -349,12 +349,12 @@ function get_storiesmap($pageposts=NULL)
 									$latitude = $story->latitude;
 									$longitude = $story->longitude;
 									$image = $story->image;
-									$content = $story->content;
+									$content = $story->post_excerpt ? $story->post_excerpt : $story->content;
 									$link = get_the_permalink($story->postid)."?back=".urlencode($_SERVER['REQUEST_URI']);
 									
 									if(!empty($content))
 									{
-										$content = substr($content, 0 ,60);
+										$content = substr($content, 0 ,95);
 										$content = $content."... <a href=$link>Read More</a>";
 									}
 									

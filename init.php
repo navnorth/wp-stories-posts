@@ -446,6 +446,7 @@ function get_stories_side_nav($search_text=NULL, $taxonomy=NULL, $taxonomy_name=
                     <?php echo $district_locationoption; ?>
                 </ul>
 		</div>
+<!--
 		<div class="srchtrmbxs">
 			<ul class="cstmaccordian">
 			    <div class="cstmaccordiandv">
@@ -464,7 +465,7 @@ function get_stories_side_nav($search_text=NULL, $taxonomy=NULL, $taxonomy_name=
 			    <?php echo $district_sizeoption; ?>
 			</ul>
 		</div>
-		
+-->		
 		<?php echo get_story_search($search_text, $taxonomy, $taxonomy_name); ?>
 		<?php echo get_top_topics_nav($taxonomy, $taxonomy_name) ?>
 

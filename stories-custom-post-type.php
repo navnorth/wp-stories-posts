@@ -44,6 +44,7 @@ include_once(SCP_PATH.'/includes/widgets.php');
 
 $_bootstrap = get_option( 'load_bootstrap' );
 $_fontawesome = get_option( 'load_font_awesome' );
+$_googleapikey = get_option( 'google_api_key' );
 
 //plugin activation task
 function create_installation_table()
@@ -307,7 +308,7 @@ function scp_template_loader($template)
 //Function for getting map
 function get_storiesmap($pageposts=NULL)
 {
-	global $wpdb;
+	global $wpdb, $_googleapikey;
 	$story_table = $wpdb->prefix . "scp_stories";
     $post_table = $wpdb->prefix . "posts";
 	$sql = 'select S.id, S.postid, S.title, S.latitude, S.longitude, S.image, S.content, P.post_excerpt from ' . $story_table . ' S INNER JOIN ' . $post_table . '  P ON P.ID = S.postid';
@@ -328,7 +329,7 @@ function get_storiesmap($pageposts=NULL)
 	}
 	?>
 	<link rel="stylesheet" type="text/css" href="<?php echo SCP_URL ; ?>css/demo.css" />
-   	<script src="http://maps.google.com/maps/api/js?key=<?php echo GOOGLE_API_KEY ; ?>" type="text/javascript"></script>
+   	<script src="http://maps.google.com/maps/api/js?key=<?php echo $_googleapikey ; ?>" type="text/javascript"></script>
     <div class="mapcontainer">
          <div id="ss-container" class="ss-container">
          	<div id="map_canvas">
@@ -561,8 +562,21 @@ function setup_settings_form() {
 				'description' => __('necessary for display if your WP theme does not load font awesome', SCP_SLUG)
 			)
 			   );
+	add_settings_field(
+			'google_api_key',
+			__( 'Google API Key:' , SCP_SLUG ),
+			'setup_settings_field',
+			'stories-settings-page',
+			'stories-settings-section',
+			array(
+				'uid' => 'google_api_key',
+				'type' => 'textbox',
+				'description' => __('necessary for displaying map', SCP_SLUG)
+			)
+			   );
 	register_setting( 'stories-settings-section' , 'load_bootstrap' );
 	register_setting( 'stories-settings-section' , 'load_font_awesome' );
+	register_setting( 'stories-settings-section' , 'google_api_key' );
 }
 
 function first_section_callback() {
@@ -571,14 +585,19 @@ function first_section_callback() {
 
 function setup_settings_field( $arguments ) {
 	$selected = "";
+	$size = "";
 
 	$value = get_option($arguments['uid']);
 
 	if ($value) {
 		$selected = "checked";
 	}
+	
+	if ($arguments['type']=="textbox") {
+		$size = 'size="50"';
+	}
 
-	echo '<input name="'.$arguments['uid'].'" id="'.$arguments['uid'].'" type="'.$arguments['type'].'" value="1" ' . checked(1,$value, false) . ' />';
+	echo '<input name="'.$arguments['uid'].'" id="'.$arguments['uid'].'" type="'.$arguments['type'].'" value="' . $value . '" ' . $size . ' ' . checked("on",$value, false) . ' />';
 
 	//Show Helper Text if specified
 	if ($helper = $arguments['helper']) {

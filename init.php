@@ -257,10 +257,11 @@ function save_metadata($postid, $mapLatitude, $mapLongitude)
 //function for get longitude and latitude
 function get_latitude_longitude($address)
 {
+	global $_googleapikey;
 
     $address = str_replace(" ", "+", $address);
 
-    $json = file_get_contents("http://maps.google.com/maps/api/geocode/json?key=$GOOGLE_API_KEY&address=$address");
+    $json = file_get_contents("http://maps.google.com/maps/api/geocode/json?key=$_googleapikey&address=$address");
     $json = json_decode($json);
 	if(!empty($json))
 	{

@@ -37,6 +37,7 @@ define( 'SCP_FILE',__FILE__);
 define( 'SCP_PLUGIN_NAME' , 'Story Custom Post Type' );
 define( 'SCP_PLUGIN_INFO' , '#' );
 define( 'SCP_VERSION' , '0.3.0');
+define( 'GOOGLE_API_KEY' , 'AIzaSyACobLJYn3xWIaxrZHEa6G3VjOteYpWBno');
 
 include_once(SCP_PATH.'init.php');
 include_once(SCP_PATH.'/includes/widgets.php');
@@ -307,10 +308,12 @@ function scp_template_loader($template)
 function get_storiesmap($pageposts=NULL)
 {
 	global $wpdb;
-	$table_name = $wpdb->prefix . "scp_stories";
-	if(empty($pageposts) || $pageposts == NULL)
+	$story_table = $wpdb->prefix . "scp_stories";
+    $post_table = $wpdb->prefix . "posts";
+	$sql = 'select S.id, S.postid, S.title, S.latitude, S.longitude, S.image, S.content, P.post_excerpt from ' . $story_table . ' S INNER JOIN ' . $post_table . '  P ON P.ID = S.postid';
+    if(empty($pageposts) || $pageposts == NULL)
 	{
-		$stories = $wpdb->get_results("select * from $table_name");
+		$stories = $wpdb->get_results($sql);
 	}
 	else
 	{
@@ -319,13 +322,13 @@ function get_storiesmap($pageposts=NULL)
 			$postid .= $ids.",";
 		}
 		$postid = trim($postid, ",");
-		$sql = "select * from $table_name where postid IN ($postid)";
+		$sql .= " where postid IN ($postid)";
 		$stories = $wpdb->get_results($sql);
 		//print_r($stories);
 	}
 	?>
 	<link rel="stylesheet" type="text/css" href="<?php echo SCP_URL ; ?>css/demo.css" />
-   	<script src="http://maps.google.com/maps/api/js?sensor=false" type="text/javascript"></script>
+   	<script src="http://maps.google.com/maps/api/js?key=<?php echo GOOGLE_API_KEY ; ?>" type="text/javascript"></script>
     <div class="mapcontainer">
          <div id="ss-container" class="ss-container">
          	<div id="map_canvas">
@@ -354,8 +357,7 @@ function get_storiesmap($pageposts=NULL)
 
 									if(!empty($content))
 									{
-										$content = substr($content, 0 ,95);
-										$content = $content."... <a href=$link>Read More</a>";
+										$content = substr(addslashes($content), 0 ,95)."... <a href=$link>Read More</a>";
 									}
 
 									$district = get_post_meta($story->postid,"story_district",true);

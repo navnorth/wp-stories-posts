@@ -269,7 +269,7 @@ function add_vimeo_script(){
 
         </div>
         <?php if(isset($story_sidebar_content) && !empty($story_sidebar_content)) : ?>
-            <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="col-md-12 col-sm-12 col-xs-12 additional_sidebar_content">
                 <p class="padding_top_btm">
                    <?php echo do_shortcode($story_sidebar_content); ?>
                 </p>

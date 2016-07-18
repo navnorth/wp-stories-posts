@@ -350,8 +350,9 @@ article.stories .entry-meta a.read-more, article.stories .entry-meta a.read-more
     font-weight:bold;
 }
 .single-stories .pblctn_paramtr ul, .single-stories .pblctn_paramtr ol { margin-left:1em;padding:1em;line-height:25px; }
-.single-stories .pblctn_paramtr li { margin-left:1em; padding-left:0; }
-.single-stories .pblctn_paramtr ul li { list-style-type:disc; }
+.additional_sidebar_content ul, .additional_sidebar_content ol { margin-left:8px;padding:2px 8px; }
+.single-stories .pblctn_paramtr li, .additional_sidebar_content li { margin-left:1em; padding-left:0; }
+.single-stories .pblctn_paramtr ul li, .additional_sidebar_content ul li { list-style-type:disc; }
 .topics-search-box form { display:inline-block; }
 
 @media screen and (max-width: 992px) {

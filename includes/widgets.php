@@ -46,7 +46,7 @@ class WP_Widget_Recent_Stories extends WP_Widget {
 		if ( ! $number )
 			$number = 5;
 		$show_date = isset( $instance['show_date'] ) ? $instance['show_date'] : false;
-		
+
 		$display_site = isset( $instance['display_site'] ) ? $instance['display_site'] : false;
 
 		/**
@@ -86,9 +86,9 @@ class WP_Widget_Recent_Stories extends WP_Widget {
                                     </div>
                                 <?php endif; ?>
                                 <div class="recent_story_content<?php if(empty($img_url)) : ?>_full<?php endif; ?>">
-				<h3><a href="<?php the_permalink(); ?>"><?php get_the_title() ? the_title() : the_ID(); ?></a></h3>
+				<h4><a href="<?php the_permalink(); ?>"><?php get_the_title() ? the_title() : the_ID(); ?></a></h4>
 				<?php if ($display_site): ?>
-					<h4 class="recent_story_loc">
+					<h5 class="recent_story_loc">
 					<?php
 					    if($story_district = get_post_meta($post_id, "story_district", true))
 					    {
@@ -116,7 +116,7 @@ class WP_Widget_Recent_Stories extends WP_Widget {
 						    }
 					    }
 					?>
-					</h4>
+					</h5>
 				<?php endif; ?>
 				<?php if ( $show_date ) : ?>
 					<span class="post-date">posted <?php echo get_the_date(); ?></span>
@@ -173,7 +173,7 @@ class WP_Widget_Recent_Stories extends WP_Widget {
 
 		<p><input class="checkbox" type="checkbox" <?php checked( $show_date ); ?> id="<?php echo $this->get_field_id( 'show_date' ); ?>" name="<?php echo $this->get_field_name( 'show_date' ); ?>" />
 		<label for="<?php echo $this->get_field_id( 'show_date' ); ?>"><?php _e( 'Display post date?' ); ?></label></p>
-                
+
                 <p><input class="checkbox" type="checkbox" <?php checked( $display_site ); ?> id="<?php echo $this->get_field_id( 'display_site' ); ?>" name="<?php echo $this->get_field_name( 'display_site' ); ?>" />
 		<label for="<?php echo $this->get_field_id( 'display_site' ); ?>"><?php _e( 'Display organization and location?' ); ?></label></p>
 <?php
@@ -223,11 +223,11 @@ class WP_Widget_Single_Story extends WP_Widget {
 		$title = apply_filters( 'widget_title', $title, $instance, $this->id_base );
 
 		$story_id = ( ! empty( $instance['story_id'] ) ) ? absint( $instance['story_id'] ) : 0;
-		
+
 		$embed_video = isset( $instance['embed_video'] ) ? $instance['embed_video'] : true;
-		
+
 		$show_date = isset( $instance['show_date'] ) ? $instance['show_date'] : false;
-		
+
 		$display_site = isset( $instance['display_site'] ) ? $instance['display_site'] : false;
 
 		/**
@@ -266,7 +266,7 @@ class WP_Widget_Single_Story extends WP_Widget {
 				<?php	if(isset($video_id) && !empty($video_id)) :
 						if ($story_video_host==1) {
 						    $tracking_script = "<script type='text/javascript'>\n";
-				
+
 						    $tracking_script .= " function loadPlayer() { \n".
 									    "	if (typeof(YT) == 'undefined' || typeof(YT.Player) == 'undefined') { \n".
 									    "	    var tag = document.createElement('script'); \n ".
@@ -332,7 +332,7 @@ class WP_Widget_Single_Story extends WP_Widget {
 									    "		ga('send', 'event', 'Story Video: " . $post->post_title . "', 'Finished', videoId  ); \n".
 									    "	}\n".
 									    "} \n";
-				
+
 						    $tracking_script .= "</script>";
 						    $tracking_script .= "<script>\n ".
 									    "jQuery(document).ready(function(e) { \n".
@@ -362,9 +362,9 @@ class WP_Widget_Single_Story extends WP_Widget {
 					<?php endif; ?>
 				<?php endif; ?>
                                 <div class="single_story_content<?php if(empty($img_url)) : ?>_full<?php endif; ?>">
-				<h3><a href="<?php the_permalink(); ?>"><?php get_the_title() ? the_title() : the_ID(); ?></a></h3>
+				<h4><a href="<?php the_permalink(); ?>"><?php get_the_title() ? the_title() : the_ID(); ?></a></h4>
 				<?php if ($display_site): ?>
-					<h4 class="recent_story_loc">
+					<h5 class="recent_story_loc">
 					<?php
 					    if($story_district = get_post_meta($post_id, "story_district", true))
 					    {
@@ -392,7 +392,7 @@ class WP_Widget_Single_Story extends WP_Widget {
 						    }
 					    }
 					?>
-					</h4>
+					</h5>
 				<?php endif; ?>
 				<?php if ( $show_date ) : ?>
 					<span class="post-date">posted <?php echo get_the_date(); ?></span>
@@ -443,7 +443,7 @@ class WP_Widget_Single_Story extends WP_Widget {
 ?>
 		<p><label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php _e( 'Title:' ); ?></label>
 		<input class="widefat" id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" type="text" value="<?php echo $title; ?>" /></p>
-		
+
 		<?php
 			$stories = new WP_Query( array(
 				'posts_per_page'        => -1,
@@ -453,9 +453,9 @@ class WP_Widget_Single_Story extends WP_Widget {
 				'post_type'             => 'stories',
 			) );
 		?>
-				
+
 		<p><label for="<?php echo $this->get_field_id( 'story_id' ); ?>"><?php _e( 'Select story to display:' ); ?></label>
-		<select id="<?php echo $this->get_field_id( 'story_id' ); ?>" name="<?php echo $this->get_field_name( 'story_id' ); ?>">
+		<select id="<?php echo $this->get_field_id( 'story_id' ); ?>" name="<?php echo $this->get_field_name( 'story_id' ); ?>" class="widget_story_selector">
 		<?php if ($stories->have_posts()): ?>
 			<?php while ($stories->have_posts()): $stories->the_post(); ?>
 			<option value="<?php the_ID(); ?>" <?php if ($story_id==get_the_ID()): ?>selected<?php endif; ?>><?php the_title(); ?></option>
@@ -463,13 +463,13 @@ class WP_Widget_Single_Story extends WP_Widget {
 		<?php endif; ?>
 		</select>
 		</p>
-		
+
 		<p><input class="checkbox" type="checkbox" <?php checked( $embed_video ); ?> id="<?php echo $this->get_field_id( 'embed_video' ); ?>" name="<?php echo $this->get_field_name( 'embed_video' ); ?>" />
 		<label for="<?php echo $this->get_field_id( 'embed_video' ); ?>"><?php _e( 'Embed video if available?' ); ?></label></p>
-		
+
 		<p><input class="checkbox" type="checkbox" <?php checked( $show_date ); ?> id="<?php echo $this->get_field_id( 'show_date' ); ?>" name="<?php echo $this->get_field_name( 'show_date' ); ?>" />
 		<label for="<?php echo $this->get_field_id( 'show_date' ); ?>"><?php _e( 'Display post date?' ); ?></label></p>
-                
+
                 <p><input class="checkbox" type="checkbox" <?php checked( $display_site ); ?> id="<?php echo $this->get_field_id( 'display_site' ); ?>" name="<?php echo $this->get_field_name( 'display_site' ); ?>" />
 		<label for="<?php echo $this->get_field_id( 'display_site' ); ?>"><?php _e( 'Display organization and location?' ); ?></label></p>
 <?php

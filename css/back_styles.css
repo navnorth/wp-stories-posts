@@ -42,3 +42,6 @@
     display: inline-block;
     margin-left: 10px;
 }
+.widget_story_selector {
+    width:100%;
+}

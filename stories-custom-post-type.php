@@ -588,16 +588,20 @@ function setup_settings_field( $arguments ) {
 	$size = "";
 
 	$value = get_option($arguments['uid']);
-
-	if ($value) {
-		$selected = "checked";
-	}
 	
 	if ($arguments['type']=="textbox") {
 		$size = 'size="50"';
 	}
+	
+	if ($arguments['type']=="checkbox"){
+		if ($value==1 || $value=="on")
+			$selected = "checked='checked'";
+		else{
+			$value = 1;
+		}
+	}
 
-	echo '<input name="'.$arguments['uid'].'" id="'.$arguments['uid'].'" type="'.$arguments['type'].'" value="' . $value . '" ' . $size . ' ' . checked("on",$value, false) . ' />';
+	echo '<input name="'.$arguments['uid'].'" id="'.$arguments['uid'].'" type="'.$arguments['type'].'" value="' . $value . '" ' . $size . ' ' .  $selected . ' />';
 
 	//Show Helper Text if specified
 	if ($helper = $arguments['helper']) {

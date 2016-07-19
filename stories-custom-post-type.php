@@ -656,7 +656,7 @@ function load_more_stories() {
 					break;
 			}
 		}
-
+		
 		$postquery = new WP_Query($args);
 
 		while ( $postquery->have_posts() ) : $postquery->the_post();

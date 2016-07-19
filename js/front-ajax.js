@@ -2,7 +2,7 @@ jQuery(document).ready(function($){
     $('.btn-load-more').click(function(){
         var page_num = parseInt($(this).attr('data-page-number'));
         var post_ids = $(this).attr('data-posts');
-        var sorting = 0;
+        var sorting = $(this).attr('data-sort');
         
         if ($(this).attr('data-sort')) {
             sorting = $(this).attr('data-sort');

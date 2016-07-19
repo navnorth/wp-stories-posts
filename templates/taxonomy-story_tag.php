@@ -77,6 +77,7 @@ get_header(); ?>
                             </header>
 
                             <?php
+			    echo '<div id="content-stories">';
                                 foreach($pageposts as $key => $data )
                                 {
                                     $post = get_post($key);
@@ -84,6 +85,7 @@ get_header(); ?>
                                     get_story_template_part( 'content', 'substory' );
                                 }
                                 wp_reset_postdata();
+			    echo '</div>';
                             ?>
                         </div>
                     <?php
@@ -145,7 +147,9 @@ get_header(); ?>
                         <header class="tax-header">
                             <h1 class="tax-title">
                                  <?php
-				 $post_count = count($postids);
+				 //$post_count = count($postids);
+				 $term = get_term($term_id);
+				 $post_count = $term->count;
 				 printf( __( 'Results: %s', SCP_SLUG ), '<i>'.$termobject->name.'</i> <span>(' .$post_count.' '.story_plural($post_count).')</span>' );?>
                             </h1>
                             <div class="topics-search-box">
@@ -184,9 +188,12 @@ get_header(); ?>
 						$args = array('post_type' => 'stories', 'post__in' => $postids, 'posts_per_page' => 10*$paged);
 						
 						$postquery = new WP_Query( $args );
+						
+						echo '<div id="content-stories">';
 						while ( $postquery->have_posts() ) : $postquery->the_post(); ?>
 							<?php get_story_template_part( 'content', 'substory' ); ?>
 						<?php endwhile; // end of the loop.
+						echo '</div>';
 						
 						//Show Load More Button
 						if ($post_count>10 & $paged<$max_page) {

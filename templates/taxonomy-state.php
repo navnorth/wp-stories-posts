@@ -73,6 +73,7 @@ get_header(); ?>
 											?>
                                         </select>
                                     </form>
+				    <?php get_sort_box(); ?>
                                 </div>
                             </header>
 
@@ -125,6 +126,7 @@ get_header(); ?>
 											?>
                                         </select>
                                     </form>
+				    <?php get_sort_box(); ?>
                                 </div>
                             </header>
                             <div class="col-md-12 pblctn_paramtr padding_left">
@@ -174,6 +176,7 @@ get_header(); ?>
                                         ?>
                                     </select>
                                 </form>
+				<?php get_sort_box(); ?>
                             </div>
                         </header>
 						<?php

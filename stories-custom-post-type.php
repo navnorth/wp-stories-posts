@@ -750,7 +750,7 @@ function spacious_header_title() {
 	elseif( is_single()  ) {
 		if (get_post_type()=='stories'):
 			$spacious_header_title = __( 'Stories of EdTech Innovation', SCP_SLUG );
-            //$spacious_header_title = __("Stories: ", SCP_SLUG) . get_the_title();
+	    //$spacious_header_title = __("Stories: ", SCP_SLUG) . get_the_title();
 		else:
 			$spacious_header_title = get_the_title();
 		endif;
@@ -766,7 +766,7 @@ function spacious_header_title() {
 	return $spacious_header_title;
 
 }
-
+	
 /** Check if theme used is Spacious then allow hiding of title in story page **/
 function title_can_be_hidden(){
 	$hidden = false;

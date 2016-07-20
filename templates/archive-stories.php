@@ -56,24 +56,7 @@ get_header(); ?>
                                             ?>
                                         </select>
                                     </form>
-						<div class="sort-box">
-								<span class="sortoption"></span>
-								<span class="sort-story" title="Sort stories"><i class="fa fa-sort" aria-hidden="true"></i></span>
-								<div class="sort-options">
-									<ul>
-										<li data-value="0" class="cs-selected"><a href="javascript:void(0);"><span>Newest</span></a></li>
-										<li data-value="1"><a href="javascript:void(0);"><span>Oldest</span></a></li>
-										<li data-value="2"><a href="javascript:void(0);"><span>A-Z</span></a></li>
-										<li data-value="3"><a href="javascript:void(0);"><span>Z-A</span></a></li>
-									</ul>
-								</div>
-								<select class="sort-selectbox">
-									<option value="0" disabled selected>Newest</option>
-									<option value="1">Oldest</option>
-									<option value="2">A-Z</option>
-									<option value="3">Z-A</option>
-								</select>
-						</div>
+				<?php get_sort_box(); ?>
                                 </div>
                             </header>
 				<?php
@@ -226,24 +209,7 @@ get_header(); ?>
 										       printf( __( 'Search Results: %s', SCP_SLUG ), '<i>' . $search_text . '</i> <span>(' .$post_count.' '.story_plural($post_count).')</span>' );
 									    ?>
 								       </h1>
-								       <div class="sort-box">
-												<span class="sortoption"></span>
-												<span class="sort-story" title="Sort stories"><i class="fa fa-sort" aria-hidden="true"></i></span>
-												<div class="sort-options">
-													<ul>
-														<li data-value="0" class="cs-selected"><a href="javascript:void(0);"><span>Newest</span></a></li>
-														<li data-value="1"><a href="javascript:void(0);"><span>Oldest</span></a></li>
-														<li data-value="2"><a href="javascript:void(0);"><span>A-Z</span></a></li>
-														<li data-value="3"><a href="javascript:void(0);"><span>Z-A</span></a></li>
-													</ul>
-												</div>
-												<select class="sort-selectbox">
-													<option value="0" disabled selected>Newest</option>
-													<option value="1">Oldest</option>
-													<option value="2">A-Z</option>
-													<option value="3">Z-A</option>
-												</select>
-										</div>
+								       <?php get_sort_box(); ?>
 								   </header>
 								       <?php
 								       //Get number of pages

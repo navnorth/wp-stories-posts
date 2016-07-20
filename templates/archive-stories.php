@@ -68,8 +68,13 @@ get_header(); ?>
 				if ($_GET['page'])
 						$paged = (int)$_GET['page'];
 
+				$args = array('post_type' => 'stories', 'posts_per_page' => 10 * $paged);
+				
+				//Apply sort args
+				$args = apply_sort_args($args);
+				
 				//Reset Post query to show only 10 stories
-				$postquery = new WP_Query(array('post_type' => 'stories', 'posts_per_page' => 10 * $paged));
+				$postquery = new WP_Query($args);
 
 				echo '<div id="content-stories">';
 				//Display initial stories

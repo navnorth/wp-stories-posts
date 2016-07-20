@@ -189,6 +189,10 @@ get_header(); ?>
 						
 						//Change query to show just  10
 						$args = array('post_type' => 'stories', 'post__in' => $postids, 'posts_per_page' => 10*$paged);
+						
+						//Apply sort args
+						$args = apply_sort_args($args);
+						
 						$postquery = new WP_Query( $args );
 						
 						echo '<div id="content-stories">';

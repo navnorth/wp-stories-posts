@@ -640,26 +640,32 @@ function load_more_stories() {
 		}
 
 		//Sorting Results
-		if (isset($_POST['sort'])) {
-			switch($_POST["sort"]){
-				case 0:
-					$args['orderby'] = 'post_date';
-					$args['order'] = 'DESC';
-					break;
-				case 1:
-					$args['orderby'] = 'post_date';
-					$args['order'] = 'ASC';
-					break;
-				case 2:
-					$args['orderby'] = 'post_title';
-					$args['order'] = 'ASC';
-					break;
-				case 3:
-					$args['orderby'] = 'post_title';
-					$args['order'] = 'DESC';
-					break;
-			}
+		$sort = 0;
+		if (isset($_SESSION['story_sort']))
+			$sort = (int)$_SESSION['story_sort'];
+		else
+			$sort = (int)$_POST['sort'];
+			
+		
+		switch($sort){
+			case 0:
+				$args['orderby'] = 'post_date';
+				$args['order'] = 'DESC';
+				break;
+			case 1:
+				$args['orderby'] = 'post_date';
+				$args['order'] = 'ASC';
+				break;
+			case 2:
+				$args['orderby'] = 'post_title';
+				$args['order'] = 'ASC';
+				break;
+			case 3:
+				$args['orderby'] = 'post_title';
+				$args['order'] = 'DESC';
+				break;
 		}
+		
 		
 		$postquery = new WP_Query($args);
 
@@ -678,6 +684,8 @@ function sort_stories(){
 
 	if (isset($_POST["sort"])) {
 
+		$_SESSION['story_sort'] = $_POST['sort'];
+		
 		$stories = new WP_Query(array('post_type' => 'stories', 'posts_per_page' => -1));
 
                 $post_ids = wp_list_pluck( $stories->posts, 'ID' );
@@ -711,8 +719,12 @@ function sort_stories(){
 		$paged = 1;
 		if ($_POST['post_var']){
 			$paged = (int)$_POST['post_var'];
-			$args['posts_per_page'] = 10 * $paged;
 		}
+		
+		if ($_REQUEST['page'])
+			$paged = (int)$_REQUEST['page'];
+			
+		$args['posts_per_page'] = 10 * $paged;
 
 		$postquery = new WP_Query($args);
 
@@ -790,5 +802,13 @@ add_action( 'widgets_init', 'register_stories_widgets' );
 add_action( 'init', 'add_excerpts_to_stories' );
 function add_excerpts_to_stories() {
      add_post_type_support( 'stories', 'excerpt' );
+}
+
+/** Start session to store sort option **/
+add_action( 'init', 'initSession', 1 );
+function initSession(){
+	if(!session_id()) {
+		session_start();
+	}
 }
 ?>

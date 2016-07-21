@@ -3,6 +3,7 @@ jQuery(document).ready(function($){
         var page_num = parseInt($(this).attr('data-page-number'));
         var post_ids = $(this).attr('data-posts');
         var sorting = $(this).attr('data-sort');
+        var page = $(this).attr('data-page');
         
         if ($(this).attr('data-sort')) {
             sorting = $(this).attr('data-sort');
@@ -12,7 +13,8 @@ jQuery(document).ready(function($){
             action: 'load_more',
             post_var: page_num,
             post_ids:  post_ids,
-            sort: sorting
+            sort: sorting,
+            page: page
         };
         
         $.post(the_ajax_script.ajaxurl, data).done(function(response) {

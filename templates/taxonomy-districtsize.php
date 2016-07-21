@@ -209,7 +209,7 @@ get_header(); ?>
 							if (strpos($base_url,"page"))
 								$base_url = substr($base_url,0,strpos($base_url, "page")-1);
 								
-							echo '<div class="col-md-12 pblctn_paramtr padding_left"><a href="?page='.($paged+1).'" data-page-number="'.($paged+1).'" data-base-url="'.$base_url.'" data-max-page="'.$max_page.'" data-posts="'.json_encode($postids).'" class="btn-load-more">Load More</a></div>';		
+							echo '<div class="col-md-12 pblctn_paramtr padding_left"><a href="?page='.($paged+1).'" data-page-number="'.($paged+1).'" data-page="districtsize" data-base-url="'.$base_url.'" data-max-page="'.$max_page.'" data-posts="'.json_encode($postids).'" class="btn-load-more">Load More</a></div>';		
 						}
 						?>
 					</div>

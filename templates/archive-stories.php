@@ -88,7 +88,7 @@ get_header(); ?>
 						$base_url = "http" . (($_SERVER['SERVER_PORT'] == 443) ? "s://" : "://") . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
 						if (strpos($base_url,"page"))
 								$base_url = substr($base_url,0,strpos($base_url, "page")-1);
-						echo '<div class="col-md-12 pblctn_paramtr padding_left"><a href="&page='.($paged+1).'" data-page-number="'.($paged+1).'" data-base-url="'.$base_url.'" data-max-page="'.$max_page.'" class="btn-load-more">Load More</a></div>';
+						echo '<div class="col-md-12 pblctn_paramtr padding_left"><a href="&page='.($paged+1).'" data-page-number="'.($paged+1).'" data-page="show_all" data-base-url="'.$base_url.'" data-max-page="'.$max_page.'" class="btn-load-more">Load More</a></div>';
 				}
 
 				?>
@@ -230,13 +230,18 @@ get_header(); ?>
 								       if ($_GET['page'])
 										       $paged = (int)$_GET['page'];
 
-								       //Reset Post query to show only 10 stories
-								       $postquery = new WP_Query(array(
+								$args =	array(
 												'post_type' => 'stories',
 												'post__in' => $unique,
 												'post_status' => 'publish',
 												'posts_per_page' => 10 * $paged
-												));
+												);
+								
+								//Apply sort args
+								$args = apply_sort_args($args);
+										       
+								       //Reset Post query to show only 10 stories
+								       $postquery = new WP_Query($args);
 
 								       echo '<div id="content-stories">';
 								       //Display initial stories
@@ -250,7 +255,7 @@ get_header(); ?>
 										       $base_url = "http" . (($_SERVER['SERVER_PORT'] == 443) ? "s://" : "://") . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
 										       if (strpos($base_url,"page"))
 												       $base_url = substr($base_url,0,strpos($base_url, "page")-1);
-										       echo '<div class="col-md-12 pblctn_paramtr padding_left"><a href="&page='.($paged+1).'" data-page-number="'.($paged+1).'" data-base-url="'.$base_url.'" data-max-page="'.$max_page.'" class="btn-load-more">Load More</a></div>';
+										       echo '<div class="col-md-12 pblctn_paramtr padding_left"><a href="&page='.($paged+1).'" data-page-number="'.($paged+1).'" data-page="show_all_search" data-base-url="'.$base_url.'" data-max-page="'.$max_page.'" data-posts="'.json_encode($unique).'" class="btn-load-more">Load More</a></div>';
 								       }
 
 								       ?>

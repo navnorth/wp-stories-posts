@@ -631,6 +631,7 @@ function load_more_stories() {
 		$args = array(
 				'post_type' => 'stories',
 				'posts_per_page' => 10,
+				'post_status' => 'publish',
 				'paged' => $page_num
 				);
 

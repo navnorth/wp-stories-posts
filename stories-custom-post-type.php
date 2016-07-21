@@ -3,7 +3,7 @@
  Plugin Name: Story Custom Post Type
  Plugin URI: http://www.navigationnorth.com/wordpress/stories-plugin
  Description: Stories as a custom post type, with custom metadata and display. Developed in collaboration with Monad Infotech (http://monadinfotech.com)
- Version: 0.3.1
+ Version: 0.3.2
  Author: Navigation North
  Author URI: http://www.navigationnorth.com
  Text Domain: wp-stories-posts

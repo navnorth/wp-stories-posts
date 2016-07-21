@@ -217,7 +217,7 @@ function save_askquestion_metabox()
 		}
 	}
 
-	if(isset($_POST['story_characteristic']) && !empty($_POST['story_characteristic']))
+	if(isset($_POST['story_sidebar_content']))
 	{
 		$story_characteristic = serialize($_POST['story_characteristic']);
 		update_post_meta($post->ID, "story_characteristic", $story_characteristic);

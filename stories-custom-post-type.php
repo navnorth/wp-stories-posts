@@ -3,7 +3,7 @@
  Plugin Name: Story Custom Post Type
  Plugin URI: http://www.navigationnorth.com/wordpress/stories-plugin
  Description: Stories as a custom post type, with custom metadata and display. Developed in collaboration with Monad Infotech (http://monadinfotech.com)
- Version: 0.3.0
+ Version: 0.3.1
  Author: Navigation North
  Author URI: http://www.navigationnorth.com
  Text Domain: wp-stories-posts
@@ -36,7 +36,7 @@ define( 'SCP_SLUG','wp-stories-posts' );
 define( 'SCP_FILE',__FILE__);
 define( 'SCP_PLUGIN_NAME' , 'Story Custom Post Type' );
 define( 'SCP_PLUGIN_INFO' , '#' );
-define( 'SCP_VERSION' , '0.3.0');
+define( 'SCP_VERSION' , '0.3.1');
 define( 'GOOGLE_API_KEY' , 'AIzaSyACobLJYn3xWIaxrZHEa6G3VjOteYpWBno');
 
 include_once(SCP_PATH.'init.php');
@@ -588,11 +588,11 @@ function setup_settings_field( $arguments ) {
 	$size = "";
 
 	$value = get_option($arguments['uid']);
-	
+
 	if ($arguments['type']=="textbox") {
 		$size = 'size="50"';
 	}
-	
+
 	if ($arguments['type']=="checkbox"){
 		if ($value==1 || $value=="on")
 			$selected = "checked='checked'";
@@ -646,8 +646,8 @@ function load_more_stories() {
 			$sort = (int)$_SESSION['story_sort'];
 		else
 			$sort = (int)$_POST['sort'];
-			
-		
+
+
 		switch($sort){
 			case 0:
 				$args['orderby'] = 'post_date';
@@ -666,8 +666,8 @@ function load_more_stories() {
 				$args['order'] = 'DESC';
 				break;
 		}
-		
-		
+
+
 		$postquery = new WP_Query($args);
 
 		while ( $postquery->have_posts() ) : $postquery->the_post();
@@ -686,7 +686,7 @@ function sort_stories(){
 	if (isset($_POST["sort"])) {
 
 		$_SESSION['story_sort'] = $_POST['sort'];
-		
+
 		$stories = new WP_Query(array('post_type' => 'stories', 'posts_per_page' => -1));
 
                 $post_ids = wp_list_pluck( $stories->posts, 'ID' );
@@ -721,10 +721,10 @@ function sort_stories(){
 		if ($_POST['post_var']){
 			$paged = (int)$_POST['post_var'];
 		}
-		
+
 		if ($_REQUEST['page'])
 			$paged = (int)$_REQUEST['page'];
-			
+
 		$args['posts_per_page'] = 10 * $paged;
 
 		$postquery = new WP_Query($args);
@@ -779,7 +779,7 @@ function spacious_header_title() {
 	return $spacious_header_title;
 
 }
-	
+
 /** Check if theme used is Spacious then allow hiding of title in story page **/
 function title_can_be_hidden(){
 	$hidden = false;

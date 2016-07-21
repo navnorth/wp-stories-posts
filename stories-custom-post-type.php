@@ -311,7 +311,10 @@ function get_storiesmap($pageposts=NULL)
 	global $wpdb, $_googleapikey;
 	$story_table = $wpdb->prefix . "scp_stories";
     $post_table = $wpdb->prefix . "posts";
-	$sql = 'select S.id, S.postid, S.title, S.latitude, S.longitude, S.image, S.content, P.post_excerpt from ' . $story_table . ' S INNER JOIN ' . $post_table . '  P ON P.ID = S.postid';
+	$sql = "SELECT S.id, S.postid, S.title, S.latitude, S.longitude, S.image, S.content, P.post_excerpt
+        FROM $story_table S INNER JOIN $post_table P ON P.ID = S.postid
+        WHERE S.latitude <> '' AND S.longitude <> ''";
+
     if(empty($pageposts) || $pageposts == NULL)
 	{
 		$stories = $wpdb->get_results($sql);

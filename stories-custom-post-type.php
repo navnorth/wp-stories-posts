@@ -36,7 +36,7 @@ define( 'SCP_SLUG','wp-stories-posts' );
 define( 'SCP_FILE',__FILE__);
 define( 'SCP_PLUGIN_NAME' , 'Story Custom Post Type' );
 define( 'SCP_PLUGIN_INFO' , '#' );
-define( 'SCP_VERSION' , '0.3.1');
+define( 'SCP_VERSION' , '0.3.2');
 define( 'GOOGLE_API_KEY' , 'AIzaSyACobLJYn3xWIaxrZHEa6G3VjOteYpWBno');
 
 include_once(SCP_PATH.'init.php');

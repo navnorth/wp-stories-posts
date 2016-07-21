@@ -261,7 +261,8 @@ function get_latitude_longitude($address)
 
     $address = str_replace(" ", "+", $address);
 
-    $json = file_get_contents("http://maps.google.com/maps/api/geocode/json?key=$_googleapikey&address=$address");
+    $json = file_get_contents("http://maps.google.com/maps/api/geocode/json?address=$address&sensor=false");
+
     $json = json_decode($json);
 	if(!empty($json))
 	{
@@ -877,7 +878,7 @@ function apply_sort_args($args){
 	$sort = 0;
 	if (isset($_SESSION['story_sort']))
 		$sort = (int)$_SESSION['story_sort'];
-		
+
 	switch($sort){
 		case 0:
 			$args['orderby'] = 'post_date';

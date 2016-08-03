@@ -130,12 +130,11 @@ msgstr ""
 
 #: init.php:386 stories-custom-post-type.php:626
 msgid "Stories of EdTech Innovation"
-msgstr "Stories of Teacher Leadership"
+msgstr ""
 
 #: init.php:391
 msgid "Use this tool to browse stories of innovation happening in schools across the nation. By sharing these stories, we hope to connect districts, schools, and educators trying similar things so that they can learn from each other's experiences."
 msgstr ""
-"<p>Use this tool to browse a variety of teacher leadership stories happening in schools and districts across the nation. By sharing these stories, we hope to highlight successful teacher-led projects, share ideas for creating new opportunities for teacher leadership, and encourage individuals at all levels to commit to expanding teacher leadership in their own communities.</p><p>Want to suggest a story? Send us a message at <br/><a href=\"mailto:Info@teachtolead.org\">Info@teachtolead.org</a></p>"
 
 #: stories-custom-post-type.php:502 stories-custom-post-type.php:514
 msgid "Settings"
@@ -171,7 +170,7 @@ msgstr ""
 
 #: stories-custom-post-type.php:650
 msgid "Stories: "
-msgstr "Stories of Teacher Leadership: "
+msgstr ""
 
 #: templates/archive-404.php:37
 msgid "Nothing Found"

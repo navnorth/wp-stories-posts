@@ -279,8 +279,8 @@ function get_latitude_longitude($address)
 //Story Search
 function get_stories_side_nav($taxonomy=NULL, $taxonomy_name=NULL, $search_text=NULL)
 {
-	global $wpdb;
-
+	global $wpdb, $_filters;
+	
 	$args = array('orderby'   => 'term_order',
 				  'order'     => 'ASC',
 				  'hide_empty'=> false);
@@ -290,7 +290,8 @@ function get_stories_side_nav($taxonomy=NULL, $taxonomy_name=NULL, $search_text=
 	$characteristics = get_terms('characteristics', $args);
 	$districtsize = get_terms('districtsize', $args);
 	$tags = get_terms('story_tag', $args);
-
+	
+	//Enable State
 	if(isset($states) && !empty($states))
 	{
 		/*if(isset($taxonomy) && !empty($taxonomy) && $taxonomy == 'state'): $display = 'block'; else: $display = 'none'; endif;
@@ -322,7 +323,7 @@ function get_stories_side_nav($taxonomy=NULL, $taxonomy_name=NULL, $search_text=
 		}
 		$stateoption .= '</select></div>';
 	}
-
+	
 	if(isset($grades) && !empty($grades))
 	{
 		if(isset($taxonomy) && !empty($taxonomy) && $taxonomy == 'grade_level'): $display = 'block'; else: $display = 'none'; endif;
@@ -394,6 +395,7 @@ function get_stories_side_nav($taxonomy=NULL, $taxonomy_name=NULL, $search_text=
             </p>
 
             <h4 class="hdng_mtr brdr_mrgn_none stry_browse_header">Browse Stories</h4>
+	    <?php if ($_filters['state']==1): ?>
             <div class="srchtrmbxs">
                 <ul class="cstmaccordian">
                 	<div class="cstmaccordiandv">
@@ -412,6 +414,8 @@ function get_stories_side_nav($taxonomy=NULL, $taxonomy_name=NULL, $search_text=
                     <?php echo $stateoption; ?>
                 </ul>
             </div>
+	    <?php endif; ?>
+	    <?php if ($_filters['grade_level']==1): ?>
             <div class="srchtrmbxs">
                 <ul class="cstmaccordian">
                 	<div class="cstmaccordiandv">
@@ -430,6 +434,8 @@ function get_stories_side_nav($taxonomy=NULL, $taxonomy_name=NULL, $search_text=
                     <?php echo $gradeoption; ?>
                 </ul>
             </div>
+	    <?php endif; ?>
+	    <?php if ($_filters['characteristics']==1): ?>
             <div class="srchtrmbxs">
                 <ul class="cstmaccordian">
                 	<div class="cstmaccordiandv">
@@ -448,7 +454,8 @@ function get_stories_side_nav($taxonomy=NULL, $taxonomy_name=NULL, $search_text=
                     <?php echo $district_locationoption; ?>
                 </ul>
 		</div>
-<!--
+		<?php endif; ?>
+		<?php if ($_filters['district_size']==1): ?>
 		<div class="srchtrmbxs">
 			<ul class="cstmaccordian">
 			    <div class="cstmaccordiandv">
@@ -467,7 +474,7 @@ function get_stories_side_nav($taxonomy=NULL, $taxonomy_name=NULL, $search_text=
 			    <?php echo $district_sizeoption; ?>
 			</ul>
 		</div>
--->
+		<?php endif; ?>
 		<?php echo get_story_search($search_text, $taxonomy, $taxonomy_name); ?>
 		<?php echo get_top_topics_nav($taxonomy, $taxonomy_name) ?>
 

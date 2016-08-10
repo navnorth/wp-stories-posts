@@ -45,6 +45,13 @@ include_once(SCP_PATH.'/includes/widgets.php');
 $_bootstrap = get_option( 'load_bootstrap' );
 $_fontawesome = get_option( 'load_font_awesome' );
 $_googleapikey = get_option( 'google_api_key' );
+$_filters = array(
+	"program" => get_option('enable_program'),
+	"state" => get_option('enable_state'),
+	"grade_level" => get_option('enable_grade_level'),
+	"characteristics" => get_option('enable_characteristics'),
+	"district_size" => get_option('enable_district_size')
+		  );
 
 //plugin activation task
 function create_installation_table()
@@ -577,19 +584,7 @@ function setup_settings_form() {
 				'description' => __('necessary for displaying map', SCP_SLUG)
 			)
 			   );
-	/* Enable/Disable Program */
-	add_settings_field(
-			'enable_program',
-			__( 'Enable Program?' , SCP_SLUG ),
-			'setup_settings_field',
-			'stories-settings-page',
-			'stories-settings-section',
-			array(
-				'uid' => 'enable_program',
-				'type' => 'checkbox',
-				'description' => __('necessary to display the Program filter on the sidebar', SCP_SLUG)
-			)
-			   );
+	
 	/* Enable/Disable State Selection */
 	add_settings_field(
 			'enable_state',
@@ -645,7 +640,6 @@ function setup_settings_form() {
 	register_setting( 'stories-settings-section' , 'load_bootstrap' );
 	register_setting( 'stories-settings-section' , 'load_font_awesome' );
 	register_setting( 'stories-settings-section' , 'google_api_key' );
-	register_setting( 'stories-settings-section' , 'enable_program' );
 	register_setting( 'stories-settings-section' , 'enable_state' );
 	register_setting( 'stories-settings-section' , 'enable_grade_level' );
 	register_setting( 'stories-settings-section' , 'enable_characteristics' );

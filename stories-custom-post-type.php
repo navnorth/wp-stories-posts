@@ -577,9 +577,79 @@ function setup_settings_form() {
 				'description' => __('necessary for displaying map', SCP_SLUG)
 			)
 			   );
+	/* Enable/Disable Program */
+	add_settings_field(
+			'enable_program',
+			__( 'Enable Program?' , SCP_SLUG ),
+			'setup_settings_field',
+			'stories-settings-page',
+			'stories-settings-section',
+			array(
+				'uid' => 'enable_program',
+				'type' => 'checkbox',
+				'description' => __('necessary to display the Program filter on the sidebar', SCP_SLUG)
+			)
+			   );
+	/* Enable/Disable State Selection */
+	add_settings_field(
+			'enable_state',
+			__( 'Enable State Selection?' , SCP_SLUG ),
+			'setup_settings_field',
+			'stories-settings-page',
+			'stories-settings-section',
+			array(
+				'uid' => 'enable_state',
+				'type' => 'checkbox',
+				'description' => __('necessary to display the State filter on the sidebar', SCP_SLUG)
+			)
+			   );
+	/* Enable/Disable Grade Level */
+	add_settings_field(
+			'enable_grade_level',
+			__( 'Enable Grade Level?' , SCP_SLUG ),
+			'setup_settings_field',
+			'stories-settings-page',
+			'stories-settings-section',
+			array(
+				'uid' => 'enable_grade_level',
+				'type' => 'checkbox',
+				'description' => __('necessary to display the Grade Level filter on the sidebar', SCP_SLUG)
+			)
+			   );
+	/* Enable/Disable Characteristics */
+	add_settings_field(
+			'enable_characteristics',
+			__( 'Enable Characteristics?' , SCP_SLUG ),
+			'setup_settings_field',
+			'stories-settings-page',
+			'stories-settings-section',
+			array(
+				'uid' => 'enable_characteristics',
+				'type' => 'checkbox',
+				'description' => __('necessary to display the Characteristics filter on the sidebar', SCP_SLUG)
+			)
+			   );
+	/* Enable/Disable District Size */
+	add_settings_field(
+			'enable_district_size',
+			__( 'Enable District Size?' , SCP_SLUG ),
+			'setup_settings_field',
+			'stories-settings-page',
+			'stories-settings-section',
+			array(
+				'uid' => 'enable_district_size',
+				'type' => 'checkbox',
+				'description' => __('necessary to display the District Size filter on the sidebar', SCP_SLUG)
+			)
+			   );
 	register_setting( 'stories-settings-section' , 'load_bootstrap' );
 	register_setting( 'stories-settings-section' , 'load_font_awesome' );
 	register_setting( 'stories-settings-section' , 'google_api_key' );
+	register_setting( 'stories-settings-section' , 'enable_program' );
+	register_setting( 'stories-settings-section' , 'enable_state' );
+	register_setting( 'stories-settings-section' , 'enable_grade_level' );
+	register_setting( 'stories-settings-section' , 'enable_characteristics' );
+	register_setting( 'stories-settings-section' , 'enable_district_size' );
 }
 
 function first_section_callback() {

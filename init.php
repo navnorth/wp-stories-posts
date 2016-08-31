@@ -280,7 +280,7 @@ function get_latitude_longitude($address)
 function get_stories_side_nav($taxonomy=NULL, $taxonomy_name=NULL, $search_text=NULL)
 {
 	global $wpdb, $_filters;
-	
+
 	$args = array('orderby'   => 'term_order',
 				  'order'     => 'ASC',
 				  'hide_empty'=> false);
@@ -290,7 +290,7 @@ function get_stories_side_nav($taxonomy=NULL, $taxonomy_name=NULL, $search_text=
 	$characteristics = get_terms('characteristics', $args);
 	$districtsize = get_terms('districtsize', $args);
 	$tags = get_terms('story_tag', $args);
-	
+
 	//Enable State
 	if(isset($states) && !empty($states))
 	{
@@ -323,7 +323,7 @@ function get_stories_side_nav($taxonomy=NULL, $taxonomy_name=NULL, $search_text=
 		}
 		$stateoption .= '</select></div>';
 	}
-	
+
 	if(isset($grades) && !empty($grades))
 	{
 		if(isset($taxonomy) && !empty($taxonomy) && $taxonomy == 'grade_level'): $display = 'block'; else: $display = 'none'; endif;
@@ -810,6 +810,8 @@ function get_story_search($searchresult=NULL, $searchtext=NULL, $taxonomy_state=
 }
 */
 
+/* not needed for OET. Should pull the Spacious parts out (or use function_exists) before enabling again
+
 function story_entry_meta() {
    if ( 'stories' == get_post_type() ) :
       echo '<footer class="entry-meta-bar clearfix">';
@@ -854,6 +856,7 @@ function story_entry_meta() {
       echo '</footer>';
    endif;
 }
+*/
 
 function get_sort_box(){
 	$sort = 0;

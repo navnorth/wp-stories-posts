@@ -3,7 +3,7 @@
  Plugin Name: Story Custom Post Type
  Plugin URI: http://www.navigationnorth.com/wordpress/stories-plugin
  Description: Stories as a custom post type, with custom metadata and display. Developed in collaboration with Monad Infotech (http://monadinfotech.com)
- Version: 0.5.2
+ Version: 0.5.3
  Author: Navigation North
  Author URI: http://www.navigationnorth.com
  Text Domain: wp-stories-posts
@@ -36,7 +36,7 @@ define( 'SCP_SLUG','wp-stories-posts' );
 define( 'SCP_FILE',__FILE__);
 define( 'SCP_PLUGIN_NAME' , 'Story Custom Post Type' );
 define( 'SCP_PLUGIN_INFO' , '#' );
-define( 'SCP_VERSION' , '0.5.2');
+define( 'SCP_VERSION' , '0.5.3');
 define( 'GOOGLE_API_KEY' , 'AIzaSyACobLJYn3xWIaxrZHEa6G3VjOteYpWBno');
 
 include_once(SCP_PATH.'init.php');
@@ -248,12 +248,15 @@ function scp_template_loader($template)
 
 	$file = '';
 
-	if ($wp_query->is_search)
+	/*
+    if ($wp_query->is_search)
 	{
-		$file = 'search.php';
+		$file = 'content-search.php';
 		$path = SCP_PATH."templates/".$file;
 	}
-	elseif ( is_single() && get_post_type() == 'stories' )
+	else
+    */
+    if ( is_single() && get_post_type() == 'stories' )
 	{
 		$file  = 'single-stories.php';
 		$path  = SCP_PATH."templates/".$file;

@@ -17,7 +17,8 @@ jQuery(document).ready(function($){
             page: page
         };
         
-        $.post(the_ajax_script.ajaxurl, data).done(function(response) {
+        /*$.post(the_ajax_script.ajaxurl, data).done(function(response) {*/
+        $.post(ajaxurl, data).done(function(response) {
             var btn_load = $('.btn-load-more');
             var next_page = page_num + 1;
             var base_url = btn_load.attr('data-base-url');
@@ -57,7 +58,8 @@ jQuery(document).ready(function($){
             post_ids: post_ids
         };
         
-        $.post(the_ajax_script.ajaxurl, data).done(function(response) {
+        /*$.post(the_ajax_script.ajaxurl, data).done(function(response) {*/
+        $.post(ajaxurl, data).done(function(response) {
             $('#content-stories').html('');
             $('#content-stories').html(response);
             

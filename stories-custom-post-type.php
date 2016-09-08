@@ -144,6 +144,22 @@ function scp_frontside_scripts()
 	}
 }
 
+/*Enqueue ajax url on frontend*/
+add_action('wp_head','stories_ajaxurl');
+function stories_ajaxurl()
+{
+	?>
+    <script type="text/javascript">
+    /* workaround to only use SSL when on SSL (avoid self-signed cert issues) */
+    <?php if (!strpos($_SERVER['REQUEST_URI'],"wp-admin")): ?>
+	var ajaxurl = '<?php echo SCP_URL ?>ajax.php';
+    <?php else: ?>
+	var ajaxurl = '<?php echo admin_url("admin-ajax.php", (is_ssl() ? "https": "http") ); ?>
+    <?php endif; ?>
+    </script>
+<?php
+}
+
 add_action('admin_menu', 'taxonomy_order', 99);
 function taxonomy_order()
 {
@@ -687,7 +703,7 @@ function setup_settings_field( $arguments ) {
 /* load ajax script */
 function load_ajax_script(){
 	wp_enqueue_script( "ajax-script", plugin_dir_url(__FILE__)."js/front-ajax.js", array("jquery"));
-	wp_localize_script( 'ajax-script', 'the_ajax_script', array( 'ajaxurl' => admin_url( 'admin-ajax.php' ) ) );
+	//wp_localize_script( 'ajax-script', 'the_ajax_script', array( 'ajaxurl' => admin_url( 'admin-ajax.php' ) ) );
 }
 add_action('wp_print_scripts', 'load_ajax_script');
 

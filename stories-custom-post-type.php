@@ -145,7 +145,7 @@ function scp_frontside_scripts()
 }
 
 /*Enqueue ajax url on frontend*/
-add_action('wp_head','stories_ajaxurl');
+add_action('wp_head','stories_ajaxurl', 8);
 function stories_ajaxurl()
 {
 	?>

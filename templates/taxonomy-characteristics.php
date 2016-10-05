@@ -20,6 +20,10 @@ get_header(); ?>
 
 	$args = array('orderby' => 'term_order','order' => 'ASC','hide_empty' => true);
 	$tags = get_terms('story_tag', $args);
+	
+	//Set original taxonomy in session
+	$_SESSION['taxonomy'] = "characteristics";
+	$_SESSION['tax_postids'] = $postids;
 ?>
 	<div class="row">
 			<?php

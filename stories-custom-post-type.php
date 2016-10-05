@@ -780,7 +780,7 @@ function sort_stories(){
 		$post_count = count($post_ids);
 
 		$args = array('post_type' => 'stories', 'posts_per_page' => 10);
-
+		
 		switch($_POST["sort"]){
 			case 0:
 				$args['orderby'] = 'post_date';
@@ -812,7 +812,17 @@ function sort_stories(){
 			$paged = (int)$_REQUEST['page'];
 
 		$args['posts_per_page'] = 10 * $paged;
-
+		
+		if (isset($_SESSION['tax_postids']))
+			$args['post__in'] = $_SESSION['tax_postids'];
+		
+		// Taxonomy/Term filter
+		if($_POST["taxonomy"] && $_POST["term"])
+		{
+			$searcharr = array('taxonomy' => $_POST["taxonomy"], 'field' => 'slug', 'terms' => $_POST["term"]);
+			$args['tax_query'] = array($searcharr);
+		}
+		
 		$postquery = new WP_Query($args);
 
 		while ( $postquery->have_posts() ) : $postquery->the_post();

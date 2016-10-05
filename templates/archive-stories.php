@@ -10,6 +10,9 @@ get_header(); ?>
 
 	<div class="row">
     	<?php
+		if (isset($_SESSION['taxonomy']))
+				unset($_SESSION['taxonomy']);
+				
 			if(isset($_REQUEST['action']) && !empty($_REQUEST['action']))
 			{
 				global $wpdb;

@@ -50,12 +50,16 @@ jQuery(document).ready(function($){
         var sort = $(this).val();
         var page_num = parseInt($('.btn-load-more').attr('data-page-number'));
         var post_ids = $('.btn-load-more').attr('data-posts');
+        var term = $('.topics-search-box select[name=term]').val();
+        var taxonomy = $('.topics-search-box input[name=story_taxonomy]').val();
         
         var data = {
             action: 'sort_stories',
             sort: sort,
             post_var: page_num-1,
-            post_ids: post_ids
+            post_ids: post_ids,
+            term: term,
+            taxonomy: taxonomy
         };
         
         /*$.post(the_ajax_script.ajaxurl, data).done(function(response) {*/

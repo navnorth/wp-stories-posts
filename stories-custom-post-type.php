@@ -341,7 +341,7 @@ function get_storiesmap($pageposts=NULL)
         FROM $story_table S INNER JOIN $post_table P ON P.ID = S.postid
         WHERE S.latitude <> '' AND S.longitude <> ''";
 
-    if(empty($pageposts) || $pageposts == NULL)
+	if(empty($pageposts) || $pageposts == NULL)
 	{
 		$stories = $wpdb->get_results($sql);
 	}

@@ -207,7 +207,7 @@ get_header(); ?>
 
 										       <div class="col-md-8 col-sm-12 col-xs-12 pblctn_lft_sid_img_cntnr map_cntnr">
 											       <div class="col-md-12 col-sm-12 col-xs-12 pblctn_right_sid_mtr">
-													<?php get_storiesmap();?>
+													<?php get_storiesmap($unique);?>
 											       </div>
 
 								   <header class="tax-header">

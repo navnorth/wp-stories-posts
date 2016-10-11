@@ -10,9 +10,7 @@ get_header(); ?>
 
 	<div class="row">
     	<?php
-		if (isset($_SESSION['taxonomy']))
-				unset($_SESSION['taxonomy']);
-				
+		
 			if(isset($_REQUEST['action']) && !empty($_REQUEST['action']))
 			{
 				global $wpdb;
@@ -59,7 +57,7 @@ get_header(); ?>
                                             ?>
                                         </select>
                                     </form>
-				<?php get_sort_box(); ?>
+				<?php get_sort_box($post_ids); ?>
                                 </div>
                             </header>
 				<?php
@@ -217,7 +215,7 @@ get_header(); ?>
 										       printf( __( 'Search Results: %s', SCP_SLUG ), '<i>' . $search_text . '</i> <span>(' .$post_count.' '.story_plural($post_count).')</span>' );
 									    ?>
 								       </h1>
-								       <?php get_sort_box(); ?>
+								       <?php get_sort_box($unique); ?>
 								   </header>
 								       <?php
 								       //Get number of pages

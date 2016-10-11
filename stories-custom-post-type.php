@@ -813,8 +813,8 @@ function sort_stories(){
 
 		$args['posts_per_page'] = 10 * $paged;
 		
-		if (isset($_SESSION['tax_postids']))
-			$args['post__in'] = $_SESSION['tax_postids'];
+		if (isset($_POST['post_ids']))
+			$args['post__in'] = json_decode($_POST['post_ids']);;
 		
 		// Taxonomy/Term filter
 		if($_POST["taxonomy"] && $_POST["term"])

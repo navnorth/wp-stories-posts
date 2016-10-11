@@ -22,9 +22,6 @@ get_header(); ?>
 	$args = array('orderby' => 'term_order','order' => 'ASC','hide_empty' => true);
 	$tags = get_terms('story_tag', $args);
 	
-	//Set original taxonomy in session
-	$_SESSION['taxonomy'] = "grade_level";
-	$_SESSION['tax_postids'] = $postids;
 ?>
 	<div class="row">
 			<?php
@@ -40,6 +37,8 @@ get_header(); ?>
 					if(!empty($searcharr))
 					{
 						$args = array('post_type' => 'stories','post__in' => $postids, 'posts_per_page' => -1, 'tax_query' => array($searcharr));
+						//Apply sort args
+						$args = apply_sort_args($args);
 						$query = new WP_Query( $args );
 						$pageposts = $wpdb->get_results($query->request, OBJECT_K);
 					}
@@ -78,7 +77,7 @@ get_header(); ?>
 											?>
                                         </select>
                                     </form>
-				    <?php get_sort_box(); ?>
+				    <?php get_sort_box($postids); ?>
                                 </div>
                             </header>
 
@@ -131,7 +130,7 @@ get_header(); ?>
 											?>
                                         </select>
                                     </form>
-				    <?php get_sort_box(); ?>
+				    <?php get_sort_box($postids); ?>
                                 </div>
                             </header>
                             <div class="col-md-12 pblctn_paramtr padding_left">
@@ -181,7 +180,7 @@ get_header(); ?>
                                         ?>
                                     </select>
                                 </form>
-				<?php get_sort_box(); ?>
+				<?php get_sort_box($postids); ?>
                             </div>
                         </header>
 						<?php

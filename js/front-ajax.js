@@ -48,8 +48,11 @@ jQuery(document).ready(function($){
     /** Sorting of List of Stories Widget **/
     $('.sort-selectbox').change(function(){
         var sort = $(this).val();
+        var post_ids = $(this).attr('data-posts');
         var page_num = parseInt($('.btn-load-more').attr('data-page-number'));
-        var post_ids = $('.btn-load-more').attr('data-posts');
+        if ($('.btn-load-more').is(':visible')) {
+            post_ids = $('.btn-load-more').attr('data-posts');
+        }
         var term = $('.topics-search-box select[name=term]').val();
         var taxonomy = $('.topics-search-box input[name=story_taxonomy]').val();
         

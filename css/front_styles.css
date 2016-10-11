@@ -304,7 +304,7 @@ article.stories .entry-meta .read-more-link {
 article.stories .entry-meta a.read-more, article.stories .entry-meta a.read-more:hover {
     color: #ffffff;
 }
-.stry_srch_frm .srchtrmbxs  input[type="text"] { padding:0px 30px 0px 10px; margin-left:0; margin-top:20px; }
+.stry_srch_frm .srchtrmbxs  input[type="text"] { padding:0px 30px 0px 10px; margin-left:0; margin-top:20px; min-height:32px; }
 .search_story_image { width:20%; float:left; }
 .search_story_featured_image { width:100%; height:auto; }
 .search_story_content { width:80%; float:right; }

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="210mm"
+   height="297mm"
+   viewBox="0 0 744.09448819 1052.3622047"
+   id="svg2"
+   version="1.1"
+   inkscape:version="0.91 r13725"
+   sodipodi:docname="marker.svg"
+   inkscape:export-filename="/Users/joehobson/Documents/navNorth/OET/tech.ed.gov/wp-oet-theme/teched/wp-content/plugins/stories-custom-post-type/images/marker_solid.png"
+   inkscape:export-xdpi="90"
+   inkscape:export-ydpi="90">
+  <defs
+     id="defs4" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="3.959798"
+     inkscape:cx="190.31378"
+     inkscape:cy="665.11728"
+     inkscape:document-units="px"
+     inkscape:current-layer="g3367"
+     showgrid="false"
+     inkscape:window-width="1235"
+     inkscape:window-height="746"
+     inkscape:window-x="1827"
+     inkscape:window-y="187"
+     inkscape:window-maximized="0" />
+  <metadata
+     id="metadata7">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     id="g3367"
+     transform="translate(-65,67.142857)">
+    <path
+       style="fill:#e57200;stroke:#cccccc;stroke-opacity:1;stroke-width:4;stroke-miterlimit:1;stroke-dasharray:none"
+       d="m 267.85659,272.85799 c -13.8,0 -25,11.2 -25,25 0,7.4 1.40078,12.09921 5.80078,19.19921 19.2,31.8 19.19922,35.80079 19.19922,35.80079 0,0 0,-4.00118 19,-35.20118 4.5,-7.3 6,-12.19882 6,-19.79882 0,-13.8 -11.2,-25 -25,-25 z"
+       id="path3369"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="sscccss"
+       inkscape:export-xdpi="35.790001"
+       inkscape:export-ydpi="35.790001" />
+  </g>
+</svg>

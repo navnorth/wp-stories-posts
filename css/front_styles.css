@@ -361,8 +361,8 @@ article.stories .entry-meta a.read-more, article.stories .entry-meta a.read-more
 .topics-search-box form { display:inline-block; }
 
 /** Grade Level Styles **/
-.bgorange { background-color:#d87e36; padding:4px 20px; margin-left:10px; color:#fff; }
-.bgblue { background-color:#14589d; padding:4px 20px; margin-left:10px; color:#fff; }
+.bgorange { background-color:#e57200; padding:4px 20px; margin-left:10px; color:#fff; }
+.bgblue { background-color:#00529f; padding:4px 20px; margin-left:10px; color:#fff; }
 
 @media screen and (max-width: 992px) {
     .stry_srch_frm { width: 100%}

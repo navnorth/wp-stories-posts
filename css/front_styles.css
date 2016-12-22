@@ -9,7 +9,7 @@
 }
 .substory_loc {
     margin-bottom: 2px;
-    margin-top: -5px;
+    margin-top: 0;
     font-size:15px !important;
 }
 .col-md-12.pblctn_paramtr.padding_left h3 {
@@ -359,6 +359,10 @@ article.stories .entry-meta a.read-more, article.stories .entry-meta a.read-more
 .single-stories .pblctn_paramtr li, .additional_sidebar_content li { margin-left:1em; padding-left:0; }
 .single-stories .pblctn_paramtr ul li, .additional_sidebar_content ul li { list-style-type:disc; }
 .topics-search-box form { display:inline-block; }
+
+/** Grade Level Styles **/
+.bgorange { background-color:#d87e36; padding:4px 20px; margin-left:10px; color:#fff; }
+.bgblue { background-color:#14589d; padding:4px 20px; margin-left:10px; color:#fff; }
 
 @media screen and (max-width: 992px) {
     .stry_srch_frm { width: 100%}

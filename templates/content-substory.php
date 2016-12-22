@@ -56,12 +56,12 @@
         </div>
     <?php endif; ?>
 	<h4 class="substory_loc">
-	    <?php
-		    if($story_district = get_post_meta($post->ID, "story_district", true))
-			    {
-				if (strlen($story_district)>0)
-				    echo $story_district.', ';
-			    }
+		<?php
+		if($story_district = get_post_meta($post->ID, "story_district", true))
+			{
+			    if (strlen($story_district)>0)
+				echo $story_district.', ';
+			}
 			    $states = get_the_terms( $post->ID , 'state' );
 			    if(isset($states) && !empty($states))
 			    {
@@ -72,18 +72,29 @@
 				    }
 			    }
 			    $grades = get_the_terms( $post->ID , 'grade_level' );
+			    
 			    if(isset($grades) && !empty($grades))
 			    {
-				if ($states)
-					echo ' - ';
-					
+				
+				//Reset Grade Level and Color
+				$grade_level = "";
+				$grade_color = "";
 				foreach($grades as $grade)
 				{
-					echo $grade->name;
+					if ($grade->name=="K-12" || $grade->name=="Early Childhood Education") {
+						$grade_color = "bgblue";
+						$grade_level = __( 'P-12' , SCP_SLUG );
+					}
+					elseif ($grade->name=="Higher Education") {
+						$grade_color = "bgorange";
+						$grade_level = __( 'Higher Ed' , SCP_SLUG );
+					}
+					$grade_label = '<span class="'.$grade_color.'">'.$grade_level.'</span>';
+					echo $grade_label;
 					break;
 				}
 			    }
-		    ?>
+		?>
 	</h4>
 	    <?php
 			$content = display_story_content($post->ID, 300);

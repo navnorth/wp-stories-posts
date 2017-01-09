@@ -3,7 +3,7 @@
  Plugin Name: Story Custom Post Type
  Plugin URI: http://www.navigationnorth.com/wordpress/stories-plugin
  Description: Stories as a custom post type, with custom metadata and display. Developed in collaboration with Monad Infotech (http://monadinfotech.com)
- Version: 0.5.5
+ Version: 0.5.0
  Author: Navigation North
  Author URI: http://www.navigationnorth.com
  Text Domain: wp-stories-posts
@@ -36,7 +36,7 @@ define( 'SCP_SLUG','wp-stories-posts' );
 define( 'SCP_FILE',__FILE__);
 define( 'SCP_PLUGIN_NAME' , 'Story Custom Post Type' );
 define( 'SCP_PLUGIN_INFO' , '#' );
-define( 'SCP_VERSION' , '0.5.5');
+define( 'SCP_VERSION' , '0.5.0');
 define( 'GOOGLE_API_KEY' , 'AIzaSyACobLJYn3xWIaxrZHEa6G3VjOteYpWBno');
 
 include_once(SCP_PATH.'init.php');
@@ -45,13 +45,6 @@ include_once(SCP_PATH.'/includes/widgets.php');
 $_bootstrap = get_option( 'load_bootstrap' );
 $_fontawesome = get_option( 'load_font_awesome' );
 $_googleapikey = get_option( 'google_api_key' );
-$_filters = array(
-	"program" => get_option('enable_program'),
-	"state" => get_option('enable_state'),
-	"grade_level" => get_option('enable_grade_level'),
-	"characteristics" => get_option('enable_characteristics'),
-	"district_size" => get_option('enable_district_size')
-		  );
 
 //plugin activation task
 function create_installation_table()
@@ -142,22 +135,6 @@ function scp_frontside_scripts()
 	if ($_bootstrap) {
 		wp_enqueue_script('bootstrap-script', SCP_URL.'js/bootstrap.min.js');
 	}
-}
-
-/*Enqueue ajax url on frontend*/
-add_action('wp_head','stories_ajaxurl', 8);
-function stories_ajaxurl()
-{
-	?>
-    <script type="text/javascript">
-    /* workaround to only use SSL when on SSL (avoid self-signed cert issues) */
-    <?php if (!strpos($_SERVER['REQUEST_URI'],"wp-admin")): ?>
-	var sajaxurl = '<?php echo SCP_URL ?>ajax.php';
-    <?php else: ?>
-	var sajaxurl = '<?php echo admin_url("admin-ajax.php", (is_ssl() ? "https": "http") ); ?>
-    <?php endif; ?>
-    </script>
-<?php
 }
 
 add_action('admin_menu', 'taxonomy_order', 99);
@@ -264,15 +241,12 @@ function scp_template_loader($template)
 
 	$file = '';
 
-	/*
-    if ($wp_query->is_search)
+	if ($wp_query->is_search)
 	{
-		$file = 'content-search.php';
+		$file = 'search.php';
 		$path = SCP_PATH."templates/".$file;
 	}
-	else
-    */
-    if ( is_single() && get_post_type() == 'stories' )
+	elseif ( is_single() && get_post_type() == 'stories' )
 	{
 		$file  = 'single-stories.php';
 		$path  = SCP_PATH."templates/".$file;
@@ -331,6 +305,7 @@ function scp_template_loader($template)
 
 	return $template;
 }
+
 //Function for getting map
 function get_storiesmap($pageposts=NULL)
 {
@@ -341,7 +316,7 @@ function get_storiesmap($pageposts=NULL)
         FROM $story_table S INNER JOIN $post_table P ON P.ID = S.postid
         WHERE S.latitude <> '' AND S.longitude <> ''";
 
-	if(empty($pageposts) || $pageposts == NULL)
+    if(empty($pageposts) || $pageposts == NULL)
 	{
 		$stories = $wpdb->get_results($sql);
 	}
@@ -358,7 +333,7 @@ function get_storiesmap($pageposts=NULL)
 	}
 	?>
 	<link rel="stylesheet" type="text/css" href="<?php echo SCP_URL ; ?>css/demo.css" />
-   	<script src="http://maps.google.com/maps/api/js?key=<?php echo $_googleapikey ; ?>" type="text/javascript"></script>
+   	<script src="//maps.google.com/maps/api/js?key=<?php echo $_googleapikey ; ?>" type="text/javascript"></script>
     <div class="mapcontainer">
          <div id="ss-container" class="ss-container">
          	<div id="map_canvas">
@@ -376,7 +351,6 @@ function get_storiesmap($pageposts=NULL)
 							{
 								foreach ($stories as $story)
 								{
-									$pincolor = "#00529f";
 									$story_status = get_post_status($story->postid);
 									$id = $story->id;
 									$title = $story->title;
@@ -399,26 +373,14 @@ function get_storiesmap($pageposts=NULL)
 										{
 											$url = get_term_link($state->term_id, $state->taxonomy);
 											//$stateurl = '<a target="_blank" href="'. $url .'">'.$state->name.'</a>';
-									$stateurl = $state->name;
+                                            $stateurl = $state->name;
 										}
 									}
-									
-									$grades = get_the_terms( $story->postid , 'grade_level' );
-									
-									if(isset($grades) && !empty($grades))
-									{
-										foreach($grades as $grade)
-										{
-											if ($grade->name=="Higher Education") {
-												$pincolor = "#e57200";
-											}
-										}
-									}					
 									if ($story_status == 'publish') {
 										if($image) {
-											echo "['<div class=info tabindex=0><h4><a href=$link>$title</a></h4><div class=popupcntnr><img src=$image alt=\"Story Thumbnail\"><div class=subinfo><p><b>$district</b>, <b>$stateurl</b></p></div>$content</div></div>', $latitude, $longitude, '$title - $story->postid', '$pincolor'],";
+											echo "['<div class=info tabindex=0><h4><a href=$link>$title</a></h4><div class=popupcntnr><img src=$image alt=\"Story Thumbnail\"><div class=subinfo><p><b>$district</b>, <b>$stateurl</b></p></div>$content</div></div>', $latitude, $longitude, '$title - $story->postid'],";
 										} else {
-											echo "['<div class=info tabindex=0><h4><a href=$link>$title</a></h4><div class=\'popupcntnr fullpopwidth\'><div class=subinfo><p><b>$district</b>, <b>$stateurl</b></p></div>$content</div></div>', $latitude, $longitude, '$title - $story->postid', '$pincolor'],";
+											echo "['<div class=info tabindex=0><h4><a href=$link>$title</a></h4><div class=\'popupcntnr fullpopwidth\'><div class=subinfo><p><b>$district</b>, <b>$stateurl</b></p></div>$content</div></div>', $latitude, $longitude, '$title - $story->postid'],";
 										}
 									}
 								}
@@ -432,7 +394,7 @@ function get_storiesmap($pageposts=NULL)
                     // Setup the different icons and shadows
                     var iconURLPrefix = '<?php echo SCP_URL.'images/'?>';
 
-                    var icons = [iconURLPrefix + 'marker_solid.png', iconURLPrefix + 'marker_orange.png']
+                    var icons = [iconURLPrefix + 'marker_solid.png']
                     var icons_length = icons.length;
 
                     var shadow =
@@ -465,7 +427,7 @@ function get_storiesmap($pageposts=NULL)
 
                     var iconSVG = {
                         path: "m 51.181656,3.9153604 c -16.876105,0 -30.606194,15.0340656 -30.606194,33.5151036 0,4.674622 1.254665,13.195031 12.10588,33.135792 5.549381,10.196603 11.020402,18.615602 11.251034,18.969563 l 7.24928,11.129771 7.250171,-11.129771 C 58.661567,89.182832 64.132588,80.762859 69.68286,70.566256 80.534074,50.625495 81.788741,42.105086 81.788741,37.430464 81.78785,18.949426 68.057761,3.9153604 51.181656,3.9153604 Z",
-                        fillColor: "#00529f",
+                        fillColor: '#00529f',
                         fillOpacity: 1,
                         anchor: new google.maps.Point(54,100),
                         strokeWeight: 2,
@@ -481,14 +443,13 @@ function get_storiesmap($pageposts=NULL)
                     // Add the markers and infowindows to the map
                     for (var i = 0; i < locations.length; i++)
                     {
-			iconSVG.fillColor = locations[i][4]
-			marker = new google.maps.Marker({
-			position: new google.maps.LatLng(locations[i][1], locations[i][2], locations[i][3], locations[i][4], locations[i][5]),
-			map: map,
-			title : locations[i][3],
-			icon : iconSVG,
-			shadow: shadow
-		      });
+						  marker = new google.maps.Marker({
+                            position: new google.maps.LatLng(locations[i][1], locations[i][2], locations[i][3], locations[i][4], locations[i][5]),
+                            map: map,
+                            title : locations[i][3],
+                            icon : iconSVG,
+                            shadow: shadow
+                          });
 
                           markers.push(marker);
 
@@ -617,66 +578,9 @@ function setup_settings_form() {
 				'description' => __('necessary for displaying map', SCP_SLUG)
 			)
 			   );
-
-	/* Enable/Disable State Selection */
-	add_settings_field(
-			'enable_state',
-			__( 'Enable State Selection?' , SCP_SLUG ),
-			'setup_settings_field',
-			'stories-settings-page',
-			'stories-settings-section',
-			array(
-				'uid' => 'enable_state',
-				'type' => 'checkbox',
-				'description' => __('necessary to display the State filter on the sidebar', SCP_SLUG)
-			)
-			   );
-	/* Enable/Disable Grade Level */
-	add_settings_field(
-			'enable_grade_level',
-			__( 'Enable Grade Level?' , SCP_SLUG ),
-			'setup_settings_field',
-			'stories-settings-page',
-			'stories-settings-section',
-			array(
-				'uid' => 'enable_grade_level',
-				'type' => 'checkbox',
-				'description' => __('necessary to display the Grade Level filter on the sidebar', SCP_SLUG)
-			)
-			   );
-	/* Enable/Disable Characteristics */
-	add_settings_field(
-			'enable_characteristics',
-			__( 'Enable Characteristics?' , SCP_SLUG ),
-			'setup_settings_field',
-			'stories-settings-page',
-			'stories-settings-section',
-			array(
-				'uid' => 'enable_characteristics',
-				'type' => 'checkbox',
-				'description' => __('necessary to display the Characteristics filter on the sidebar', SCP_SLUG)
-			)
-			   );
-	/* Enable/Disable District Size */
-	add_settings_field(
-			'enable_district_size',
-			__( 'Enable District Size?' , SCP_SLUG ),
-			'setup_settings_field',
-			'stories-settings-page',
-			'stories-settings-section',
-			array(
-				'uid' => 'enable_district_size',
-				'type' => 'checkbox',
-				'description' => __('necessary to display the District Size filter on the sidebar', SCP_SLUG)
-			)
-			   );
 	register_setting( 'stories-settings-section' , 'load_bootstrap' );
 	register_setting( 'stories-settings-section' , 'load_font_awesome' );
 	register_setting( 'stories-settings-section' , 'google_api_key' );
-	register_setting( 'stories-settings-section' , 'enable_state' );
-	register_setting( 'stories-settings-section' , 'enable_grade_level' );
-	register_setting( 'stories-settings-section' , 'enable_characteristics' );
-	register_setting( 'stories-settings-section' , 'enable_district_size' );
 }
 
 function first_section_callback() {
@@ -717,7 +621,7 @@ function setup_settings_field( $arguments ) {
 /* load ajax script */
 function load_ajax_script(){
 	wp_enqueue_script( "ajax-script", plugin_dir_url(__FILE__)."js/front-ajax.js", array("jquery"));
-	//wp_localize_script( 'ajax-script', 'the_ajax_script', array( 'ajaxurl' => admin_url( 'admin-ajax.php' ) ) );
+	wp_localize_script( 'ajax-script', 'the_ajax_script', array( 'ajaxurl' => admin_url( 'admin-ajax.php' ) ) );
 }
 add_action('wp_print_scripts', 'load_ajax_script');
 
@@ -794,7 +698,7 @@ function sort_stories(){
 		$post_count = count($post_ids);
 
 		$args = array('post_type' => 'stories', 'posts_per_page' => 10);
-		
+
 		switch($_POST["sort"]){
 			case 0:
 				$args['orderby'] = 'post_date';
@@ -826,17 +730,7 @@ function sort_stories(){
 			$paged = (int)$_REQUEST['page'];
 
 		$args['posts_per_page'] = 10 * $paged;
-		
-		if (isset($_POST['post_ids']))
-			$args['post__in'] = json_decode($_POST['post_ids']);;
-		
-		// Taxonomy/Term filter
-		if($_POST["taxonomy"] && $_POST["term"])
-		{
-			$searcharr = array('taxonomy' => $_POST["taxonomy"], 'field' => 'slug', 'terms' => $_POST["term"]);
-			$args['tax_query'] = array($searcharr);
-		}
-		
+
 		$postquery = new WP_Query($args);
 
 		while ( $postquery->have_posts() ) : $postquery->the_post();

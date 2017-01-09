@@ -358,7 +358,7 @@ function get_storiesmap($pageposts=NULL)
 	}
 	?>
 	<link rel="stylesheet" type="text/css" href="<?php echo SCP_URL ; ?>css/demo.css" />
-   	<script src="http://maps.google.com/maps/api/js?key=<?php echo $_googleapikey ; ?>" type="text/javascript"></script>
+   	<script src="//maps.google.com/maps/api/js?key=<?php echo $_googleapikey ; ?>" type="text/javascript"></script>
     <div class="mapcontainer">
          <div id="ss-container" class="ss-container">
          	<div id="map_canvas">

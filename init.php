@@ -859,9 +859,11 @@ function story_entry_meta() {
 */
 
 function get_sort_box($post_ids=null){
+	global $scp_session;
+	
 	$sort = 0;
-	if (isset($_SESSION['story_sort']))
-		$sort = (int)$_SESSION['story_sort'];
+	if (isset($scp_session['story_sort']))
+		$sort = (int)$scp_session['story_sort'];
 	?>
 	<div class="sort-box">
 		<span class="sortoption"></span>
@@ -885,9 +887,11 @@ function get_sort_box($post_ids=null){
 }
 
 function apply_sort_args($args){
+	global $scp_session;
+	
 	$sort = 0;
-	if (isset($_SESSION['story_sort']))
-		$sort = (int)$_SESSION['story_sort'];
+	if (isset($scp_session['story_sort']))
+		$sort = (int)$scp_session['story_sort'];
 
 	switch($sort){
 		case 0:

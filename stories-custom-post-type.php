@@ -26,7 +26,7 @@
  */
 
 //defining the url,path and slug for the plugin
-global $wpdb, $characteristics, $districtsize;
+global $wpdb, $characteristics, $districtsize, $scp_session;
 $characteristics = array('Rural','Suburban','Urban');
 $districtsize = array("Less than 1,000 students","1,001-10,000 students","10,001-40,000 students","40,001+ students");
 
@@ -38,6 +38,19 @@ define( 'SCP_PLUGIN_NAME' , 'Story Custom Post Type' );
 define( 'SCP_PLUGIN_INFO' , '#' );
 define( 'SCP_VERSION' , '0.5.6');
 define( 'GOOGLE_API_KEY' , 'AIzaSyACobLJYn3xWIaxrZHEa6G3VjOteYpWBno');
+
+if( ! defined( 'WP_SESSION_COOKIE' ) )
+	define( 'WP_SESSION_COOKIE', '_wp_session' );
+
+if ( ! class_exists( 'Recursive_ArrayAccess' ) ) {
+	require_once( SCP_PATH.'/classes/class-recursive-arrayaccess.php' );
+}
+
+// Only include the functionality if it's not pre-defined.
+if ( ! class_exists( 'WP_Session' ) ) {
+	require_once( SCP_PATH.'/classes/class-wp-session.php' );
+	require_once( SCP_PATH.'/classes/wp-session.php' );
+}
 
 include_once(SCP_PATH.'init.php');
 include_once(SCP_PATH.'/includes/widgets.php');
@@ -723,7 +736,7 @@ add_action('wp_print_scripts', 'load_ajax_script');
 
 /* Ajax Callback */
 function load_more_stories() {
-	global $wpdb, $wp_query;
+	global $wpdb, $wp_query, $scp_session;
 
 	if (isset($_POST["post_var"])) {
 		$page_num = $_POST["post_var"];
@@ -742,8 +755,8 @@ function load_more_stories() {
 
 		//Sorting Results
 		$sort = 0;
-		if (isset($_SESSION['story_sort']))
-			$sort = (int)$_SESSION['story_sort'];
+		if (isset($scp_session['story_sort']))
+			$sort = (int)$scp_session['story_sort'];
 		else
 			$sort = (int)$_POST['sort'];
 
@@ -781,12 +794,13 @@ add_action('wp_ajax_nopriv_load_more', 'load_more_stories');
 
 /** Sort Stories **/
 function sort_stories(){
-	global $wpdb;
-
+	global $wpdb, $scp_session;
+	
 	if (isset($_POST["sort"])) {
 
-		$_SESSION['story_sort'] = $_POST['sort'];
-
+		//$_SESSION['story_sort'] = $_POST['sort'];
+		$scp_session['story_sort'] = $_POST['sort'];
+		
 		$stories = new WP_Query(array('post_type' => 'stories', 'posts_per_page' => -1));
 
                 $post_ids = wp_list_pluck( $stories->posts, 'ID' );
@@ -918,8 +932,8 @@ function add_excerpts_to_stories() {
 /** Start session to store sort option **/
 add_action( 'init', 'initSession', 1 );
 function initSession(){
-	if(!session_id()) {
-		session_start();
-	}
+	global $scp_session;
+	// Initialize WP_Session
+	$scp_session = WP_Session::get_instance();
 }
 ?>

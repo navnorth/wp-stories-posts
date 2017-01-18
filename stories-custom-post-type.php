@@ -1,14 +1,16 @@
 <?php
 /*
- Plugin Name: Story Custom Post Type
- Plugin URI: http://www.navigationnorth.com/wordpress/stories-plugin
- Description: Stories as a custom post type, with custom metadata and display. Developed in collaboration with Monad Infotech (http://monadinfotech.com)
- Version: 0.5.6
- Author: Navigation North
- Author URI: http://www.navigationnorth.com
- Text Domain: wp-stories-posts
+ Plugin Name:  Story Custom Post Type
+ Plugin URI:   https://www.navigationnorth.com/solutions/wordpress/stories-plugin
+ Description:  Stories as a custom post type, with custom metadata and display. Developed in collaboration with Monad Infotech (http://monadinfotech.com)
+ Version:      0.5.7
+ Author:       Navigation North
+ Author URI:   http://www.navigationnorth.com
+ Text Domain:  wp-stories-posts
+ License:      GPL3
+ License URI:  https://www.gnu.org/licenses/gpl-3.0.html
 
- Copyright (C) 2016 Navigation North
+ Copyright (C) 2017 Navigation North
 
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -35,8 +37,8 @@ define( 'SCP_PATH', plugin_dir_path(__FILE__) );
 define( 'SCP_SLUG','wp-stories-posts' );
 define( 'SCP_FILE',__FILE__);
 define( 'SCP_PLUGIN_NAME' , 'Story Custom Post Type' );
-define( 'SCP_PLUGIN_INFO' , '#' );
-define( 'SCP_VERSION' , '0.5.6');
+define( 'SCP_PLUGIN_INFO' , 'https://www.navigationnorth.com/solutions/wordpress/stories-plugin' );
+define( 'SCP_VERSION' , '0.5.7');
 define( 'GOOGLE_API_KEY' , 'AIzaSyACobLJYn3xWIaxrZHEa6G3VjOteYpWBno');
 
 if( ! defined( 'WP_SESSION_COOKIE' ) )
@@ -795,12 +797,12 @@ add_action('wp_ajax_nopriv_load_more', 'load_more_stories');
 /** Sort Stories **/
 function sort_stories(){
 	global $wpdb, $scp_session;
-	
+
 	if (isset($_POST["sort"])) {
 
 		//$_SESSION['story_sort'] = $_POST['sort'];
 		$scp_session['story_sort'] = $_POST['sort'];
-		
+
 		$stories = new WP_Query(array('post_type' => 'stories', 'posts_per_page' => -1));
 
                 $post_ids = wp_list_pluck( $stories->posts, 'ID' );

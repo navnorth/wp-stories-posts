@@ -78,7 +78,7 @@ function wp_session_start() {
 
 	return $wp_session->session_started();
 }
-add_action( 'plugins_loaded', 'wp_session_start' );
+//add_action( 'plugins_loaded', 'wp_session_start' );
 
 /**
  * Return the current session status.

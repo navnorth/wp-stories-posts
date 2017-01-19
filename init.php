@@ -861,6 +861,9 @@ function story_entry_meta() {
 function get_sort_box($post_ids=null){
 	global $scp_session;
 	
+	if (!isset($scp_session))
+		$scp_session = WP_Session::get_instance();
+	
 	$sort = 0;
 	if (isset($scp_session['story_sort']))
 		$sort = (int)$scp_session['story_sort'];
@@ -888,6 +891,9 @@ function get_sort_box($post_ids=null){
 
 function apply_sort_args($args){
 	global $scp_session;
+	
+	if (!isset($scp_session))
+		$scp_session = WP_Session::get_instance();
 	
 	$sort = 0;
 	if (isset($scp_session['story_sort']))

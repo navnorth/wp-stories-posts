@@ -40,10 +40,13 @@ define( 'SCP_PLUGIN_NAME' , 'Story Custom Post Type' );
 define( 'SCP_PLUGIN_INFO' , 'https://www.navigationnorth.com/solutions/wordpress/stories-plugin' );
 define( 'SCP_VERSION' , '0.5.7');
 define( 'GOOGLE_API_KEY' , 'AIzaSyACobLJYn3xWIaxrZHEa6G3VjOteYpWBno');
+	
+include_once(SCP_PATH.'init.php');
+include_once(SCP_PATH.'/includes/widgets.php');
 
 if( ! defined( 'WP_SESSION_COOKIE' ) )
-	define( 'WP_SESSION_COOKIE', '_wp_session' );
-
+	define( 'WP_SESSION_COOKIE', '_scp_session' );
+	
 if ( ! class_exists( 'Recursive_ArrayAccess' ) ) {
 	require_once( SCP_PATH.'/classes/class-recursive-arrayaccess.php' );
 }
@@ -53,9 +56,6 @@ if ( ! class_exists( 'WP_Session' ) ) {
 	require_once( SCP_PATH.'/classes/class-wp-session.php' );
 	require_once( SCP_PATH.'/classes/wp-session.php' );
 }
-
-include_once(SCP_PATH.'init.php');
-include_once(SCP_PATH.'/includes/widgets.php');
 
 $_bootstrap = get_option( 'load_bootstrap' );
 $_fontawesome = get_option( 'load_font_awesome' );
@@ -740,6 +740,9 @@ add_action('wp_print_scripts', 'load_ajax_script');
 function load_more_stories() {
 	global $wpdb, $wp_query, $scp_session;
 
+	if (!isset($scp_session))
+		$scp_session = WP_Session::get_instance();
+	
 	if (isset($_POST["post_var"])) {
 		$page_num = $_POST["post_var"];
 
@@ -797,7 +800,11 @@ add_action('wp_ajax_nopriv_load_more', 'load_more_stories');
 /** Sort Stories **/
 function sort_stories(){
 	global $wpdb, $scp_session;
-
+	
+	// Initialize WP_Session
+	if (!isset($scp_session))
+		$scp_session = WP_Session::get_instance();
+	
 	if (isset($_POST["sort"])) {
 
 		//$_SESSION['story_sort'] = $_POST['sort'];
@@ -929,13 +936,5 @@ add_action( 'widgets_init', 'register_stories_widgets' );
 add_action( 'init', 'add_excerpts_to_stories' );
 function add_excerpts_to_stories() {
      add_post_type_support( 'stories', 'excerpt' );
-}
-
-/** Start session to store sort option **/
-add_action( 'init', 'initSession', 1 );
-function initSession(){
-	global $scp_session;
-	// Initialize WP_Session
-	$scp_session = WP_Session::get_instance();
 }
 ?>

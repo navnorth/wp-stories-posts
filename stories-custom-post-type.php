@@ -3,7 +3,7 @@
  Plugin Name:  Story Custom Post Type
  Plugin URI:   https://www.navigationnorth.com/solutions/wordpress/stories-plugin
  Description:  Stories as a custom post type, with custom metadata and display. Developed in collaboration with Monad Infotech (http://monadinfotech.com)
- Version:      0.5.7
+ Version:      0.5.8
  Author:       Navigation North
  Author URI:   http://www.navigationnorth.com
  Text Domain:  wp-stories-posts
@@ -38,15 +38,15 @@ define( 'SCP_SLUG','wp-stories-posts' );
 define( 'SCP_FILE',__FILE__);
 define( 'SCP_PLUGIN_NAME' , 'Story Custom Post Type' );
 define( 'SCP_PLUGIN_INFO' , 'https://www.navigationnorth.com/solutions/wordpress/stories-plugin' );
-define( 'SCP_VERSION' , '0.5.7');
+define( 'SCP_VERSION' , '0.5.8');
 define( 'GOOGLE_API_KEY' , 'AIzaSyACobLJYn3xWIaxrZHEa6G3VjOteYpWBno');
-	
+
 include_once(SCP_PATH.'init.php');
 include_once(SCP_PATH.'/includes/widgets.php');
 
 if( ! defined( 'WP_SESSION_COOKIE' ) )
 	define( 'WP_SESSION_COOKIE', '_scp_session' );
-	
+
 if ( ! class_exists( 'Recursive_ArrayAccess' ) ) {
 	require_once( SCP_PATH.'/classes/class-recursive-arrayaccess.php' );
 }
@@ -742,7 +742,7 @@ function load_more_stories() {
 
 	if (!isset($scp_session))
 		$scp_session = WP_Session::get_instance();
-	
+
 	if (isset($_POST["post_var"])) {
 		$page_num = $_POST["post_var"];
 
@@ -800,11 +800,11 @@ add_action('wp_ajax_nopriv_load_more', 'load_more_stories');
 /** Sort Stories **/
 function sort_stories(){
 	global $wpdb, $scp_session;
-	
+
 	// Initialize WP_Session
 	if (!isset($scp_session))
 		$scp_session = WP_Session::get_instance();
-	
+
 	if (isset($_POST["sort"])) {
 
 		//$_SESSION['story_sort'] = $_POST['sort'];

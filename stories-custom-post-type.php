@@ -43,6 +43,12 @@ define( 'GOOGLE_API_KEY' , 'AIzaSyACobLJYn3xWIaxrZHEa6G3VjOteYpWBno');
 
 include_once(SCP_PATH.'init.php');
 include_once(SCP_PATH.'/includes/widgets.php');
+include_once( SCP_PATH . '/includes/functions.php' );
+
+/**
+ * Stories Shortcode.
+ */
+include_once( SCP_PATH . '/includes/shortcode.php' );
 
 if( ! defined( 'WP_SESSION_COOKIE' ) )
 	define( 'WP_SESSION_COOKIE', '_scp_session' );

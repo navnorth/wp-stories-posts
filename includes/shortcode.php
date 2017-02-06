@@ -14,6 +14,9 @@ function oet_story_func($attr, $content = null) {
     //Default width
     $attr_width = 6;
     $title = "";
+    $attr_bg = "";
+    $styles = "";
+    $styles_attrs = array();
     
     $class_attrs[] = "col-xs-".$attr_width;
     
@@ -28,14 +31,20 @@ function oet_story_func($attr, $content = null) {
     $attrs = implode(" ", $class_attrs);
     
     if ($id)
-        $title = get_story_by_id($id);
+        $title = get_title_by_id($id);
     
     $attr_title = '<h1><a href="">'.$title.'</a></h1>';
+    
+    $background = get_background($id);
+    if ($background)
+        $styles_attrs[] = "background:url('".$background."') no-repeat top left; background-size:cover;";
+    
+    $styles = implode(" ", $styles_attrs);
     
     if ($content)
         $attr_content = '<p>'.$content.'</p>';
     
-    $return = '<div class="'.$attrs.'">'.$attr_title.$content.'</div>';
+    $return = '<div class="'.$attrs.'" style="'.$styles.'">'.$attr_title.$content.'</div>';
 
     return $return;
 }

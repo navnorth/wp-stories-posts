@@ -11,8 +11,9 @@
  **/
 add_shortcode( 'oet_story' , 'oet_story_func' );
 function oet_story_func($attr, $content = null) {
+
     wp_enqueue_style('oet-story-embed', SCP_URL.'css/story.embed.css');
-    
+
     //Default width
     $attr_width = 6;
     $title = "";
@@ -47,8 +48,10 @@ function oet_story_func($attr, $content = null) {
     
     if ($content)
         $attr_content = '<p>'.$content.'</p>';
+    else
+        $attr_content = '<p>'.get_story_excerpt_from_id($id).'</p>';
     
-    $return = '<div class="'.$attrs.'" style="'.$styles.'">'.$attr_title.$content.'</div>';
+    $return = '<div class="'.$attrs.'"><div class="story-embed-content" style="'.$styles.'">'.$attr_title.$attr_content.'</div></div>';
 
     return $return;
 }

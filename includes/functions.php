@@ -69,4 +69,22 @@ function get_youtube_image($youtube_id) {
     $youtube_url = "https://img.youtube.com/vi/$youtube_id/sddefault.jpg";
     return $youtube_url;
 }
+
+/**
+ * Get content from ID
+ **/
+function get_story_excerpt_from_id($id) {
+    $story = "";
+    
+    $content = get_post($id);
+    
+    if ($content->post_excerpt){
+        $story = $content->post_excerpt;
+    }
+    else {
+        $array = preg_split('/(^.*\w+.*[\.\?!][\s])/', $content->post_content, -1, PREG_SPLIT_DELIM_CAPTURE);
+        $story = $array[1];
+    }
+    return $story;
+}
 ?>

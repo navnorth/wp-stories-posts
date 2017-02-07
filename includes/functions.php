@@ -66,7 +66,7 @@ function get_youtubeID($id) {
  * Get Youtube Image
  **/
 function get_youtube_image($youtube_id) {
-    $youtube_url = "https://img.youtube.com/vi/$youtube_id/sddefault.jpg";
+    $youtube_url = "//img.youtube.com/vi/$youtube_id/maxresdefault.jpg";
     return $youtube_url;
 }
 

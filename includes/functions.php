@@ -28,9 +28,9 @@ function get_background($id) {
         $youtubeID = get_youtubeID($id);
         $background_image_url = get_youtube_image($youtubeID);
     } else {
-        $background_image_url = SCP_PATH . "images/top_strap_img.jpg";
+        $background_image_url = SCP_URL . "images/top_strap_img.jpg";
     }
-  
+    
     return $background_image_url;
 }
 
@@ -39,10 +39,10 @@ function get_background($id) {
  **/
 function has_youtube_video($id) {
     $has_video = false;
-    $content = get_the_content($id);
-    preg_match  ('/<iframe(.+)\"/', $content, $matches);
+    $content = get_post($id);
+    preg_match('/<iframe(.+)\"/', $content->post_content, $matches);
     
-    if ($matches !=""){
+    if (!empty($matches)){
         $has_video = true;
     }
     return $has_video;

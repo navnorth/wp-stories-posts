@@ -11,6 +11,8 @@
  **/
 add_shortcode( 'oet_story' , 'oet_story_func' );
 function oet_story_func($attr, $content = null) {
+    wp_enqueue_style('oet-story-embed', SCP_URL.'css/story.embed.css');
+    
     //Default width
     $attr_width = 6;
     $title = "";
@@ -18,14 +20,16 @@ function oet_story_func($attr, $content = null) {
     $styles = "";
     $styles_attrs = array();
     
-    $class_attrs[] = "col-xs-".$attr_width;
-    
     if (is_array($attr))
         extract($attr);
     
+    $class_attrs[] = "story-embed-box";
+    
+    //Display Width
     if ($width){
-        $class_attrs[] = "col-md-".$width;
-        $class_attrs[] = "col-sm-".$width;
+        $attr_width = $width;
+        $class_attrs[] = "col-md-".$attr_width;
+        $class_attrs[] = "col-sm-".$attr_width;
     }
     
     $attrs = implode(" ", $class_attrs);

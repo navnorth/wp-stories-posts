@@ -82,9 +82,19 @@ function get_story_excerpt_from_id($id) {
         $story = $content->post_excerpt;
     }
     else {
-        $array = preg_split('/(^.*\w+.*[\.\?!][\s])/', $content->post_content, -1, PREG_SPLIT_DELIM_CAPTURE);
+        $array = preg_split('/(.*?[?!.](?=\s|$)).*/', $content->post_content, -1, PREG_SPLIT_DELIM_CAPTURE);
         $story = $array[1];
     }
     return $story;
+}
+
+/**
+ * Get story url from ID
+ **/
+function get_story_url_from_id($id) {
+    
+    $url = get_post_permalink($id);
+    
+    return $url;
 }
 ?>

@@ -35,21 +35,27 @@ function oet_story_func($attr, $content = null) {
     
     $attrs = implode(" ", $class_attrs);
     
+    //Display Title
     if ($id)
         $title = get_title_by_id($id);
     
-    $attr_title = '<h1><a href="">'.$title.'</a></h1>';
+    // Story Url
+    $attr_url = get_story_url_from_id($id);
     
+    $attr_title = '<h1><a href="'.$attr_url.'">'.$title.'</a></h1>';
+    
+    //Background
     $background = get_background($id);
     if ($background)
         $styles_attrs[] = "background:url('".$background."') no-repeat top left; background-size:cover;";
     
     $styles = implode(" ", $styles_attrs);
     
+    //Content
     if ($content)
         $attr_content = '<p>'.$content.'</p>';
     else
-        $attr_content = '<p>'.get_story_excerpt_from_id($id).'</p>';
+        $attr_content = '<p>'.get_story_excerpt_from_id($id).'</p>';    
     
     $return = '<div class="'.$attrs.'"><div class="story-embed-content" style="'.$styles.'">'.$attr_title.$attr_content.'</div></div>';
 

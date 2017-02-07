@@ -74,6 +74,7 @@ function get_youtube_image($youtube_id) {
  * Get content from ID
  **/
 function get_story_excerpt_from_id($id) {
+    $char_limit = 130;
     $story = "";
     
     $content = get_post($id);
@@ -85,6 +86,14 @@ function get_story_excerpt_from_id($id) {
         $array = preg_split('/(.*?[?!.](?=\s|$)).*/', $content->post_content, -1, PREG_SPLIT_DELIM_CAPTURE);
         $story = $array[1];
     }
+    
+    //
+    $ellipsis = "...";
+    if (strlen($story)<$char_limit)
+        $ellipsis = "";
+
+    $story = substr($story, 0, $char_limit).$ellipsis;
+    
     return $story;
 }
 

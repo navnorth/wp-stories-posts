@@ -47,7 +47,7 @@ function oet_story_func($attr, $content = null) {
     //Background
     $background = get_background($id);
     if ($background)
-        $styles_attrs[] = "background:url('".$background."') no-repeat top left; background-size:cover;";
+        $styles_attrs[] = "background:url('".$background."') no-repeat center center; background-size:cover;";
     
     $styles = implode(" ", $styles_attrs);
     

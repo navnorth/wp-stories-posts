@@ -39,10 +39,10 @@ function get_background($id) {
  **/
 function has_youtube_video($id) {
     $has_video = false;
-    $content = get_post($id);
-    preg_match('/<iframe(.+)\"/', $content->post_content, $matches);
     
-    if (!empty($matches)){
+    $video = get_post_meta($id,'story_video',true);
+    
+    if (strlen($video)>0){
         $has_video = true;
     }
     return $has_video;
@@ -54,11 +54,8 @@ function has_youtube_video($id) {
 function get_youtubeID($id) {
     $youtubeID = null;
     
-    $content = get_post($id);
+    $youtubeID = get_post_meta( $id, 'story_video', true);
     
-    if (preg_match("#(\.be/|/embed/|/v/|/watch\?v=)([A-Za-z0-9_-]{5,11})#", $content->post_content, $id)) {
-        $youtubeID = $id[2];
-    } 
     return $youtubeID;
 }
 

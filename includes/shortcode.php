@@ -29,9 +29,9 @@ function oet_story_func($attr, $content = null) {
     //Display Width
     if ($width){
         $attr_width = $width;
-        $class_attrs[] = "col-md-".$attr_width;
         $class_attrs[] = "col-sm-".$attr_width;
     }
+    $class_attrs[] = "col-md-".$attr_width;
     
     $attrs = implode(" ", $class_attrs);
     
@@ -57,7 +57,7 @@ function oet_story_func($attr, $content = null) {
     else
         $attr_content = '<p>'.get_story_excerpt_from_id($id).'</p>';    
     
-    $return = '<div class="'.$attrs.'"><div class="story-embed-content" style="'.$styles.'">'.$attr_title.$attr_content.'</div></div>';
+    $return = '<div class="'.$attrs.'"><div class="story-embed-content" style="'.$styles.'"><div class="story-embed-desc">'.$attr_title.$attr_content.'</div></div></div>';
 
     return $return;
 }

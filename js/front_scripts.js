@@ -60,6 +60,12 @@ jQuery(document).ready(function(){
       jQuery('.sort-options').fadeToggle('fast');
       jQuery('.sort-selectbox').trigger("change");
     });
+    
+    //Update class for stories
+    jQuery('.single-stories .vid-wrap').each(function(){
+      if (jQuery(this).find('video-container').length>0 )
+	jQuery(this).removeClass('vid-wrap').addClass('video-wrap');
+    });
 });
 function formsubmit(ref)
 {

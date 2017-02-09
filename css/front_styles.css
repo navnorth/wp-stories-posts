@@ -363,7 +363,7 @@ article.stories .entry-meta a.read-more, article.stories .entry-meta a.read-more
 /** Grade Level Styles **/
 .bgorange { background-color:#e57200; padding:4px 20px; margin-left:10px; color:#fff; }
 .bgblue { background-color:#00529f; padding:4px 20px; margin-left:10px; color:#fff; }
-
+.single-stories .pblctn_right_sid_mtr .vid-wrap { padding-top:0; height:auto; padding-bottom:15px; }
 @media screen and (max-width: 992px) {
     .stry_srch_frm { width: 100%}
     /*.pblctn_lft_sid_img_cntnr { padding-left: 0 !important}*/

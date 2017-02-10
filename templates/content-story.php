@@ -130,7 +130,7 @@ function add_vimeo_script(){
 		}
 	?>
             <div class="col-md-12 col-sm-12 col-xs-12 noborder nomargintop">
-		<div class="vid-wrap">
+		<div class="<?php if ($story_video_host==1): ?>video-wrap<?php else: ?>vid-wrap<?php endif; ?>">
 		    <iframe id="<?php echo $video_id; ?>" src="<?php echo $video_url; ?>" <?php if ($story_video_host==2) echo "data-progress='true' data-seek='true' data-bounce='true'"; ?> height="250"></iframe>
 		</div>
             </div>
@@ -159,7 +159,7 @@ function add_vimeo_script(){
             $states = get_the_terms( $post->ID, "state" );
             $grade_levels = get_the_terms( $post->ID, "grade_level" );
             $story_tags = get_the_terms( $post->ID, "story_tag" );
-			$characteristics = get_the_terms( $post->ID, "characteristics" );
+	    $characteristics = get_the_terms( $post->ID, "characteristics" );
 
             $story_highlight = get_post_meta($post->ID, "story_highlight", true);
             $story_district = get_post_meta($post->ID, "story_district", true);

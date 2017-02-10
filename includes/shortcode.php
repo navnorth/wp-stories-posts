@@ -33,8 +33,6 @@ function oet_story_func($attr, $content = null) {
     }
     $class_attrs[] = "col-md-".$attr_width;
     
-    $attrs = implode(" ", $class_attrs);
-    
     //Display Title
     if ($id)
         $title = get_title_by_id($id);
@@ -57,7 +55,44 @@ function oet_story_func($attr, $content = null) {
     else
         $attr_content = '<p>'.get_story_excerpt_from_id($id).'</p>';    
     
-    $return = '<div class="'.$attrs.'"><div class="story-embed-content" style="'.$styles.'"><div class="story-embed-desc">'.$attr_title.$attr_content.'</div></div></div>';
+    //Set Alignment
+    if ($alignment)
+            $class_attrs[] = "pull-".$alignment;
+            
+    //Set Color
+    if ($callout_color){
+
+            $color_class = $callout_color;
+
+            if (strpos($callout_color,"#")>=0){
+                    $color_class = substr($callout_color,1,strlen($callout_color)-1);
+            }
+
+            $class_attrs[] = "color-".$color_class;
+
+            $style = '<style>';
+            //Set Line Color
+            $style .= '.color-'.$color_class.'{
+                            border-color:'.$callout_color.' !important;
+                      }';
+            //Set Icon Background Color
+            $style .= '.color-'.$color_class.':before {
+                            background-color:'.$callout_color.' !important;
+                    }';
+            $style .= '</style>';
+    }
+    
+    //Set Type
+    if ($callout_type){
+            $attr_type = $callout_type;
+            $class_attrs[] = "pull-out-box";
+    }
+    
+    $class_attrs[] = $attr_type;
+    
+    $attrs = implode(" ", $class_attrs);
+    
+    $return = '<div class="'.$attrs.'"><div class="story-embed-content" style="'.$styles.'"><div class="story-embed-desc">'.$attr_title.$attr_content.'</div></div></div>'.$style;
 
     return $return;
 }

@@ -32,20 +32,28 @@ function scriptLoadHandler() {
     main(); 
 }
 /******** Our main function ********/
-function main() { 
-    jQuery(document).ready(function($) { 
+function main() {
+    /*** Get Script path ***/
+    var scriptSrcs = document.getElementsByTagName( 'script' );
+    var thisScriptEl = scriptSrcs[scriptSrcs.length - 1];
+    var scriptPath = thisScriptEl.src;
+    var scriptFolder = scriptPath.substr(0, scriptPath.lastIndexOf( '/' )+1 );
+    
+    jQuery(document).ready(function($) {
         /******* Load CSS *******/
         var css_link = $("<link>", { 
             rel: "stylesheet", 
             type: "text/css", 
-            href: "/teachtolead/wp-content/plugins/wp-stories-posts/widgets/embed/embed.css" 
+            href: scriptFolder + "../../css/story.embed.css" 
         });
         css_link.appendTo('head');
         
         /******* Load HTML *******/
-        var jsonp_url = "/teachtolead/wp-content/plugins/wp-stories-posts/widgets/embed/embed.php";
-        $.getJSON(jsonp_url, function(data) {
-          $('#story-widget-container').html("This data comes from another server: " + data.html);
+        var jsonp_url = scriptFolder + "embed.php";
+        var story_id = $('.oet-embed-story').attr('data-story-id');
+        $.getJSON(jsonp_url, { id: story_id }, function(data) {
+            console.log(data);
+          $('.oet-embed-story').html(data.html);
         });
     });
 }

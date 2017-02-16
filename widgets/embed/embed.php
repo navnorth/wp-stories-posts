@@ -1,14 +1,15 @@
 <?php
 
-$cur_dir = realpath(dirname($_SERVER["SCRIPT_FILENAME"]));
-$root_dir = realpath(dirname(dirname(dirname(dirname(dirname(dirname($_SERVER["SCRIPT_FILENAME"])))))));
+$cur_dir = dirname($_SERVER["SCRIPT_FILENAME"]);
+$root_dir = dirname(dirname(dirname(dirname(dirname(dirname($_SERVER["SCRIPT_FILENAME"]))))));
+
 var_dump($cur_dir);
 var_dump($root_dir);
-var_dump(file_exists($root_dir.'/../../../../../wp-load.php'));
+var_dump(file_exists($root_dir.'/wp-load.php'));
 
 //load WordPress
-if (file_exists($root_dir.'/../../../../../wp-load.php'))
-    include_once($root_dir.'/../../../../../wp-load.php');
+if (file_exists($root_dir.'/wp-load.php'))
+    include_once($root_dir.'/wp-load.php');
 
 //load plugin functions
 if (file_exists($cur_dir.'/../../stories-custom-post-type.php'))

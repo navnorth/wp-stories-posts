@@ -34,22 +34,28 @@ function scriptLoadHandler() {
 /******** Our main function ********/
 function main() {
     /*** Get Script path ***/
-    var scriptSrcs = document.getElementsByTagName( 'script' );
-    var thisScriptEl = scriptSrcs[scriptSrcs.length - 1];
-    var scriptPath = thisScriptEl.src;
-    var scriptFolder = scriptPath.substr(0, scriptPath.lastIndexOf( '/' )+1 );
+    var scripts = document.getElementsByTagName( 'script' );
+    var scriptPath = '';
+    if(scripts && scripts.length>0) {
+        for(var i in scripts) {
+            if(scripts[i].src && scripts[i].src.match(/\/script\.js$/)) {
+                scriptPath = scripts[i].src.replace(/(.*)\/script\.js$/, '$1');
+                break;
+            }
+        }
+    }
     
     jQuery(document).ready(function($) {
         /******* Load CSS *******/
         var css_link = $("<link>", { 
             rel: "stylesheet", 
             type: "text/css", 
-            href: scriptFolder + "../../css/story.embed.css" 
+            href: scriptPath + "/../../css/story.embed.css" 
         });
         css_link.appendTo('head');
         
         /******* Load HTML *******/
-        var jsonp_url = scriptFolder + "embed.php?callback=?";
+        var jsonp_url = scriptPath + "/embed.php?callback=?";
         var story_id = $('.oet-embed-story').attr('data-story-id');
         var story_width = $('.oet-embed-story').attr('data-story-width');
         var story_height = $('.oet-embed-story').attr('data-story-height');

@@ -1,7 +1,7 @@
 <?php
 
 $cur_dir = dirname($_SERVER["SCRIPT_FILENAME"]);
-var_dump($cur_dir);
+var_dump(file_exists($cur_dir.'/../../../../../wp-load.php'));
 
 //load WordPress
 if (file_exists($cur_dir.'/../../../../../wp-load.php'))

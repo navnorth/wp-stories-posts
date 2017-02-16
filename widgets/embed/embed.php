@@ -39,7 +39,7 @@ $excerpt = get_story_excerpt_from_id($story_id);
 $html = '<div class="story-embed-box">';
 $html .= '  <div class="story-embed-content" style="'.$styles.'">';
 $html .=  '     <div class="story-embed-desc">';
-$html .= '          <h1><a href="'.$url.'">'.$title.'</a></h1>';
+$html .= '          <h1><a href="'.$url.'" target="_blank">'.$title.'</a></h1>';
 $html .= '          <p>'.$excerpt.'</p>';
 $html .= '      </div>';
 $html .= '  </div>';

@@ -7,7 +7,11 @@ include_once(__DIR__.'/../../stories-custom-post-type.php');
 
 $story_id = $_REQUEST['id'];
 
+error_log($story_id);
+
 $story = get_post($story_id);
+
+error_log($story);
 
 //Variables
 $styles_attrs = array();

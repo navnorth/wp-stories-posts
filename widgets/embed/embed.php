@@ -1,4 +1,5 @@
 <?php
+header('Access-Control-Allow-Origin: *');
 
 $cur_dir = dirname($_SERVER["SCRIPT_FILENAME"]);
 $root_dir = dirname(dirname(dirname(dirname(dirname(dirname($_SERVER["SCRIPT_FILENAME"]))))));
@@ -44,5 +45,5 @@ $html .= '      </div>';
 $html .= '  </div>';
 $html .= '</div>';
 
-echo json_encode(array("html"=> $html));
+echo $_GET['callback']. "(" . json_encode(array("html"=> $html)) . ")";
 ?>

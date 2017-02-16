@@ -49,12 +49,12 @@ function main() {
         css_link.appendTo('head');
         
         /******* Load HTML *******/
-        var jsonp_url = scriptFolder + "embed.php";
+        var jsonp_url = scriptFolder + "embed.php?callback=?";
         var story_id = $('.oet-embed-story').attr('data-story-id');
         var story_width = $('.oet-embed-story').attr('data-story-width');
         var story_height = $('.oet-embed-story').attr('data-story-height');
         
-        $.getJSON(jsonp_url, { id: story_id, width: story_width, height: story_height }, function(data) {
+        $.getJSON(jsonp_url, { id: story_id }, function(data) {
           $('.oet-embed-story').html(data.html);
         });
     });

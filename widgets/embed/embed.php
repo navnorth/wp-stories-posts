@@ -1,4 +1,8 @@
 <?php
+$story_id = $_REQUEST['id'];
+var_dump($story_id);
+exit;
+
 //load WordPress
 include_once(__DIR__.'/../../../../../wp-load.php');
 
@@ -7,11 +11,7 @@ include_once(__DIR__.'/../../stories-custom-post-type.php');
 
 $story_id = $_REQUEST['id'];
 
-write_log($story_id);
-
 $story = get_post($story_id);
-
-write_log($story);
 
 //Variables
 $styles_attrs = array();

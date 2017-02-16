@@ -11,7 +11,7 @@ if (file_exists($cur_dir.'/../../stories-custom-post-type.php'))
     include_once($cur_dir.'/../../stories-custom-post-type.php');
 
 $story_id = $_REQUEST['id'];
-
+var_dump($story_id);
 $story = get_post($story_id);
 
 //Variables

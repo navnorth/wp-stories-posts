@@ -1,6 +1,6 @@
 <?php
 $story_id = $_REQUEST['id'];
-var_dump($story_id);
+var_dump(__DIR__);
 exit;
 
 //load WordPress

@@ -1,13 +1,14 @@
 <?php
-$story_id = $_REQUEST['id'];
-var_dump(dirname($_SERVER["SCRIPT_FILENAME"]));
-exit;
+
+$cur_dir = dirname($_SERVER["SCRIPT_FILENAME"]);
 
 //load WordPress
-include_once(__DIR__.'/../../../../../wp-load.php');
+if (file_exists($cur_dir.'/../../../../../wp-load.php'))
+    include_once($cur_dir.'/../../../../../wp-load.php');
 
 //load plugin functions
-include_once(__DIR__.'/../../stories-custom-post-type.php');
+if (file_exists($cur_dir.'/../../stories-custom-post-type.php'))
+    include_once($cur_dir.'/../../stories-custom-post-type.php');
 
 $story_id = $_REQUEST['id'];
 

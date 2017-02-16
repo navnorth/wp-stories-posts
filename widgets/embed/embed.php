@@ -9,11 +9,34 @@ $story_id = $_REQUEST['id'];
 
 $story = get_post($story_id);
 
-$width = (int)($_REQUEST['width']==0)?400:$_REQUEST['width'];
-$height = (int)($_REQUEST['height']==0)?420:$_REQUEST['height'];
+//Variables
+$styles_attrs = array();
 
-$iframe_src = SCP_URL.'widgets/embed/?id='.$story_id;
-$html = "<iframe src='".$iframe_src."' allowtransparency='true' title='".$story->post_title."' frameborder='0' width='".$width."' height='".$height."'>";
-$html .= "</iframe>";
+//Story Background
+$background = get_background($story_id);
+
+$styles_attrs[] = "background:url('".$background."') no-repeat center center; background-size:cover;";
+
+//Styles    
+$styles = implode(" ", $styles_attrs);
+
+//Title
+$title = get_title_by_id($story_id);
+
+//Story url
+$url = get_story_url_from_id($story_id);
+
+//Story excerpt
+$excerpt = get_story_excerpt_from_id($story_id);
+
+$html = '<div class="story-embed-box">';
+$html .= '  <div class="story-embed-content" style="'.$styles.'">';
+$html .=  '     <div class="story-embed-desc">';
+$html .= '          <h1><a href="'.$url.'">'.$title.'</a></h1>';
+$html .= '          <p>'.$excerpt.'</p>';
+$html .= '      </div>';
+$html .= '  </div>';
+$html .= '</div>';
+
 echo json_encode(array("html"=> $html));
 ?>

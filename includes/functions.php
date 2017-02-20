@@ -94,6 +94,8 @@ function get_vimeo_image($vimeo_id) {
     
     $vimeo_url = str_replace( "_640", "", $vimeo_url );
     
+    $vimeo_url = str_replace( "http:" , "", $vimeo_url );
+    
     return $vimeo_url;
 }
 

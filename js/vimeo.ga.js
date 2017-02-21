@@ -178,6 +178,6 @@ var VimeoGA = {
   }
 };
 
-jQuery(function(){
+jQuery(function($){
   VimeoGA.init();  
 });

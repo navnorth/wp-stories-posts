@@ -15,11 +15,11 @@ var VimeoGA = {
   gatype : 0,// init the gatype variable
   progressMarker : {},
 
-  init : function($){
-    VimeoGA.iframes = $('iframe');
+  init : function(){
+    VimeoGA.iframes = jQuery('iframe');
 
-    $.each(VimeoGA.iframes, function(index, iframe) {
-      var iframeId = $(iframe).attr('id');
+    jQuery.each(VimeoGA.iframes, function(index, iframe) {
+      var iframeId = jQuery(iframe).attr('id');
 
       VimeoGA.progressMarker[iframeId] = {
         'progress25' : false,
@@ -110,7 +110,7 @@ var VimeoGA = {
         data.value = value;
     }
 
-    var iframeSrc = $(iframe).attr('src').split('?')[0];
+    var iframeSrc = jQuery(iframe).attr('src').split('?')[0];
     iframe.contentWindow.postMessage(JSON.stringify(data), iframeSrc);
   },
 
@@ -178,6 +178,6 @@ var VimeoGA = {
   }
 };
 
-jQuery(function($){
-  VimeoGA.init($);  
+jQuery(function(){
+  VimeoGA.init();  
 });

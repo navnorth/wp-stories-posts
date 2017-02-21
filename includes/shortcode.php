@@ -34,26 +34,30 @@ function oet_story_func($attr, $content = null) {
     $class_attrs[] = "col-md-".$attr_width;
     
     //Display Title
-    if ($id)
-        $title = get_title_by_id($id);
+    if ($id){
+        if (!$title)
+            $title = get_title_by_id($id);
     
-    // Story Url
-    $attr_url = get_story_url_from_id($id);
     
-    $attr_title = '<h1><a href="'.$attr_url.'">'.$title.'</a></h1>';
+        // Story Url
+        $attr_url = get_story_url_from_id($id);
+        
+        $attr_title = '<h1><a href="'.$attr_url.'">'.$title.'</a></h1>';
+        
+        //Background
+        $background = get_background($id);
+        if ($background)
+            $styles_attrs[] = "background:url('".$background."') no-repeat center center; background-size:cover;";
+        
+        $styles = implode(" ", $styles_attrs);
+        
+        //Content
+        if ($content)
+            $attr_content = '<p>'.$content.'</p>';
+        else
+            $attr_content = '<p>'.get_story_excerpt_from_id($id).'</p>';    
     
-    //Background
-    $background = get_background($id);
-    if ($background)
-        $styles_attrs[] = "background:url('".$background."') no-repeat center center; background-size:cover;";
-    
-    $styles = implode(" ", $styles_attrs);
-    
-    //Content
-    if ($content)
-        $attr_content = '<p>'.$content.'</p>';
-    else
-        $attr_content = '<p>'.get_story_excerpt_from_id($id).'</p>';    
+    }
     
     //Set Alignment
     if ($alignment)

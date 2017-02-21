@@ -15,7 +15,7 @@ var VimeoGA = {
   gatype : 0,// init the gatype variable
   progressMarker : {},
 
-  init : function(){
+  init : function($){
     VimeoGA.iframes = $('iframe');
 
     $.each(VimeoGA.iframes, function(index, iframe) {
@@ -179,5 +179,5 @@ var VimeoGA = {
 };
 
 jQuery(function($){
-  VimeoGA.init();  
+  VimeoGA.init($);  
 });

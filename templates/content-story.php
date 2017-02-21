@@ -8,7 +8,7 @@
  */
 include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
 function add_vimeo_script(){
-    $script_url = SCP_URL."js/vimeo.ga.min.js";
+    $script_url = SCP_URL."js/vimeo.ga.js";
     $tracking_script = "<script type='text/javascript' src='".$script_url."'></script>";
     echo $tracking_script;
 }

@@ -62,7 +62,7 @@ var VimeoGA = {
     }
   
     var data = JSON.parse(e.data),
-        iframeEl = $("#"+data.player_id),
+        iframeEl = jQuery("#"+data.player_id),
         iframeId = iframeEl.attr('id');
 
     // used for debugging

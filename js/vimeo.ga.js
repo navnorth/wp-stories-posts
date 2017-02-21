@@ -135,8 +135,8 @@ var vimeoGAJS = (window.vimeoGAJS) ? window.vimeoGAJS : {};
       // Source URL
       var iframeSrc;
       
-      if ($(iframe).attr('src')!=='undefined') {
-        if ($(iframe).attr('src').indexOf('?')>-1) {
+      if ($(iframe).hasAttribute('src')){
+        if ($(iframe).attr('src').indexOf('?')>-1){
             iframeSrc = $(iframe).attr('src').split('?')[0];
         }
       }

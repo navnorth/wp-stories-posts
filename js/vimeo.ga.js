@@ -115,7 +115,7 @@ var VimeoGA = {
   },
 
   _onReady : function() {
-    $.each(VimeoGA.iframes, function(index, iframe) {
+    jQuery.each(VimeoGA.iframes, function(index, iframe) {
       VimeoGA._post('addEventListener', 'play', iframe);
       VimeoGA._post('addEventListener', 'seek', iframe);
       VimeoGA._post('addEventListener', 'pause', iframe);

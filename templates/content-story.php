@@ -125,7 +125,7 @@ function add_vimeo_script(){
 		    $video_url = "https://www.youtube.com/embed/".$video_id."?enablejsapi=1&#038;origin=".$origin;
 		}
 		elseif ($story_video_host==2) {
-		    add_action('wp_head','add_vimeo_script');
+		    add_vimeo_script();
 		    $video_url = "https://player.vimeo.com/video/".$video_id."?api=1&player_id=".$video_id;
 		}
 	?>

@@ -691,6 +691,20 @@ function setup_settings_form() {
 				'description' => __('necessary to display the District Size filter on the sidebar', SCP_SLUG)
 			)
 			   );
+	/* Enable Embed */
+	add_settings_field(
+			'enable_embed',
+			__( 'Allow External Embedding?' , SCP_SLUG ),
+			'setup_settings_field',
+			'stories-settings-page',
+			'stories-settings-section',
+			array(
+				'uid' => 'enable_embed',
+				'type' => 'checkbox',
+				'description' => __('displays external embedding on the Share This widget', SCP_SLUG)
+			)
+			   );
+	
 	register_setting( 'stories-settings-section' , 'load_bootstrap' );
 	register_setting( 'stories-settings-section' , 'load_font_awesome' );
 	register_setting( 'stories-settings-section' , 'google_api_key' );
@@ -698,6 +712,7 @@ function setup_settings_form() {
 	register_setting( 'stories-settings-section' , 'enable_grade_level' );
 	register_setting( 'stories-settings-section' , 'enable_characteristics' );
 	register_setting( 'stories-settings-section' , 'enable_district_size' );
+	register_setting( 'stories-settings-section' , 'enable_embed' );
 }
 
 function first_section_callback() {

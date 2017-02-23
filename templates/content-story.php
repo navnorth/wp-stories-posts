@@ -155,6 +155,9 @@ function add_vimeo_script(){
 			    }
 			} else {
 			    echo do_shortcode("[ssba]");
+			    
+			    if ($_embed)
+				    echo add_share_embed_code($post->ID);
 			}
                 echo '</div>';
            ?>

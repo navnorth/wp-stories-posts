@@ -41,7 +41,7 @@ $html .= '  <div class="story-embed-content" style="'.$styles.'">';
 $html .=  '     <div class="story-embed-desc">';
 $html .= '          <h1><a href="'.$url.'" target="_blank">'.$title.'</a></h1>';
 $html .= '          <p>'.$excerpt.'</p>';
-$html .= '          <p><small><a href="//tech.ed.gov" target="_blank">Office of Ed Tech</a></small></p>';
+$html .= '          <p><small><a href="'.$url.'" target="_blank">Office of Ed Tech</a></small></p>';
 $html .= '      </div>';
 $html .= '  </div>';
 $html .= '</div>';

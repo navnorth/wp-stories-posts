@@ -154,6 +154,7 @@ function add_vimeo_script(){
 				echo "</p>";
 			    }
 			} else {
+			    
 			    echo do_shortcode("[ssba]");
 			    
 			    if ($_embed)

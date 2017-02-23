@@ -145,7 +145,7 @@ function add_share_embed_code($id){
     
     share_embed_script($content);
     $html = '<span class="st_embed buttons">';
-    $html .= '  <a id="stEmbed" style="text-decoration:none;display:inline-block;cursor:pointer;" data-toggle="popover" data-placement="bottom">';
+    $html .= '  <a id="stEmbed" href="javascript:void(0);" style="text-decoration:none;display:inline-block;cursor:pointer;" data-toggle="popover" data-placement="bottom">';
     $html .= '      <img src="'.SCP_URL."images/share_embed.png".'" />';
     $html .= '  </a>';
     $html .= '</span>';
@@ -160,7 +160,7 @@ function share_embed_script($content) {
     <script type="text/javascript">
         jQuery(document).ready(function(){
             if (jQuery('.ssba-wrap').length>0) {
-                jQuery('.st_embed.buttons').appendTo('.ssba-wrap > div');
+                jQuery('#stEmbed').appendTo('.ssba-wrap > div');
             }
             jQuery('#stEmbed').popover({html:true, content: '<p style="text-align:center"><small>Copy & paste the embed code below.</small></p><textarea id="st_oet_embed" cols="30" rows="7"><?php echo $content; ?></textarea>' });
             jQuery("#stEmbed").on('shown.bs.popover', function(){

@@ -145,7 +145,7 @@ function add_share_embed_code($id){
     
     share_embed_script($content);
     $html = '<span class="st_embed buttons">';
-    $html .= '  <span id="stEmbed" style="text-decoration:none;display:inline-block;cursor:pointer;" data-toggle="popover" data-placement="bottom" title="Embed">';
+    $html .= '  <span id="stEmbed" style="text-decoration:none;display:inline-block;cursor:pointer;" data-toggle="popover" data-placement="bottom" data-selector="true" title="Embed">';
     $html .= '      <img src="'.SCP_URL."images/share_embed.png".'" />';
     $html .= '  </span>';
     $html .= '</span>';

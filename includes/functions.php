@@ -135,4 +135,36 @@ function get_story_url_from_id($id) {
     
     return $url;
 }
+
+/**
+ * Add Share Story Embed Code 
+ **/
+function add_share_embed_code($id){
+    $content = '<script async src="'.SCP_URL.'widgets/embed/script.js" type="text/javascript"><\/script>';
+    $content .= '<div class="oet-embed-story" data-story-id="'.$id.'"><\/div>';
+    
+    share_embed_script($content);
+    $html = '<span class="st_embed buttons">';
+    $html .= '  <a id="stEmbed" style="text-decoration:none;display:inline-block;cursor:pointer;" data-toggle="popover" data-placement="bottom">';
+    $html .= '      <img src="'.SCP_URL."images/share_embed.png".'" />';
+    $html .= '  </a>';
+    $html .= '</span>';
+    return $html;
+}
+
+/**
+ * Add Share Story Embed Script 
+ **/
+function share_embed_script($content) {
+?>
+    <script type="text/javascript">
+        jQuery(document).ready(function(){
+            jQuery('#stEmbed').popover({html:true, content: '<p style="text-align:center"><small>Copy & paste the embed code below.</small></p><textarea id="st_oet_embed" cols="30" rows="7"><?php echo $content; ?></textarea>' });
+            jQuery("#stEmbed").on('shown.bs.popover', function(){
+                jQuery('#st_oet_embed').select();
+            });
+        });
+    </script>
+<?php
+}
 ?>

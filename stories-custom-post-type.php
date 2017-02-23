@@ -28,7 +28,7 @@
  */
 
 //defining the url,path and slug for the plugin
-global $wpdb, $characteristics, $districtsize, $scp_session;
+global $wpdb, $characteristics, $districtsize, $scp_session, $_embed;
 $characteristics = array('Rural','Suburban','Urban');
 $districtsize = array("Less than 1,000 students","1,001-10,000 students","10,001-40,000 students","40,001+ students");
 
@@ -73,6 +73,7 @@ $_filters = array(
 	"characteristics" => get_option('enable_characteristics'),
 	"district_size" => get_option('enable_district_size')
 		  );
+$_embed = get_option('enable_embed');
 
 //plugin activation task
 function create_installation_table()

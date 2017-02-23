@@ -6,6 +6,7 @@
  * @subpackage Twenty_Twelve
  * @since Twenty Twelve 1.0
  */
+global $_embed;
 include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
 function add_vimeo_script(){
     $script_url = SCP_URL."js/vimeo.ga.min.js";
@@ -144,7 +145,12 @@ function add_vimeo_script(){
 			if (is_plugin_active("share-this/sharethis.php")){
 			    if (function_exists('sharethis_button')) {
 				echo "<p>";
+				
 				sharethis_button();
+				
+				if ($_embed)
+				    echo add_share_embed_code($post->ID);
+				    
 				echo "</p>";
 			    }
 			} else {

@@ -159,6 +159,9 @@ function share_embed_script($content) {
 ?>
     <script type="text/javascript">
         jQuery(document).ready(function(){
+            if (jQuery('.ssba-wrap').length>0) {
+                jQuery('.st_embed.buttons').appendTo('.ssba-wrap > div');
+            }
             jQuery('#stEmbed').popover({html:true, content: '<p style="text-align:center"><small>Copy & paste the embed code below.</small></p><textarea id="st_oet_embed" cols="30" rows="7"><?php echo $content; ?></textarea>' });
             jQuery("#stEmbed").on('shown.bs.popover', function(){
                 jQuery('#st_oet_embed').select();

@@ -171,4 +171,23 @@ function share_embed_script($content) {
     </script>
 <?php
 }
+
+/**
+ * Get Map Pin Color
+ **/
+function get_map_pin_color($grades) {
+    $pincolor = "#00529f";
+    
+    $grades = array_reverse($grades);
+    
+    foreach($grades as $grade)
+    {
+            if ($grade->name=="Higher Education") {
+                    $pincolor = "#e57200";
+            } else {
+                    $pincolor = "#00529f";
+            }
+    }
+    return $pincolor;
+}
 ?>

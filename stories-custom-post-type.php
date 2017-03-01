@@ -424,16 +424,34 @@ function get_storiesmap($pageposts=NULL)
 									$stateurl = $state->name;
 										}
 									}
-
+									
 									$grades = get_the_terms( $story->postid , 'grade_level' );
-
+								
 									if(isset($grades) && !empty($grades))
 									{
-										foreach($grades as $grade)
-										{
-											if ($grade->name=="Higher Education") {
-												$pincolor = "#e57200";
+										if (count($grades)>1) {
+											
+											if ( class_exists('WPSEO_Primary_Term') ) {
+												
+												$primary_term = new WPSEO_Primary_Term('grade_level', $story->postid);
+												$primary_term = $primary_term->get_primary_term();
+												
+												$term = get_term($primary_term, 'grade_level');
+												
+												if (is_wp_error($term)) {
+													$pincolor = get_map_pin_color($grades);
+												} else {
+													if ($term->name=="Higher Education") {
+														$pincolor = "#e57200";
+													} else {
+														$pincolor = "#00529f";
+													}
+												}
+											} else {
+												$pincolor = get_map_pin_color($grades);
 											}
+										} else {
+											$pincolor = get_map_pin_color($grades);
 										}
 									}
 									if ($story_status == 'publish') {

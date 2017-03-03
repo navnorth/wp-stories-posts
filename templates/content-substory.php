@@ -10,8 +10,11 @@
 <?php global $post; ?>
 <?php
 	remove_filter ('the_content', 'wpautop');
-	$img_url = wp_get_attachment_url( get_post_thumbnail_id($post->ID) );
-    $img_alt = get_post_meta(get_post_thumbnail_id($post->ID), '_wp_attachment_image_alt', true);
+	$img_url = null;
+	$img = wp_get_attachment_image_src( get_post_thumbnail_id($post->ID), 'medium' );
+	if ($img)
+		$img_url = $img[0];
+	$img_alt = get_post_meta(get_post_thumbnail_id($post->ID), '_wp_attachment_image_alt', true);
 
     /*
     $img_args = array( 'post_type' => 'attachment', 'orderby' => 'menu_order', 'order' => 'ASC', 'post_mime_type' => 'image' ,'post_status' => null, 'numberposts' => null, 'post_parent' => $post->ID );

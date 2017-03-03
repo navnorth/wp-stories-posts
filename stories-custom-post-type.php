@@ -405,6 +405,9 @@ function get_storiesmap($pageposts=NULL)
 									$latitude = $story->latitude;
 									$longitude = $story->longitude;
 									$image = $story->image;
+									if (has_post_thumbnail($story->postid)) {
+										$image = get_the_post_thumbnail_url($story->postid, 'thumbnail');
+									}
 									$content = $story->post_excerpt ? $story->post_excerpt : $story->content;
 									$link = get_the_permalink($story->postid)."?back=".urlencode($_SERVER['REQUEST_URI']);
 

@@ -28,7 +28,7 @@
  */
 
 //defining the url,path and slug for the plugin
-global $wpdb, $characteristics, $districtsize, $scp_session, $_embed;
+global $wpdb, $characteristics, $districtsize, $scp_session, $_embed, $_backurl;
 $characteristics = array('Rural','Suburban','Urban');
 $districtsize = array("Less than 1,000 students","1,001-10,000 students","10,001-40,000 students","40,001+ students");
 
@@ -781,7 +781,7 @@ add_action('wp_print_scripts', 'load_ajax_script');
 
 /* Ajax Callback */
 function load_more_stories() {
-	global $wpdb, $wp_query, $scp_session;
+	global $wpdb, $wp_query, $scp_session, $_backurl;
 
 	if (!isset($scp_session))
 		$scp_session = WP_Session::get_instance();
@@ -831,6 +831,8 @@ function load_more_stories() {
 
 		$postquery = new WP_Query($args);
 
+		$_backurl = $_POST['back_url'];
+		
 		while ( $postquery->have_posts() ) : $postquery->the_post();
 		    get_story_template_part( 'content', 'substory' );
 		endwhile;

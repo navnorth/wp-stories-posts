@@ -4,6 +4,7 @@ jQuery(document).ready(function($){
         var post_ids = $(this).attr('data-posts');
         var sorting = $(this).attr('data-sort');
         var page = $(this).attr('data-page');
+        var url = $('.btn-load-more').attr('data-base-url');
         
         if ($(this).attr('data-sort')) {
             sorting = $(this).attr('data-sort');
@@ -14,7 +15,8 @@ jQuery(document).ready(function($){
             post_var: page_num,
             post_ids:  post_ids,
             sort: sorting,
-            page: page
+            page: page,
+            back_url: url + $('.btn-load-more').attr("href")
         };
         
         /*$.post(the_ajax_script.ajaxurl, data).done(function(response) {*/

@@ -7,8 +7,13 @@
  * @since Twenty Twelve 1.0
  */
 ?>
-<?php global $post; ?>
+<?php global $post, $_backurl; ?>
+<input type="hidden" id="back_url_<?php echo $post->ID; ?>" name="back_url_<?php echo $post->ID; ?>" />
+<script type="text/javascript">
+	document.getElementById('back_url_<?php echo $post->ID; ?>').value = document.location.href;
+</script>
 <?php
+	
 	remove_filter ('the_content', 'wpautop');
 	$img_url = null;
 	$img = wp_get_attachment_image_src( get_post_thumbnail_id($post->ID), 'medium' );
@@ -44,7 +49,10 @@
 	}
 	else
 	{
-		$link = get_permalink($post->ID)."?back=".urlencode($_SERVER['REQUEST_URI']);
+		if(!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest')
+			$link = get_permalink($post->ID)."?back=".urlencode($_backurl);
+		else
+			$link = get_permalink($post->ID)."?back=".urlencode($_SERVER['REQUEST_URI']);
 	}
 ?>
 <div class="col-md-12 pblctn_paramtr padding_left">

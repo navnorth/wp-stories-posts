@@ -398,7 +398,7 @@ function get_storiesmap($pageposts=NULL)
 							{
 								foreach ($stories as $story)
 								{
-									$pincolor = "#00529f";
+									$pincolor = "#294179";
 									$story_status = get_post_status($story->postid);
 									$id = $story->id;
 									$title = $story->title;
@@ -447,7 +447,7 @@ function get_storiesmap($pageposts=NULL)
 													if ($term->name=="Higher Education") {
 														$pincolor = "#e57200";
 													} else {
-														$pincolor = "#00529f";
+														$pincolor = "#294179";
 													}
 												}
 											} else {
@@ -508,7 +508,7 @@ function get_storiesmap($pageposts=NULL)
 
                     var iconSVG = {
                         path: "m 51.181656,3.9153604 c -16.876105,0 -30.606194,15.0340656 -30.606194,33.5151036 0,4.674622 1.254665,13.195031 12.10588,33.135792 5.549381,10.196603 11.020402,18.615602 11.251034,18.969563 l 7.24928,11.129771 7.250171,-11.129771 C 58.661567,89.182832 64.132588,80.762859 69.68286,70.566256 80.534074,50.625495 81.788741,42.105086 81.788741,37.430464 81.78785,18.949426 68.057761,3.9153604 51.181656,3.9153604 Z",
-                        fillColor: "#00529f",
+                        fillColor: "#294179",
                         fillOpacity: 1,
                         anchor: new google.maps.Point(54,100),
                         strokeWeight: 2,

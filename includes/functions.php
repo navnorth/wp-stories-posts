@@ -176,7 +176,7 @@ function share_embed_script($content) {
  * Get Map Pin Color
  **/
 function get_map_pin_color($grades) {
-    $pincolor = "#00529f";
+    $pincolor = "#294179";
     
     $grades = array_reverse($grades);
     
@@ -185,7 +185,7 @@ function get_map_pin_color($grades) {
             if ($grade->name=="Higher Education") {
                     $pincolor = "#e57200";
             } else {
-                    $pincolor = "#00529f";
+                    $pincolor = "#294179";
             }
     }
     return $pincolor;

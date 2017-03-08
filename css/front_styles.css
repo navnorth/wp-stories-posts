@@ -38,7 +38,7 @@
 .stry_srch_frm  input[type="text"] { padding: 8px 10px; }
 .stry_srch_frm  select { padding: 5px 10px; }
 .stry_srch_frm  input[type="submit"] {
-    background: #00529f;
+    background: #294179;
     border: none;
     color: #fff;
     cursor: pointer;
@@ -84,7 +84,7 @@
 .map_cntnr  { margin: 10px 0; padding-right: 0 !important}
 .sldr_readmr_btn { float: left; width: 100%; }
 .sldr_readmr_btn a {
-    background: none repeat scroll 0 0 #00529f;
+    background: none repeat scroll 0 0 #294179;
     border: medium none;
     color: #fff;
     cursor: pointer;
@@ -122,7 +122,7 @@
     margin: 0 5px 5px 0;
     padding: 2px 10px;
 }
-.topic_sidebar li a { /*font-family: 'Raleway-Regular';*/ color: #00529f !important; line-height: 25px}
+.topic_sidebar li a { /*font-family: 'Raleway-Regular';*/ color: #294179 !important; line-height: 25px}
 .blubrdr {border: 1px solid #9fbedb;}
 .blubrdr h4{ /*font-family: 'Raleway-Semibold' !important;*/ color: #000}
 .blubrdr ul { margin: 10px 0 !important; padding: 0 14px !important; color: #000}
@@ -329,12 +329,12 @@ article.stories .entry-meta a.read-more, article.stories .entry-meta a.read-more
 }
 .sort-box .sort-options ul { padding: 0; margin-bottom: 0;}
 .sort-box .sort-options ul li { cursor:pointer; list-style: none; padding: 0; }
-.sort-box .sort-options ul li.cs-selected a { color:#00529f; }
+.sort-box .sort-options ul li.cs-selected a { color:#294179; }
 .sortoption { margin-right: 10px; font-size: 0.75em; color: #8d8d8d; }
 .pblctn_right_sid_mtr { padding-left:0 !important; padding-right:0 !important; }
 .pblctn_box { width:50px; margin:-40px auto 0; outline:0; }
 .pblctn_box .socl_icns {
-    background: #00529f;
+    background: #294179;
     font-size: 18px;
     padding: 7px 0;
     width: 50px;
@@ -347,7 +347,7 @@ article.stories .entry-meta a.read-more, article.stories .entry-meta a.read-more
 }
 .pblctn_right_sid_mtr .col-md-12 {
     margin-top: 35px;
-    border: 1px solid #00529f;
+    border: 1px solid #294179;
     padding: 20px;
 }
 .rght_sid_wdgt_hedng {
@@ -362,7 +362,7 @@ article.stories .entry-meta a.read-more, article.stories .entry-meta a.read-more
 
 /** Grade Level Styles **/
 .bgorange { background-color:#e57200; padding:4px 20px; margin-left:10px; color:#fff; }
-.bgblue { background-color:#00529f; padding:4px 20px; margin-left:10px; color:#fff; }
+.bgblue { background-color:#294179; padding:4px 20px; margin-left:10px; color:#fff; }
 .single-stories .pblctn_right_sid_mtr .vid-wrap { margin-bottom:10px; }
 .story_sharewidget .popover, .story_sharewidget .popover-content { font-family: 'Raleway-Bold' !important; }
 .story_sharewidget .popover #st_oet_embed { font-size:13px; }

@@ -1,6 +1,10 @@
 (function() {
 // Localize jQuery variable
 var jQuery;
+
+//Keep track of embed scripts if multiple
+var foundScripts = [];
+
 /******** Load jQuery if not present *********/
 if (window.jQuery === undefined || window.jQuery.fn.jquery !== '1.4.2') {
     var script_tag = document.createElement('script');
@@ -33,13 +37,16 @@ function scriptLoadHandler() {
 }
 /******** Our main function ********/
 function main() {
+    var foundScripts = [];
     /*** Get Script path ***/
     var scripts = document.getElementsByTagName( 'script' );
     var scriptPath = '';
+    
     if(scripts && scripts.length>0) {
         for(var i in scripts) {
             if(scripts[i].src && scripts[i].src.match(/\/script\.js$/)) {
                 scriptPath = scripts[i].src.replace(/(.*)\/script\.js$/, '$1');
+                foundScripts.push(scripts[i]);
                 break;
             }
         }
@@ -56,13 +63,25 @@ function main() {
         
         /******* Load HTML *******/
         var jsonp_url = scriptPath + "/embed.php?callback=?";
-        var story_id = $('.oet-embed-story').attr('data-story-id');
-        var story_width = $('.oet-embed-story').attr('data-story-width');
-        var story_height = $('.oet-embed-story').attr('data-story-height');
         
-        $.getJSON(jsonp_url, { id: story_id }, function(data) {
-          $('.oet-embed-story').html(data.html);
-        });
+        if (typeof window.foundScripts==="undefined") {
+            
+            /** Loop through the oet-embed-story class **/
+            $('.oet-embed-story').each(function(){
+                
+                var story_id = $(this).attr('data-story-id');
+                var story_width = $(this).attr('data-story-width');
+                var story_height = $(this).attr('data-story-height');
+                
+                /** Get Story display **/
+                $.getJSON(jsonp_url, { id: story_id }, function(data) {
+                  $('.oet-embed-story[data-story-id="' + data.id + '"]').html(data.html);
+                });
+                
+            });
+            
+            window.foundScripts = foundScripts;
+        }
     });
 }
 })();

@@ -46,5 +46,5 @@ $html .= '      </div>';
 $html .= '  </div>';
 $html .= '</div>';
 
-echo $_GET['callback']. "(" . json_encode(array("html"=> $html)) . ")";
+echo $_GET['callback']. "(" . json_encode(array("id"=>$story_id, "html"=> $html)) . ")";
 ?>

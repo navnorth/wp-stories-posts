@@ -3,7 +3,7 @@
  Plugin Name:  Story Custom Post Type
  Plugin URI:   https://www.navigationnorth.com/solutions/wordpress/stories-plugin
  Description:  Stories as a custom post type, with custom metadata and display. Developed in collaboration with Monad Infotech (http://monadinfotech.com)
- Version:      0.5.8
+ Version:      0.5.9
  Author:       Navigation North
  Author URI:   http://www.navigationnorth.com
  Text Domain:  wp-stories-posts
@@ -38,7 +38,7 @@ define( 'SCP_SLUG','wp-stories-posts' );
 define( 'SCP_FILE',__FILE__);
 define( 'SCP_PLUGIN_NAME' , 'Story Custom Post Type' );
 define( 'SCP_PLUGIN_INFO' , 'https://www.navigationnorth.com/solutions/wordpress/stories-plugin' );
-define( 'SCP_VERSION' , '0.5.8');
+define( 'SCP_VERSION' , '0.5.9');
 define( 'GOOGLE_API_KEY' , 'AIzaSyACobLJYn3xWIaxrZHEa6G3VjOteYpWBno');
 
 include_once(SCP_PATH.'init.php');
@@ -427,20 +427,20 @@ function get_storiesmap($pageposts=NULL)
 									$stateurl = $state->name;
 										}
 									}
-									
+
 									$grades = get_the_terms( $story->postid , 'grade_level' );
-								
+
 									if(isset($grades) && !empty($grades))
 									{
 										if (count($grades)>1) {
-											
+
 											if ( class_exists('WPSEO_Primary_Term') ) {
-												
+
 												$primary_term = new WPSEO_Primary_Term('grade_level', $story->postid);
 												$primary_term = $primary_term->get_primary_term();
-												
+
 												$term = get_term($primary_term, 'grade_level');
-												
+
 												if (is_wp_error($term)) {
 													$pincolor = get_map_pin_color($grades);
 												} else {
@@ -726,7 +726,7 @@ function setup_settings_form() {
 				'description' => __('displays external embedding on the Share This widget', SCP_SLUG)
 			)
 			   );
-	
+
 	register_setting( 'stories-settings-section' , 'load_bootstrap' );
 	register_setting( 'stories-settings-section' , 'load_font_awesome' );
 	register_setting( 'stories-settings-section' , 'google_api_key' );
@@ -832,7 +832,7 @@ function load_more_stories() {
 		$postquery = new WP_Query($args);
 
 		$_backurl = $_POST['back_url'];
-		
+
 		while ( $postquery->have_posts() ) : $postquery->the_post();
 		    get_story_template_part( 'content', 'substory' );
 		endwhile;

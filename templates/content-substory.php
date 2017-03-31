@@ -151,7 +151,7 @@
 				    $termlink = get_term_link($topic->term_id, $topic->taxonomy);
 		    $postedin .= '<a href="'.$termlink.'">'.$topic->name.'</a>, ';
 			    }
-		echo '<p>' . trim($postedin,', ') . '</p>';
+		echo '<p class="story-topics">' . trim($postedin,', ') . '</p>';
 		    }
 	    ?>
 </div>

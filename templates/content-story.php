@@ -33,7 +33,16 @@ function add_vimeo_script(){
         </div>
 
         <?php
-            $img_url = wp_get_attachment_url( get_post_thumbnail_id($post->ID) );
+	    $img_url = wp_get_attachment_url( get_post_thumbnail_id($post->ID) );
+	    if (is_mobile()){
+		$img = wp_get_attachment_image_src( get_post_thumbnail_id($post->ID), 'medium');
+		if ($img)
+		    $img_url = $img[0];
+	    } elseif (is_tablet()){
+		$img = wp_get_attachment_image_src( get_post_thumbnail_id($post->ID), 'large');
+		if ($img)
+		    $img_url = $img[0];
+	    } 
             $img_alt = get_post_meta(get_post_thumbnail_id($post->ID), '_wp_attachment_image_alt', true);
             $video_id = get_post_meta( $post->ID, "story_video" , true );
 	    $story_video_host 	= get_post_meta($post->ID, "story_video_host", true);

@@ -190,4 +190,30 @@ function get_map_pin_color($grades) {
     }
     return $pincolor;
 }
+
+/** Detect mobile devices **/
+if ( ! class_exists( 'Mobile_Detect' ) ) {
+	include SCP_PATH . 'classes/Mobile_Detect.php';
+}
+$mobile_detect = new Mobile_Detect();
+$mobile_detect->setDetectionType( 'extended' );
+
+
+/** Detect if using mobile **/
+function is_mobile() {
+    global $mobile_detect;
+    $mobile = null;
+    if ( is_tablet() ) {
+            $mobile = false;
+    } else {
+            $mobile = $mobile_detect->isMobile();
+    }
+    return $mobile;
+}
+
+/** Detect if using tablet **/
+function is_tablet() {
+    global $mobile_detect;
+    return $mobile_detect->isTablet();
+}
 ?>

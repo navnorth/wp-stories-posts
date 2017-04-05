@@ -383,5 +383,6 @@ article.stories .entry-meta a.read-more, article.stories .entry-meta a.read-more
 
 @media screen and (max-width: 400px) {
     .slidermainwrpr { display: none}
+    .col-md-12.pblctn_paramtr.padding_left .scp_feature_image { width:100%; float: none; max-width: 100%; margin-right: 0; }
 
 }

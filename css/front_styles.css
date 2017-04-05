@@ -384,5 +384,10 @@ article.stories .entry-meta a.read-more, article.stories .entry-meta a.read-more
 @media screen and (max-width: 400px) {
     /*.slidermainwrpr { display: none}*/
     .col-md-12.pblctn_paramtr.padding_left .scp_feature_image { width:100%; float: none; max-width: 100%; margin-right: 0; }
+    .slidercontentnrwrpr { margin:20px 35px; }
+    .sldr_top_hdng { font-size:14px; }
+    .slidercontentnrwrpr h3 { font-size:17px; line-height:1.15em;}
+    .slidercontentnrwrpr h4 { margin-top:0; font-size:13px !important; }
+    .slidercontentnrwrpr p { margin: 0 0 10px; font-size:12px; }
 
 }

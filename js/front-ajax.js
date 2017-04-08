@@ -27,6 +27,7 @@ jQuery(document).ready(function($){
             var max_page = btn_load.attr('data-max-page');
             
             history.pushState({}, '', base_url + $('.btn-load-more').attr("href"));
+            
             $('#content-stories').append(response);
             if (next_page<=max_page) {
                 if (post_ids) {
@@ -44,7 +45,17 @@ jQuery(document).ready(function($){
                 btn_load.addClass('btn-hidden');
             }
             
-            setTimeout(moveStoryLabelOnMobile(),"1000");
+            if (jQuery(window).width()<=600) {
+                var newStories = jQuery.parseHTML(response);
+                jQuery(newStories).find('span.bgblue,span.bgorange').each(function(){
+                    if (jQuery(this).length>0) {
+                      var Label = jQuery(this);
+                      Label.css({"margin-left":"0"});
+                      Label.parent().parent().find('.story-topics').before(Label);
+                    }
+                });
+        }
+            
         });
         return false;
     });

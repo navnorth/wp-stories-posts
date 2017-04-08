@@ -43,6 +43,8 @@ jQuery(document).ready(function($){
             }else {
                 btn_load.addClass('btn-hidden');
             }
+            
+            setTimeout(moveStoryLabelOnMobile(),"1000");
         });
         return false;
     });

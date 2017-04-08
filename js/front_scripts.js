@@ -60,18 +60,21 @@ jQuery(document).ready(function(){
       jQuery('.sort-options').fadeToggle('fast');
       jQuery('.sort-selectbox').trigger("change");
     });
-    
-    /** Move Blue label in between excerpt and topic **/
-    if (jQuery(window).width()<=600) {
-	jQuery('span.bgblue,span.bgorange').each(function(){
-	  if (jQuery('span.bgblue,span.bgorange').length>0) {
-	    var blueLabel = jQuery(this);
-	    blueLabel.css({"margin-left":"0"});
-	    blueLabel.parent().parent().find('.story-topics').before(blueLabel);
-	  }
-	});
-    }
+    moveStoryLabelOnMobile();
 });
+
+/** Movelabel in between excerpt and topic **/
+function moveStoryLabelOnMobile() {
+  if (jQuery(window).width()<=600) {
+    jQuery('span.bgblue,span.bgorange').each(function(){
+      if (jQuery('span.bgblue,span.bgorange').length>0) {
+	var blueLabel = jQuery(this);
+	blueLabel.css({"margin-left":"0"});
+	blueLabel.parent().parent().find('.story-topics').before(blueLabel);
+      }
+    });
+  }
+}
 function formsubmit(ref)
 {
 	jQuery(ref).parent("form").submit();

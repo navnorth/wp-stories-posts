@@ -781,7 +781,7 @@ add_action('wp_print_scripts', 'load_ajax_script');
 
 /* Ajax Callback */
 function load_more_stories() {
-	global $wpdb, $wp_query, $scp_session, $_backurl;
+	global $wpdb, $wp_query, $scp_session, $_backurl, $_mobile;
 
 	if (!isset($scp_session))
 		$scp_session = WP_Session::get_instance();
@@ -832,6 +832,8 @@ function load_more_stories() {
 		$postquery = new WP_Query($args);
 
 		$_backurl = $_POST['back_url'];
+		
+		$_mobile = $_POST['mobile'];
 
 		while ( $postquery->have_posts() ) : $postquery->the_post();
 		    get_story_template_part( 'content', 'substory' );

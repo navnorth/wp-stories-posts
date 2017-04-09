@@ -5,9 +5,14 @@ jQuery(document).ready(function($){
         var sorting = $(this).attr('data-sort');
         var page = $(this).attr('data-page');
         var url = $('.btn-load-more').attr('data-base-url');
+        var mobile = false;
         
         if ($(this).attr('data-sort')) {
             sorting = $(this).attr('data-sort');
+        }
+        
+        if (jQuery(window).width()<=600) {
+            mobile = true;
         }
         
         var data = {
@@ -16,7 +21,8 @@ jQuery(document).ready(function($){
             post_ids:  post_ids,
             sort: sorting,
             page: page,
-            back_url: url + $('.btn-load-more').attr("href")
+            back_url: url + $('.btn-load-more').attr("href"),
+            mobile: mobile
         };
         
         /*$.post(the_ajax_script.ajaxurl, data).done(function(response) {*/
@@ -44,17 +50,6 @@ jQuery(document).ready(function($){
             }else {
                 btn_load.addClass('btn-hidden');
             }
-            
-            if (jQuery(window).width()<=600) {
-                var newStories = jQuery.parseHTML(response);
-                jQuery(newStories).find('span.bgblue,span.bgorange').each(function(){
-                    if (jQuery(this).length>0) {
-                      var Label = jQuery(this);
-                      Label.css({"margin-left":"0"});
-                      Label.parent().parent().find('.story-topics').before(Label);
-                    }
-                });
-        }
             
         });
         return false;

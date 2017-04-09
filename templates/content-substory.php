@@ -7,7 +7,7 @@
  * @since Twenty Twelve 1.0
  */
 ?>
-<?php global $post, $_backurl; ?>
+<?php global $post, $_backurl, $_mobile; ?>
 <input type="hidden" id="back_url_<?php echo $post->ID; ?>" name="back_url_<?php echo $post->ID; ?>" />
 <script type="text/javascript">
 	document.getElementById('back_url_<?php echo $post->ID; ?>').value = document.location.href;
@@ -112,10 +112,11 @@
 				if (!empty($grade_display)) {
 					
 					$grade_display = array_unique($grade_display, SORT_REGULAR);
-						
-					foreach($grade_display as $display) {
-						$grade_label = '<span class="'.$display['grade_color'].'">'.$display['grade_level'].'</span>';
-						echo $grade_label;
+					if (!$_mobile || $_mobile=="false") {
+						foreach($grade_display as $display) {
+							$grade_label = '<span class="'.$display['grade_color'].'">'.$display['grade_level'].'</span>';
+							echo $grade_label;
+						}
 					}
 				}
 			    }
@@ -151,6 +152,14 @@
 				    $termlink = get_term_link($topic->term_id, $topic->taxonomy);
 		    $postedin .= '<a href="'.$termlink.'">'.$topic->name.'</a>, ';
 			    }
+		
+		if ($_mobile==="true") {
+			foreach($grade_display as $display) {
+				$grade_label = '<span class="'.$display['grade_color'].'" style="margin-left:0">'.$display['grade_level'].'</span>';
+				echo $grade_label;
+			}
+		}
+					    
 		echo '<p class="story-topics">' . trim($postedin,', ') . '</p>';
 		    }
 	    ?>

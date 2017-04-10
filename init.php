@@ -26,7 +26,7 @@ function create_managment_taxonomies()
 						'program' => 'Program',
 						'state' => 'State',
 						'grade_level' => 'Level',
-						'characteristics' => 'Characteristics',
+						'characteristics' => 'Community Type',
 						'districtsize' => 'District Size');
 
 	foreach($texonomy_array as $texonomy_key => $texonomy_value)

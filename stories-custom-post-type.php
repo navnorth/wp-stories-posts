@@ -690,14 +690,14 @@ function setup_settings_form() {
 	/* Enable/Disable Characteristics */
 	add_settings_field(
 			'enable_characteristics',
-			__( 'Enable Characteristics?' , SCP_SLUG ),
+			__( 'Enable Community Type?' , SCP_SLUG ),
 			'setup_settings_field',
 			'stories-settings-page',
 			'stories-settings-section',
 			array(
 				'uid' => 'enable_characteristics',
 				'type' => 'checkbox',
-				'description' => __('necessary to display the Characteristics filter on the sidebar', SCP_SLUG)
+				'description' => __('necessary to display the Community Type filter on the sidebar', SCP_SLUG)
 			)
 			   );
 	/* Enable/Disable District Size */

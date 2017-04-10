@@ -677,14 +677,14 @@ function setup_settings_form() {
 	/* Enable/Disable Grade Level */
 	add_settings_field(
 			'enable_grade_level',
-			__( 'Enable Grade Level?' , SCP_SLUG ),
+			__( 'Enable Level?' , SCP_SLUG ),
 			'setup_settings_field',
 			'stories-settings-page',
 			'stories-settings-section',
 			array(
 				'uid' => 'enable_grade_level',
 				'type' => 'checkbox',
-				'description' => __('necessary to display the Grade Level filter on the sidebar', SCP_SLUG)
+				'description' => __('necessary to display the Level filter on the sidebar', SCP_SLUG)
 			)
 			   );
 	/* Enable/Disable Characteristics */

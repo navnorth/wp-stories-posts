@@ -266,7 +266,7 @@ function add_vimeo_script(){
             <?php endif; ?>
             <?php if(isset($gradeurl) && !empty($gradeurl)) : ?>
                  <p class="margn_none">
-                     <b><?php _e( 'Grade :' , SCP_SLUG ); ?></b> <?php echo $gradeurl; ?>
+                     <b><?php _e( 'Level :' , SCP_SLUG ); ?></b> <?php echo $gradeurl; ?>
                  </p>
             <?php endif; ?>
             <?php if(isset($characteristicurl) && !empty($characteristicurl)) : ?>

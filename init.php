@@ -25,7 +25,7 @@ function create_managment_taxonomies()
 	$texonomy_array = array(
 						'program' => 'Program',
 						'state' => 'State',
-						'grade_level' => 'Grade Level',
+						'grade_level' => 'Level',
 						'characteristics' => 'Characteristics',
 						'districtsize' => 'District Size');
 
@@ -429,7 +429,7 @@ function get_stories_side_nav($taxonomy=NULL, $taxonomy_name=NULL, $search_text=
 							endif;
 						?>
                         <i class="fa <?php echo $class; ?>"></i>
-                        <a tabindex="0" title="<?php echo $accordian_title; ?> Grade Menu" class="accordian_section_title">Grade</a>
+                        <a tabindex="0" title="<?php echo $accordian_title; ?> Grade Menu" class="accordian_section_title">Level</a>
                     </div>
                     <?php echo $gradeoption; ?>
                 </ul>

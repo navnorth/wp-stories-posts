@@ -182,7 +182,7 @@ function get_map_pin_color($grades) {
     
     foreach($grades as $grade)
     {
-            if ($grade->name=="Postsecondary") {
+            if ($grade->name=="Higher Education") {
                     $pincolor = "#e57200";
             } else {
                     $pincolor = "#294179";

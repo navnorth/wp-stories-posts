@@ -100,11 +100,11 @@
 						$grade_color = "bgblue";
 						$grade_level = __( 'P-12' , SCP_SLUG );
 					}
-					elseif ($grade->name=="Higher Education") {
+					elseif ($grade->name=="Postsecondary") {
 						$grade_display[] = array("grade_color" => "bgorange",
-									 "grade_level" => __( 'Higher Ed' , SCP_SLUG ));
+									 "grade_level" => __( 'Postsecondary' , SCP_SLUG ));
 						$grade_color = "bgorange";
-						$grade_level = __( 'Higher Ed' , SCP_SLUG );
+						$grade_level = __( 'Postsecondary' , SCP_SLUG );
 					}
 				}
 				

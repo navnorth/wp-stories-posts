@@ -27,7 +27,7 @@ function create_managment_taxonomies()
 						'state' => 'State',
 						'grade_level' => 'Level',
 						'characteristics' => 'Community Type',
-						'districtsize' => 'District Size');
+						'districtsize' => 'District Enrollment');
 
 	foreach($texonomy_array as $texonomy_key => $texonomy_value)
 	{
@@ -143,7 +143,7 @@ function create_stories_metabox()
 		$return .= '<div class="scp_adtnalflds">';
 			$return .= '<div class="wrprtext">Location</div>';
 			$return .= '<div class="wrprfld">
-							<span>District</span>
+							<span>District Enrollment</span>
 							<input type="text" name="story_district" value="'. $story_district .'" />
 							<span>School</span>
 							<input type="text" name="story_school" value="'. $story_school .'" />
@@ -469,7 +469,7 @@ function get_stories_side_nav($taxonomy=NULL, $taxonomy_name=NULL, $search_text=
 								endif;
 							?>
 				<i class="fa <?php echo $class; ?>"></i>
-				<a tabindex="0" title="<?php echo $accordian_title; ?> District Size Menu" class="accordian_section_title">District Size</a>
+				<a tabindex="0" title="<?php echo $accordian_title; ?> District Enrollment Menu" class="accordian_section_title">District Enrollment</a>
 			    </div>
 			    <?php echo $district_sizeoption; ?>
 			</ul>

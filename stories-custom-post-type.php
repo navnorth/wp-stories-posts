@@ -703,14 +703,14 @@ function setup_settings_form() {
 	/* Enable/Disable District Size */
 	add_settings_field(
 			'enable_district_size',
-			__( 'Enable District Size?' , SCP_SLUG ),
+			__( 'Enable District Enrollment?' , SCP_SLUG ),
 			'setup_settings_field',
 			'stories-settings-page',
 			'stories-settings-section',
 			array(
 				'uid' => 'enable_district_size',
 				'type' => 'checkbox',
-				'description' => __('necessary to display the District Size filter on the sidebar', SCP_SLUG)
+				'description' => __('necessary to display the District Enrollment filter on the sidebar', SCP_SLUG)
 			)
 			   );
 	/* Enable Embed */

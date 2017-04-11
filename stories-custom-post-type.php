@@ -713,6 +713,19 @@ function setup_settings_form() {
 				'description' => __('necessary to display the District Enrollment filter on the sidebar', SCP_SLUG)
 			)
 			   );
+	/* Enable/Disable District Size */
+	add_settings_field(
+			'enable_institution_enrollment',
+			__( 'Enable Institution Enrollment?' , SCP_SLUG ),
+			'setup_settings_field',
+			'stories-settings-page',
+			'stories-settings-section',
+			array(
+				'uid' => 'enable_institution_enrollment',
+				'type' => 'checkbox',
+				'description' => __('necessary to display the Institution Enrollment filter on the sidebar', SCP_SLUG)
+			)
+			   );
 	/* Enable Embed */
 	add_settings_field(
 			'enable_embed',
@@ -734,6 +747,7 @@ function setup_settings_form() {
 	register_setting( 'stories-settings-section' , 'enable_grade_level' );
 	register_setting( 'stories-settings-section' , 'enable_characteristics' );
 	register_setting( 'stories-settings-section' , 'enable_district_size' );
+	register_setting( 'stories-settings-section' , 'enable_institution_enrollment' );
 	register_setting( 'stories-settings-section' , 'enable_embed' );
 }
 

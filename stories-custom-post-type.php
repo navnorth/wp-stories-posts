@@ -713,7 +713,7 @@ function setup_settings_form() {
 				'description' => __('necessary to display the District Enrollment filter on the sidebar', SCP_SLUG)
 			)
 			   );
-	/* Enable/Disable District Size */
+	/* Enable/Disable Institution Enrollment */
 	add_settings_field(
 			'enable_institution_enrollment',
 			__( 'Enable Institution Enrollment?' , SCP_SLUG ),
@@ -724,6 +724,19 @@ function setup_settings_form() {
 				'uid' => 'enable_institution_enrollment',
 				'type' => 'checkbox',
 				'description' => __('necessary to display the Institution Enrollment filter on the sidebar', SCP_SLUG)
+			)
+			   );
+	/* Enable/Disable Institution Type */
+	add_settings_field(
+			'enable_institution_type',
+			__( 'Enable Institution Type?' , SCP_SLUG ),
+			'setup_settings_field',
+			'stories-settings-page',
+			'stories-settings-section',
+			array(
+				'uid' => 'enable_institution_type',
+				'type' => 'checkbox',
+				'description' => __('necessary to display the Institution Type filter on the sidebar', SCP_SLUG)
 			)
 			   );
 	/* Enable Embed */
@@ -748,6 +761,7 @@ function setup_settings_form() {
 	register_setting( 'stories-settings-section' , 'enable_characteristics' );
 	register_setting( 'stories-settings-section' , 'enable_district_size' );
 	register_setting( 'stories-settings-section' , 'enable_institution_enrollment' );
+	register_setting( 'stories-settings-section' , 'enable_institution_type' );
 	register_setting( 'stories-settings-section' , 'enable_embed' );
 }
 

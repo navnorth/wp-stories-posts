@@ -28,7 +28,8 @@ function create_managment_taxonomies()
 						'grade_level' => 'Level',
 						'characteristics' => 'Community Type',
 						'districtsize' => 'District Enrollment',
-						'institutionenrollment' => 'Institution Enrollment');
+						'institutionenrollment' => 'Institution Enrollment',
+						'institutiontype' => 'Institution Type');
 
 	foreach($texonomy_array as $texonomy_key => $texonomy_value)
 	{

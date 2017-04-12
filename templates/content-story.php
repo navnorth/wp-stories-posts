@@ -226,7 +226,7 @@ function add_vimeo_script(){
                     $url = get_term_link($grade_level->term_id, $grade_level->taxonomy);
                     $gradeurl .= '<a target="_blank" href="'. $url .'">'.$grade_level->name.'</a>, ';
 		    
-		    if ($grade_level->name=="K-12" || $grade_level->name=="Early Childhood Education") {
+		    if ($grade_level->name=="P-12" || $grade_level->name=="Early Childhood Education") {
 			$grade_tag[] = array("grade_color" => "bgblue",
 						 "grade_level" => __( 'P-12' , SCP_SLUG ),
 						 "grade_name" => 'P-12',

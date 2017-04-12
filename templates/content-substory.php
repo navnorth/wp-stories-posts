@@ -94,7 +94,7 @@
 				
 				foreach($grades as $grade)
 				{
-					if ($grade->name=="K-12" || $grade->name=="Early Childhood Education") {
+					if ($grade->name=="P-12" || $grade->name=="Early Childhood Education") {
 						$grade_display[] = array("grade_color" => "bgblue",
 									 "grade_level" => __( 'P-12' , SCP_SLUG ));
 						$grade_color = "bgblue";

@@ -291,8 +291,10 @@ function get_stories_side_nav($taxonomy=NULL, $taxonomy_name=NULL, $search_text=
 	$grades = get_terms('grade_level', $args);
 	$characteristics = get_terms('characteristics', $args);
 	$districtsize = get_terms('districtsize', $args);
-	$tags = get_terms('story_tag', $args);
-
+	$institutionenrollment = get_terms('institutionenrollment', $args);
+	$institutiontype = get_terms('institutiontype', $args);
+	$tags = get_terms('story_tag', $args);	
+	
 	//Enable State
 	if(isset($states) && !empty($states))
 	{
@@ -381,6 +383,44 @@ function get_stories_side_nav($taxonomy=NULL, $taxonomy_name=NULL, $search_text=
 		}
 		$district_sizeoption .= '</div>';
 	}
+	
+	/** Institution Enrollment **/
+	if(isset($institutionenrollment) && !empty($institutionenrollment))
+	{
+		if(isset($taxonomy) && !empty($taxonomy) && $taxonomy == 'institutionenrollment'): $display = 'block'; else: $display = 'none'; endif;
+		$institution_option = '<div class="tglelemnt" style="display:'. $display.'">';
+		foreach($institutionenrollment as $institution)
+		{
+			if(isset($taxonomy_name) && !empty($taxonomy_name) && $institution->slug == $taxonomy_name):
+				$check = 'checked';
+			else:
+				$check = '';
+			endif;
+			$institution_option .= '<li class="'.$check.'">
+							<a href="'.site_url().'/stories/institutionenrollment/'.$institution->slug.'">'.$institution->name.' ('.$institution->count.')</a>
+						</li>';
+		}
+		$institution_option .= '</div>';
+	}
+	
+	/** Institution Type **/
+	if(isset($institutiontype) && !empty($institutiontype))
+	{
+		if(isset($taxonomy) && !empty($taxonomy) && $taxonomy == 'institutiontype'): $display = 'block'; else: $display = 'none'; endif;
+		$institutiontype_option = '<div class="tglelemnt" style="display:'. $display.'">';
+		foreach($institutiontype as $type)
+		{
+			if(isset($taxonomy_name) && !empty($taxonomy_name) && $type->slug == $taxonomy_name):
+				$check = 'checked';
+			else:
+				$check = '';
+			endif;
+			$institutiontype_option .= '<li class="'.$check.'">
+							<a href="'.site_url().'/stories/institutiontype/'.$type->slug.'">'.$type->name.' ('.$type->count.')</a>
+						</li>';
+		}
+		$institutiontype_option .= '</div>';
+	}
 
 	$stories_home_URL = site_url().'/stories/';
 	?>
@@ -397,86 +437,211 @@ function get_stories_side_nav($taxonomy=NULL, $taxonomy_name=NULL, $search_text=
             </p>
 
             <h4 class="hdng_mtr brdr_mrgn_none stry_browse_header">Browse Stories</h4>
-	    <?php if ($_filters['state']==1): ?>
-            <div class="srchtrmbxs">
-                <ul class="cstmaccordian">
-                	<div class="cstmaccordiandv">
-                        <?php
-							if(isset($taxonomy) && !empty($taxonomy) && $taxonomy == 'state'):
-								$class = 'fa-caret-down';
-								$accordian_title = 'Collapse';
-							else:
-								$class = 'fa-caret-right';
-								$accordian_title = 'Expand';
-							endif;
-						?>
-                        <i class="fa <?php echo $class; ?>"></i>
-                        <a tabindex="0" title="<?php echo $accordian_title; ?> State Menu" class="accordian_section_title">State</a>
-                    </div>
-                    <?php echo $stateoption; ?>
-                </ul>
-            </div>
-	    <?php endif; ?>
-	    <?php if ($_filters['grade_level']==1): ?>
-            <div class="srchtrmbxs">
-                <ul class="cstmaccordian">
-                	<div class="cstmaccordiandv">
-                        <?php
-							if(isset($taxonomy) && !empty($taxonomy) && $taxonomy == 'grade_level'):
-								$class = 'fa-caret-down';
-								$accordian_title = 'Collapse';
-							else:
-								$class = 'fa-caret-right';
-								$accordian_title = 'Expand';
-							endif;
-						?>
-                        <i class="fa <?php echo $class; ?>"></i>
-                        <a tabindex="0" title="<?php echo $accordian_title; ?> Grade Menu" class="accordian_section_title">Level</a>
-                    </div>
-                    <?php echo $gradeoption; ?>
-                </ul>
-            </div>
-	    <?php endif; ?>
-	    <?php if ($_filters['characteristics']==1): ?>
-            <div class="srchtrmbxs">
-                <ul class="cstmaccordian">
-                	<div class="cstmaccordiandv">
-                        <?php
-							if(isset($taxonomy) && !empty($taxonomy) && $taxonomy == 'characteristics'):
-								$class = 'fa-caret-down';
-								$accordian_title = 'Collapse';
-							else:
-								$class = 'fa-caret-right';
-								$accordian_title = 'Expand';
-							endif;
-						?>
-                        <i class="fa <?php echo $class; ?>"></i>
-                        <a tabindex="0" title="<?php echo $accordian_title; ?> Community Type Menu" class="accordian_section_title">Community Type</a>
-                    </div>
-                    <?php echo $district_locationoption; ?>
-                </ul>
+	    
+	<?php
+		//Define array $tabs
+		$tabs = array(
+			array( "name" => "All", "anchor" => "all" ),
+			array( "name" => "P-12", "anchor" => "p12") ,
+			array( "name" => "Post Secondary", "anchor" => "postsecondary" )
+			);
+		
+		if (!empty($tabs)) {
+			echo '<ul class="tabs">';
+			foreach ($tabs as $tab) {
+				if(in_array($taxonomy,array('state','grade_level')) && $tab['anchor']=="all") {
+					$active = 'class="active"';
+				} elseif (in_array($taxonomy,array('characteristics','district_size')) && $tab['anchor']=="p12"){
+					$active = 'class="active"';
+				}  elseif (in_array($taxonomy,array('institutionenrollment','institutiontype')) && $tab['anchor']=="postsecondary"){
+					$active = 'class="active"';
+				} else {
+					$active = "";
+				}
+				
+				echo '<li class="'.$tab['anchor'].'"><a href="#'.$tab['anchor'].'" '.$active.'>'.$tab['name'].'</a></li>';
+			}
+			echo '</ul>';
+		}
+	?>
+	    
+		<!-- All Tab -->
+		<div id="all" class="story-tab">
+			<?php if ($_filters['state']==1): ?>
+			<div class="srchtrmbxs">
+			    <ul class="cstmaccordian">
+				    <div class="cstmaccordiandv">
+				    <?php
+								    if(isset($taxonomy) && !empty($taxonomy) && $taxonomy == 'state'):
+									    $class = 'fa-caret-down';
+									    $accordian_title = 'Collapse';
+								    else:
+									    $class = 'fa-caret-right';
+									    $accordian_title = 'Expand';
+								    endif;
+							    ?>
+				    <i class="fa <?php echo $class; ?>"></i>
+				    <a tabindex="0" title="<?php echo $accordian_title; ?> State Menu" class="accordian_section_title">State</a>
+				</div>
+				<?php echo $stateoption; ?>
+			    </ul>
+			</div>
+			<?php endif; ?>
+			<?php if ($_filters['grade_level']==1): ?>
+			<div class="srchtrmbxs">
+			    <ul class="cstmaccordian">
+				    <div class="cstmaccordiandv">
+				    <?php
+								    if(isset($taxonomy) && !empty($taxonomy) && $taxonomy == 'grade_level'):
+									    $class = 'fa-caret-down';
+									    $accordian_title = 'Collapse';
+								    else:
+									    $class = 'fa-caret-right';
+									    $accordian_title = 'Expand';
+								    endif;
+							    ?>
+				    <i class="fa <?php echo $class; ?>"></i>
+				    <a tabindex="0" title="<?php echo $accordian_title; ?> Grade Menu" class="accordian_section_title">Level</a>
+				</div>
+				<?php echo $gradeoption; ?>
+			    </ul>
+			</div>
+			<?php endif; ?>
 		</div>
-		<?php endif; ?>
-		<?php if ($_filters['district_size']==1): ?>
-		<div class="srchtrmbxs">
-			<ul class="cstmaccordian">
-			    <div class="cstmaccordiandv">
-				<?php
-								if(isset($taxonomy) && !empty($taxonomy) && $taxonomy == 'districtsize'):
-									$class = 'fa-caret-down';
-									$accordian_title = 'Collapse';
-								else:
-									$class = 'fa-caret-right';
-									$accordian_title = 'Expand';
-								endif;
-							?>
-				<i class="fa <?php echo $class; ?>"></i>
-				<a tabindex="0" title="<?php echo $accordian_title; ?> District Enrollment Menu" class="accordian_section_title">District Enrollment</a>
-			    </div>
-			    <?php echo $district_sizeoption; ?>
-			</ul>
+	    
+		<!-- P-12 Tab -->
+		<div id="p12" class="story-tab">
+			<?php if ($_filters['state']==1): ?>
+			<div class="srchtrmbxs">
+			    <ul class="cstmaccordian">
+				    <div class="cstmaccordiandv">
+				    <?php
+								    if(isset($taxonomy) && !empty($taxonomy) && $taxonomy == 'state'):
+									    $class = 'fa-caret-down';
+									    $accordian_title = 'Collapse';
+								    else:
+									    $class = 'fa-caret-right';
+									    $accordian_title = 'Expand';
+								    endif;
+							    ?>
+				    <i class="fa <?php echo $class; ?>"></i>
+				    <a tabindex="0" title="<?php echo $accordian_title; ?> State Menu" class="accordian_section_title">State</a>
+				</div>
+				<?php echo $stateoption; ?>
+			    </ul>
+			</div>
+			<?php endif; ?>
+			
+			<?php if ($_filters['characteristics']==1): ?>
+			<div class="srchtrmbxs">
+				<ul class="cstmaccordian">
+					<div class="cstmaccordiandv">
+					<?php
+									if(isset($taxonomy) && !empty($taxonomy) && $taxonomy == 'characteristics'):
+										$class = 'fa-caret-down';
+										$accordian_title = 'Collapse';
+									else:
+										$class = 'fa-caret-right';
+										$accordian_title = 'Expand';
+									endif;
+								?>
+					<i class="fa <?php echo $class; ?>"></i>
+					<a tabindex="0" title="<?php echo $accordian_title; ?> Community Type Menu" class="accordian_section_title">Community Type</a>
+				    </div>
+				    <?php echo $district_locationoption; ?>
+				</ul>
+			</div>
+			<?php endif; ?>
+			
+			<?php if ($_filters['district_size']==1): ?>
+			<div class="srchtrmbxs">
+				<ul class="cstmaccordian">
+				    <div class="cstmaccordiandv">
+					<?php
+									if(isset($taxonomy) && !empty($taxonomy) && $taxonomy == 'districtsize'):
+										$class = 'fa-caret-down';
+										$accordian_title = 'Collapse';
+									else:
+										$class = 'fa-caret-right';
+										$accordian_title = 'Expand';
+									endif;
+								?>
+					<i class="fa <?php echo $class; ?>"></i>
+					<a tabindex="0" title="<?php echo $accordian_title; ?> District Enrollment Menu" class="accordian_section_title">District Enrollment</a>
+				    </div>
+				    <?php echo $district_sizeoption; ?>
+				</ul>
+			</div>
+			<?php endif; ?>
 		</div>
-		<?php endif; ?>
+		
+		<!-- Post Secondary Tab -->
+		<div id="postsecondary" class="story-tab">
+			<?php if ($_filters['state']==1): ?>
+			<div class="srchtrmbxs">
+			    <ul class="cstmaccordian">
+				    <div class="cstmaccordiandv">
+				    <?php
+								    if(isset($taxonomy) && !empty($taxonomy) && $taxonomy == 'state'):
+									    $class = 'fa-caret-down';
+									    $accordian_title = 'Collapse';
+								    else:
+									    $class = 'fa-caret-right';
+									    $accordian_title = 'Expand';
+								    endif;
+							    ?>
+				    <i class="fa <?php echo $class; ?>"></i>
+				    <a tabindex="0" title="<?php echo $accordian_title; ?> State Menu" class="accordian_section_title">State</a>
+				</div>
+				<?php echo $stateoption; ?>
+			    </ul>
+			</div>
+			<?php endif; ?>
+			
+			<?php if ($_filters['institutionenrollment']==1): ?>
+			<div class="srchtrmbxs">
+				<ul class="cstmaccordian">
+				    <div class="cstmaccordiandv">
+					<?php
+						if(isset($taxonomy) && !empty($taxonomy) && $taxonomy == 'institutionenrollment'):
+							$class = 'fa-caret-down';
+							$accordian_title = 'Collapse';
+						else:
+							$class = 'fa-caret-right';
+							$accordian_title = 'Expand';
+						endif;
+					?>
+					<i class="fa <?php echo $class; ?>"></i>
+					<a tabindex="0" title="<?php echo $accordian_title; ?> Institution Enrollment Menu" class="accordian_section_title">Institution Enrollment</a>
+				    </div>
+				    <?php echo $institution_option; ?>
+				</ul>
+			</div>
+			<?php endif; ?>
+			
+			<?php if ($_filters['institutiontype']==1): ?>
+			<div class="srchtrmbxs">
+				<ul class="cstmaccordian">
+				    <div class="cstmaccordiandv">
+					<?php
+						if(isset($taxonomy) && !empty($taxonomy) && $taxonomy == 'institutiontype'):
+							$class = 'fa-caret-down';
+							$accordian_title = 'Collapse';
+						else:
+							$class = 'fa-caret-right';
+							$accordian_title = 'Expand';
+						endif;
+					?>
+					<i class="fa <?php echo $class; ?>"></i>
+					<a tabindex="0" title="<?php echo $accordian_title; ?> Institution Type Menu" class="accordian_section_title">Institution Type</a>
+				    </div>
+				    <?php echo $institutiontype_option; ?>
+				</ul>
+			</div>
+			<?php endif; ?>
+		</div>
+	    
+		
 		<?php echo get_story_search($search_text, $taxonomy, $taxonomy_name); ?>
 		<?php echo get_top_topics_nav($taxonomy, $taxonomy_name) ?>
 

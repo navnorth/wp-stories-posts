@@ -71,7 +71,9 @@ $_filters = array(
 	"state" => get_option('enable_state'),
 	"grade_level" => get_option('enable_grade_level'),
 	"characteristics" => get_option('enable_characteristics'),
-	"district_size" => get_option('enable_district_size')
+	"district_size" => get_option('enable_district_size'),
+	"institutionenrollment" => get_option('enable_institution_enrollment'),
+	"institutiontype" => get_option('enable_institution_type')
 		  );
 $_embed = get_option('enable_embed');
 
@@ -330,6 +332,18 @@ function scp_template_loader($template)
 		$path  = SCP_PATH."templates/".$file;
 	}
 	elseif ( is_tax( 'districtsize' ) && get_post_type() == 'stories' )
+	{
+		$term   = get_queried_object();
+		$file = 'taxonomy-' . $term->taxonomy . '.php';
+		$path  = SCP_PATH."templates/".$file;
+	}
+	elseif ( is_tax( 'institutionenrollment' ) && get_post_type() == 'stories' )
+	{
+		$term   = get_queried_object();
+		$file = 'taxonomy-' . $term->taxonomy . '.php';
+		$path  = SCP_PATH."templates/".$file;
+	}
+	elseif ( is_tax( 'institutiontype' ) && get_post_type() == 'stories' )
 	{
 		$term   = get_queried_object();
 		$file = 'taxonomy-' . $term->taxonomy . '.php';

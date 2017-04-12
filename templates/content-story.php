@@ -215,7 +215,9 @@ function add_vimeo_script(){
                 }
                 $programurl = trim($programurl, ', ');
             }
-
+	    
+	    $grade_tag = array();
+	    
             if(isset($grade_levels) && !empty($grade_levels))
             {
                 $gradeurl = '';
@@ -223,6 +225,23 @@ function add_vimeo_script(){
                 {
                     $url = get_term_link($grade_level->term_id, $grade_level->taxonomy);
                     $gradeurl .= '<a target="_blank" href="'. $url .'">'.$grade_level->name.'</a>, ';
+		    
+		    if ($grade_level->name=="K-12" || $grade_level->name=="Early Childhood Education") {
+			$grade_tag[] = array("grade_color" => "bgblue",
+						 "grade_level" => __( 'P-12' , SCP_SLUG ),
+						 "grade_name" => 'P-12',
+						 "grade_url" => $url);
+			$grade_color = "bgblue";
+			$grade_level = __( 'P-12' , SCP_SLUG );
+		    }
+		    elseif ($grade_level->name=="Higher Education" || $grade_level->name=="Postsecondary") {
+			    $grade_tag[] = array("grade_color" => "bgorange",
+						 "grade_level" => __( 'Postsecondary' , SCP_SLUG ),
+						 "grade_name" => 'Postsecondary',
+						 "grade_url" => $url);
+			    $grade_color = "bgorange";
+			    $grade_level = __( 'Postsecondary' , SCP_SLUG );
+		    }
                 }
                 $gradeurl = trim($gradeurl, ', ');
             }
@@ -239,11 +258,26 @@ function add_vimeo_script(){
                 }
                 $tagurl = trim($tagurl, ', ');
             }
+	    
+	    
         ?>
 
         <div class="col-md-12 col-sm-12 col-xs-12">
             <div class="pblctn_box"><span class="socl_icns fa-stack"><i class="fa fa-star "></i></span></div>
             <p class="rght_sid_wdgt_hedng"><?php _e( 'Story Snapshot' , SCP_SLUG); ?> </p>
+	    <?php
+	    
+	    //Display K-12 first before Higher Education
+	    if (!empty($grade_tag)) {
+		    
+		    $grade_tag = array_unique($grade_tag, SORT_REGULAR);
+		    foreach($grade_tag as $display) {
+			$grade_label = '<p class="margin_20"><a  target="_blank" href="'.$display['grade_url'].'"><span class="'.$display['grade_color'].'">'.$display['grade_level'].'</span></a></p>';
+		    }
+		    echo $grade_label;
+	    }
+	    
+	    ?>
             <?php if(isset($story_school) && !empty($story_school)) : ?>
                  <p class="margn_none">
                      <b><?php _e( 'School :' , SCP_SLUG ); ?></b> <?php echo $story_school; ?>

@@ -366,6 +366,9 @@ article.stories .entry-meta a.read-more, article.stories .entry-meta a.read-more
 .single-stories .pblctn_right_sid_mtr .vid-wrap { margin-bottom:10px; }
 .story_sharewidget .popover, .story_sharewidget .popover-content { font-family: 'Raleway-Bold' !important; }
 .story_sharewidget .popover #st_oet_embed { font-size:13px; }
+.margin_20 { margin:20px 0 !important; }
+.margin_20 .bgblue, .margin_20 .bgorange { margin-left:0; }
+.margin_20 a:hover { text-decoration:none !important; }
 @media screen and (max-width: 992px) {
     .stry_srch_frm { width: 100%}
     /*.pblctn_lft_sid_img_cntnr { padding-left: 0 !important}*/

@@ -113,6 +113,7 @@
 				if (!empty($grade_display)) {
 					
 					$grade_display = array_unique($grade_display, SORT_REGULAR);
+					sort($grade_display);
 					if (!$_mobile || $_mobile=="false") {
 						foreach($grade_display as $display) {
 							$grade_label = '<span class="'.$display['grade_color'].'">'.$display['grade_level'].'</span>';

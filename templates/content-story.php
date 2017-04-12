@@ -273,9 +273,8 @@ function add_vimeo_script(){
 		    $grade_tag = array_unique($grade_tag, SORT_REGULAR);
 		    sort($grade_tag);
 		    foreach($grade_tag as $display) {
-			$grade_label = '<p class="margin_20"><a  target="_blank" href="'.$display['grade_url'].'"><span class="'.$display['grade_color'].'">'.$display['grade_level'].'</span></a></p>';
+			$grade_label = '<p class="margin_20"><a href="'.$display['grade_url'].'"><span class="'.$display['grade_color'].'">'.$display['grade_level'].'</span></a></p>';
 			echo $grade_label;
-			break;
 		    }
 	    }
 	    

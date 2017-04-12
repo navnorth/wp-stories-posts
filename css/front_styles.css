@@ -369,6 +369,7 @@ article.stories .entry-meta a.read-more, article.stories .entry-meta a.read-more
 .margin_20 { margin:20px 0 !important; }
 .margin_20 .bgblue, .margin_20 .bgorange { margin-left:0; }
 .margin_20 a:hover { text-decoration:none !important; }
+.margin_20 a { margin-right:10px; }
 
 /** Tabs Styles **/
 .stry_srch_frm ul.tabs { border:1px solid #9fbedb; width:100%; }

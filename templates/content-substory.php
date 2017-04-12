@@ -83,7 +83,8 @@
 				    }
 			    }
 			    $grades = get_the_terms( $post->ID , 'grade_level' );
-			    $grades = array_reverse($grades);
+			    if ($grades)
+				$grades = array_reverse($grades);
 			    
 			    if(isset($grades) && !empty($grades))
 			    {

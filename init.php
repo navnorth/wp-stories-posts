@@ -278,6 +278,35 @@ function get_latitude_longitude($address)
 	}
 }
 
+function generate_state_dropdown($id, $taxonomy, $taxonomy_name) {
+	$args = array(
+			'orderby'   => 'term_order',
+			'order'     => 'ASC',
+			'hide_empty'=> false);
+	
+	$states = get_terms('state', $args);
+	
+	//Enable State
+	if(isset($states) && !empty($states))
+	{
+		if(isset($taxonomy) && !empty($taxonomy) && $taxonomy == 'state'): $display = 'block'; else: $display = 'none'; endif;
+		$stateoption = '<div class="tglelemnt" style="display:'. $display.'">';
+		$stateoption .= '<select name="state" id="'.$id.'">';
+		$stateoption .= '<option value="">Browse by State</option>';
+		foreach($states as $state)
+		{
+			if(isset($taxonomy_name) && !empty($taxonomy_name) && $state->slug == $taxonomy_name):
+				$check = 'selected="selected"';
+			else:
+				$check = '';
+			endif;
+			$stateoption .= '<option '.$check.' value="'.site_url().'/stories/state/'.$state->slug.'">'.$state->name.' ('.$state->count.')</option>';
+		}
+		$stateoption .= '</select></div>';
+	}
+	return $stateoption;
+}
+
 //Story Search
 function get_stories_side_nav($taxonomy=NULL, $taxonomy_name=NULL, $search_text=NULL)
 {
@@ -451,7 +480,7 @@ function get_stories_side_nav($taxonomy=NULL, $taxonomy_name=NULL, $search_text=
 			foreach ($tabs as $tab) {
 				if(in_array($taxonomy,array('state','grade_level')) && $tab['anchor']=="all") {
 					$active = 'class="active"';
-				} elseif (in_array($taxonomy,array('characteristics','district_size')) && $tab['anchor']=="p12"){
+				} elseif (in_array($taxonomy,array('characteristics','districtsize')) && $tab['anchor']=="p12"){
 					$active = 'class="active"';
 				}  elseif (in_array($taxonomy,array('institutionenrollment','institutiontype')) && $tab['anchor']=="postsecondary"){
 					$active = 'class="active"';
@@ -512,6 +541,7 @@ function get_stories_side_nav($taxonomy=NULL, $taxonomy_name=NULL, $search_text=
 		<!-- P-12 Tab -->
 		<div id="p12" class="story-tab">
 			<?php if ($_filters['state']==1): ?>
+			<?php $state2option = generate_state_dropdown('statedropdown2', $taxonomy, $taxonomy_name); ?>
 			<div class="srchtrmbxs">
 			    <ul class="cstmaccordian">
 				    <div class="cstmaccordiandv">
@@ -527,7 +557,7 @@ function get_stories_side_nav($taxonomy=NULL, $taxonomy_name=NULL, $search_text=
 				    <i class="fa <?php echo $class; ?>"></i>
 				    <a tabindex="0" title="<?php echo $accordian_title; ?> State Menu" class="accordian_section_title">State</a>
 				</div>
-				<?php echo $stateoption; ?>
+				<?php echo $state2option; ?>
 			    </ul>
 			</div>
 			<?php endif; ?>
@@ -578,6 +608,7 @@ function get_stories_side_nav($taxonomy=NULL, $taxonomy_name=NULL, $search_text=
 		<!-- Post Secondary Tab -->
 		<div id="postsecondary" class="story-tab">
 			<?php if ($_filters['state']==1): ?>
+			<?php $state3option = generate_state_dropdown('statedropdown3', $taxonomy, $taxonomy_name); ?>
 			<div class="srchtrmbxs">
 			    <ul class="cstmaccordian">
 				    <div class="cstmaccordiandv">
@@ -593,7 +624,7 @@ function get_stories_side_nav($taxonomy=NULL, $taxonomy_name=NULL, $search_text=
 				    <i class="fa <?php echo $class; ?>"></i>
 				    <a tabindex="0" title="<?php echo $accordian_title; ?> State Menu" class="accordian_section_title">State</a>
 				</div>
-				<?php echo $stateoption; ?>
+				<?php echo $state3option; ?>
 			    </ul>
 			</div>
 			<?php endif; ?>

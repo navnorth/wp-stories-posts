@@ -32,9 +32,16 @@ jQuery(document).ready(function(){
   });
 
 
-    jQuery('#statedropdown').change( function () {
+    jQuery('#statedropdown,#statedropdown2,#statedropdown3').change( function () {
 	var value = jQuery(this).val();
-        window.location.href = value;
+	var id = jQuery(this).attr('id');
+	var anchor = "";
+	if (id=="statedropdown2") {
+	  anchor = "#p12";
+	} else if (id=="statedropdown3"){
+	  anchor = "#postsecondary";
+	}
+        window.location.href = value + anchor;
     });
 
     jQuery('#showalltopic').change( function () {
@@ -69,7 +76,7 @@ jQuery(document).ready(function(){
       
       // If the location.hash matches one of the links, use that as the active tab.
       // If no match is found, use the first link as the initial active tab.      
-      $active = jQuery($links.filter('.active')[0] || $links[0]);
+      $active = jQuery($links.filter('[href="'+location.hash+'"]')[0] || $links.filter('.active')[0] || $links[0]);
       $active.addClass('active');
 
       $content = jQuery($active[0].hash);

@@ -466,7 +466,7 @@ function get_stories_side_nav($taxonomy=NULL, $taxonomy_name=NULL, $search_text=
             </p>
 
             <h4 class="hdng_mtr brdr_mrgn_none stry_browse_header">Browse Stories</h4>
-	    
+	    <div id="story-tabs">
 	<?php
 		//Define array $tabs
 		$tabs = array(
@@ -493,7 +493,6 @@ function get_stories_side_nav($taxonomy=NULL, $taxonomy_name=NULL, $search_text=
 			echo '</ul>';
 		}
 	?>
-	    
 		<!-- All Tab -->
 		<div id="all" class="story-tab">
 			<?php if ($_filters['state']==1): ?>
@@ -673,7 +672,7 @@ function get_stories_side_nav($taxonomy=NULL, $taxonomy_name=NULL, $search_text=
 			<?php endif; ?>
 			
 		</div>
-	    
+		</div>    
 		
 		<?php echo get_story_search($search_text, $taxonomy, $taxonomy_name); ?>
 		<?php echo get_top_topics_nav($taxonomy, $taxonomy_name) ?>

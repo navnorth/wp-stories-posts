@@ -139,7 +139,6 @@
     padding: 0;
     text-decoration: none;
     color: #000;
-    font-family: 'Raleway-Regular';
 }
 .cstmaccordiandv .fa { float: left; width: 20px; line-height: 19px}
 .cstmaccordiandv{ cursor: pointer;}
@@ -376,7 +375,7 @@ article.stories .entry-meta a.read-more, article.stories .entry-meta a.read-more
 .stry_srch_frm #story-tabs {  }
 .stry_srch_frm ul.tabs { width:100%; margin-bottom:0;}
 .stry_srch_frm ul.tabs li { display:inline-block; padding: 5px 12px; width: 30%; border: 1px solid #f0f0f0; }
-.stry_srch_frm ul.tabs li a { font-size:16px; outline:none; font-family: 'Raleway-Regular'; }
+.stry_srch_frm ul.tabs li a { font-size:14px; outline:none; font-family: 'Raleway-Regular'; }
 .stry_srch_frm ul.tabs li.all { background-color:#ffffff; width:30%; border: 1px solid #f0f0f0; border-right:none; }
 .stry_srch_frm ul.tabs li.all a { color:#000000; }
 .stry_srch_frm ul.tabs li.all.active { border-bottom:none; }

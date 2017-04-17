@@ -470,9 +470,9 @@ function get_stories_side_nav($taxonomy=NULL, $taxonomy_name=NULL, $search_text=
 	<?php
 		//Define array $tabs
 		$tabs = array(
-			array( "name" => "All", "anchor" => "all" ),
-			array( "name" => "P-12", "anchor" => "p12") ,
-			array( "name" => "Post Secondary", "anchor" => "postsecondary" )
+			array( "name" => _e( "All" , SCP_SLUG ), "anchor" => "all" ),
+			array( "name" => _e( "P-12" , SCP_SLUG ) , "anchor" => "p12") ,
+			array( "name" => _e( "Postsecondary", SCP_SLUG ), "anchor" => "postsecondary" )
 			);
 		
 		if (!empty($tabs)) {

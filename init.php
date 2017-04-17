@@ -629,26 +629,6 @@ function get_stories_side_nav($taxonomy=NULL, $taxonomy_name=NULL, $search_text=
 			</div>
 			<?php endif; ?>
 			
-			<?php if ($_filters['institutionenrollment']==1): ?>
-			<div class="srchtrmbxs">
-				<ul class="cstmaccordian">
-				    <div class="cstmaccordiandv">
-					<?php
-						if(isset($taxonomy) && !empty($taxonomy) && $taxonomy == 'institutionenrollment'):
-							$class = 'fa-caret-down';
-							$accordian_title = 'Collapse';
-						else:
-							$class = 'fa-caret-right';
-							$accordian_title = 'Expand';
-						endif;
-					?>
-					<i class="fa <?php echo $class; ?>"></i>
-					<a tabindex="0" title="<?php echo $accordian_title; ?> Institution Enrollment Menu" class="accordian_section_title">Institution Enrollment</a>
-				    </div>
-				    <?php echo $institution_option; ?>
-				</ul>
-			</div>
-			<?php endif; ?>
 			
 			<?php if ($_filters['institutiontype']==1): ?>
 			<div class="srchtrmbxs">
@@ -670,6 +650,28 @@ function get_stories_side_nav($taxonomy=NULL, $taxonomy_name=NULL, $search_text=
 				</ul>
 			</div>
 			<?php endif; ?>
+			
+			<?php if ($_filters['institutionenrollment']==1): ?>
+			<div class="srchtrmbxs">
+				<ul class="cstmaccordian">
+				    <div class="cstmaccordiandv">
+					<?php
+						if(isset($taxonomy) && !empty($taxonomy) && $taxonomy == 'institutionenrollment'):
+							$class = 'fa-caret-down';
+							$accordian_title = 'Collapse';
+						else:
+							$class = 'fa-caret-right';
+							$accordian_title = 'Expand';
+						endif;
+					?>
+					<i class="fa <?php echo $class; ?>"></i>
+					<a tabindex="0" title="<?php echo $accordian_title; ?> Institution Enrollment Menu" class="accordian_section_title">Institution Enrollment</a>
+				    </div>
+				    <?php echo $institution_option; ?>
+				</ul>
+			</div>
+			<?php endif; ?>
+			
 		</div>
 	    
 		

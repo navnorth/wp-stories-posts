@@ -397,6 +397,7 @@ article.stories .entry-meta a.read-more, article.stories .entry-meta a.read-more
     -moz-opacity: 1;
     -khtml-opacity: 1;
 }
+.stry_srch_frm ul.tabs li.active a { font-weight:bold; }
 .stry_srch_frm ul.tabs li.p12 { background-color:#294179; width:30%; border:1px solid #294179; }
 .stry_srch_frm ul.tabs li.p12 a, .stry_srch_frm ul.tabs li.postsecondary a { color:#ffffff;  }
 .stry_srch_frm ul.tabs li.postsecondary { background-color:#e57200; width:40%; border:1px solid #e57200; }

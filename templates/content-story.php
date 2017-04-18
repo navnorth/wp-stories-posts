@@ -186,6 +186,7 @@ function add_vimeo_script(){
             $story_highlight = get_post_meta($post->ID, "story_highlight", true);
             $story_district = get_post_meta($post->ID, "story_district", true);
             $story_school = get_post_meta($post->ID, "story_school", true);
+	    $story_institution = get_post_meta($post->ID, "story_institution", true);
             $story_mapaddress = get_post_meta($post->ID, "story_mapaddress", true);
             $story_sidebar_content = get_post_meta($post->ID, "story_sidebar_content", true);
 
@@ -320,21 +321,27 @@ function add_vimeo_script(){
 		    echo '</p>';
 	    }
 	    ?>
-            <?php if(isset($story_school) && !empty($story_school)) : ?>
-                 <p class="margn_none">
-                     <b><?php
-		     if ($final_level=="Postsecondary")
-			_e( 'Institution :' , SCP_SLUG );
-		    else
-			_e( 'School :' , SCP_SLUG );
-		    ?></b> <?php echo $story_school; ?>
-                 </p>
-            <?php endif; ?>
+	    <?php if ($final_level=="P-12") : ?>
+		<?php if(isset($story_school) && !empty($story_school)) : ?>
+		     <p class="margn_none">
+			 <b><?php _e( 'School :' , SCP_SLUG ); ?></b> <?php echo $story_school; ?>
+		     </p>
+		<?php endif; ?>
+	    <?php endif; ?>
             <?php //if(isset($story_mapaddress) && !empty($story_mapaddress)) : ?>
                  <!--<p class="margn_none">
                      <b>Address :</b> <?php //echo $story_mapaddress; ?>
                  </p>-->
             <?php // endif; ?>
+	    
+	    <?php if ($final_level=="Postsecondary") : ?>
+		<?php if(isset($story_institution) && !empty($story_institution)) : ?>
+		    <p class="margn_none">
+			<b><?php _e( 'Institution :' , SCP_SLUG ); ?></b> <?php echo $story_institution; ?>
+		    </p>
+		<?php endif; ?>
+	    <?php endif; ?>
+	    
 	    <?php if ($final_level=="P-12") : ?>
 		<?php if(isset($story_district) && !empty($story_district)) : ?>
 		     <p class="margn_none">

@@ -146,7 +146,7 @@ function create_stories_metabox()
 		$return .= '<div class="scp_adtnalflds">';
 			$return .= '<div class="wrprtext">Location</div>';
 			$return .= '<div class="wrprfld">
-							<span>District Enrollment</span>
+							<span>District</span>
 							<input type="text" name="story_district" value="'. $story_district .'" />
 							<span>School</span>
 							<input type="text" name="story_school" value="'. $story_school .'" />

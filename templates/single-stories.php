@@ -8,7 +8,7 @@
  */
 get_header(); ?>
 
-	<div class="row">
+	<div id="content" class="row">
 			<?php while ( have_posts() ) : the_post(); ?>
 
 				<?php get_story_template_part( 'content', 'story' ); ?>

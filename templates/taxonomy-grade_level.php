@@ -23,7 +23,7 @@ get_header(); ?>
 	$tags = get_terms('story_tag', $args);
 	
 ?>
-	<div class="row">
+	<div id="content" class="row">
 			<?php
 				if($_REQUEST['action'] == 'search')
 				{

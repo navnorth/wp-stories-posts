@@ -23,7 +23,7 @@ get_header(); ?>
 	$args = array('orderby' => 'term_order','order' => 'ASC','hide_empty' => true);
 	$tags = get_terms('story_tag', $args);
 ?>
-	<div class="row">
+	<div id="content" class="row">
         <div class="col-md-4 col-sm-12 col-xs-12 pblctn_right_sid_mtr">
               <?php get_stories_side_nav($termobject->taxonomy, $termobject->slug); ?>
         </div>

@@ -8,7 +8,7 @@
  */
 get_header(); ?>
 
-	<div class="row">
+	<div id="content" class="row">
     	<?php
 		
 			if(isset($_REQUEST['action']) && !empty($_REQUEST['action']))

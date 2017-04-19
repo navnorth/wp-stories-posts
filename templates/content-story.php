@@ -15,7 +15,7 @@ function add_vimeo_script(){
 }
 ?>
 <?php global $post; ?>
-<div class="col-md-4 col-sm-12 col-xs-12 pblctn_right_sid_mtr">
+<div id="content" class="col-md-4 col-sm-12 col-xs-12 pblctn_right_sid_mtr">
     <div>
         <?php
         $back_link_URL = site_url().'/stories/';

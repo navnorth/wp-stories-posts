@@ -376,7 +376,7 @@ article.stories .entry-meta a.read-more, article.stories .entry-meta a.read-more
 .stry_srch_frm ul.tabs { width:100%; margin-bottom:0;}
 .stry_srch_frm ul.tabs li {
     display:inline-block;
-    padding: 5px 15px;
+    padding: 7px 15px;
     width: 30%;
     border: 1px solid #f0f0f0;
     opacity:0.8;
@@ -390,7 +390,7 @@ article.stories .entry-meta a.read-more, article.stories .entry-meta a.read-more
 .stry_srch_frm ul.tabs li.all a { color:#000000; }
 .stry_srch_frm ul.tabs li.all.active { border-bottom:none; }
 .stry_srch_frm ul.tabs li a:hover, .stry_srch_frm ul.tabs li a.active,
-.stry_srch_frm ul.tabs li:hover a, .stry_srch_frm ul.tabs li.active a{ font-weight:bolder; text-decoration:none; }
+.stry_srch_frm ul.tabs li:hover a, .stry_srch_frm ul.tabs li.active a{ font-weight:bold; text-decoration:none; font-family: 'Raleway-Bold'; }
 .stry_srch_frm ul.tabs li:hover, .stry_srch_frm ul.tabs li.active {
     opacity:1;
     -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";

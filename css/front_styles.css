@@ -24,7 +24,8 @@
 .stry_srch_frm { float: left; width: 90%}
 .showallstories { float: left; width: 90%; margin-top: 10px; font-size:18px;}
 .stry_srch_frm  input[type="text"],
-.stry_srch_frm  select {
+.stry_srch_frm  select, 
+#statedropdown{
     width: 65%;
     margin-top: 5px;
     margin-left: 20px;
@@ -36,7 +37,6 @@
         box-sizing: border-box;
 }
 .stry_srch_frm  input[type="text"] { padding: 8px 10px; }
-.stry_srch_frm  select { padding: 5px 10px; font-family: 'Raleway-Regular'; }
 .stry_srch_frm  input[type="submit"] {
     background: #294179;
     border: none;
@@ -59,12 +59,15 @@
 .stry_srch_desc { font-size: 15px; padding-top:10px; }
 
 .topics-search-box select,
-#statedropdown {
+#statedropdown,
+.stry_srch_frm  select{
     background-color: #fff;
     border: 1px solid #e57200;
     padding: 4px 4px;
-    font-size: 12px;
+    font-size: 14px;
     vertical-align: middle;
+    padding: 5px 10px;
+    font-family: 'Raleway-Regular';
 }
 
 .slidermainwrpr { width: 100%; float: left; margin-top: 10px }

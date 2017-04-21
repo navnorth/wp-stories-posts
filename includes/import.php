@@ -5,10 +5,10 @@ global $wpdb;
 $message = null;
 $type = null;
 
-//Resource Import
-if(isset($_POST['resrc_imprt']))
+//Stories Import
+if(isset($_POST['stories_imprt']))
 {
-	$import_response = importResources();
+	$import_response = importStories();
 	if ($import_response){
 	    $message = $import_response["message"];
 	    $type = $import_response["type"];
@@ -30,7 +30,7 @@ if(isset($_POST['resrc_imprt']))
 		</div>
 		<div class="import-row">
 		    <div class="import-wrap">
-			<form method="post" enctype="multipart/form-data" onsubmit="return processImport('#resource_submit','resource_import')">
+			<form method="post" enctype="multipart/form-data" onsubmit="return processImport('#stories_submit','stories_import')">
 			    <fieldset>
 				    <legend><div class="heading"><?php _e("Import Stories", OER_SLUG); ?></div></legend>
 				    <div class="import-row">

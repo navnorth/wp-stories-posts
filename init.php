@@ -169,6 +169,17 @@ function create_stories_metabox()
 	echo $return;
 }
 
+/** Add Import Submenu **/
+add_action( 'admin_menu' , 'add_stories_menus', 100 );
+function add_stories_menus() {
+	add_submenu_page('edit.php?post_type=stories','Import','Import','add_users','import-stories','import_stories_interface');
+}
+
+/** Callback to Import sub menu **/
+function import_stories_interface() {
+	include_once(SCP_PATH . 'includes/import.php');
+}
+
 add_action('save_post', 'save_askquestion_metabox');
 function save_askquestion_metabox()
 {

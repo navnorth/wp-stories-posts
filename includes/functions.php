@@ -222,7 +222,7 @@ function importStories($default=false) {
     require_once SCP_PATH.'Excel/reader.php';
 
     $excl_obj = new Spreadsheet_Excel_Reader();
-    $excl_obj->setOutputEncoding('CP1251');
+    //$excl_obj->setOutputEncoding('CP1251');
     $time = time();
     $date = date($time);
     

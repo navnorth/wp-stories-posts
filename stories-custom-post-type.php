@@ -471,6 +471,9 @@ function get_storiesmap($pageposts=NULL)
 											$pincolor = get_map_pin_color($grades);
 										}
 									}
+									$district = trim(addslashes($district));
+									$title = addslashes($title);
+									$content = addslashes($content);
 									if ($story_status == 'publish') {
 										if($image) {
 											echo "['<div class=info tabindex=0><h4><a href=$link>$title</a></h4><div class=popupcntnr><img src=$image alt=\"Story Thumbnail\"><div class=subinfo><p><b>$district</b>, <b>$stateurl</b></p></div>$content</div></div>', $latitude, $longitude, '$title - $story->postid', '$pincolor'],";

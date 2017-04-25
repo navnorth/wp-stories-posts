@@ -376,7 +376,7 @@ article.stories .entry-meta a.read-more, article.stories .entry-meta a.read-more
 
 /** Tabs Styles **/
 .stry_srch_frm #story-tabs {  }
-.stry_srch_frm ul.tabs { width:100%; margin-bottom:0;}
+.stry_srch_frm ul.tabs { width:100%; margin-bottom:0; padding:0; }
 .stry_srch_frm ul.tabs li {
     display:inline-block;
     padding: 7px 15px;

@@ -411,7 +411,14 @@ article.stories .entry-meta a.read-more, article.stories .entry-meta a.read-more
 .tglelemnt li a { font-family: 'Raleway-Regular'; color: #294179 !important; line-height: 25px; }
 .post-type-archive-stories .fusion-row > #content,
 .tax-story_tag .fusion-row > #content,
-.single-stories .fusion-row > #content{ width:100%; float:none; margin:0; }
+.single-stories .fusion-row > #content,
+.tax-state .fusion-row > #content,
+.tax-grade_level .fusion-row > #content,
+.tax-characteristics .fusion-row > #content,
+.tax-districtsize .fusion-row > #content,
+.tax-program .fusion-row > #content,
+.tax-institutionenrollment .fusion-row > #content,
+.tax-institutiontype .fusion-row > #content{ width:100%; float:none; margin:0; }
 .search-icon {
     position: absolute;
     top: 0;

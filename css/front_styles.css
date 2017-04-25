@@ -423,6 +423,9 @@ article.stories .entry-meta a.read-more, article.stories .entry-meta a.read-more
     border: none;
     background: transparent url(../images/search_icn.png) no-repeat center center;
 }
+.search-wrap {
+    position: relative;
+}
 .search-wrap input[name=search_text] {
     display: block;
     width: 100%;

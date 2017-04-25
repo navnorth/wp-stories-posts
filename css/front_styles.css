@@ -409,6 +409,7 @@ article.stories .entry-meta a.read-more, article.stories .entry-meta a.read-more
 .stry_srch_frm .hdng_mtr.stry_browse_header { margin-bottom:15px !important; }
 /*.tglelemnt li { border: 1px solid #f0f0f0; display: inline-block; margin: 0 5px 5px 0; padding: 2px 10px; }*/
 .tglelemnt li a { font-family: 'Raleway-Regular'; color: #294179 !important; line-height: 25px; }
+.post-type-archive-stories .fusion-row #content { width:100%; float:none; }
 @media screen and (max-width: 992px) {
     .stry_srch_frm { width: 100%}
     /*.pblctn_lft_sid_img_cntnr { padding-left: 0 !important}*/

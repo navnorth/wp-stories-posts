@@ -446,7 +446,7 @@ article.stories .entry-meta a.read-more, article.stories .entry-meta a.read-more
     -o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
     transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
 }
-.single-stories .fusion-row > #content > col-md-4.pblctn_right_sid_mtr { width:33.333333%; }
+.single-stories .fusion-row > #content > .col-md-4.pblctn_right_sid_mtr { width:33.333333%; }
 @media screen and (max-width: 992px) {
     .stry_srch_frm { width: 100%}
     /*.pblctn_lft_sid_img_cntnr { padding-left: 0 !important}*/

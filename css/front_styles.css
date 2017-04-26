@@ -379,7 +379,7 @@ article.stories .entry-meta a.read-more, article.stories .entry-meta a.read-more
 .stry_srch_frm ul.tabs { width:100%; margin-bottom:0;}
 .stry_srch_frm ul.tabs li {
     display:inline-block;
-    padding: 7px 15px;
+    /*padding: 7px 15px;*/
     width: 30%;
     border: 1px solid #f0f0f0;
     opacity:0.8;
@@ -388,7 +388,7 @@ article.stories .entry-meta a.read-more, article.stories .entry-meta a.read-more
     -moz-opacity: 0.8;
     -khtml-opacity: 0.8;
 }
-.stry_srch_frm ul.tabs li a { font-size:14px; outline:none; font-family: 'Raleway-Regular'; }
+.stry_srch_frm ul.tabs li a { font-size:14px; outline:none; font-family: 'Raleway-Regular'; padding:7px 15px; display:block; }
 .stry_srch_frm ul.tabs li.all { background-color:#ffffff; width:30%; border: 1px solid #f0f0f0; border-right:none; }
 .stry_srch_frm ul.tabs li.all a { color:#000000; }
 .stry_srch_frm ul.tabs li.all.active { border-bottom:none; }

@@ -35,13 +35,29 @@ jQuery(document).ready(function(){
     jQuery('#statedropdown,#statedropdown2,#statedropdown3').change( function () {
 	var value = jQuery(this).val();
 	var id = jQuery(this).attr('id');
+	var post_ids = jQuery(this).attr('data-post-ids');
+	var tab = "";
+	var postids = "";
 	var anchor = "";
 	if (id=="statedropdown2") {
 	  anchor = "#p12";
+	  tab = "p12";
 	} else if (id=="statedropdown3"){
 	  anchor = "#postsecondary";
+	  tab = "postsecondary";
+	} else {
+	  tab = "all";
 	}
-        window.location.href = value + anchor;
+	if (post_ids!=="undefined") {
+	  postids = '<input type="text" name="post_ids" value="' + post_ids + '" />';
+	}
+        
+	var form = jQuery('<form action="' + value + '" method="post">' +
+	  '<input type="text" name="active_tab" value="' + tab + '" />' +
+	  postids +
+	  '</form>');
+	jQuery('body').append(form);
+	form.submit();
     });
 
     jQuery('#showalltopic').change( function () {
@@ -74,9 +90,10 @@ jQuery(document).ready(function(){
       // which tab is active and its associated content
       var $active, $content, $links = jQuery(this).find('a');
       
+      var active = jQuery('#active_level').val();
       // If the location.hash matches one of the links, use that as the active tab.
       // If no match is found, use the first link as the initial active tab.      
-      $active = jQuery($links.filter('[href="'+location.hash+'"]')[0] || $links.filter('.active')[0] || $links[0]);
+      $active = jQuery($links.filter('[href="#'+active+'"]')[0] || $links.filter('.active')[0] || $links[0]);
       $active.parent().addClass('active');
       $active.addClass('active');
 

@@ -755,8 +755,8 @@ function get_stories_side_nav($taxonomy=NULL, $taxonomy_name=NULL, $search_text=
 				</ul>
 			</div>
 			<?php endif; ?>
-			<input type="hidden" name="active_level" id="active_level" value="<?php echo $active_level; ?>" />
 		</div>
+		<input type="hidden" name="active_level" id="active_level" value="<?php echo $active_level; ?>" />
 		</div>    
 		
 		<?php echo get_story_search($search_text, $taxonomy, $taxonomy_name); ?>

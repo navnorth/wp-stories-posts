@@ -35,16 +35,18 @@ jQuery(document).ready(function(){
     jQuery('#statedropdown,#statedropdown2,#statedropdown3').change( function () {
 	var value = jQuery(this).val();
 	var id = jQuery(this).attr('id');
-	var post_ids = jQuery(this).attr('data-post-ids');
+	var post_ids;
 	var tab = "";
 	var postids = "";
 	var anchor = "";
 	if (id=="statedropdown2") {
 	  anchor = "#p12";
 	  tab = "p12";
+	  post_ids= jQuery(this).attr('data-post-ids');
 	} else if (id=="statedropdown3"){
 	  anchor = "#postsecondary";
 	  tab = "postsecondary";
+	  post_ids= jQuery(this).attr('data-post-ids');
 	} else {
 	  tab = "all";
 	}
@@ -52,12 +54,16 @@ jQuery(document).ready(function(){
 	  postids = '<input type="text" name="post_ids" value="' + post_ids + '" />';
 	}
         
-	var form = jQuery('<form action="' + value + '" method="post">' +
+	if (id!=="statedropdown") {
+	  var form = jQuery('<form action="' + value + '" method="post">' +
 	  '<input type="text" name="active_tab" value="' + tab + '" />' +
 	  postids +
 	  '</form>');
-	jQuery('body').append(form);
-	form.submit();
+	  jQuery('body').append(form);
+	  form.submit();
+	} else {
+	  window.location.href = value;
+	}
     });
 
     jQuery('#showalltopic').change( function () {

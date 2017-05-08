@@ -286,7 +286,7 @@ function get_latitude_longitude($address)
 	}
 }
 
-function generate_state_dropdown($id, $taxonomy, $taxonomy_name, $level = array("All")) {
+function generate_state_dropdown($id, $taxonomy, $taxonomy_name, $level = null) {
 	//Get State IDs
 	$args = array(
 			'orderby'   	=> 	'name',
@@ -294,6 +294,11 @@ function generate_state_dropdown($id, $taxonomy, $taxonomy_name, $level = array(
 			'fields'	=>	'ids',
 			'hide_empty'	=> 	false);
 	$state_ids = get_terms('state', $args);
+	
+	if ($level=="P-12")
+		$grade_level = array("Early Childhood Education","P-12");
+	else
+		$grade_level = array("Higher Education","Postsecondary");
 	
 	//Get story ids based on state and grade_level
 	$args2 = array(
@@ -304,7 +309,7 @@ function generate_state_dropdown($id, $taxonomy, $taxonomy_name, $level = array(
 				array(
 					'taxonomy' => 'grade_level',
 					'field' => 'name',
-					'terms' => $level
+					'terms' => $grade_level
 				),
 				array(
 					'taxonomy' => 'state',
@@ -323,11 +328,11 @@ function generate_state_dropdown($id, $taxonomy, $taxonomy_name, $level = array(
 	{
 		if(isset($taxonomy) && !empty($taxonomy) && $taxonomy == 'state'): $display = 'block'; else: $display = 'none'; endif;
 		$stateoption = '<div class="tglelemnt" style="display:'. $display.'">';
-		$stateoption .= '<select name="state" id="'.$id.'">';
+		$stateoption .= '<select name="state" id="'.$id.'" data-post-ids="'.json_encode($sposts).'">';
 		$stateoption .= '<option value="">Browse by State</option>';
 		foreach($states as $state)
 		{
-			$count = get_count_by_state_level($level, $state->term_id, $sposts);
+			$count = get_count_by_state_level($grade_level, $state->term_id, $sposts);
 			if(isset($taxonomy_name) && !empty($taxonomy_name) && $state->slug == $taxonomy_name):
 				$check = 'selected="selected"';
 			else:
@@ -373,7 +378,7 @@ function get_count_by_state_level($level, $state_id, $object_ids) {
 }
 
 //Story Search
-function get_stories_side_nav($taxonomy=NULL, $taxonomy_name=NULL, $search_text=NULL)
+function get_stories_side_nav($taxonomy=NULL, $taxonomy_name=NULL, $search_text=NULL, $active_level = "all")
 {
 	global $wpdb, $_filters;
 
@@ -609,7 +614,7 @@ function get_stories_side_nav($taxonomy=NULL, $taxonomy_name=NULL, $search_text=
 		<!-- P-12 Tab -->
 		<div id="p12" class="story-tab">
 			<?php if ($_filters['state']==1): ?>
-			<?php $state2option = generate_state_dropdown('statedropdown2', $taxonomy, $taxonomy_name, array("Early Childhood Education","P-12")); ?>
+			<?php $state2option = generate_state_dropdown('statedropdown2', $taxonomy, $taxonomy_name, "P-12"); ?>
 			<div class="srchtrmbxs">
 			    <ul class="cstmaccordian">
 				    <div class="cstmaccordiandv">
@@ -676,7 +681,7 @@ function get_stories_side_nav($taxonomy=NULL, $taxonomy_name=NULL, $search_text=
 		<!-- Post Secondary Tab -->
 		<div id="postsecondary" class="story-tab">
 			<?php if ($_filters['state']==1): ?>
-			<?php $state3option = generate_state_dropdown('statedropdown3', $taxonomy, $taxonomy_name, array("Higher Education","Postsecondary")); ?>
+			<?php $state3option = generate_state_dropdown('statedropdown3', $taxonomy, $taxonomy_name, "Postsecondary"); ?>
 			<div class="srchtrmbxs">
 			    <ul class="cstmaccordian">
 				    <div class="cstmaccordiandv">
@@ -739,8 +744,8 @@ function get_stories_side_nav($taxonomy=NULL, $taxonomy_name=NULL, $search_text=
 				</ul>
 			</div>
 			<?php endif; ?>
-			
 		</div>
+		<input type="hidden" name="active_level" id="active_level" value="<?php echo $active_level; ?>" />
 		</div>    
 		
 		<?php echo get_story_search($search_text, $taxonomy, $taxonomy_name); ?>

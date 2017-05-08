@@ -216,4 +216,192 @@ function is_tablet() {
     global $mobile_detect;
     return $mobile_detect->isTablet();
 }
+
+function importStories($default=false) {
+    global $wpdb;
+    require_once SCP_PATH.'Excel/reader.php';
+
+    $excl_obj = new Spreadsheet_Excel_Reader();
+    //$excl_obj->setOutputEncoding('CP1251');
+    $time = time();
+    $date = date($time);
+    
+    //Set Maximum Excution Time
+    ini_set('max_execution_time', 0);
+    ini_set('max_input_time ', -1);
+    ini_set('memory_limit ', -1);
+    set_time_limit(0);
+
+    $cnt = 0;
+    try{
+        if( isset($_FILES['stories_import']) && $_FILES['stories_import']['size'] != 0 )
+        {
+            $filename = $_FILES['stories_import']['name']."-".$date;
+
+            if ($_FILES["stories_import"]["error"] > 0)
+            {
+                $message = "Error: " . $_FILES["stories_import"]["error"] . "<br>";
+                $type = "error";
+            }
+            else
+            {
+                if (!(is_dir(SCP_PATH."upload"))){
+                        mkdir(SCP_PATH."upload",0777);
+                }
+                "Upload: " . $_FILES["stories_import"]["name"] . "<br>";
+                "Type: " . $_FILES["stories_import"]["type"] . "<br>";
+                "Size: " . ($_FILES["stories_import"]["size"] / 1024) . " kB<br>";
+                "stored in:" .move_uploaded_file($_FILES["stories_import"]["tmp_name"],SCP_PATH."upload/".$filename) ;
+            }
+            $excl_obj->read(SCP_PATH."upload/".$filename);
+        }
+                
+        $stories = $excl_obj->sheets[0];
+        for ($k =2; $k <= $stories['numRows']; $k++)
+        {
+            $project_title = "";
+            $school = "";
+            $district = "";
+            $city = "";
+            $state = "";
+            $locale = "";
+            $tag1 = "";
+            $tag2 = "";
+            $content = "";
+            $post_name = "";
+            $address = "";
+            $tags = array();
+            $keywords = "";
+            
+            /** Check first if column is set **/
+            if (isset($stories['cells'][$k][1]))
+                    $project_title          = $stories['cells'][$k][1];
+            if (isset($stories['cells'][$k][3]))
+                    $school    = $stories['cells'][$k][3];
+            if (isset($stories['cells'][$k][5]))
+                    $district    = $stories['cells'][$k][5];
+            if (isset($stories['cells'][$k][6]))
+                    $city      = $stories['cells'][$k][6];
+            if (isset($stories['cells'][$k][7]))
+                    $state     = $stories['cells'][$k][7];
+            if (isset($stories['cells'][$k][11]))
+                    $locale          = $stories['cells'][$k][11];
+            if (isset($stories['cells'][$k][13]))
+                    $tag1          = $stories['cells'][$k][13];
+            if (isset($stories['cells'][$k][14]))
+                    $tag2    = $stories['cells'][$k][14];
+
+            //Check if $project_title is set
+            if ( isset( $project_title ) ){
+                    $post_name = strtolower($project_title);
+                    $post_name = str_replace(' ','_', $post_name);
+            }
+           
+            if(!empty($locale))
+            {
+                $communities = explode(",",$locale);
+                $community_id = array();
+                for($i = 0; $i <= sizeof($communities); $i++)
+                {
+                    if(!empty($communities[$i]))
+                    {
+                        $cat = get_term_by( 'name', $communities[$i], 'characteristics' );
+                        if($cat)
+                        {
+                            $community_id[$i] = $cat->term_id;
+                        }
+                    }
+                }
+            }
+            else
+            {
+                $community_id = array();
+            }
+            
+            if (!empty($tag1) && ($tag1!=="n/a"))
+                $tags[] = $tag1;
+                
+            if (!empty($tag2) && ($tag2!=="n/a"))
+                $tags[] = $tag2;
+
+            if (!empty($tags)) {
+                $keywords = implode(",", $tags);
+            }
+            
+            if(!empty($project_title))
+            {
+                /** Get Current WP User **/
+                $user_id = get_current_user_id();
+                /** Get Current Timestamp for post_date **/
+                $cs_date = current_time('mysql');
+                
+                $post = array('post_content' => $content, 'post_name' => $post_name, 'post_title' => $project_title, 'post_status' => 'publish', 'post_type' => 'stories', 'post_author' => $user_id , 'post_date' => $cs_date, 'post_date_gmt'  => $cs_date, 'comment_status' => 'open');
+                
+                /** Set $wp_error to false to return 0 when error occurs **/
+                $post_id = wp_insert_post( $post, false );
+                
+                //Set Community Type
+                if(!empty($locale))
+                {
+                    $tax_ids = wp_set_object_terms( $post_id, $community_id, 'characteristics', true );
+                }
+                
+                // Set Tags
+                $keywords = strtolower(trim($keywords,","));
+                wp_set_post_terms(  $post_id, $keywords , 'story_tag', true );
+
+                // add school meta data
+                if(!empty($school) && ($school!=="n/a"))
+                {
+                        update_post_meta( $post_id , 'story_school' , $school);
+                }
+                
+                // add district meta data
+                if(!empty($district) && ($district!=="n/a"))
+                {
+                        update_post_meta( $post_id , 'story_district' , $district);
+                }
+
+                // add map address
+                if(!empty($city))
+                {
+                        $address = $city;
+                }
+                
+                if(!empty($state))
+                {
+                    if (strlen($address)>0)
+                        $address .= ", ". $state;
+                    else
+                        $address = $state;
+                }
+                
+                if (!empty($address)) {
+         
+                    update_post_meta($post_id, "story_mapaddress", $address);
+                    $latlong = get_latitude_longitude($address);
+                    if($latlong)
+                    {
+                        $map = explode(',' ,$latlong);
+                        $mapLatitude = $map[0];
+                        $mapLongitude = $map[1];
+                        save_metadata($post_id, $mapLatitude, $mapLongitude);
+                    }
+	    
+                }
+                
+                //saving meta fields
+                $cnt++;
+            }
+            
+        }
+    } catch(Exception $e) {
+        error_log($e->getMessage());
+    }		
+    // Log finish of import process
+    $message = sprintf(__("Successfully imported %s stories.", SCP_SLUG), $cnt);
+    $type = "success";
+    $response = array('message' => $message, 'type' => $type);
+    return $response;
+}
 ?>

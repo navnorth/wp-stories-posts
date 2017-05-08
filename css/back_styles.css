@@ -45,3 +45,22 @@
 .widget_story_selector {
     width:100%;
 }
+h2.heading, div.heading {
+    font-size: 23px;
+    font-weight: 400;
+    margin: 0;
+    padding: 9px 15px 4px 0;
+    line-height: 29px;
+}
+.import-body { width:50%; clear:both; overflow:hidden; }
+.import-row { width:100%; }
+.import-row .row-left { width: 63%; float: left; }
+.import-row .row-right { width: 35%; float: right; }
+.import-row p { margin-top:0; }
+.import-row fieldset {
+    border: 1px solid #cccccc;
+    padding-left: 10px;
+    margin-bottom: 15px;
+    padding:20px;
+}
+.alignRight { text-align:right; }

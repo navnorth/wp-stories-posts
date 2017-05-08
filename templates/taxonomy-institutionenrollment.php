@@ -8,6 +8,7 @@
  */
 get_header(); ?>
 <?php
+	$active_tab = "postsecondary";
 	global $wpdb;
 	$table = $wpdb->prefix."term_relationships";
 	$termobject = get_queried_object();
@@ -45,7 +46,7 @@ get_header(); ?>
 					if(isset($pageposts) && !empty($pageposts))
 					{?>
                         <div class="col-md-4 col-sm-12 col-xs-12 pblctn_right_sid_mtr">
-                        	<?php get_stories_side_nav($termobject->taxonomy, $termobject->slug); ?>
+                        	<?php get_stories_side_nav($termobject->taxonomy, $termobject->slug, NULL, $active_tab); ?>
                         </div>
                         <div class="col-md-8 col-sm-12 col-xs-12 pblctn_lft_sid_img_cntnr map_cntnr">
                             <div class="col-md-12 col-sm-12 col-xs-12 pblctn_right_sid_mtr">
@@ -98,7 +99,7 @@ get_header(); ?>
 					{
 						?>
                         <div class="col-md-4 col-sm-12 col-xs-12 pblctn_right_sid_mtr">
-                        	<?php get_stories_side_nav($termobject->taxonomy, $termobject->slug); ?>
+                        	<?php get_stories_side_nav($termobject->taxonomy, $termobject->slug, NULL, $active_tab); ?>
                         </div>
                         <div class="col-md-8 col-sm-12 col-xs-12 pblctn_lft_sid_img_cntnr map_cntnr">
                             <div class="col-md-12 col-sm-12 col-xs-12 pblctn_right_sid_mtr">
@@ -143,7 +144,7 @@ get_header(); ?>
 				{
 					?>
 					<div class="col-md-4 col-sm-12 col-xs-12 pblctn_right_sid_mtr">
-						 <?php get_stories_side_nav($termobject->taxonomy, $termobject->slug); ?>
+						 <?php get_stories_side_nav($termobject->taxonomy, $termobject->slug, NULL, $active_tab); ?>
 					</div>
 					<div class="col-md-8 col-sm-12 col-xs-12 pblctn_lft_sid_img_cntnr map_cntnr">
 						<div class="col-md-12 col-sm-12 col-xs-12 pblctn_right_sid_mtr">

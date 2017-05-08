@@ -376,7 +376,7 @@ article.stories .entry-meta a.read-more, article.stories .entry-meta a.read-more
 
 /** Tabs Styles **/
 .stry_srch_frm #story-tabs {  }
-.stry_srch_frm ul.tabs { width:100%; margin-bottom:0;}
+.stry_srch_frm ul.tabs { width:100%; margin-bottom:0; padding:0; }
 .stry_srch_frm ul.tabs li {
     display:inline-block;
     /*padding: 7px 15px;*/
@@ -409,6 +409,51 @@ article.stories .entry-meta a.read-more, article.stories .entry-meta a.read-more
 .stry_srch_frm .hdng_mtr.stry_browse_header { margin-bottom:15px !important; }
 /*.tglelemnt li { border: 1px solid #f0f0f0; display: inline-block; margin: 0 5px 5px 0; padding: 2px 10px; }*/
 .tglelemnt li a { font-family: 'Raleway-Regular'; color: #294179 !important; line-height: 25px; }
+.post-type-archive-stories .fusion-row > #content,
+.tax-story_tag .fusion-row > #content,
+.single-stories .fusion-row > #content,
+.tax-state .fusion-row > #content,
+.tax-grade_level .fusion-row > #content,
+.tax-characteristics .fusion-row > #content,
+.tax-districtsize .fusion-row > #content,
+.tax-program .fusion-row > #content,
+.tax-institutionenrollment .fusion-row > #content,
+.tax-institutiontype .fusion-row > #content{ width:100%; float:none; margin:0; }
+.search-icon {
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 2;
+    display: block;
+    width: 34px;
+    height: 34px;
+    line-height: 34px;
+    text-align: center;
+    border: none;
+    background: transparent url(../images/search_icn.png) no-repeat center center;
+}
+.search-wrap {
+    position: relative;
+}
+.search-wrap input[name=search_text] {
+    display: block;
+    width: 100%;
+    height: 34px;
+    padding: 6px 12px;
+    font-size: 14px;
+    line-height: 1.42857143;
+    color: #555;
+    background-color: #fff;
+    background-image: none;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+    box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+    -webkit-transition: border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;
+    -o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+    transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+}
+.single-stories .fusion-row > #content > .col-md-4.pblctn_right_sid_mtr { width:33.333333%; }
 @media screen and (max-width: 992px) {
     .stry_srch_frm { width: 100%}
     /*.pblctn_lft_sid_img_cntnr { padding-left: 0 !important}*/

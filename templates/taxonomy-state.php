@@ -8,16 +8,26 @@
  */
 get_header(); ?>
 <?php
+	$active_tab = isset($_GET['active_tab'])?$_GET['active_tab']:'all';
+	
 	global $wpdb;
 	$table = $wpdb->prefix."term_relationships";
 	$termobject = get_queried_object();
 	$term_id = $termobject->term_id;
-	$postids = $wpdb->get_results("select object_id from $table where term_taxonomy_id=".$term_id,OBJECT_K);
+	
+	if (isset($_GET['post_ids'])) {
+		$post_ids = json_decode($_GET['post_ids']);
+		$post_ids = implode(",", $post_ids);
+		$postids = $wpdb->get_results("select object_id from $table where term_taxonomy_id=".$term_id." and object_id in (".$post_ids.")",OBJECT_K);
+	}
+	else
+		$postids = $wpdb->get_results("select object_id from $table where term_taxonomy_id=".$term_id,OBJECT_K);
+	
 	if(!empty($postids))
 	{
 		$postids = array_keys($postids);
 	}
-
+	
 	$args = array('orderby' => 'term_order','order' => 'ASC','hide_empty' => true);
 	$tags = get_terms('story_tag', $args);
 	
@@ -143,7 +153,7 @@ get_header(); ?>
 				{
 					?>
 					<div class="col-md-4 col-sm-12 col-xs-12 pblctn_right_sid_mtr">
-						 <?php get_stories_side_nav($termobject->taxonomy, $termobject->slug); ?>
+						 <?php get_stories_side_nav($termobject->taxonomy, $termobject->slug, NULL, $active_tab); ?>
 					</div>
 					<div class="col-md-8 col-sm-12 col-xs-12 pblctn_lft_sid_img_cntnr map_cntnr">
 						<div class="col-md-12 col-sm-12 col-xs-12 pblctn_right_sid_mtr">
@@ -152,9 +162,9 @@ get_header(); ?>
                         <header class="tax-header">
                             <h1 class="tax-title">
                                  <?php
-				 //$post_count = count($postids);
+				 $post_count = count($postids);
 				 $term = get_term($term_id);
-				 $post_count = $term->count;
+				 //$post_count = $term->count;
 				 printf( __( 'Results: %s', SCP_SLUG ), '<i>'.$termobject->name.'</i> <span>(' .$post_count.' '.story_plural($post_count).')</span>' );
 				 ?>
                             </h1>

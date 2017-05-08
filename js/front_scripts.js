@@ -55,10 +55,11 @@ jQuery(document).ready(function(){
 	}
         
 	if (id!=="statedropdown") {
-	  var form = jQuery('<form action="' + value + '" method="post">' +
+	  var form = jQuery('<form action="' + value + '" method="get">' +
 	  '<input type="text" name="active_tab" value="' + tab + '" />' +
 	  postids +
 	  '</form>');
+	  alert(form);
 	  jQuery('body').append(form);
 	  form.submit();
 	} else {

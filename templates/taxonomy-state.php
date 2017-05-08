@@ -8,15 +8,15 @@
  */
 get_header(); ?>
 <?php
-	$active_tab = isset($_POST['active_tab'])?$_POST['active_tab']:'all';
+	$active_tab = isset($_GET['active_tab'])?$_GET['active_tab']:'all';
 	
 	global $wpdb;
 	$table = $wpdb->prefix."term_relationships";
 	$termobject = get_queried_object();
 	$term_id = $termobject->term_id;
 	
-	$post_ids = json_decode($_POST['post_ids']);
-	if (isset($_POST['post_ids'])) {
+	if (isset($_GET['post_ids'])) {
+		$post_ids = json_decode($_GET['post_ids']);
 		$post_ids = implode(",", $post_ids);
 		$postids = $wpdb->get_results("select object_id from $table where term_taxonomy_id=".$term_id." and object_id in (".$post_ids.")",OBJECT_K);
 	}

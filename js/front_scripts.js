@@ -59,7 +59,6 @@ jQuery(document).ready(function(){
 	  '<input type="text" name="active_tab" value="' + tab + '" />' +
 	  postids +
 	  '</form>');
-	  alert(form);
 	  jQuery('body').append(form);
 	  form.submit();
 	} else {

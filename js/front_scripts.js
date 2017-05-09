@@ -55,14 +55,18 @@ jQuery(document).ready(function(){
 	}
         
 	if (id!=="statedropdown") {
-	  var form = jQuery('<form action="' + value + '" method="get">' +
+	  var form = jQuery('<form action="' + value + '" method="post">' +
 	  '<input type="text" name="active_tab" value="' + tab + '" />' +
 	  postids +
 	  '</form>');
 	  jQuery('body').append(form);
 	  form.submit();
 	} else {
-	  window.location.href = value;
+	  var form = jQuery('<form action="' + value + '" method="post">' +
+	  '<input type="text" name="active_tab" value="' + tab + '" />' +
+	  '</form>');
+	  jQuery('body').append(form);
+	  form.submit();
 	}
     });
 

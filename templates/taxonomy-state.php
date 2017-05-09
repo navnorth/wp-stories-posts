@@ -8,20 +8,37 @@
  */
 get_header(); ?>
 <?php
-	$active_tab = isset($_GET['active_tab'])?$_GET['active_tab']:'all';
+global $scp_session;
+global $wpdb;
+
+	// Initialize WP_Session
+	if (!isset($scp_session))
+		$scp_session = WP_Session::get_instance();
+		
+	if (isset($_POST['active_tab'])) {
+		$scp_session['active_tab'] = isset($_POST['active_tab'])?$_POST['active_tab']:'all';
+		$active_tab = $scp_session['active_tab'];
+	} elseif (isset($scp_session['active_tab'])) {
+		$active_tab = $scp_session['active_tab'];
+	}
 	
-	global $wpdb;
+	if ($active_tab=="all")
+		unset($scp_session['post_ids']);
+	
 	$table = $wpdb->prefix."term_relationships";
 	$termobject = get_queried_object();
 	$term_id = $termobject->term_id;
 	
-	if (isset($_GET['post_ids'])) {
-		$post_ids = json_decode($_GET['post_ids']);
+	if (isset($_POST['post_ids']) || isset($scp_session['post_ids'])) {
+		if ($_POST['post_ids'])
+			$scp_session['post_ids'] = $_POST['post_ids'];
+			
+		$post_ids = json_decode($scp_session['post_ids']);
 		$post_ids = implode(",", $post_ids);
 		$postids = $wpdb->get_results("select object_id from $table where term_taxonomy_id=".$term_id." and object_id in (".$post_ids.")",OBJECT_K);
-	}
-	else
+	} else {
 		$postids = $wpdb->get_results("select object_id from $table where term_taxonomy_id=".$term_id,OBJECT_K);
+	}
 	
 	if(!empty($postids))
 	{
@@ -55,7 +72,7 @@ get_header(); ?>
 					if(isset($pageposts) && !empty($pageposts))
 					{?>
                         <div class="col-md-4 col-sm-12 col-xs-12 pblctn_right_sid_mtr">
-                        	<?php get_stories_side_nav($termobject->taxonomy, $termobject->slug); ?>
+                        	<?php get_stories_side_nav($termobject->taxonomy, $termobject->slug, NULL, $active_tab); ?>
                         </div>
                         <div class="col-md-8 col-sm-12 col-xs-12 pblctn_lft_sid_img_cntnr map_cntnr">
                             <div class="col-md-12 col-sm-12 col-xs-12 pblctn_right_sid_mtr">
@@ -108,7 +125,7 @@ get_header(); ?>
 					{
 						?>
                         <div class="col-md-4 col-sm-12 col-xs-12 pblctn_right_sid_mtr">
-                        	<?php get_stories_side_nav($termobject->taxonomy, $termobject->slug); ?>
+                        	<?php get_stories_side_nav($termobject->taxonomy, $termobject->slug, NULL, $active_tab); ?>
                         </div>
                         <div class="col-md-8 col-sm-12 col-xs-12 pblctn_lft_sid_img_cntnr map_cntnr">
                             <div class="col-md-12 col-sm-12 col-xs-12 pblctn_right_sid_mtr">

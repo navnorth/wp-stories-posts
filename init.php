@@ -98,6 +98,7 @@ function story_custom_metaboxes()
 function create_stories_metabox()
 {
 	global $post, $characteristics, $districtsize;
+	$story_team_lead 	= get_post_meta($post->ID, "story_team_lead", true);
 	$story_video 		= get_post_meta($post->ID, "story_video", true);
 	$story_video_host 	= get_post_meta($post->ID, "story_video_host", true);
 	$story_highlight 	= get_post_meta($post->ID, "story_highlight", true);
@@ -109,6 +110,12 @@ function create_stories_metabox()
 	$story_sidebar_content = get_post_meta($post->ID, "story_sidebar_content", true);
 
 	$return = '';
+		//Team Lead Metabox
+		$return .= '<div class="scp_adtnalflds">';
+			$return .= '<div class="wrprtext">Team Lead</div>';
+			$return .= '<div class="wrprfld"><input type="text" name="story_team_lead" value="'.$story_team_lead.'" /></div>';
+		$return .= '</div>';
+		
 		$return .= '<div class="scp_adtnalflds">';
 			$return .= '<div class="wrprtext">Video ID</div>';
 			$return .= '<div class="wrprfld"><input type="text" name="story_video" value="'.$story_video.'" /></div>';
@@ -173,6 +180,11 @@ add_action('save_post', 'save_askquestion_metabox');
 function save_askquestion_metabox()
 {
 	global $post;
+	
+	if(isset($_POST['story_team_lead']))
+	{
+		update_post_meta($post->ID, "story_team_lead", $_POST['story_team_lead']);
+	}
 
 	if(isset($_POST['story_video']))
 	{

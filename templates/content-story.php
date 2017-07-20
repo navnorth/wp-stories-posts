@@ -183,6 +183,7 @@ function add_vimeo_script(){
 	    $institutionenrollment = get_the_terms( $post->ID, "institutionenrollment" );
 	    $institutiontype = get_the_terms( $post->ID, "institutiontype" );
 
+	    $story_team_lead = get_post_meta($post->ID, "story_team_lead", true);
             $story_highlight = get_post_meta($post->ID, "story_highlight", true);
             $story_district = get_post_meta($post->ID, "story_district", true);
             $story_school = get_post_meta($post->ID, "story_school", true);
@@ -390,6 +391,11 @@ function add_vimeo_script(){
             <?php if(isset($programurl) && !empty($programurl)) : ?>
                  <p class="margn_none">
                      <b><?php _e( 'Program :' , SCP_SLUG ); ?></b> <?php echo $programurl; ?>
+                 </p>
+            <?php endif; ?>
+	    <?php if(isset($story_team_lead) && !empty($story_team_lead)) : ?>
+                 <p class="margn_none">
+                     <b><?php _e( 'Team Lead :' , SCP_SLUG ); ?></b> <?php echo $story_team_lead; ?>
                  </p>
             <?php endif; ?>
             <?php if(isset($tagurl) && !empty($tagurl)) : ?>

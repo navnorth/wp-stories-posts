@@ -6,6 +6,7 @@
  * @subpackage Twenty_Twelve
  * @since Twenty Twelve 1.0
  */
+$enable_sidebar = get_option('enable_sidebar');
 get_header(); ?>
 
 	<div id="content" class="row">
@@ -24,11 +25,12 @@ get_header(); ?>
                     $tags = get_terms('story_tag', $args);
 
 					if ( $postquery->have_posts() ) ?>
+						<?php if ($enable_sidebar) { ?>
 						<div class="col-md-4 col-sm-12 col-xs-12 pblctn_right_sid_mtr">
 							 <?php get_stories_side_nav(); ?>
 						</div>
-
-						<div class="col-md-8 col-sm-12 col-xs-12 pblctn_lft_sid_img_cntnr map_cntnr">
+						<?php } ?>
+						<div class="<?php if ($enable_sidebar) { ?>col-md-8<?php } else { ?>col-md-12<?php } ?> col-sm-12 col-xs-12 pblctn_lft_sid_img_cntnr map_cntnr">
 							<div class="col-md-12 col-sm-12 col-xs-12 pblctn_right_sid_mtr">
 								 <?php get_storiesmap();?>
 							</div>
@@ -199,11 +201,12 @@ get_header(); ?>
 
 								if ($stories->have_posts()) {
 										?>
+										<?php if ($enable_sidebar) { ?>
 										<div class="col-md-4 col-sm-12 col-xs-12 pblctn_right_sid_mtr">
 												<?php get_stories_side_nav(null, null, $search_text); ?>
 										       </div>
-
-										       <div class="col-md-8 col-sm-12 col-xs-12 pblctn_lft_sid_img_cntnr map_cntnr">
+										<?php } ?>
+										       <div class="<?php if ($enable_sidebar) { ?>col-md-8<?php } else { ?>col-md-12<?php } ?> col-sm-12 col-xs-12 pblctn_lft_sid_img_cntnr map_cntnr">
 											       <div class="col-md-12 col-sm-12 col-xs-12 pblctn_right_sid_mtr">
 													<?php get_storiesmap($unique);?>
 											       </div>
@@ -424,15 +427,16 @@ get_header(); ?>
 
 				if ( $postquery->have_posts() )
 				{ ?>
+				<?php if ($enable_sidebar) { ?>
 					<div class="col-md-4 col-sm-12 col-xs-12 pblctn_right_sid_mtr">
 						 <?php get_stories_side_nav(); ?>
 					</div>
-
-					<div class="col-md-8 col-sm-12 col-xs-12 pblctn_lft_sid_img_cntnr map_cntnr">
+				<?php } ?>
+					<div class="<?php if ($enable_sidebar) { ?>col-md-8<?php } else { ?>col-md-12<?php } ?> col-sm-12 col-xs-12 pblctn_lft_sid_img_cntnr map_cntnr">
 						<div class="col-md-12 col-sm-12 col-xs-12 pblctn_right_sid_mtr">
 							 <?php get_storiesmap();?>
-                        </div>
-                        <!-- Slider -->
+						</div>
+				<!-- Slider -->
 						<div class="slidermainwrpr">
 							<div class="slidersubwrpr">
                         		<ul class="bxslider">

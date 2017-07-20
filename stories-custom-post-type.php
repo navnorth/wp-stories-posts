@@ -769,6 +769,20 @@ function setup_settings_form() {
 				'description' => __('displays external embedding on the Share This widget', SCP_SLUG)
 			)
 			   );
+	
+	/* Enable Sidebar */
+	add_settings_field(
+			'enable_sidebar',
+			__( 'Enable left sidebar?' , SCP_SLUG ),
+			'setup_settings_field',
+			'stories-settings-page',
+			'stories-settings-section',
+			array(
+				'uid' => 'enable_sidebar',
+				'type' => 'checkbox',
+				'description' => __('enable left sidebar on stories main page', SCP_SLUG)
+			)
+			   );
 
 	register_setting( 'stories-settings-section' , 'load_bootstrap' );
 	register_setting( 'stories-settings-section' , 'load_font_awesome' );
@@ -780,6 +794,7 @@ function setup_settings_form() {
 	register_setting( 'stories-settings-section' , 'enable_institution_enrollment' );
 	register_setting( 'stories-settings-section' , 'enable_institution_type' );
 	register_setting( 'stories-settings-section' , 'enable_embed' );
+	register_setting( 'stories-settings-section' , 'enable_sidebar' );
 }
 
 function first_section_callback() {

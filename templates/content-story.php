@@ -184,6 +184,7 @@ function add_vimeo_script(){
 	    $institutiontype = get_the_terms( $post->ID, "institutiontype" );
 
 	    $story_team_lead = get_post_meta($post->ID, "story_team_lead", true);
+	    $story_logic_model = get_post_meta($post->ID, "story_logic_model", true);
             $story_highlight = get_post_meta($post->ID, "story_highlight", true);
             $story_district = get_post_meta($post->ID, "story_district", true);
             $story_school = get_post_meta($post->ID, "story_school", true);
@@ -396,6 +397,11 @@ function add_vimeo_script(){
 	    <?php if(isset($story_team_lead) && !empty($story_team_lead)) : ?>
                  <p class="margn_none">
                      <b><?php _e( 'Team Lead :' , SCP_SLUG ); ?></b> <?php echo $story_team_lead; ?>
+                 </p>
+            <?php endif; ?>
+	    <?php if(isset($story_logic_model) && !empty($story_logic_model)) : ?>
+                 <p class="margn_none">
+                     <b><?php _e( 'Logic Model :' , SCP_SLUG ); ?></b> <a href="<?php echo esc_url($story_logic_model); ?>"><i class="fa fa-file-pdf-o" aria-hidden="true"></i></a>
                  </p>
             <?php endif; ?>
             <?php if(isset($tagurl) && !empty($tagurl)) : ?>

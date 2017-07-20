@@ -99,6 +99,7 @@ function create_stories_metabox()
 {
 	global $post, $characteristics, $districtsize;
 	$story_team_lead 	= get_post_meta($post->ID, "story_team_lead", true);
+	$story_logic_model 	= get_post_meta($post->ID, "story_logic_model", true);
 	$story_video 		= get_post_meta($post->ID, "story_video", true);
 	$story_video_host 	= get_post_meta($post->ID, "story_video_host", true);
 	$story_highlight 	= get_post_meta($post->ID, "story_highlight", true);
@@ -114,6 +115,12 @@ function create_stories_metabox()
 		$return .= '<div class="scp_adtnalflds">';
 			$return .= '<div class="wrprtext">Team Lead</div>';
 			$return .= '<div class="wrprfld"><input type="text" name="story_team_lead" value="'.$story_team_lead.'" /></div>';
+		$return .= '</div>';
+		
+		//Logic Model Metabox
+		$return .= '<div class="scp_adtnalflds">';
+			$return .= '<div class="wrprtext">Logic Model</div>';
+			$return .= '<div class="wrprfld"><input type="text" name="story_logic_model" value="'.$story_logic_model.'" /></div>';
 		$return .= '</div>';
 		
 		$return .= '<div class="scp_adtnalflds">';
@@ -184,6 +191,11 @@ function save_askquestion_metabox()
 	if(isset($_POST['story_team_lead']))
 	{
 		update_post_meta($post->ID, "story_team_lead", $_POST['story_team_lead']);
+	}
+	
+	if(isset($_POST['story_logic_model']))
+	{
+		update_post_meta($post->ID, "story_logic_model", $_POST['story_logic_model']);
 	}
 
 	if(isset($_POST['story_video']))

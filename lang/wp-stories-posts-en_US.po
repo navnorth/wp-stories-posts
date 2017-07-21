@@ -52,6 +52,10 @@ msgstr ""
 msgid "More info"
 msgstr ""
 
+#: init.php:9
+msgid "Stories"
+msgstr "Profiles"
+
 #: init.php:38
 msgid "Search "
 msgstr ""

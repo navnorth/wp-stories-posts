@@ -130,11 +130,11 @@ msgstr ""
 
 #: init.php:386 stories-custom-post-type.php:626
 msgid "Stories of EdTech Innovation"
-msgstr ""
+msgstr "Profiles of TeachToLead"
 
 #: init.php:391
 msgid "Use this tool to browse stories of innovation happening in schools across the nation. By sharing these stories, we hope to connect districts, schools, and educators trying similar things so that they can learn from each other's experiences."
-msgstr ""
+msgstr "Use this tool to browse profiles of innovation happening in schools across the nation. By sharing these profiles, we hope to connect districts, schools, and educators trying similar things so that they can learn from each other's experiences."
 
 #: stories-custom-post-type.php:502 stories-custom-post-type.php:514
 msgid "Settings"
@@ -170,7 +170,7 @@ msgstr ""
 
 #: stories-custom-post-type.php:650
 msgid "Stories: "
-msgstr ""
+msgstr "Profiles:"
 
 #: templates/archive-404.php:37
 msgid "Nothing Found"
@@ -197,7 +197,7 @@ msgstr ""
 
 #: templates/archive-stories.php:276
 msgid "Featured Story:"
-msgstr ""
+msgstr "Featured Profile:"
 
 #: templates/archive-stories.php:302
 msgid "Read More"
@@ -205,7 +205,7 @@ msgstr ""
 
 #: templates/content-story.php:21
 msgid "Back to Stories"
-msgstr ""
+msgstr "Back to Profiles"
 
 #: templates/content-story.php:25
 msgid "Back to Results"
@@ -213,11 +213,11 @@ msgstr ""
 
 #: templates/content-story.php:138
 msgid "Share this story"
-msgstr ""
+msgstr "Share this profile"
 
 #: templates/content-story.php:225
 msgid "Story Snapshot"
-msgstr ""
+msgstr "Profile Snapshot"
 
 #: templates/content-story.php:228
 msgid "School :"
@@ -249,7 +249,7 @@ msgstr ""
 
 #: templates/content-story.php:292
 msgid "Related Stories"
-msgstr ""
+msgstr "Related Profiles"
 
 #: templates/content-substory.php:105
 msgid "Topic"

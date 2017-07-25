@@ -46,15 +46,47 @@ msgstr ""
 
 #: includes/interface.php:196 stories-custom-post-type.php:501
 msgid "Stories Custom Post Type Settings"
-msgstr ""
+msgstr "Profiles Custom Post Type Settings"
 
 #: includes/interface.php:207
 msgid "More info"
 msgstr ""
 
-#: init.php:9
+#: init.php:9 init.php:19 init.php:901
 msgid "Stories"
 msgstr "Profiles"
+
+#: init.php:10 init.php:903
+msgid "Story"
+msgstr "Profile"
+
+#: init.php:12
+msgid "Add New Story"
+msgstr "Add New Profile"
+
+#: init.php:13
+msgid "Edit Story"
+msgstr "Edit Profile"
+
+#: init.php:14
+msgid "New Story"
+msgstr "New Profile"
+
+#: init.php:15
+msgid "View Story"
+msgstr "View Profile"
+
+#: init.php:16
+msgid "Search Stories"
+msgstr "Search Profiles"
+
+#: init.php:17
+msgid "No stories found"
+msgstr "No profiles found"
+
+#: init.php:18
+msgid "No stories found in Trash"
+msgstr "No profiles found in Trash"
 
 #: init.php:38
 msgid "Search "
@@ -139,6 +171,14 @@ msgstr "Profiles of TeachToLead"
 #: init.php:391
 msgid "Use this tool to browse stories of innovation happening in schools across the nation. By sharing these stories, we hope to connect districts, schools, and educators trying similar things so that they can learn from each other's experiences."
 msgstr "Use this tool to browse profiles of innovation happening in schools across the nation. By sharing these profiles, we hope to connect districts, schools, and educators trying similar things so that they can learn from each other's experiences."
+
+#: init.php:566
+msgid "Browse Stories"
+msgstr "Browse Profiles"
+
+#: init.php:779
+msgid "Browse All Stories"
+msgstr "Browse All Profiles"
 
 #: stories-custom-post-type.php:502 stories-custom-post-type.php:514
 msgid "Settings"
@@ -266,3 +306,7 @@ msgstr ""
 #: templates/taxonomy-characteristics.php:129 templates/taxonomy-districtsize.php:129 templates/taxonomy-grade_level.php:129 templates/taxonomy-program.php:129 templates/taxonomy-state.php:129 templates/taxonomy-story_tag.php:129
 msgid "Sorry, but nothing matched your search criteria. Please try again with some different keywords."
 msgstr ""
+
+#: includes/widgets.php:11
+msgid "Stories: Recent"
+msgstr "Profiles: Recent"

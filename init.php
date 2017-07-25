@@ -5,8 +5,21 @@ add_action( 'init', 'create_managment_taxonomies');
 // create taxonomies, for the post type "ask_question"
 function create_managment_taxonomies()
 {
+	$labels =  array( 
+            'name' => __( 'Stories', SCP_SLUG),
+            'singular_name' => __( 'Story',  SCP_SLUG ),
+            'add_new_item' => __( 'Add New Story', SCP_SLUG ),
+            'edit_item' => __( 'Edit Story',  SCP_SLUG ),
+            'new_item' => __( 'New Story', SCP_SLUG ),
+            'view_item' => __( 'View Story',  SCP_SLUG ),
+            'search_items' => __( 'Search Stories',  SCP_SLUG ),
+            'not_found' => __( 'No stories found',  SCP_SLUG ),
+            'not_found_in_trash' => __( 'No stories found in Trash',  SCP_SLUG ),
+            'menu_name' => __( 'Stories',  SCP_SLUG ),
+        );
+	
 	$args = array(
-		'labels'             => array('name' =>  _x( 'Stories', 'post type general name', SCP_SLUG )),
+		'labels'             => $labels,
 		'public'             => true,
 		'publicly_queryable' => true,
 		'show_ui'            => true,
@@ -563,7 +576,7 @@ function get_stories_side_nav($taxonomy=NULL, $taxonomy_name=NULL, $search_text=
             	<?php _e( "Use this tool to browse stories of innovation happening in schools across the nation. By sharing these stories, we hope to connect districts, schools, and educators trying similar things so that they can learn from each other's experiences.", SCP_SLUG); ?>
             </p>
 
-            <h4 class="hdng_mtr brdr_mrgn_none stry_browse_header">Browse Stories</h4>
+            <h4 class="hdng_mtr brdr_mrgn_none stry_browse_header"><?php _e( "Browse Stories", SCP_SLUG); ?></h4>
 	    <div id="story-tabs">
 	<?php
 		//Define array $tabs
@@ -776,7 +789,7 @@ function get_stories_side_nav($taxonomy=NULL, $taxonomy_name=NULL, $search_text=
 		<?php echo get_top_topics_nav($taxonomy, $taxonomy_name) ?>
 
 		<div class="showallstories">
-		    <a class="btn_dwnld" href="<?php echo site_url();?>/stories/?action=showall">Browse All Stories</a>
+		    <a class="btn_dwnld" href="<?php echo site_url();?>/stories/?action=showall"><?php _e( "Browse All Stories", SCP_SLUG); ?></a>
 		</div>
 
         </aside>
@@ -898,9 +911,9 @@ function load_story_template( $_template_file, $require_once = true )
 function story_plural( $count = null )
 {
 	if (!empty($count) && ($count > 1))
-		return 'Stories';
+		return __('Stories', SCP_SLUG);
 	else
-		return 'Story';
+		return __('Story', SCP_SLUG);
 }
 
 function display_story_content($post_id, $limit = 200) {

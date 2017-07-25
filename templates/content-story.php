@@ -401,7 +401,7 @@ function add_vimeo_script(){
             <?php endif; ?>
 	    <?php if(isset($story_logic_model) && !empty($story_logic_model)) : ?>
                  <p class="margn_none">
-                     <b><?php _e( 'Logic Model :' , SCP_SLUG ); ?></b> <a href="<?php echo esc_url($story_logic_model); ?>"><i class="fa fa-file-pdf-o" aria-hidden="true"></i></a>
+                     <b><?php _e( 'Logic Model :' , SCP_SLUG ); ?></b> <a href="<?php echo esc_url($story_logic_model); ?>" target="_blank"><i class="fa fa-file-pdf-o" aria-hidden="true"></i></a>
                  </p>
             <?php endif; ?>
             <?php if(isset($tagurl) && !empty($tagurl)) : ?>

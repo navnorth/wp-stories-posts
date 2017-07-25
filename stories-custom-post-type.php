@@ -612,34 +612,41 @@ add_action( 'admin_menu' , 'story_settings_menu', 100 );
 function story_settings_menu() {
 	global $submenu;
 	
+	$post_type = "stories";
+	
 	//Enable/Disable Level submenu
 	$enable_level = get_option('enable_grade_level');
 	if (!($enable_level)){
 		unset($submenu['edit.php?post_type=stories'][17]);
+		remove_meta_box('grade_leveldiv',$post_type,'side');
 	}
 	
 	//Enable/Disable Community Type
 	$enable_community_type = get_option('enable_characteristics');
 	if (!($enable_community_type)){
 		unset($submenu['edit.php?post_type=stories'][18]);
+		remove_meta_box('characteristicsdiv',$post_type,'side');
 	}
 	
 	//Enable/Disable District Enrollment
 	$enable_district_enrollment = get_option('enable_district_size');
 	if (!($enable_district_enrollment)){
 		unset($submenu['edit.php?post_type=stories'][19]);
+		remove_meta_box('districtsizediv',$post_type,'side');
 	}
 	
 	//Enable/Disable Institution Enrollment
 	$enable_institution_enrollment = get_option('enable_institution_enrollment');
 	if (!($enable_institution_enrollment)){
 		unset($submenu['edit.php?post_type=stories'][20]);
+		remove_meta_box('institutionenrollmentdiv',$post_type,'side');
 	}
 	
 	//Enable/Disable Institution Type
 	$enable_institution_type = get_option('enable_institution_type');
 	if (!($enable_institution_type)){
 		unset($submenu['edit.php?post_type=stories'][21]);
+		remove_meta_box('institutiontypediv',$post_type,'side');
 	}
 	
 	add_submenu_page(

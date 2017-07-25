@@ -610,6 +610,38 @@ function tips_function($attr, $content=NULL)
  **/
 add_action( 'admin_menu' , 'story_settings_menu', 100 );
 function story_settings_menu() {
+	global $submenu;
+	
+	//Enable/Disable Level submenu
+	$enable_level = get_option('enable_grade_level');
+	if (!($enable_level)){
+		unset($submenu['edit.php?post_type=stories'][17]);
+	}
+	
+	//Enable/Disable Community Type
+	$enable_community_type = get_option('enable_characteristics');
+	if (!($enable_community_type)){
+		unset($submenu['edit.php?post_type=stories'][18]);
+	}
+	
+	//Enable/Disable District Enrollment
+	$enable_district_enrollment = get_option('enable_district_size');
+	if (!($enable_district_enrollment)){
+		unset($submenu['edit.php?post_type=stories'][19]);
+	}
+	
+	//Enable/Disable Institution Enrollment
+	$enable_institution_enrollment = get_option('enable_institution_enrollment');
+	if (!($enable_institution_enrollment)){
+		unset($submenu['edit.php?post_type=stories'][20]);
+	}
+	
+	//Enable/Disable Institution Type
+	$enable_institution_type = get_option('enable_institution_type');
+	if (!($enable_institution_type)){
+		unset($submenu['edit.php?post_type=stories'][21]);
+	}
+	
 	add_submenu_page(
 			 'edit.php?post_type=stories',
 			 __( 'Stories Custom Post Type Settings' , SCP_SLUG ),

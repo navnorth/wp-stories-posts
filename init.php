@@ -5,6 +5,7 @@ add_action( 'init', 'create_managment_taxonomies');
 // create taxonomies, for the post type "ask_question"
 function create_managment_taxonomies()
 {
+	
 	$labels =  array( 
             'name' => __( 'Stories', SCP_SLUG),
             'singular_name' => __( 'Story',  SCP_SLUG ),
@@ -36,7 +37,7 @@ function create_managment_taxonomies()
 	register_post_type( 'stories', $args );
 
 	$texonomy_array = array(
-						'program' => 'Program',
+						'program' => 'Program', SCP_SLUG,
 						'state' => 'State',
 						'grade_level' => 'Level',
 						'characteristics' => 'Community Type',
@@ -46,20 +47,36 @@ function create_managment_taxonomies()
 
 	foreach($texonomy_array as $texonomy_key => $texonomy_value)
 	{
+		if ($texonomy_key=="program"){
+			$labels = array(
+				'name'                       => __( 'Program', SCP_SLUG ),
+				'singular_name'              => __( 'Program', SCP_SLUG ),
+				'search_items'               => __( 'Search Programs', SCP_SLUG ),
+				'all_items'                  => __( 'All Programs', SCP_SLUG ),
+				'parent_item'                => __( 'Parent Program', SCP_SLUG ),
+				'parent_item_colon'          => __( 'Parent Program', SCP_SLUG ),
+				'edit_item'                  => __( 'Edit Program', SCP_SLUG ),
+				'update_item'                => __( 'Update Program', SCP_SLUG ),
+				'add_new_item'               => __( 'Add New Program', SCP_SLUG ),
+				'new_item_name'              => __( 'New Program Name', SCP_SLUG ),
+				'menu_name'                  => __( 'Program', SCP_SLUG ),
+			);
+		} else {
 			// Add new taxonomy, hierarchical (like Category)
 			$labels = array(
-				'name'                       => _x( $texonomy_value, 'taxonomy general name' ),
-				'singular_name'              => _x( $texonomy_value, 'taxonomy singular name' ),
-				'search_items'               => __( 'Search '.$texonomy_value ),
-				'all_items'                  => __( 'All '.$texonomy_value ),
-				'parent_item'                => __( 'Parent '.$texonomy_value ),
-				'parent_item_colon'          => __( 'Parent '.$texonomy_value ),
+				'name'                       => __( $texonomy_value, SCP_SLUG ),
+				'singular_name'              => __( $texonomy_value, SCP_SLUG ),
+				'search_items'               => __( 'Search '.$texonomy_value, SCP_SLUG ),
+				'all_items'                  => __( 'All '.$texonomy_value, SCP_SLUG ),
+				'parent_item'                => __( 'Parent '.$texonomy_value, SCP_SLUG ),
+				'parent_item_colon'          => __( 'Parent '.$texonomy_value, SCP_SLUG ),
 				'edit_item'                  => __( 'Edit '.$texonomy_value ),
 				'update_item'                => __( 'Update '.$texonomy_value ),
 				'add_new_item'               => __( 'Add New '.$texonomy_value ),
 				'new_item_name'              => __( 'New '.$texonomy_value.' Name' ),
 				'menu_name'                  => __( $texonomy_value ),
 			);
+		}
 			$args = array(
 				'hierarchical'          => true,
 				'labels'                => $labels,

@@ -116,6 +116,38 @@ msgstr ""
 msgid "New "
 msgstr ""
 
+#: init.php:52 init.php:53 init.php:62
+msgid "Program"
+msgstr "Summit"
+
+#: init.php:54
+msgid "Search Programs"
+msgstr "Search Summits"
+
+#: init.php:55
+msgid "All Programs"
+msgstr "All Summits"
+
+#: init.php:56 init.php:56
+msgid "Parent Program"
+msgstr "Parent Summit"
+
+#: init.php:58
+msgid "Edit Program"
+msgstr "Edit Summit"
+
+#: init.php:59
+msgid "Update Program"
+msgstr "Update Summit"
+
+#: init.php:60
+msgid "Add New Program"
+msgstr "Add New Summit"
+
+#: init.php:61
+msgid "New Program Name"
+msgstr "New Summit Name"
+
 #: init.php:62
 msgid "Search Tags"
 msgstr ""
@@ -285,7 +317,7 @@ msgstr ""
 
 #: templates/content-story.php:258
 msgid "Program :"
-msgstr ""
+msgstr "Summit :"
 
 #: templates/content-story.php:263
 msgid "Related Tags :"

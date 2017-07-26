@@ -367,7 +367,7 @@ function add_vimeo_script(){
                      <b><?php _e( 'State :' , SCP_SLUG ); ?></b> <?php echo $stateurl; ?>
                  </p>
             <?php endif; ?>
-            <?php if(isset($gradeurl) && !empty($gradeurl)) : ?>
+            <?php if(isset($gradeurl) && !empty($gradeurl) && $enable_level) : ?>
                  <p class="margn_none">
                      <b><?php _e( 'Level :' , SCP_SLUG ); ?></b> <?php echo $gradeurl; ?>
                  </p>

@@ -321,11 +321,11 @@ msgstr "Summit :"
 
 #: templates/content-story.php:263
 msgid "Related Tags :"
-msgstr ""
+msgstr "Topics:"
 
 #: templates/content-story.php:292
 msgid "Related Stories"
-msgstr "Related Profiles"
+msgstr "Related Projects"
 
 #: templates/content-substory.php:105
 msgid "Topic"

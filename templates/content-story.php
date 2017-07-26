@@ -309,7 +309,7 @@ function add_vimeo_script(){
 
         <div class="col-md-12 col-sm-12 col-xs-12">
             <div class="pblctn_box"><span class="socl_icns fa-stack"><i class="fa fa-star "></i></span></div>
-            <p class="rght_sid_wdgt_hedng"><?php _e( 'Story Snapshot' , SCP_SLUG); ?> </p>
+            <p class="rght_sid_wdgt_hedng hidden"><?php _e( 'Story Snapshot' , SCP_SLUG); ?> </p>
 	    <?php
 	    
 	    $final_level = "P-12";
@@ -329,6 +329,11 @@ function add_vimeo_script(){
 		    echo '</p>';
 	    }
 	    ?>
+	    <?php if(isset($programurl) && !empty($programurl)) : ?>
+                 <p class="margn_none">
+                     <b><?php _e( 'Program :' , SCP_SLUG ); ?></b> <?php echo $programurl; ?>
+                 </p>
+            <?php endif; ?>
 	    <?php if ($final_level=="P-12") : ?>
 		<?php if(isset($story_school) && !empty($story_school)) : ?>
 		     <p class="margn_none">
@@ -395,11 +400,6 @@ function add_vimeo_script(){
 		     </p>
 		<?php endif; ?>
 	    <?php endif; ?>
-            <?php if(isset($programurl) && !empty($programurl)) : ?>
-                 <p class="margn_none">
-                     <b><?php _e( 'Program :' , SCP_SLUG ); ?></b> <?php echo $programurl; ?>
-                 </p>
-            <?php endif; ?>
 	    <?php if(isset($story_team_lead) && !empty($story_team_lead)) : ?>
                  <p class="margn_none">
                      <b><?php _e( 'Team Lead :' , SCP_SLUG ); ?></b> <?php echo $story_team_lead; ?>
@@ -441,7 +441,7 @@ function add_vimeo_script(){
 
             <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="pblctn_box"><span class="socl_icns fa-stack"><i class="fa fa-star "></i></span></div>
-                <p class="rght_sid_wdgt_hedng"><?php _e( 'Related Stories' , SCP_SLUG ); ?></p>
+                <p class="rght_sid_wdgt_hedng uppercase"><?php _e( 'Related Stories' , SCP_SLUG ); ?></p>
                 <?php
                     foreach( $stories as $story)
                     {

@@ -30,7 +30,7 @@ function add_vimeo_script(){
 <style type="text/css">
     .fusion-page-title-bar { background-image:url(<?php echo $img_url; ?>); }
 </style>
-<div id="content" class="col-md-4 col-sm-12 col-xs-12 pblctn_right_sid_mtr">
+<div id="content" class="col-md-5 col-sm-12 col-xs-12 pblctn_right_sid_mtr">
     <div>
         <?php
             $programs = get_the_terms( $post->ID, "program" );
@@ -313,9 +313,6 @@ function add_vimeo_script(){
             <?php endif; ?>
 	    
 	    <?php
-	    if ( function_exists( 'avada_render_social_sharing' ) ) {
-		avada_render_social_sharing();
-	    }
 	    $sharing_shortcode = shortcode_exists('fusion_sharing');
 	    if ($sharing_shortcode)
 		echo do_shortcode('[fusion_sharing tagline="SHARE THIS PROJECT:" tagline_color="" title="" link="" description="" pinterest_image="" icons_boxed="yes" icons_boxed_radius="4px" color_type="brand" box_colors="" icon_colors="" tooltip_placement="" backgroundcolor="" class="" id=""][/fusion_sharing]');
@@ -323,7 +320,7 @@ function add_vimeo_script(){
     </div>
 </div>
 
-<div class="col-md-8 col-sm-12 col-xs-12 pblctn_lft_sid_img_cntnr">
+<div class="col-md-7 col-sm-12 col-xs-12 pblctn_lft_sid_img_cntnr">
     <div class="col-md-12 pblctn_paramtr padding_left">
         <h2><?php
 	    //if (!(title_can_be_hidden()))

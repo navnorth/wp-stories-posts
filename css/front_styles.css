@@ -464,6 +464,7 @@ article.stories .entry-meta a.read-more, article.stories .entry-meta a.read-more
     transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
 }
 .single-stories .fusion-row > #content > .col-md-4.pblctn_right_sid_mtr { width:33.333333%; }
+.single-stories .fusion-row > #content > .col-md-5.pblctn_right_sid_mtr { width:41.66666667%; }
 .hidden { display:none; }
 .post-type-archive-stories h1.entry-title { text-transform:uppercase; }
 @media screen and (max-width: 992px) {

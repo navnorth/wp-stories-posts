@@ -311,6 +311,12 @@ function add_vimeo_script(){
                 ?>
             </div>
             <?php endif; ?>
+	    
+	    <?php
+	    if ( function_exists( 'avada_render_social_sharing' ) ) {
+		avada_render_social_sharing();
+	    }
+	    ?>
     </div>
 </div>
 

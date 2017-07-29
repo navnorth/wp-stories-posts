@@ -316,6 +316,9 @@ function add_vimeo_script(){
 	    if ( function_exists( 'avada_render_social_sharing' ) ) {
 		avada_render_social_sharing();
 	    }
+	    $sharing_shortcode = shortcode_exists('fusion_sharing');
+	    if ($sharing_shortcode)
+		echo do_shortcode('[fusion_sharing tagline="SHARE THIS PROJECT:" tagline_color="" title="" link="" description="" pinterest_image="" icons_boxed="yes" icons_boxed_radius="4px" color_type="brand" box_colors="" icon_colors="" tooltip_placement="" backgroundcolor="" class="" id=""][/fusion_sharing]');
 	    ?>
     </div>
 </div>

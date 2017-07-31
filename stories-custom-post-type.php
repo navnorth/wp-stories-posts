@@ -420,7 +420,13 @@ function get_storiesmap($pageposts=NULL)
 									$longitude = $story->longitude;
 									$image = $story->image;
 									$tags = get_the_terms( $story->postid, "story_tag" );
+									$team_lead = get_post_meta($story->postid, "story_team_lead", true);
+									$summits = get_the_terms( $story->postid, "program" );
+									$logic_model = get_post_meta($story->postid, "story_logic_model", true);
 									$idea_tags = "";
+									$lead_tags = "";
+									$summit_tags = "";
+									$logic_tags = "";
 									
 									//Idea Tags
 									if(isset($tags) && !empty($tags)) {
@@ -433,19 +439,42 @@ function get_storiesmap($pageposts=NULL)
 										    $tag_url .= '<a target="_blank" href="'. $url .'">'.$tag->name.'</a>, ';
 										}
 										$tag_url = trim($tag_url, ', ');
-										$idea_tags = "<div><b>Idea Tags:</b> ".$tag_url."</div>";
+										$idea_tags = '<div class="meta"><b>Idea Tags:</b> '.$tag_url.'</div>';
+									}
+									
+									//Team Lead
+									if(isset($team_lead) && !empty($team_lead)){
+										$lead_tags = '<div class="meta"><b>Team Lead:</b> '.$team_lead.'</div>';
+									}
+									
+									//Summit
+									if(isset($summits) && !empty($summits))
+									{
+									    $summiturl = '';
+									    foreach($summits as $summit)
+									    {
+										$url = get_term_link($summit->term_id, $summit->taxonomy);
+										$summiturl .= '<a target="_blank" href="'. $url .'">'.$summit->name.'</a>, ';
+									    }
+									    $summiturl = trim($summiturl, ', ');
+									    $summit_tags = '<div class="meta"><b>Summit:</b> '.$summiturl.'</div>';
+									}
+									
+									//Logic Model
+									if(isset($logic_model) && !empty($logic_model)) {
+										$logic_tags = '<div class="meta"><b>Logic Model:</b> <a href="'.$logic_model.'" target="_blank"><i class="fa fa-file-pdf-o" aria-hidden="true"></i></a></div>';
 									}
 									
 									if (has_post_thumbnail($story->postid)) {
 										$image = get_the_post_thumbnail_url($story->postid, 'thumbnail');
 									}
-									var_dump($story->post_excerpt);
+									
 									$content = $story->post_excerpt ? $story->post_excerpt : $story->content;
 									$link = get_the_permalink($story->postid)."?back=".urlencode($_SERVER['REQUEST_URI']);
 
 									if(!empty($content))
 									{
-										$content = substr(addslashes($content), 0 ,95)."... <a href=$link>Read More</a>";
+										$content = substr(addslashes($content), 0 ,95)."...";
 									}
 
 									$district = get_post_meta($story->postid,"story_district",true);
@@ -492,11 +521,12 @@ function get_storiesmap($pageposts=NULL)
 									$district = trim(addslashes($district));
 									$title = addslashes($title);
 									$content = addslashes($content);
+									$linkRow = '<div class="meta"><a href="$link">Read More</a></div>';
 									if ($story_status == 'publish') {
 										if($image) {
-											echo "['<div class=info tabindex=0><h4><a href=$link>$title</a></h4><div class=subinfo><p><b>$district</b>, <b>$stateurl</b></p></div><div class=popupcntnr><img src=$image alt=\"Story Thumbnail\">$idea_tags$content</div></div>', $latitude, $longitude, '$title - $story->postid', '$pincolor'],";
+											echo "['<div class=info tabindex=0><h4><a href=$link>$title</a></h4><div class=subinfo><p><b>$district</b>, <b>$stateurl</b></p></div><div class=popupcntnr><img src=$image alt=\"Story Thumbnail\">$idea_tags<div class=\"meta\">$content</div>$lead_tags$summit_tags$logic_tags$linkRow</div></div>', $latitude, $longitude, '$title - $story->postid', '$pincolor'],";
 										} else {
-											echo "['<div class=info tabindex=0><h4><a href=$link>$title</a></h4><div class=\'popupcntnr fullpopwidth\'><div class=subinfo><p><b>$district</b>, <b>$stateurl</b></p></div>$idea_tags$content</div></div>', $latitude, $longitude, '$title - $story->postid', '$pincolor'],";
+											echo "['<div class=info tabindex=0><h4><a href=$link>$title</a></h4><div class=\'popupcntnr fullpopwidth\'><div class=subinfo><p><b>$district</b>, <b>$stateurl</b></p></div>$idea_tags<div class=\"meta\">$content</div>$lead_tags$summit_tags$logic_tags$linkRow</div></div>', $latitude, $longitude, '$title - $story->postid', '$pincolor'],";
 										}
 									}
 								}

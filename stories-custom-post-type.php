@@ -502,7 +502,7 @@ function get_storiesmap($pageposts=NULL)
                     };
 
                     var map = new google.maps.Map(document.getElementById('map'), {
-                      zoom: -5,
+                      zoom: 3,
                       center: new google.maps.LatLng(40.715618, -74.011133),
                       mapTypeId: google.maps.MapTypeId.ROADMAP,
                       mapTypeControl: true,

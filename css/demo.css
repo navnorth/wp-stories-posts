@@ -42,5 +42,7 @@
 }
 .popupcntnr img { width: 80px;	height: auto; float: left; margin-right: 20px }
 .popupcntnr .subinfo {  margin: 0px 10px; width: 100%; display: table; float: none; width: auto}
+.popupcntnr .subinfo p { margin:0 0 10px; }
 .fullpopwidth .subinfo { margin:2px 0; }
-.info h4 { font-size: 17px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.info h4 { font-size: 17px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; margin-bottom:0; }
+.popupcntnr.fullpopwidth .subinfo { width:100%; text-align:center; }

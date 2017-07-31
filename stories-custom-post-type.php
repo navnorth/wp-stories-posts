@@ -419,9 +419,27 @@ function get_storiesmap($pageposts=NULL)
 									$latitude = $story->latitude;
 									$longitude = $story->longitude;
 									$image = $story->image;
+									$tags = get_the_terms( $story->postid, "story_tag" );
+									$idea_tags = "";
+									
+									//Idea Tags
+									if(isset($tags) && !empty($tags)) {
+										$tag_url = "";
+										$tag_id = array();
+										
+										foreach($tags as $tag) {
+										    $tag_id[] = $tag->term_id;
+										    $url = get_term_link($tag->term_id, $tag->taxonomy);
+										    $tag_url .= '<a target="_blank" href="'. $url .'">'.$tag->name.'</a>, ';
+										}
+										$tag_url = trim($tag_url, ', ');
+										$idea_tags = "<div><b>Idea Tags:</b> ".$tag_url."</div>";
+									}
+									
 									if (has_post_thumbnail($story->postid)) {
 										$image = get_the_post_thumbnail_url($story->postid, 'thumbnail');
 									}
+									var_dump($story->post_excerpt);
 									$content = $story->post_excerpt ? $story->post_excerpt : $story->content;
 									$link = get_the_permalink($story->postid)."?back=".urlencode($_SERVER['REQUEST_URI']);
 
@@ -476,9 +494,9 @@ function get_storiesmap($pageposts=NULL)
 									$content = addslashes($content);
 									if ($story_status == 'publish') {
 										if($image) {
-											echo "['<div class=info tabindex=0><h4><a href=$link>$title</a></h4><div class=popupcntnr><img src=$image alt=\"Story Thumbnail\"><div class=subinfo><p><b>$district</b>, <b>$stateurl</b></p></div>$content</div></div>', $latitude, $longitude, '$title - $story->postid', '$pincolor'],";
+											echo "['<div class=info tabindex=0><h4><a href=$link>$title</a></h4><div class=subinfo><p><b>$district</b>, <b>$stateurl</b></p></div><div class=popupcntnr><img src=$image alt=\"Story Thumbnail\">$idea_tags$content</div></div>', $latitude, $longitude, '$title - $story->postid', '$pincolor'],";
 										} else {
-											echo "['<div class=info tabindex=0><h4><a href=$link>$title</a></h4><div class=\'popupcntnr fullpopwidth\'><div class=subinfo><p><b>$district</b>, <b>$stateurl</b></p></div>$content</div></div>', $latitude, $longitude, '$title - $story->postid', '$pincolor'],";
+											echo "['<div class=info tabindex=0><h4><a href=$link>$title</a></h4><div class=\'popupcntnr fullpopwidth\'><div class=subinfo><p><b>$district</b>, <b>$stateurl</b></p></div>$idea_tags$content</div></div>', $latitude, $longitude, '$title - $story->postid', '$pincolor'],";
 										}
 									}
 								}
@@ -517,10 +535,10 @@ function get_storiesmap($pageposts=NULL)
 					var isScrollWheelEnabled = map.get('scrollwheel');
 
                     var infowindow = new google.maps.InfoWindow({
-                      maxWidth: 400,
-					  Width: 400,
-					  Height: 350,
-                      maxHeight: 350
+                      maxWidth: 500,
+					  Width: 500,
+					  Height: 400,
+                      maxHeight: 400
                     });
 
                     var iconSVG = {

@@ -212,6 +212,14 @@ msgstr "Browse Profiles"
 msgid "Browse All Stories"
 msgstr "Browse All Profiles"
 
+#: init.php:977
+msgid "View All Projects"
+msgstr ""
+
+#: init.php:982
+msgid "Across the country, we're helping create engaging classrooms, focused schools, and strategic school systems and states."
+msgstr ""
+
 #: stories-custom-post-type.php:502 stories-custom-post-type.php:514
 msgid "Settings"
 msgstr ""

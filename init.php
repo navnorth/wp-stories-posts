@@ -965,6 +965,26 @@ function get_story_search($search_text=NULL, $taxonomy=NULL, $taxonomy_name=NULL
 			</div>';
 	return $search_form;
 }
+
+/**
+ * Top Heading
+ **/
+function get_top_heading() {
+	?>
+	<div class="col-md-12 col-sm-12 col-xs-12 profile-heading">
+	<?php if (!(title_can_be_hidden())): ?>
+            <h1>
+            	<?php if($_SERVER["REQUEST_URI"] != $stories_home_URL) { echo '<a href="'.$stories_home_URL.'">'; } ?>
+            	<?php _e( "View All Projects", SCP_SLUG); ?>
+            	<?php if($_SERVER["REQUEST_URI"] != $stories_home_URL) { echo '</a>'; } ?>
+            </h1>
+	    <?php endif; ?>
+            <h5 class="stry_srch_desc">
+            	<?php _e( "Across the country, we're helping create engaging classrooms, focused schools, and strategic school systems and states.", SCP_SLUG); ?>
+            </h5>
+	</div>
+<?php
+}
 //Story Search
 /* disabling search for now. Just going to use browse Navigation
 function get_story_search($searchresult=NULL, $searchtext=NULL, $taxonomy_state=NULL, $taxonomy_program=NULL, $taxonomy_grade_level=NULL, $district_location=NULL, $district_size=NULL,$taxonomy_tags=NULL)

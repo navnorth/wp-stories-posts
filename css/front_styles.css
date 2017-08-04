@@ -477,6 +477,8 @@ article.stories .entry-meta a.read-more, article.stories .entry-meta a.read-more
     line-height: 1.5;
     letter-spacing: 1px;
 }
+.pblctn_right_sid_mtr .col-md-12 h4 b { font-size:26px; }
+.pblctn_right_sid_mtr .col-md-12 h4 { font-size:18px; }
 .single-stories #content h3 {
     font-size: 38px;
     color: #333333;

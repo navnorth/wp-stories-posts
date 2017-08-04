@@ -433,7 +433,7 @@ get_header(); ?>
 						 <?php get_stories_side_nav(); ?>
 					</div>
 				<?php } ?>
-				
+				<?php get_top_heading(); ?>
 				<!-- Slider -->
 						<div class="slidermainwrpr">
 							<div class="slidersubwrpr">

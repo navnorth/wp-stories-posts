@@ -189,15 +189,15 @@ function add_vimeo_script(){
 	    }
 	    ?>
 	    <?php if(isset($programurl) && !empty($programurl)) : ?>
-                 <p class="margn_none">
+                 <h4 class="margn_none">
                      <b><?php _e( 'Program :' , SCP_SLUG ); ?></b> <?php echo $programurl; ?>
-                 </p>
+                 </h4>
             <?php endif; ?>
 	    <?php if ($final_level=="P-12") : ?>
 		<?php if(isset($story_school) && !empty($story_school)) : ?>
-		     <p class="margn_none">
+		     <h4 class="margn_none">
 			 <b><?php _e( 'School :' , SCP_SLUG ); ?></b> <?php echo $story_school; ?>
-		     </p>
+		     </h4>
 		<?php endif; ?>
 	    <?php endif; ?>
             <?php //if(isset($story_mapaddress) && !empty($story_mapaddress)) : ?>
@@ -208,71 +208,71 @@ function add_vimeo_script(){
 	    
 	    <?php if ($final_level=="Postsecondary") : ?>
 		<?php if(isset($story_institution) && !empty($story_institution)) : ?>
-		    <p class="margn_none">
+		    <h4 class="margn_none">
 			<b><?php _e( 'Institution :' , SCP_SLUG ); ?></b> <?php echo $story_institution; ?>
-		    </p>
+		    </h4>
 		<?php endif; ?>
 	    <?php endif; ?>
 	    
 	    <?php if ($final_level=="P-12") : ?>
 		<?php if(isset($story_district) && !empty($story_district)) : ?>
-		     <p class="margn_none">
+		     <h4 class="margn_none">
 			 <b><?php _e( 'District :' , SCP_SLUG ); ?></b> <?php echo $story_district; ?>
-		     </p>
+		     </h4>
 		<?php endif; ?>
 	    <?php endif; ?>
             <?php if(isset($stateurl) && !empty($stateurl)) : ?>
-                 <p class="margn_none">
+                 <h4 class="margn_none">
                      <b><?php _e( 'State :' , SCP_SLUG ); ?></b> <?php echo $stateurl; ?>
-                 </p>
+                 </h4>
             <?php endif; ?>
             <?php if(isset($gradeurl) && !empty($gradeurl) && $enable_level) : ?>
-                 <p class="margn_none">
+                 <h4 class="margn_none">
                      <b><?php _e( 'Level :' , SCP_SLUG ); ?></b> <?php echo $gradeurl; ?>
-                 </p>
+                 </h4>
             <?php endif; ?>
 	     <?php if ($final_level=="P-12") : ?>
 		<?php if(isset($districturl) && !empty($districturl) && $enable_district_enrollment) : ?>
-		     <p class="margn_none">
+		     <h4 class="margn_none">
 			 <b><?php _e( 'District Enrollment :' , SCP_SLUG ); ?></b> <?php echo $districturl; ?>
-		     </p>
+		     </h4>
 		<?php endif; ?>
 	    <?php endif; ?>
 	    <?php if ($final_level=="P-12") : ?>
 		<?php if(isset($characteristicurl) && !empty($characteristicurl) && $enable_community_type) : ?>
-		     <p class="margn_none">
+		     <h4 class="margn_none">
 			 <b><?php _e( 'Community Type :' , SCP_SLUG ); ?></b> <?php echo $characteristicurl; ?>
-		     </p>
+		     </h4>
 		<?php endif; ?>
 	    <?php endif; ?>
 	    <?php if ($final_level=="Postsecondary") : ?>
 		<?php if(isset($institutionurl) && !empty($institutionurl) && $enable_institution_enrollment) : ?>
-		     <p class="margn_none">
+		     <h4 class="margn_none">
 			 <b><?php _e( 'Institution Enrollment :' , SCP_SLUG ); ?></b> <?php echo $institutionurl; ?>
-		     </p>
+		     </h4>
 		<?php endif; ?>
 	    <?php endif; ?>
 	    <?php if ($final_level=="Postsecondary") : ?>
 		<?php if(isset($institutiontypeurl) && !empty($institutiontypeurl) && $enable_institution_type) : ?>
-		     <p class="margn_none">
+		     <h4 class="margn_none">
 			 <b><?php _e( 'Institution Type :' , SCP_SLUG ); ?></b> <?php echo $institutiontypeurl; ?>
-		     </p>
+		     </h4>
 		<?php endif; ?>
 	    <?php endif; ?>
 	    <?php if(isset($story_team_lead) && !empty($story_team_lead)) : ?>
-                 <p class="margn_none">
+                 <h4 class="margn_none">
                      <b><?php _e( 'Team Lead :' , SCP_SLUG ); ?></b> <?php echo $story_team_lead; ?>
-                 </p>
+                 </h4>
             <?php endif; ?>
 	    <?php if(isset($story_logic_model) && !empty($story_logic_model)) : ?>
-                 <p class="margn_none">
+                 <h4 class="margn_none">
                      <b><?php _e( 'Logic Model :' , SCP_SLUG ); ?></b> <a href="<?php echo esc_url($story_logic_model); ?>" target="_blank"><i class="fa fa-file-pdf-o" aria-hidden="true"></i></a>
-                 </p>
+                 </h4>
             <?php endif; ?>
             <?php if(isset($tagurl) && !empty($tagurl)) : ?>
-                 <p class="margn_none">
+                 <h4 class="margn_none">
                      <b><?php _e( 'Related Tags :' , SCP_SLUG ); ?></b> <?php echo $tagurl; ?>
-                 </p>
+                 </h4>
             <?php endif; ?>
 
 
@@ -300,7 +300,7 @@ function add_vimeo_script(){
 
             <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="pblctn_box"><span class="socl_icns fa-stack"><i class="fa fa-star "></i></span></div>
-                <p class="rght_sid_wdgt_hedng uppercase"><?php _e( 'Related Stories' , SCP_SLUG ); ?></p>
+                <h4 class="rght_sid_wdgt_hedng uppercase"><?php _e( 'Related Stories' , SCP_SLUG ); ?></h4>
                 <?php
                     foreach( $stories as $story)
                     {

@@ -477,8 +477,13 @@ article.stories .entry-meta a.read-more, article.stories .entry-meta a.read-more
     line-height: 1.5;
     letter-spacing: 1px;
 }
-.pblctn_right_sid_mtr .col-md-12 h4 b { font-size:26px; }
-.pblctn_right_sid_mtr .col-md-12 h4 {
+.pblctn_right_sid_mtr .col-md-12 h4.margn_none b {
+    font-size:26px;
+    font-family: 'Khand';
+    font-weight: 600;
+    letter-spacing: 1px;
+}
+.pblctn_right_sid_mtr .col-md-12 h4.margn_none {
     font-size:18px !important;
     font-family: "Roboto Slab" !important;
     font-weight: 300 !important;

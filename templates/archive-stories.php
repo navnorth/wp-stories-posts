@@ -432,10 +432,7 @@ get_header(); ?>
 						 <?php get_stories_side_nav(); ?>
 					</div>
 				<?php } ?>
-					<div class="<?php if ($enable_sidebar) { ?>col-md-8<?php } else { ?>col-md-12<?php } ?> col-sm-12 col-xs-12 pblctn_lft_sid_img_cntnr map_cntnr">
-						<div class="col-md-12 col-sm-12 col-xs-12 pblctn_right_sid_mtr">
-							 <?php get_storiesmap();?>
-						</div>
+				
 				<!-- Slider -->
 						<div class="slidermainwrpr">
 							<div class="slidersubwrpr">
@@ -487,7 +484,14 @@ get_header(); ?>
                         		</ul>
                     		</div>
                         </div>
-                    </div>
+				<div class="<?php if ($enable_sidebar) { ?>col-md-8<?php } else { ?>col-md-12<?php } ?> col-sm-12 col-xs-12 pblctn_lft_sid_img_cntnr map_cntnr">
+						<div class="col-md-12 col-sm-12 col-xs-12 pblctn_right_sid_mtr">
+							 <?php get_storiesmap();?>
+						</div>
+						<div class="col-md-12 col-sm-12 col-xs-12 pblctn_right_sid_mtr">
+								<?php get_stories_side_nav(); ?>
+						       </div>
+				</div>
                 <?php
 				}
 			}

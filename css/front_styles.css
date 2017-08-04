@@ -467,6 +467,24 @@ article.stories .entry-meta a.read-more, article.stories .entry-meta a.read-more
 .single-stories .fusion-row > #content > .col-md-5.pblctn_right_sid_mtr { width:41.66666667%; }
 .hidden { display:none; }
 .post-type-archive-stories h1.entry-title { text-transform:uppercase; }
+
+/** Styling on Single Profile **/
+.single-stories #content h4 {
+    font-size: 26px;
+    color: #333333;
+    font-family: 'Khand';
+    font-weight: 600;
+    line-height: 1.5;
+    letter-spacing: 1px;
+}
+.single-stories #content h3 {
+    font-size: 38px;
+    color: #333333;
+    font-family: 'Khand';
+    font-weight: 600;
+    line-height: 1.5;
+    letter-spacing: 1px;
+}
 @media screen and (max-width: 992px) {
     .stry_srch_frm { width: 100%}
     /*.pblctn_lft_sid_img_cntnr { padding-left: 0 !important}*/

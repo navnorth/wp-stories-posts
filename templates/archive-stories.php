@@ -433,7 +433,6 @@ get_header(); ?>
 						 <?php get_stories_side_nav(); ?>
 					</div>
 				<?php } ?>
-				<?php get_top_heading(); ?>
 				<!-- Slider -->
 						<div class="slidermainwrpr">
 							<div class="slidersubwrpr">
@@ -486,12 +485,13 @@ get_header(); ?>
                     		</div>
                         </div>
 				<div class="<?php if ($enable_sidebar) { ?>col-md-8<?php } else { ?>col-md-12<?php } ?> col-sm-12 col-xs-12 pblctn_lft_sid_img_cntnr map_cntnr">
+						<?php get_top_heading(); ?>
 						<div class="col-md-12 col-sm-12 col-xs-12 pblctn_right_sid_mtr">
 							 <?php get_storiesmap();?>
 						</div>
 						<div class="col-md-12 col-sm-12 col-xs-12 pblctn_right_sid_mtr">
-								<?php get_stories_side_nav(); ?>
-						       </div>
+								<?php get_story_filters(); ?>
+						 </div>
 				</div>
                 <?php
 				}

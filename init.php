@@ -985,6 +985,99 @@ function get_top_heading() {
 	</div>
 <?php
 }
+
+/**
+ *
+ **/
+function get_story_filters() {
+	global $wpdb, $_filters;
+
+	$args = array( 'orderby'   => 'term_order',
+				  'order'     => 'ASC',
+				  'hide_empty'=> false);
+
+	$state_args = array( 'orderby'   => 'name',
+				  'order'     => 'ASC',
+				  'hide_empty'=> false);
+				  
+	$states = get_terms('state', $state_args);
+	$grades = get_terms('grade_level', $args);
+	$characteristics = get_terms('characteristics', $args);
+	$tags = get_terms('story_tag', $args);	
+	
+	//Enable State
+	if(isset($states) && !empty($states))
+	{
+		/*if(isset($taxonomy) && !empty($taxonomy) && $taxonomy == 'state'): $display = 'block'; else: $display = 'none'; endif;
+		$stateoption = '<div class="tglelemnt" style="display:'. $display.'">';
+		foreach($states as $state)
+		{
+			if(isset($taxonomy_name) && !empty($taxonomy_name) && $state->slug == $taxonomy_name):
+				$check = 'checked';
+			else:
+				$check = '';
+			endif;
+			$stateoption .= '<li class="'.$check.'">
+								<a href="'.site_url().'/stories/state/'.$state->slug.'">'.$state->name.' ('.$state->count.')</a>
+							</li>';
+		}
+		$stateoption .= '</div>';*/
+		if(isset($taxonomy) && !empty($taxonomy) && $taxonomy == 'state'): $display = 'block'; else: $display = 'none'; endif;
+		$stateoption = '<div class="tglelemnt" style="display:'. $display.'">';
+		$stateoption .= '<select name="state" id="statedropdown">';
+		$stateoption .= '<option value="">Browse by State</option>';
+		foreach($states as $state)
+		{
+			if(isset($taxonomy_name) && !empty($taxonomy_name) && $state->slug == $taxonomy_name):
+				$check = 'selected="selected"';
+			else:
+				$check = '';
+			endif;
+			$stateoption .= '<option '.$check.' value="'.site_url().'/stories/state/'.$state->slug.'">'.$state->name.' ('.$state->count.')</option>';
+		}
+		$stateoption .= '</select></div>';
+	}
+
+	if(isset($grades) && !empty($grades))
+	{
+		if(isset($taxonomy) && !empty($taxonomy) && $taxonomy == 'grade_level'): $display = 'block'; else: $display = 'none'; endif;
+		$gradeoption = '<div class="tglelemnt" style="display:'. $display.'">';
+		foreach($grades as $grade)
+		{
+			if(isset($taxonomy_name) && !empty($taxonomy_name) && $grade->slug == $taxonomy_name):
+				$check = 'checked';
+			else:
+				$check = '';
+			endif;
+			$gradeoption .= '<li class="'.$check.'">
+								<a href="'.site_url().'/stories/grade_level/'.$grade->slug.'">'.$grade->name.' ('.$grade->count.')</a>
+							</li>';
+		}
+		$gradeoption .= '</div>';
+	}
+
+	$stories_home_URL = site_url().'/stories/';
+	?>
+    	<div class="search_widget stry_srch_frm profile-search-form">
+
+            <h4 class="hdng_mtr brdr_mrgn_none stry_browse_header"><?php _e( "Browse Stories", SCP_SLUG); ?></h4>
+	    <div id="story-tabs">
+		<?php if ($_filters['state']==1): ?>
+		<div class="srchtrmbxs">
+			<?php echo $stateoption; ?>
+		</div>
+		<?php endif; ?>
+		<?php if ($_filters['grade_level']==1): ?>
+		<div class="srchtrmbxs">
+			<?php echo $gradeoption; ?>
+		</div>
+		<?php endif; ?>
+		
+		<?php echo get_top_topics_nav($taxonomy, $taxonomy_name) ?>
+
+        </div>
+    <?php
+}
 //Story Search
 /* disabling search for now. Just going to use browse Navigation
 function get_story_search($searchresult=NULL, $searchtext=NULL, $taxonomy_state=NULL, $taxonomy_program=NULL, $taxonomy_grade_level=NULL, $district_location=NULL, $district_size=NULL,$taxonomy_tags=NULL)

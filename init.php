@@ -974,9 +974,7 @@ function get_top_heading() {
 	<div class="col-md-12 col-sm-12 col-xs-12 profile-heading">
 	<?php if (!(title_can_be_hidden())): ?>
             <h1>
-            	<?php if($_SERVER["REQUEST_URI"] != $stories_home_URL) { echo '<a href="'.$stories_home_URL.'">'; } ?>
             	<?php _e( "View All Projects", SCP_SLUG); ?>
-            	<?php if($_SERVER["REQUEST_URI"] != $stories_home_URL) { echo '</a>'; } ?>
             </h1>
 	    <?php endif; ?>
             <h5 class="stry_srch_desc">
@@ -1008,22 +1006,8 @@ function get_story_filters() {
 	//Enable State
 	if(isset($states) && !empty($states))
 	{
-		/*if(isset($taxonomy) && !empty($taxonomy) && $taxonomy == 'state'): $display = 'block'; else: $display = 'none'; endif;
-		$stateoption = '<div class="tglelemnt" style="display:'. $display.'">';
-		foreach($states as $state)
-		{
-			if(isset($taxonomy_name) && !empty($taxonomy_name) && $state->slug == $taxonomy_name):
-				$check = 'checked';
-			else:
-				$check = '';
-			endif;
-			$stateoption .= '<li class="'.$check.'">
-								<a href="'.site_url().'/stories/state/'.$state->slug.'">'.$state->name.' ('.$state->count.')</a>
-							</li>';
-		}
-		$stateoption .= '</div>';*/
 		if(isset($taxonomy) && !empty($taxonomy) && $taxonomy == 'state'): $display = 'block'; else: $display = 'none'; endif;
-		$stateoption = '<div class="tglelemnt" style="display:'. $display.'">';
+		$stateoption = '<div class="tglelemnt">';
 		$stateoption .= '<select name="state" id="statedropdown">';
 		$stateoption .= '<option value="">Browse by State</option>';
 		foreach($states as $state)
@@ -1040,7 +1024,6 @@ function get_story_filters() {
 
 	if(isset($grades) && !empty($grades))
 	{
-		if(isset($taxonomy) && !empty($taxonomy) && $taxonomy == 'grade_level'): $display = 'block'; else: $display = 'none'; endif;
 		$gradeoption = '<div class="tglelemnt" style="display:'. $display.'">';
 		foreach($grades as $grade)
 		{
@@ -1059,8 +1042,6 @@ function get_story_filters() {
 	$stories_home_URL = site_url().'/stories/';
 	?>
     	<div class="search_widget stry_srch_frm profile-search-form">
-
-            <h4 class="hdng_mtr brdr_mrgn_none stry_browse_header"><?php _e( "Browse Stories", SCP_SLUG); ?></h4>
 	    <div id="story-tabs">
 		<?php if ($_filters['state']==1): ?>
 		<div class="srchtrmbxs">

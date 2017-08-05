@@ -469,7 +469,7 @@ article.stories .entry-meta a.read-more, article.stories .entry-meta a.read-more
 .post-type-archive-stories h1.entry-title { text-transform:uppercase; }
 
 /** Styling on Single Profile **/
-.single-stories #content h4 {
+.fusion-body.single-stories #content h4 {
     font-size: 26px;
     color: #333333;
     font-family: 'Khand';
@@ -477,25 +477,42 @@ article.stories .entry-meta a.read-more, article.stories .entry-meta a.read-more
     line-height: 1.5;
     letter-spacing: 1px;
 }
-.pblctn_right_sid_mtr .col-md-12 h4.margn_none b {
+.fusion-body .pblctn_right_sid_mtr .col-md-12 h4.margn_none b {
     font-size:26px;
     font-family: 'Khand';
     font-weight: 600;
     letter-spacing: 1px;
 }
-.pblctn_right_sid_mtr .col-md-12 h4.margn_none {
+.fusion-body .pblctn_right_sid_mtr .col-md-12 h4.margn_none {
     font-size:18px !important;
     font-family: "Roboto Slab" !important;
     font-weight: 300 !important;
     letter-spacing: 0px !important;
 }
-.single-stories #content h3 {
+.fusion-body.single-stories #content h3 {
     font-size: 38px;
     color: #333333;
     font-family: 'Khand';
     font-weight: 600;
     line-height: 1.5;
     letter-spacing: 1px;
+}
+.fusion-body .profile-heading h1 {
+    font-size: 52px;
+    color: #333333;
+    text-transform: uppercase;
+    font-family: 'Khand';
+    font-weight: 600;
+    line-height: 1.4;
+    letter-spacing: 1px;
+}
+.fusion-body .profile-heading h5.stry_srch_desc {
+    font-family: 'Khand';
+    font-weight: 600;
+    line-height: 1.5;
+    letter-spacing: 1px;
+    font-size: 22px;
+    color:#333333;
 }
 .profile-heading h1 { text-align:center; }
 .profile-heading h5 { text-align:center; }

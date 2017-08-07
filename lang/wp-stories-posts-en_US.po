@@ -160,6 +160,38 @@ msgstr ""
 msgid "All Tags"
 msgstr ""
 
+#: init.php:66 init.php:67 init.php:76
+msgid "Level"
+msgstr "School Type"
+
+#: init.php:68
+msgid "Search Levels"
+msgstr "Search School Type"
+
+#: init.php:69
+msgid "All Levels"
+msgstr "All School Types"
+
+#: init.php:70 init.php:71
+msgid "Parent Level"
+msgstr "Parent School Type"
+
+#: init.php:72
+msgid "Edit Level"
+msgstr "Edit School Type"
+
+#: init.php:73
+msgid "Update Level"
+msgstr "Update School Type"
+
+#: init.php:74
+msgid "Add New Level"
+msgstr "Add New School Type"
+
+#: init.php:75
+msgid "New Level Name"
+msgstr "New School Type Name"
+
 #: init.php:67
 msgid "Edit Tag"
 msgstr ""

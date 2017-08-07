@@ -37,9 +37,9 @@ function create_managment_taxonomies()
 	register_post_type( 'stories', $args );
 
 	$texonomy_array = array(
-						'program' => 'Program', SCP_SLUG,
+						'program' => __( 'Program', SCP_SLUG ),
 						'state' => 'State',
-						'grade_level' => 'Level',
+						'grade_level' => __( 'Level', SCP_SLUG ),
 						'characteristics' => 'Community Type',
 						'districtsize' => 'District Enrollment',
 						'institutionenrollment' => 'Institution Enrollment',
@@ -60,6 +60,20 @@ function create_managment_taxonomies()
 				'add_new_item'               => __( 'Add New Program', SCP_SLUG ),
 				'new_item_name'              => __( 'New Program Name', SCP_SLUG ),
 				'menu_name'                  => __( 'Program', SCP_SLUG ),
+			);
+		} elseif ($texonomy_key=="grade_level"){
+			$labels = array(
+				'name'                       => __( 'Level', SCP_SLUG ),
+				'singular_name'              => __( 'Level', SCP_SLUG ),
+				'search_items'               => __( 'Search Levels', SCP_SLUG ),
+				'all_items'                  => __( 'All Levels', SCP_SLUG ),
+				'parent_item'                => __( 'Parent Level', SCP_SLUG ),
+				'parent_item_colon'          => __( 'Parent Level', SCP_SLUG ),
+				'edit_item'                  => __( 'Edit Level', SCP_SLUG ),
+				'update_item'                => __( 'Update Level', SCP_SLUG ),
+				'add_new_item'               => __( 'Add New Level', SCP_SLUG ),
+				'new_item_name'              => __( 'New Level Name', SCP_SLUG ),
+				'menu_name'                  => __( 'Level', SCP_SLUG ),
 			);
 		} else {
 			// Add new taxonomy, hierarchical (like Category)

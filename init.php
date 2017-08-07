@@ -1059,7 +1059,7 @@ function get_story_filters() {
 			else:
 				$check = '';
 			endif;
-			$stateoption .= '<option '.$check.' value="'.site_url().'/stories/state/'.$state->slug.'">'.$state->name.' ('.$state->count.')</option>';
+			$stateoption .= '<option '.$check.' value="'.site_url().'/stories/state/'.$state->slug.'">'.$state->name.'</option>';
 		}
 		$stateoption .= '</select></div>';
 	}

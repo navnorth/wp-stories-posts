@@ -40,8 +40,10 @@
     float: left;
     width: 100%;
 }
-.popupcntnr img { width: 80px;	height: auto; float: left; margin-right: 20px }
+.popupcntnr img { width: 100%;	height: auto; float: left; margin-right: 20px }
 .popupcntnr .subinfo {  margin: 0px 10px; width: 100%; display: table; float: none; width: auto}
+.popupcntnr.fullpopwidth { padding:0 20px 20px; }
+.popupcntnr.fullpopwidth .meta b { text-transform:none;font-size:1em; }
 .info .subinfo p { text-align:center; margin:0 0 10px; }
 .popupcntnr .subinfo p { margin:0 0 10px; }
 .fullpopwidth .subinfo { margin:2px 0; }

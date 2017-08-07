@@ -457,16 +457,16 @@ function get_storiesmap($pageposts=NULL)
 										$summiturl .= '<a target="_blank" href="'. $url .'">'.$summit->name.'</a>, ';
 									    }
 									    $summiturl = trim($summiturl, ', ');
-									    $summit_tags = '<div class="meta"><b>Summit:</b> '.$summiturl.'</div>';
+									    $summit_tags = '<div class="popup-summit"><b>Summit:</b> '.$summiturl.'</div>';
 									}
 									
 									//Logic Model
 									if(isset($logic_model) && !empty($logic_model)) {
-										$logic_tags = '<div class="meta"><b>Logic Model:</b> <a href="'.$logic_model.'" target="_blank"><i class="fa fa-file-pdf-o" aria-hidden="true"></i></a></div>';
+										$logic_tags = '<div class="popup-logic-model"><b>Logic Model:</b> <a href="'.$logic_model.'" target="_blank"><i class="fa fa-file-pdf-o" aria-hidden="true"></i></a></div>';
 									}
 									
 									if (has_post_thumbnail($story->postid)) {
-										$image = get_the_post_thumbnail_url($story->postid, 'thumbnail');
+										$image = get_the_post_thumbnail_url($story->postid, 'medium');
 									}
 									
 									$content = $story->post_excerpt ? $story->post_excerpt : $story->content;
@@ -524,9 +524,9 @@ function get_storiesmap($pageposts=NULL)
 									$linkRow = '<div class="meta"><a href="$link">Read More</a></div>';
 									if ($story_status == 'publish') {
 										if($image) {
-											echo "['<div class=info tabindex=0><h4><a href=$link>$title</a></h4><div class=subinfo><p><b>$district</b>, <b>$stateurl</b></p></div><div class=popupcntnr><img src=$image alt=\"Story Thumbnail\">$idea_tags<div class=\"meta\">$content</div>$lead_tags$summit_tags$logic_tags$linkRow</div></div>', $latitude, $longitude, '$title - $story->postid', '$pincolor'],";
+											echo "['<div class=info tabindex=0><h4><a href=$link>$title</a></h4><div class=subinfo><p><b>$district</b>, <b>$stateurl</b></p></div><div class=popupcntnr><div class=\"col-md-5\"><img src=$image alt=\"Story Thumbnail\"></div><div class=\"col-md-7\">$idea_tags<div class=\"meta\">$content</div>$lead_tags<div class=\"meta\">$summit_tags$logic_tags</div>$linkRow</div></div></div>', $latitude, $longitude, '$title - $story->postid', '$pincolor'],";
 										} else {
-											echo "['<div class=info tabindex=0><h4><a href=$link>$title</a></h4><div class=\'popupcntnr fullpopwidth\'><div class=subinfo><p><b>$district</b>, <b>$stateurl</b></p></div>$idea_tags<div class=\"meta\">$content</div>$lead_tags$summit_tags$logic_tags$linkRow</div></div>', $latitude, $longitude, '$title - $story->postid', '$pincolor'],";
+											echo "['<div class=info tabindex=0><h4><a href=$link>$title</a></h4><div class=\'popupcntnr fullpopwidth col-md-12\'><div class=subinfo><p><b>$district</b>, <b>$stateurl</b></p></div>$idea_tags<div class=\"meta\">$content</div>$lead_tags<div class=\"meta\">$summit_tags$logic_tags</div>$linkRow</div></div>', $latitude, $longitude, '$title - $story->postid', '$pincolor'],";
 										}
 									}
 								}

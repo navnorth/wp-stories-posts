@@ -1035,22 +1035,22 @@ function get_story_filters() {
 		}
 		$stateoption .= '</select></div>';
 	}
-
+	
 	if(isset($grades) && !empty($grades))
 	{
-		$gradeoption = '<div class="tglelemnt" style="display:'. $display.'">';
+		$gradeoption = '<div class="tglelemnt">';
+		$gradeoption .= '<select name="grade_level" id="grade_level">';
+		$gradeoption .= '<option value="">Browse by School Type</option>';
 		foreach($grades as $grade)
 		{
 			if(isset($taxonomy_name) && !empty($taxonomy_name) && $grade->slug == $taxonomy_name):
-				$check = 'checked';
+				$check =  'selected="selected"';
 			else:
 				$check = '';
 			endif;
-			$gradeoption .= '<li class="'.$check.'">
-								<a href="'.site_url().'/stories/grade_level/'.$grade->slug.'">'.$grade->name.' ('.$grade->count.')</a>
-							</li>';
+			$gradeoption .= '<option '.$check.' value="'.$grade->slug.'">'.$grade->name.'</option>';
 		}
-		$gradeoption .= '</div>';
+		$gradeoption .= '</select></div>';
 	}
 
 	$stories_home_URL = site_url().'/stories/';

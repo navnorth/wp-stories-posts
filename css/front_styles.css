@@ -497,6 +497,26 @@ article.stories .entry-meta a.read-more, article.stories .entry-meta a.read-more
     line-height: 1.5;
     letter-spacing: 1px;
 }
+.fusion-body.single-stories #content h2 {
+    font-size: 42px;
+    color: #333333;
+    font-family: 'Khand';
+    font-weight: 600;
+    line-height: 1.5;
+    letter-spacing: 1px;
+    margin-top: 0em;
+    margin-bottom: 0.1em;
+}
+.fusion-body.single-stories #content h1 {
+    font-size: 52px;
+    color: #333333;
+    font-family: 'Khand';
+    font-weight: 600;
+    line-height: 1.4;
+    letter-spacing: 1px;
+    margin-top: 0.67em;
+    margin-bottom: 0.67em;
+}
 .fusion-body .profile-heading h1 {
     font-size: 52px;
     color: #333333;

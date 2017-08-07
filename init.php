@@ -998,8 +998,35 @@ function get_top_heading() {
 <?php
 }
 
+function get_top_topics_dropdown($taxonomy=NULL, $taxonomy_name=NULL)
+{
+	global $wpdb;
+	$args = array('orderby' => 'count', 'order' => 'DESC', 'number' => 10);
+	$tags = get_terms('story_tag', $args);
+	$topic_nav = '';
+
+	//$topic_nav .= '<div class="topic_sidebar"><h4 class="hdng_mtr brdr_mrgn_none stry_topics_header">Topics :</h4><ul>';
+
+	$topic_nav = '<div class="tglelemnt">';
+	$topic_nav .= '<h5>Topics:</h5>';
+	$topic_nav .= '<select name="story_tag" id="story_tag">';
+	$topic_nav .= '<option value="">Browse by Topic</option>';
+	foreach($tags as $tag)
+	{
+		if(isset($taxonomy_name) && !empty($taxonomy_name) && $taxonomy_name == $tag->slug):
+			$check = 'selected="selected"';
+		else:
+			$check = 'selected="selected"';
+		endif;
+		$topic_nav .= '<option '.$check.' value="'.site_url().'/stories/story_tag/'.$tag->slug.'">'.ucfirst($tag->name).'</option>';
+	}
+
+	$topic_nav .= '</select></div>';
+	return $topic_nav;
+}
+
 /**
- *
+ * Display Profile Filters
  **/
 function get_story_filters() {
 	global $wpdb, $_filters;
@@ -1014,7 +1041,7 @@ function get_story_filters() {
 				  
 	$states = get_terms('state', $state_args);
 	$grades = get_terms('grade_level', $args);
-	$characteristics = get_terms('characteristics', $args);
+	$programs = get_terms('program', $args);
 	$tags = get_terms('story_tag', $args);	
 	
 	//Enable State
@@ -1022,6 +1049,7 @@ function get_story_filters() {
 	{
 		if(isset($taxonomy) && !empty($taxonomy) && $taxonomy == 'state'): $display = 'block'; else: $display = 'none'; endif;
 		$stateoption = '<div class="tglelemnt">';
+		$stateoption .= '<h5>State:</h5>';
 		$stateoption .= '<select name="state" id="statedropdown">';
 		$stateoption .= '<option value="">Browse by State</option>';
 		foreach($states as $state)
@@ -1039,6 +1067,7 @@ function get_story_filters() {
 	if(isset($grades) && !empty($grades))
 	{
 		$gradeoption = '<div class="tglelemnt">';
+		$gradeoption .= '<h5>School Type:</h5>';
 		$gradeoption .= '<select name="grade_level" id="grade_level">';
 		$gradeoption .= '<option value="">Browse by School Type</option>';
 		foreach($grades as $grade)
@@ -1053,23 +1082,47 @@ function get_story_filters() {
 		$gradeoption .= '</select></div>';
 	}
 
+	//Summit
+	if(isset($programs) && !empty($programs))
+	{
+		$programoption = '<div class="tglelemnt">';
+		$programoption .= '<h5>Summit:</h5>';
+		$programoption .= '<select name="program" id="program">';
+		$programoption .= '<option value="">Browse by Summit</option>';
+		foreach($programs as $program)
+		{
+			if(isset($taxonomy_name) && !empty($taxonomy_name) && $program->slug == $taxonomy_name):
+				$check =  'selected="selected"';
+			else:
+				$check = '';
+			endif;
+			$programoption .= '<option '.$check.' value="'.$program->slug.'">'.$program->name.'</option>';
+		}
+		$programoption .= '</select></div>';
+	}
 	$stories_home_URL = site_url().'/stories/';
 	?>
     	<div class="search_widget stry_srch_frm profile-search-form">
 	    <div id="story-tabs">
+		<?php if ($_filters['program']==1): ?>
+		<div class="srchtrmbxs col-md-3">
+			<?php echo $programoption; ?>
+		</div>
+		<?php endif; ?>
 		<?php if ($_filters['state']==1): ?>
-		<div class="srchtrmbxs">
+		<div class="srchtrmbxs col-md-3">
 			<?php echo $stateoption; ?>
 		</div>
 		<?php endif; ?>
 		<?php if ($_filters['grade_level']==1): ?>
-		<div class="srchtrmbxs">
+		<div class="srchtrmbxs col-md-3">
 			<?php echo $gradeoption; ?>
 		</div>
 		<?php endif; ?>
 		
-		<?php echo get_top_topics_nav($taxonomy, $taxonomy_name) ?>
-
+		<div class="srchtrmbxs col-md-3">
+			<?php echo get_top_topics_dropdown($taxonomy, $taxonomy_name) ?>
+		</div>
         </div>
     <?php
 }

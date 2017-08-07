@@ -516,6 +516,20 @@ article.stories .entry-meta a.read-more, article.stories .entry-meta a.read-more
 }
 .profile-heading h1 { text-align:center; }
 .profile-heading h5 { text-align:center; }
+.stry_srch_frm.profile-search-form { width:100%; float:none; }
+.stry_srch_frm.profile-search-form select,
+.stry_srch_frm.profile-search-form select#statedropdown { width:100%; margin-left:0; }
+.fusion-body .stry_srch_frm.profile-search-form .tglelemnt h5 {
+    font-family: 'Khand';
+    font-weight: 600;
+    line-height: 1.5;
+    letter-spacing: 1px;
+    font-size: 22px;
+    color: #333333;
+    margin-top: 1.07em;
+    margin-bottom: 0em;
+    text-transform:uppercase;
+}
 @media screen and (max-width: 992px) {
     .stry_srch_frm { width: 100%}
     /*.pblctn_lft_sid_img_cntnr { padding-left: 0 !important}*/

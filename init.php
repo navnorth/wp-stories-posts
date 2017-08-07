@@ -1104,11 +1104,9 @@ function get_story_filters() {
 	?>
     	<div class="search_widget stry_srch_frm profile-search-form">
 	    <div id="story-tabs">
-		<?php if ($_filters['program']==1): ?>
 		<div class="srchtrmbxs col-md-3">
 			<?php echo $programoption; ?>
 		</div>
-		<?php endif; ?>
 		<?php if ($_filters['state']==1): ?>
 		<div class="srchtrmbxs col-md-3">
 			<?php echo $stateoption; ?>

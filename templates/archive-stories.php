@@ -451,12 +451,12 @@ get_header(); ?>
                                                     ?>
                                                 </div>
                                                 <div class="slidercontentnrwrpr">
-                                                	<div class="sldr_top_hdng"> <?php _e( "Featured Story:", "nn-story-custom-post-type" ); ?> </div>
-                                                    <h3>
-                                                    	<a href="<?php echo get_the_permalink($post->ID); ?>">
-															<?php echo get_the_title($post->ID); ?>
-                                                        </a>
-                                                    </h3>
+                                                	<!--<div class="sldr_top_hdng"> <?php _e( "Featured Story:", "nn-story-custom-post-type" ); ?> </div>-->
+                                                    <h4>
+                                                    	<!--<a href="<?php echo get_the_permalink($post->ID); ?>">-->
+								<?php echo get_the_title($post->ID); ?>
+                                                        <!--</a>-->
+                                                    </h4>
 
                                                     <?php
                                                     $states = get_the_terms( $post->ID, "state" );
@@ -476,7 +476,7 @@ get_header(); ?>
                                                     </p>
                                                 </div>
                                                 <div class="sldr_readmr_btn">
-                                                	<a href="<?php echo get_permalink($post->ID);?>"><?php _e( "Read More" , "nn-story-custom-post-type" ); ?></a>
+                                                	<a href="<?php echo get_permalink($post->ID);?>"><?php _e( "Read More &gt;" , "nn-story-custom-post-type" ); ?></a>
                                                 </div>
                                             </div>
                                         </li>

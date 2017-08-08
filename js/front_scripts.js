@@ -5,7 +5,11 @@ jQuery(document).ready(function(){
 	  auto: true,
 	  autoHover: true,
 	  pause: 5000,
-	  controls: false
+	  controls: false,
+	  minSlides: 1,
+	  maxSlides: 3,
+	  moveSlides: 1,
+	  slideWidth: 375,
   });
   jQuery(".cstmaccordiandv").click(function(){
 	 if(jQuery(this).children('i').hasClass("fa-caret-right"))

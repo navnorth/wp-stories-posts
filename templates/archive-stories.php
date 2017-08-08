@@ -434,8 +434,9 @@ get_header(); ?>
 					</div>
 				<?php } ?>
 				<!-- Slider -->
-						<div class="slidermainwrpr scp_slider_content">
-							<div class="slidersubwrpr">
+				<div class="slidermainwrpr scp_slider_content" style="background-image:url('<?php echo SCP_URL; ?>/images/profile-background.jpg');">
+					<div class="slidersubwrpr">
+					<h1><?php _e('Featured Profiles', SCP_SLUG); ?></h1>
                         		<ul class="bxslider">
 						<?php while ( $postquery->have_posts() ) : $postquery->the_post(); ?>
                                     	<li class="col-md-4">
@@ -468,14 +469,14 @@ get_header(); ?>
                                                     }
                                                     ?>
 
-                                                    <h4><?php echo get_post_meta($post->ID, "story_district", true) . ', ' . $state_name ?></h4>
+                                                    <h5><?php echo get_post_meta($post->ID, "story_district", true) . ', ' . $state_name ?></h5>
                                                     <p>
                                                        <?php
 								echo display_story_content($post->ID);
 								?>
                                                     </p>
                                                 </div>
-                                                <div class="sldr_readmr_btn">
+                                                <div class="sldr_readmr">
                                                 	<a href="<?php echo get_permalink($post->ID);?>"><?php _e( "Read More &gt;" , "nn-story-custom-post-type" ); ?></a>
                                                 </div>
                                             </div>

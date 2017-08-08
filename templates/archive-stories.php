@@ -498,8 +498,7 @@ get_header(); ?>
 						<div class="col-md-12 col-sm-12 col-xs-12 profile-filters">
 								<?php get_story_filters(); ?>
 						 </div>
-				</div>
-                <?php
+				<?php
 				$postquery = new WP_Query(array('post_type' => 'stories', 'posts_per_page' => -1));
 
 				$post_ids = wp_list_pluck( $postquery->posts, 'ID' );
@@ -552,7 +551,7 @@ get_header(); ?>
 		}
 }
 		?>
-
+		</div>
 	</div><!-- #row -->
 
 <?php get_footer(); ?>

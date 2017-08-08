@@ -68,60 +68,20 @@
 	<h5 class="substory_loc">
 		<?php
 		if($story_district = get_post_meta($post->ID, "story_district", true))
+		{
+		    if (strlen($story_district)>0)
+			echo $story_district.', ';
+		}
+		$states = get_the_terms( $post->ID , 'state' );
+		if(isset($states) && !empty($states))
+		{
+			foreach($states as $state)
 			{
-			    if (strlen($story_district)>0)
-				echo $story_district.', ';
+				echo $state->name;
+				break;
 			}
-			    $states = get_the_terms( $post->ID , 'state' );
-			    if(isset($states) && !empty($states))
-			    {
-				    foreach($states as $state)
-				    {
-					    echo $state->name;
-					    break;
-				    }
-			    }
-			    $grades = get_the_terms( $post->ID , 'grade_level' );
-			    if ($grades)
-				$grades = array_reverse($grades);
+		}
 			    
-			    if(isset($grades) && !empty($grades))
-			    {
-				
-				//Reset Grade Level and Color
-				$grade_level = "";
-				$grade_color = "";
-				$grade_display = array();
-				
-				foreach($grades as $grade)
-				{
-					if ($grade->name=="P-12" || $grade->name=="Early Childhood Education") {
-						$grade_display[] = array("grade_color" => "bgblue",
-									 "grade_level" => __( 'P-12' , SCP_SLUG ));
-						$grade_color = "bgblue";
-						$grade_level = __( 'P-12' , SCP_SLUG );
-					}
-					elseif ($grade->name=="Higher Education" || $grade->name=="Postsecondary") {
-						$grade_display[] = array("grade_color" => "bgorange",
-									 "grade_level" => __( 'Postsecondary' , SCP_SLUG ));
-						$grade_color = "bgorange";
-						$grade_level = __( 'Postsecondary' , SCP_SLUG );
-					}
-				}
-				
-				//Display K-12 first before Higher Education
-				if (!empty($grade_display)) {
-					
-					$grade_display = array_unique($grade_display, SORT_REGULAR);
-					sort($grade_display);
-					if (!$_mobile || $_mobile=="false") {
-						foreach($grade_display as $display) {
-							$grade_label = '<span class="'.$display['grade_color'].'">'.$display['grade_level'].'</span>';
-							echo $grade_label;
-						}
-					}
-				}
-			    }
 		?>
 	</h5>
 	    <?php

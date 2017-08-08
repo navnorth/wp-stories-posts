@@ -588,12 +588,17 @@ img.featured_item_image { width:100%; }
     text-transform:uppercase; 
 }
 .fusion-body.post-type-archive-stories #main .fusion-row .scp_slider_content .slidersubwrpr .bx-wrapper .bx-viewport { border:none; background:none; }
-.fusion-body.post-type-archive-stories #main .fusion-row .scp_slider_content .sliderinnrwrap { background:#fff; float:none; min-height:550px; }
+.fusion-body.post-type-archive-stories #main .fusion-row .scp_slider_content .slidersubwrpr .bx-wrapper .bx-viewport .bxslider .col-md-4 {
+    padding-left:30px !important;
+    padding-right:30px !important;
+}
+.fusion-body.post-type-archive-stories #main .fusion-row .scp_slider_content .sliderinnrwrap { background:#fff; float:none; min-height:630px; }
 .fusion-body.post-type-archive-stories #main .fusion-row .scp_slider_content .sliderinnrwrap .sliderimgwrpr {
     width:100%;
     float:none;
-    margin:0 0 30px; 
+    margin:0; 
 }
+.fusion-body.post-type-archive-stories #main .fusion-row .scp_slider_content .sliderinnrwrap .sliderimgwrpr img { float:none; max-height:250px; }
 .fusion-body.post-type-archive-stories #main .fusion-row .scp_slider_content .sliderinnrwrap .slidercontentnrwrpr {
     margin-left:0;
     padding:25px;
@@ -609,6 +614,7 @@ img.featured_item_image { width:100%; }
     margin-bottom: 0.1em;
     word-wrap: break-word;
 }
+.fusion-body.post-type-archive-stories #main .fusion-row .scp_slider_content .sliderinnrwrap .slidercontentnrwrpr h5 { margin-top:0.07em; margin-top:1em; }
 .fusion-body.post-type-archive-stories #main .fusion-row .map_cntnr { padding-left:30px !important; padding-right:30px !important; }
 @media screen and (max-width: 992px) {
     .stry_srch_frm { width: 100%}

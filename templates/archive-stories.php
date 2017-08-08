@@ -467,9 +467,13 @@ get_header(); ?>
                                                             $state_name = $state->name;
                                                         }
                                                     }
+						    
+						    $district = get_post_meta($post->ID, "story_district", true);
+						    if ($district)
+								$district .= ', ';
                                                     ?>
 
-                                                    <p><?php echo get_post_meta($post->ID, "story_district", true) . ', ' . $state_name ?></p>
+                                                    <h5><?php echo  $district . $state_name ?></h5>
                                                     <p>
                                                        <?php
 								echo display_story_content($post->ID);

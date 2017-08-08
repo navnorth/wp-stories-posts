@@ -469,16 +469,17 @@ get_header(); ?>
                                                     }
                                                     ?>
 
-                                                    <h5><?php echo get_post_meta($post->ID, "story_district", true) . ', ' . $state_name ?></h5>
+                                                    <p><?php echo get_post_meta($post->ID, "story_district", true) . ', ' . $state_name ?></p>
                                                     <p>
                                                        <?php
 								echo display_story_content($post->ID);
 								?>
                                                     </p>
+						    <p><a href="<?php echo get_permalink($post->ID);?>"><?php _e( "Read More &gt;" , "nn-story-custom-post-type" ); ?></a></p>
                                                 </div>
-                                                <div class="sldr_readmr">
+                                                <!--<div class="sldr_readmr">
                                                 	<a href="<?php echo get_permalink($post->ID);?>"><?php _e( "Read More &gt;" , "nn-story-custom-post-type" ); ?></a>
-                                                </div>
+                                                </div>-->
                                             </div>
                                         </li>
                                     <?php endwhile; ?>

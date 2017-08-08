@@ -9,7 +9,7 @@ jQuery(document).ready(function(){
 	  minSlides: 1,
 	  maxSlides: 3,
 	  moveSlides: 1,
-	  slideWidth: 375,
+	  slideWidth: 400,
   });
   jQuery(".cstmaccordiandv").click(function(){
 	 if(jQuery(this).children('i').hasClass("fa-caret-right"))

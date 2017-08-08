@@ -594,8 +594,12 @@ img.featured_item_image { width:100%; }
     float:none;
     margin:0 0 30px; 
 }
+.fusion-body.post-type-archive-stories #main .fusion-row .scp_slider_content .sliderinnrwrap .slidercontentnrwrpr {
+    margin-left:0;
+    padding:25px;
+}
 .fusion-body.post-type-archive-stories #main .fusion-row .scp_slider_content .sliderinnrwrap .slidercontentnrwrpr h4 {
-    font-size:26px;
+    font-size:26px !important;
     color:#333333;
     font-family: 'Khand';
     font-weight: 600;

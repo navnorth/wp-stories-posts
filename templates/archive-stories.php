@@ -6,7 +6,7 @@
  * @subpackage Twenty_Twelve
  * @since Twenty Twelve 1.0
  */
-$enable_sidebar = get_option('enable_sidebar');
+global $enable_sidebar;
 get_header(); ?>
 
 	<div id="content" class="row">

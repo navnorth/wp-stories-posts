@@ -28,9 +28,10 @@
  */
 
 //defining the url,path and slug for the plugin
-global $wpdb, $characteristics, $districtsize, $scp_session, $_embed, $_backurl;
+global $wpdb, $characteristics, $districtsize, $scp_session, $_embed, $_backurl, $enable_sidebar;
 $characteristics = array('Rural','Suburban','Urban');
 $districtsize = array("Less than 1,000 students","1,001-10,000 students","10,001-40,000 students","40,001+ students");
+$enable_sidebar = get_option('enable_sidebar');
 
 define( 'SCP_URL', plugin_dir_url(__FILE__) );
 define( 'SCP_PATH', plugin_dir_path(__FILE__) );

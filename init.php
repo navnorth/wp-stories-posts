@@ -1121,7 +1121,8 @@ function get_story_filters() {
 		<div class="srchtrmbxs col-md-3">
 			<?php echo get_top_topics_dropdown($taxonomy, $taxonomy_name) ?>
 		</div>
-        </div>
+		</div>
+	</div>
     <?php
 }
 //Story Search

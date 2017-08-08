@@ -503,7 +503,7 @@ get_header(); ?>
 				$postquery = new WP_Query(array('post_type' => 'stories', 'posts_per_page' => -1));
 
 				$post_ids = wp_list_pluck( $postquery->posts, 'ID' );
-
+				$post_count = count($post_ids);
 				$args = array('orderby' => 'term_order','order' => 'ASC','hide_empty' => true);
 				$tags = get_terms('story_tag', $args);
 				if ( $postquery->have_posts() ) {

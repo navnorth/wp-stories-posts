@@ -12,94 +12,94 @@ get_header(); ?>
 	<div id="content" class="row">
     	<?php
 		
-			if(isset($_REQUEST['action']) && !empty($_REQUEST['action']))
+		if(isset($_REQUEST['action']) && !empty($_REQUEST['action']))
+		{
+			global $wpdb;
+			if($_REQUEST['action'] == 'showall')
 			{
-				global $wpdb;
-				if($_REQUEST['action'] == 'showall')
-				{
-					$postquery = new WP_Query(array('post_type' => 'stories', 'posts_per_page' => -1));
+				$postquery = new WP_Query(array('post_type' => 'stories', 'posts_per_page' => -1));
 
-                    $post_ids = wp_list_pluck( $postquery->posts, 'ID' );
+				$post_ids = wp_list_pluck( $postquery->posts, 'ID' );
 
-                    $args = array('orderby' => 'term_order','order' => 'ASC','hide_empty' => true);
-                    $tags = get_terms('story_tag', $args);
+				$args = array('orderby' => 'term_order','order' => 'ASC','hide_empty' => true);
+				$tags = get_terms('story_tag', $args);
 
-					if ( $postquery->have_posts() ) ?>
-						<?php if ($enable_sidebar) { ?>
-						<div class="col-md-4 col-sm-12 col-xs-12 pblctn_right_sid_mtr">
-							 <?php get_stories_side_nav(); ?>
+				if ( $postquery->have_posts() ) ?>
+					<?php if ($enable_sidebar) { ?>
+					<div class="col-md-4 col-sm-12 col-xs-12 pblctn_right_sid_mtr">
+						 <?php get_stories_side_nav(); ?>
+					</div>
+					<?php } ?>
+					<div class="<?php if ($enable_sidebar) { ?>col-md-8<?php } else { ?>col-md-12<?php } ?> col-sm-12 col-xs-12 pblctn_lft_sid_img_cntnr map_cntnr">
+						<div class="col-md-12 col-sm-12 col-xs-12 pblctn_right_sid_mtr">
+							 <?php get_storiesmap();?>
 						</div>
-						<?php } ?>
-						<div class="<?php if ($enable_sidebar) { ?>col-md-8<?php } else { ?>col-md-12<?php } ?> col-sm-12 col-xs-12 pblctn_lft_sid_img_cntnr map_cntnr">
-							<div class="col-md-12 col-sm-12 col-xs-12 pblctn_right_sid_mtr">
-								 <?php get_storiesmap();?>
-							</div>
 
-                            <header class="tax-header">
-                                <h1 class="tax-title">
-                                     <?php
-						$post_count = count($post_ids);
-						printf( __( 'Results: %s', SCP_SLUG ), '<i>All Stories</i> <span>(' .$post_count.' '.story_plural($post_count).')</span>' );
-				     ?>
-                                </h1>
-                                <div class="topics-search-box">
-                                    <form method="get">
-                                        <input type="hidden" name="action" value="showall" />
-                                        <select name="term" id="showalltopic">
-                                            <option value=""><?php _e( "Filter by Topic", "nn-story-custom-post-type" ); ?></option>
-                                            <?php
-                                                foreach($tags as $tag)
-                                                {
-                                                    $count = get_counts($tag->term_id,$post_ids);
-                                                    if(isset($term) && !empty($term) && $term == $tag->slug):
-                                                        $check='selected="selected"'; else: $check = '';
-                                                    endif;
-                                                    echo '<option '. $check .' value="'.site_url().'/stories/story_tag/'.$tag->slug.'">'.$tag->name.' ('.$count.')</option>';
-                                                }
-                                            ?>
-                                        </select>
-                                    </form>
-				<?php get_sort_box($post_ids); ?>
-                                </div>
-                            </header>
-				<?php
-				//Get number of pages
-				$postquery = new WP_Query(array('post_type' => 'stories', 'posts_per_page' => 10));
-				$max_page = $postquery->max_num_pages;
-
-				$paged = 1;
-				if ($_GET['page'])
-						$paged = (int)$_GET['page'];
-
-				$args = array('post_type' => 'stories', 'posts_per_page' => 10 * $paged);
-				
-				//Apply sort args
-				$args = apply_sort_args($args);
-				
-				//Reset Post query to show only 10 stories
-				$postquery = new WP_Query($args);
-
-				echo '<div id="content-stories">';
-				//Display initial stories
-				while ( $postquery->have_posts() ) : $postquery->the_post();
-                                    get_story_template_part( 'content', 'substory' );
-				endwhile;
-				echo '</div>';
-
-				//Show load more button
-				if ($post_count>10 & $paged<$max_page) {
-						$base_url = "http" . (($_SERVER['SERVER_PORT'] == 443) ? "s://" : "://") . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
-						if (strpos($base_url,"page"))
-								$base_url = substr($base_url,0,strpos($base_url, "page")-1);
-						echo '<div class="col-md-12 pblctn_paramtr padding_left"><a href="&page='.($paged+1).'" data-page-number="'.($paged+1).'" data-page="show_all" data-base-url="'.$base_url.'" data-max-page="'.$max_page.'" class="btn-load-more">Load More</a></div>';
-				}
-
-				?>
-
-					 	</div>
-					<?php
-
-				}
+						<header class="tax-header">
+						    <h1 class="tax-title">
+							 <?php
+								    $post_count = count($post_ids);
+								    printf( __( 'Results: %s', SCP_SLUG ), '<i>All Stories</i> <span>(' .$post_count.' '.story_plural($post_count).')</span>' );
+							 ?>
+						    </h1>
+						    <div class="topics-search-box">
+							<form method="get">
+							    <input type="hidden" name="action" value="showall" />
+							    <select name="term" id="showalltopic">
+								<option value=""><?php _e( "Filter by Topic", "nn-story-custom-post-type" ); ?></option>
+								<?php
+								    foreach($tags as $tag)
+								    {
+									$count = get_counts($tag->term_id,$post_ids);
+									if(isset($term) && !empty($term) && $term == $tag->slug):
+									    $check='selected="selected"'; else: $check = '';
+									endif;
+									echo '<option '. $check .' value="'.site_url().'/stories/story_tag/'.$tag->slug.'">'.$tag->name.' ('.$count.')</option>';
+								    }
+								?>
+							    </select>
+							</form>
+						    <?php get_sort_box($post_ids); ?>
+						    </div>
+						</header>
+						<?php
+						//Get number of pages
+						$postquery = new WP_Query(array('post_type' => 'stories', 'posts_per_page' => 10));
+						$max_page = $postquery->max_num_pages;
+		
+						$paged = 1;
+						if ($_GET['page'])
+								$paged = (int)$_GET['page'];
+		
+						$args = array('post_type' => 'stories', 'posts_per_page' => 10 * $paged);
+						
+						//Apply sort args
+						$args = apply_sort_args($args);
+						
+						//Reset Post query to show only 10 stories
+						$postquery = new WP_Query($args);
+		
+						echo '<div id="content-stories">';
+						//Display initial stories
+						while ( $postquery->have_posts() ) : $postquery->the_post();
+						    get_story_template_part( 'content', 'substory' );
+						endwhile;
+						echo '</div>';
+		
+						//Show load more button
+						if ($post_count>10 & $paged<$max_page) {
+								$base_url = "http" . (($_SERVER['SERVER_PORT'] == 443) ? "s://" : "://") . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
+								if (strpos($base_url,"page"))
+										$base_url = substr($base_url,0,strpos($base_url, "page")-1);
+								echo '<div class="col-md-12 pblctn_paramtr padding_left"><a href="&page='.($paged+1).'" data-page-number="'.($paged+1).'" data-page="show_all" data-base-url="'.$base_url.'" data-max-page="'.$max_page.'" class="btn-load-more">Load More</a></div>';
+						}
+		
+						?>
+		
+								</div>
+							<?php
+		
+						}
 
 				// Story Text-Based Search Result
 				if ($_REQUEST['action'] == 'search') {
@@ -425,7 +425,7 @@ get_header(); ?>
                 // topics query
                 $args = array('post_type' => 'stories','post_status' => 'publish','meta_query' => array(array('key' => 'story_highlight','value' => 'true')));
 				$postquery = new WP_Query( $args );
-
+				
 				if ( $postquery->have_posts() )
 				{ ?>
 				<?php if ($enable_sidebar) { ?>
@@ -494,8 +494,48 @@ get_header(); ?>
 						 </div>
 				</div>
                 <?php
+				$postquery = new WP_Query(array('post_type' => 'stories', 'posts_per_page' => -1));
+
+				$post_ids = wp_list_pluck( $postquery->posts, 'ID' );
+
+				$args = array('orderby' => 'term_order','order' => 'ASC','hide_empty' => true);
+				$tags = get_terms('story_tag', $args);
+				if ( $postquery->have_posts() ) {
+						//Get number of pages
+						$postquery = new WP_Query(array('post_type' => 'stories', 'posts_per_page' => 6));
+						$max_page = $postquery->max_num_pages;
+		
+						$paged = 1;
+						if ($_GET['page'])
+								$paged = (int)$_GET['page'];
+		
+						$args = array('post_type' => 'stories', 'posts_per_page' => 6 * $paged);
+						
+						//Apply sort args
+						$args = apply_sort_args($args);
+						
+						//Reset Post query to show only 10 stories
+						$postquery = new WP_Query($args);
+		
+						echo '<div id="content-stories">';
+						//Display initial stories
+						while ( $postquery->have_posts() ) : $postquery->the_post();
+								echo '<div class="col-md-4">';
+								get_story_template_part( 'content', 'subprofile' );
+								echo '</div>';
+						endwhile;
+						echo '</div>';
+		
+						//Show load more button
+						if ($post_count>6 & $paged<$max_page) {
+								$base_url = "http" . (($_SERVER['SERVER_PORT'] == 443) ? "s://" : "://") . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
+								if (strpos($base_url,"page"))
+										$base_url = substr($base_url,0,strpos($base_url, "page")-1);
+								echo '<div class="col-md-12 pblctn_paramtr padding_left"><a href="&page='.($paged+1).'" data-page-number="'.($paged+1).'" data-page="show_all" data-base-url="'.$base_url.'" data-max-page="'.$max_page.'" class="btn-load-more">Load More</a></div>';
+						}
 				}
-			}
+		}
+}
 		?>
 
 	</div><!-- #row -->

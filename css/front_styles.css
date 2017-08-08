@@ -518,6 +518,7 @@ article.stories .entry-meta a.read-more, article.stories .entry-meta a.read-more
     margin-top: 0.67em;
     margin-bottom: 0.67em;
 }
+.fusion-body .profile-heading { margin-bottom:30px; }
 .fusion-body .profile-heading h1 {
     font-size: 52px;
     color: #333333;
@@ -568,6 +569,10 @@ img.featured_item_image { width:100%; }
     word-wrap: break-word;
 }
 .profile-row { margin:0 0 20px; }
+.fusion-body.post-type-archive-stories #main { padding-left:0; padding-right:0; }
+.fusion-body.post-type-archive-stories #main .fusion-row { max-width:100%; }
+.fusion-body.post-type-archive-stories #main .fusion-row .scp_slider_content { max-width:1260px; margin:0 auto; }
+.fusion-body.post-type-archive-stories #main .fusion-row ..map_cntnr { padding-left:30px !important; padding-right:30px !important; }
 @media screen and (max-width: 992px) {
     .stry_srch_frm { width: 100%}
     /*.pblctn_lft_sid_img_cntnr { padding-left: 0 !important}*/

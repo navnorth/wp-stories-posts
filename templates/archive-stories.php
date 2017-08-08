@@ -434,11 +434,11 @@ get_header(); ?>
 					</div>
 				<?php } ?>
 				<!-- Slider -->
-						<div class="slidermainwrpr">
+						<div class="slidermainwrpr scp_slider_content">
 							<div class="slidersubwrpr">
                         		<ul class="bxslider">
-									<?php while ( $postquery->have_posts() ) : $postquery->the_post(); ?>
-                                    	<li>
+						<?php while ( $postquery->have_posts() ) : $postquery->the_post(); ?>
+                                    	<li class="col-md-4">
                                             <div class="sliderinnrwrap">
                                                 <div class="sliderimgwrpr">
                                                     <?php

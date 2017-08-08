@@ -63,9 +63,7 @@
 	<?php endif; ?>
 	<div class="scp_profile_content">
 	<h4>
-	    <a href="<?php echo $link; ?>">
 		<?php echo get_the_title($post->ID); ?>
-	    </a>
 	</h4>
 	<h5 class="substory_loc">
 		<?php
@@ -170,7 +168,7 @@
 		}
 		
 		$link = get_the_permalink($post->ID)."?back=".urlencode($_SERVER['REQUEST_URI']);
-		echo '<p><a href="$link">Read More &gt;</a></p>';
+		echo '<p><a href="'.$link.'">Read More &gt;</a></p>';
 	    ?>
 	</div>
 </div>

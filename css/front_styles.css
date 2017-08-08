@@ -554,7 +554,7 @@ article.stories .entry-meta a.read-more, article.stories .entry-meta a.read-more
 .fusion-body .popup-summit { width:50%; float:left; }
 .fusion-body .popup-logic-model { width:50%; float:right; clear:right; }
 img.featured_item_image { width:100%; }
-.fusion-body #content-stories .profile-block{ width:95%; min-height:550px; padding:0; }
+.fusion-body #content-stories .profile-block{ width:95%; min-height:550px; padding:0; margin-bottom:50px; }
 .scp_profile_content { background: #eeeeee; padding: 20px; min-height:320px; }
 .scp_profile_content h4 {
     font-size:26px;

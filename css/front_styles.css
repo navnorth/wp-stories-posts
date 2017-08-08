@@ -354,6 +354,7 @@ article.stories .entry-meta a.read-more, article.stories .entry-meta a.read-more
     margin-top:0;
     padding: 20px;
 }
+.profile-filters { padding-left:0 !important; padding-right:0 !important; margin:20px 0 50px; }
 
 .uppercase { text-transform:uppercase; }
 
@@ -552,6 +553,21 @@ article.stories .entry-meta a.read-more, article.stories .entry-meta a.read-more
 }
 .fusion-body .popup-summit { width:50%; float:left; }
 .fusion-body .popup-logic-model { width:50%; float:right; clear:right; }
+img.featured_item_image { width:100%; }
+.fusion-body #content-stories .profile-block{ width:95%; min-height:550px; padding:0; }
+.scp_profile_content { background: #eeeeee; padding: 20px; min-height:320px; }
+.scp_profile_content h4 {
+    font-size:26px;
+    color:#333333;
+    font-family: 'Khand';
+    font-weight: 600;
+    line-height: 1.25em;
+    letter-spacing: 1px;
+    margin-top: 0;
+    margin-bottom: 0.1em;
+    word-wrap: break-word;
+}
+.profile-row { margin:0 0 20px; }
 @media screen and (max-width: 992px) {
     .stry_srch_frm { width: 100%}
     /*.pblctn_lft_sid_img_cntnr { padding-left: 0 !important}*/

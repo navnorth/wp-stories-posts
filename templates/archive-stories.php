@@ -489,7 +489,7 @@ get_header(); ?>
 						<div class="col-md-12 col-sm-12 col-xs-12 pblctn_right_sid_mtr">
 							 <?php get_storiesmap();?>
 						</div>
-						<div class="col-md-12 col-sm-12 col-xs-12 pblctn_right_sid_mtr">
+						<div class="col-md-12 col-sm-12 col-xs-12 profile-filters">
 								<?php get_story_filters(); ?>
 						 </div>
 				</div>
@@ -518,11 +518,20 @@ get_header(); ?>
 						$postquery = new WP_Query($args);
 		
 						echo '<div id="content-stories">';
+						
+						$i = 1;
 						//Display initial stories
 						while ( $postquery->have_posts() ) : $postquery->the_post();
+								if (($i%3)==1)
+										echo '<div class="profile-row">';
+										
 								echo '<div class="col-md-4">';
 								get_story_template_part( 'content', 'subprofile' );
 								echo '</div>';
+								
+								if (($i%3)==0)
+										echo '</div>';
+								$i++;
 						endwhile;
 						echo '</div>';
 		

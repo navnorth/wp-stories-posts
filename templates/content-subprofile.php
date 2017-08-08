@@ -61,12 +61,13 @@
             <img class="featured_item_image" src="<?php echo $img_url; ?>" alt="<?php echo $img_alt; ?>" />
         </div>
 	<?php endif; ?>
-	<h3>
+	<div class="scp_profile_content">
+	<h4>
 	    <a href="<?php echo $link; ?>">
 		<?php echo get_the_title($post->ID); ?>
 	    </a>
-	</h3>
-	<h4 class="substory_loc">
+	</h4>
+	<h5 class="substory_loc">
 		<?php
 		if($story_district = get_post_meta($post->ID, "story_district", true))
 			{
@@ -124,46 +125,52 @@
 				}
 			    }
 		?>
-	</h4>
+	</h5>
 	    <?php
 			$content = display_story_content($post->ID, 300);
 			
-			//Fixing issue with blockquotes inside the paragraph tags causing extra p tags before and after
-			$pos = strpos($content,"<blockquote>");
-			
-			if ($pos === false) {
-				echo '<p>'.$content.'</p>';
-			} else {
-				//Filter block quote
-				$startPos = strpos($content,"<blockquote>");
-				$endPos = strpos($content,"</blockquote>") + 13;
-				$blockquote = substr($content,$startPos,$endPos);
-				$other_content = "<p>".trim(substr($content,$endPos, strlen($content)-$endPos))."</p>";
-				echo $blockquote.$other_content;	
+			if (strlen($content)>3) {
+				//Fixing issue with blockquotes inside the paragraph tags causing extra p tags before and after
+				$pos = strpos($content,"<blockquote>");
+				
+				if ($pos === false) {
+					echo '<p>'.$content.'</p>';
+				} else {
+					//Filter block quote
+					$startPos = strpos($content,"<blockquote>");
+					$endPos = strpos($content,"</blockquote>") + 13;
+					$blockquote = substr($content,$startPos,$endPos);
+					$other_content = "<p>".trim(substr($content,$endPos, strlen($content)-$endPos))."</p>";
+					echo $blockquote.$other_content;	
+				}
 			}
 	    ?>
 	    <?php
-		    $topics = get_the_terms( $post->ID , 'story_tag' );
-		    if(isset($topics) && !empty($topics))
-		    {
-			    $postedin = '<strong>'.__( 'Topic' , SCP_SLUG );
-		if (count($topics) > 1) $postedin .= 's';
-		$postedin .= ':</strong> ';
+		$topics = get_the_terms( $post->ID , 'story_tag' );
+		if(isset($topics) && !empty($topics))
+		{
+			$postedin = '<strong>'.__( 'Topic' , SCP_SLUG );
+			if (count($topics) > 1) $postedin .= 's';
+			$postedin .= ':</strong> ';
     
-			    foreach($topics as $topic)
-			    {
-				    $termlink = get_term_link($topic->term_id, $topic->taxonomy);
-		    $postedin .= '<a href="'.$termlink.'">'.$topic->name.'</a>, ';
-			    }
-		
-		if ($_mobile==="true") {
-			foreach($grade_display as $display) {
-				$grade_label = '<span class="'.$display['grade_color'].'" style="margin-left:0">'.$display['grade_level'].'</span>';
-				echo $grade_label;
+			foreach($topics as $topic)
+			{
+				$termlink = get_term_link($topic->term_id, $topic->taxonomy);
+			     $postedin .= '<a href="'.$termlink.'">'.$topic->name.'</a>, ';
 			}
-		}
+		
+			if ($_mobile==="true") {
+				foreach($grade_display as $display) {
+					$grade_label = '<span class="'.$display['grade_color'].'" style="margin-left:0">'.$display['grade_level'].'</span>';
+					echo $grade_label;
+				}
+			}
 					    
-		echo '<p class="story-topics">' . trim($postedin,', ') . '</p>';
-		    }
+		//echo '<p class="story-topics">' . trim($postedin,', ') . '</p>';
+		}
+		
+		$link = get_the_permalink($post->ID)."?back=".urlencode($_SERVER['REQUEST_URI']);
+		echo '<p><a href="$link">Read More &gt;</a></p>';
 	    ?>
+	</div>
 </div>

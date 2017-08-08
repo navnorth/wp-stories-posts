@@ -173,7 +173,6 @@ global $enable_sidebar;
 			}
 			else
 			{
-				var_dump($postids);
 				?>
 				<?php if ($enable_sidebar) { ?>
 				<div class="col-md-4 col-sm-12 col-xs-12 pblctn_right_sid_mtr">
@@ -182,10 +181,10 @@ global $enable_sidebar;
 				<?php } ?>
 				<div class="<?php if ($enable_sidebar) { ?>col-md-8<?php } else { ?>col-md-12<?php } ?> col-sm-12 col-xs-12 pblctn_lft_sid_img_cntnr map_cntnr">
 					<div class="col-md-12 col-sm-12 col-xs-12 pblctn_right_sid_mtr">
-						 <?php get_storiesmap();?>
+						 <?php get_storiesmap($postids);?>
 					</div>
 					<div class="col-md-12 col-sm-12 col-xs-12 profile-filters">
-							<?php get_story_filters(); ?>
+							<?php get_story_filters($termobject->taxonomy, $termobject->slug); ?>
 					</div>
 					
 					<?php

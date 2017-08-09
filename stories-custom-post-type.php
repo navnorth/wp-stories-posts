@@ -373,7 +373,7 @@ function get_storiesmap($pageposts=NULL)
 {
 	global $wpdb, $_googleapikey;
 	$story_table = $wpdb->prefix . "scp_stories";
-    $post_table = $wpdb->prefix . "posts";
+	$post_table = $wpdb->prefix . "posts";
 	$sql = "SELECT S.id, S.postid, S.title, S.latitude, S.longitude, S.image, S.content, P.post_excerpt
         FROM $story_table S INNER JOIN $post_table P ON P.ID = S.postid
         WHERE S.latitude <> '' AND S.longitude <> ''";
@@ -391,7 +391,7 @@ function get_storiesmap($pageposts=NULL)
 		$postid = trim($postid, ",");
 		$sql .= " AND postid IN ($postid)";
 		$stories = $wpdb->get_results($sql);
-		//print_r($stories);
+		print_r($stories);
 	}
 	?>
 	<link rel="stylesheet" type="text/css" href="<?php echo SCP_URL ; ?>css/demo.css" />

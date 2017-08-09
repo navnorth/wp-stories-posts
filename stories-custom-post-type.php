@@ -391,7 +391,7 @@ function get_storiesmap($pageposts=NULL)
 		$postid = trim($postid, ",");
 		$sql .= " AND postid IN ($postid)";
 		$stories = $wpdb->get_results($sql);
-		print_r($stories);
+		print_r($sql);
 	}
 	?>
 	<link rel="stylesheet" type="text/css" href="<?php echo SCP_URL ; ?>css/demo.css" />

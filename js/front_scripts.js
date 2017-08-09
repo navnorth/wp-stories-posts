@@ -9,7 +9,7 @@ jQuery(document).ready(function(){
 	  minSlides: 1,
 	  maxSlides: 3,
 	  moveSlides: 1,
-	  slideWidth: 400,
+	  slideWidth: 412,
   });
   jQuery(".cstmaccordiandv").click(function(){
 	 if(jQuery(this).children('i').hasClass("fa-caret-right"))
@@ -72,6 +72,24 @@ jQuery(document).ready(function(){
 	  jQuery('body').append(form);
 	  form.submit();
 	}
+    });
+    
+     jQuery('#grade_level_dropdown,#programdropdown,#story_tag_dropdown').change( function () {
+	var value = jQuery(this).val();
+	var id = jQuery(this).attr('id');
+	var post_ids;
+	var postids = "";
+	
+	post_ids= jQuery(this).attr('data-post-ids');
+	
+	if (post_ids!=="undefined") {
+	  postids = '<input type="text" name="post_ids" value="' + post_ids + '" />';
+	}
+        
+	var form = jQuery('<form action="' + value + '" method="post">' +
+	'</form>');
+	jQuery('body').append(form);
+	form.submit();
     });
 
     jQuery('#showalltopic').change( function () {

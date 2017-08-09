@@ -1009,7 +1009,7 @@ function get_top_topics_dropdown($taxonomy=NULL, $taxonomy_name=NULL)
 
 	$topic_nav = '<div class="tglelemnt">';
 	$topic_nav .= '<h5>Topics:</h5>';
-	$topic_nav .= '<select name="story_tag" id="story_tag">';
+	$topic_nav .= '<select name="story_tag" id="story_tag_dropdown">';
 	$topic_nav .= '<option value="">Browse by Topic</option>';
 	foreach($tags as $tag)
 	{
@@ -1068,7 +1068,7 @@ function get_story_filters($taxonomy=NULL, $taxonomy_name=NULL) {
 	{
 		$gradeoption = '<div class="tglelemnt">';
 		$gradeoption .= '<h5>School Type:</h5>';
-		$gradeoption .= '<select name="grade_level" id="grade_level">';
+		$gradeoption .= '<select name="grade_level" id="grade_level_dropdown">';
 		$gradeoption .= '<option value="">Browse by School Type</option>';
 		foreach($grades as $grade)
 		{
@@ -1087,7 +1087,7 @@ function get_story_filters($taxonomy=NULL, $taxonomy_name=NULL) {
 	{
 		$programoption = '<div class="tglelemnt">';
 		$programoption .= '<h5>Summit:</h5>';
-		$programoption .= '<select name="program" id="program">';
+		$programoption .= '<select name="program" id="programdropdown">';
 		$programoption .= '<option value="">Browse by Summit</option>';
 		foreach($programs as $program)
 		{
@@ -1096,7 +1096,7 @@ function get_story_filters($taxonomy=NULL, $taxonomy_name=NULL) {
 			else:
 				$check = '';
 			endif;
-			$programoption .= '<option '.$check.' value="'.$program->slug.'">'.$program->name.'</option>';
+			$programoption .= '<option '.$check.' value="'.site_url().'/stories/program/'.$program->slug.'">'.$program->name.'</option>';
 		}
 		$programoption .= '</select></div>';
 	}

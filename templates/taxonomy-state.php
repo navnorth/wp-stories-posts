@@ -183,7 +183,6 @@ global $enable_sidebar;
 					<div class="col-md-12 col-sm-12 col-xs-12 pblctn_right_sid_mtr">
 						 <?php get_storiesmap($postids);?>
 					</div>
-					<?php var_dump($termobject); ?>
 					<div class="col-md-12 col-sm-12 col-xs-12 profile-filters">
 							<?php get_story_filters($termobject->taxonomy, $termobject->slug); ?>
 					</div>

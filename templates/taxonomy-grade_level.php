@@ -9,6 +9,7 @@
 get_header(); ?>
 <?php
 	global $wpdb;
+	global $enable_sidebar;
 	$table = $wpdb->prefix."term_relationships";
 	$posts_table = $wpdb->prefix."posts";
 	$termobject = get_queried_object();
@@ -45,10 +46,12 @@ get_header(); ?>
 
 					if(isset($pageposts) && !empty($pageposts))
 					{?>
+			<?php if ($enable_sidebar) { ?>
                         <div class="col-md-4 col-sm-12 col-xs-12 pblctn_right_sid_mtr">
                         	<?php get_stories_side_nav($termobject->taxonomy, $termobject->slug); ?>
                         </div>
-                        <div class="col-md-8 col-sm-12 col-xs-12 pblctn_lft_sid_img_cntnr map_cntnr">
+			<?php } ?>
+                        <div class="<?php if ($enable_sidebar) { ?>col-md-8<?php } else { ?>col-md-12<?php } ?> col-sm-12 col-xs-12 pblctn_lft_sid_img_cntnr map_cntnr">
                             <div class="col-md-12 col-sm-12 col-xs-12 pblctn_right_sid_mtr">
                                  <?php get_storiesmap(array_keys($pageposts));?>
                             </div>
@@ -98,10 +101,12 @@ get_header(); ?>
 					else
 					{
 						?>
+			<?php if ($enable_sidebar) { ?>
                         <div class="col-md-4 col-sm-12 col-xs-12 pblctn_right_sid_mtr">
                         	<?php get_stories_side_nav($termobject->taxonomy, $termobject->slug); ?>
                         </div>
-                        <div class="col-md-8 col-sm-12 col-xs-12 pblctn_lft_sid_img_cntnr map_cntnr">
+			<?php } ?>
+                        <div class="<?php if ($enable_sidebar) { ?>col-md-8<?php } else { ?>col-md-12<?php } ?> col-sm-12 col-xs-12 pblctn_lft_sid_img_cntnr map_cntnr">
                             <div class="col-md-12 col-sm-12 col-xs-12 pblctn_right_sid_mtr">
                                  <?php get_storiesmap();?>
                             </div>
@@ -143,56 +148,29 @@ get_header(); ?>
 				else
 				{
 					?>
+					<?php if ($enable_sidebar) { ?>
 					<div class="col-md-4 col-sm-12 col-xs-12 pblctn_right_sid_mtr">
 						 <?php get_stories_side_nav($termobject->taxonomy, $termobject->slug); ?>
 					</div>
-					<div class="col-md-8 col-sm-12 col-xs-12 pblctn_lft_sid_img_cntnr map_cntnr">
+					<?php } ?>
+					<div class="<?php if ($enable_sidebar) { ?>col-md-8<?php } else { ?>col-md-12<?php } ?> col-sm-12 col-xs-12 pblctn_lft_sid_img_cntnr map_cntnr">
 						<div class="col-md-12 col-sm-12 col-xs-12 pblctn_right_sid_mtr">
 							 <?php get_storiesmap($postids);?>
 						</div>
-                        <header class="tax-header">
-                            <h1 class="tax-title">
-                                 <?php
-				 //$post_count = count($postids);
-				 $term = get_term($term_id);
-				 $post_count = $term->count;
-				 printf( __( 'Results: %s', SCP_SLUG ), '<i>'.$termobject->name.'</i> <span>(' .$post_count.' '.story_plural($post_count).')</span>' );
-				 ?>
-                            </h1>
-                            <div class="topics-search-box">
-                                <form method="get">
-                                    <input type="hidden" name="action" value="search" />
-                                    <input type="hidden" name="story_taxonomy" value="story_tag" />
-                                    <select name="term" onchange="formsubmit(this);">
-                                        <option value=""><?php _e( 'Filter by Topic' , SCP_SLUG ); ?></option>
-                                        <?php
-                                            foreach($tags as $tag)
-                                            {
-                                                $count = get_counts($tag->term_id,$postids);
-                                                if ($count > 0)
-                                                {
-                                                    if(isset($termobject->slug) && !empty($termobject->slug) && $termobject->slug == $tag->slug):
-                                                        $check='selected="selected"'; else: $check = '';
-                                                    endif;
-                                                    echo '<option '. $check .' value="'.$tag->slug.'">'.$tag->name.' ('.$count.')</option>';
-                                                }
-                                            }
-                                        ?>
-                                    </select>
-                                </form>
-				<?php get_sort_box($postids); ?>
-                            </div>
-                        </header>
+						<div class="col-md-12 col-sm-12 col-xs-12 profile-filters">
+							<?php get_story_filters($termobject->taxonomy, $termobject->slug); ?>
+						</div>
+                        
 						<?php
 						//Get Max number of pages
-						$postquery = new WP_Query(array('post_type' => 'stories', 'post__in' => $postids, 'posts_per_page' => 10));
+						$postquery = new WP_Query(array('post_type' => 'stories', 'post__in' => $postids, 'posts_per_page' => 6));
 						$max_page = $postquery->max_num_pages;
 						
 						$paged = 1;
 						if ($_GET['page'])
 							$paged = (int)$_GET['page'];
 						
-						$args = array('post_type' => 'stories', 'post__in' => $postids, 'posts_per_page' => 10*$paged);
+						$args = array('post_type' => 'stories', 'post__in' => $postids, 'posts_per_page' => 6*$paged);
 						
 						//Apply sort args
 						$args = apply_sort_args($args);
@@ -200,13 +178,26 @@ get_header(); ?>
 						$postquery = new WP_Query( $args );
 						
 						echo '<div id="content-stories">';
+						$i = 1;
 						while ( $postquery->have_posts() ) : $postquery->the_post(); ?>
-							<?php get_story_template_part( 'content', 'substory' ); ?>
+							<?php
+							if (($i%3)==1)
+								echo '<div class="profile-row">';
+											
+							echo '<div class="col-md-4">'; ?>
+							<?php get_story_template_part( 'content', 'subprofile' ); ?>
+							<?php
+							echo '</div>';
+									
+							if (($i%3)==0)
+								echo '</div>';
+							$i++;
+							?>
 						<?php endwhile; // end of the loop.
 						echo '</div>';
 						
 						//Show Load More Button
-						if ($post_count>10 & $paged<$max_page) {
+						if ($post_count>6 & $paged<$max_page) {
 							$base_url = "http" . (($_SERVER['SERVER_PORT'] == 443) ? "s://" : "://") . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
 							
 							if (strpos($base_url,"page"))

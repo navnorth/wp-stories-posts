@@ -391,7 +391,7 @@ function get_storiesmap($pageposts=NULL)
 		$postid = trim($postid, ",");
 		$sql .= " AND postid IN ($postid)";
 		$stories = $wpdb->get_results($sql);
-		print_r($sql);
+		//print_r($sql);
 	}
 	?>
 	<link rel="stylesheet" type="text/css" href="<?php echo SCP_URL ; ?>css/demo.css" />
@@ -534,7 +534,7 @@ function get_storiesmap($pageposts=NULL)
 							}
 							else
 							{
-								echo "\"<h3 align='center'><font color='#ff0000'>No Content Found</font></h3>\"";
+								//echo "\"<h3 align='center'><font color='#ff0000'>No Content Found</font></h3>\"";
 							}
                         ?>];
 

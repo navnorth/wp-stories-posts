@@ -1028,7 +1028,7 @@ function get_top_topics_dropdown($taxonomy=NULL, $taxonomy_name=NULL)
 /**
  * Display Profile Filters
  **/
-function get_story_filters() {
+function get_story_filters($taxonomy=NULL, $taxonomy_name=NULL) {
 	global $wpdb, $_filters;
 
 	$args = array( 'orderby'   => 'term_order',

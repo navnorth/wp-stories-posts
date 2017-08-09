@@ -27,9 +27,11 @@ function add_vimeo_script(){
 	    $img_url = $img[0];
     } 
 ?>
+<?php if ($img_url) { ?>
 <style type="text/css">
     .fusion-page-title-bar { background-image:url(<?php echo $img_url; ?>); }
 </style>
+<?php } ?>
 <div id="content" class="col-md-5 col-sm-12 col-xs-12 pblctn_right_sid_mtr">
     <div>
         <?php

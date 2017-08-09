@@ -536,9 +536,10 @@ function get_storiesmap($pageposts=NULL)
 							{
 								//echo "\"<h3 align='center'><font color='#ff0000'>No Content Found</font></h3>\"";
 							}
-                        ?>];
+                        ?>
+			];
 
-                    // Setup the different icons and shadows
+                    /* Setup the different icons and shadows */
                     var iconURLPrefix = '<?php echo SCP_URL.'images/'?>';
 
                     var icons = [iconURLPrefix + 'marker_solid.png', iconURLPrefix + 'marker_orange.png']

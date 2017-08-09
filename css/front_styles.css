@@ -617,6 +617,9 @@ img.featured_item_image { width:100%; }
 .fusion-body.post-type-archive-stories #main .fusion-row .scp_slider_content .sliderinnrwrap .slidercontentnrwrpr h5 { margin-top:0.07em; margin-top:1em; }
 .fusion-body.post-type-archive-stories #main .fusion-row .map_cntnr { padding-left:30px !important; padding-right:30px !important; }
 .fusion-body #content-stories .profile-row:last-child .profile-block { margin-bottom:25px; }
+.fusion-body #content-stories .scp_profile_feature_image img.featured_item_image {
+    max-height:250px;
+}
 .fusion-body .btn-more-profiles {
     font-family: 'Khand';
     font-weight: 600;

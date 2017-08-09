@@ -1077,7 +1077,7 @@ function get_story_filters($taxonomy=NULL, $taxonomy_name=NULL) {
 			else:
 				$check = '';
 			endif;
-			$gradeoption .= '<option '.$check.' value="'.$grade->slug.'">'.$grade->name.'</option>';
+			$gradeoption .= '<option '.$check.' value="'.site_url().'/stories/grade_level/'.$grade->slug.'">'.$grade->name.'</option>';
 		}
 		$gradeoption .= '</select></div>';
 	}

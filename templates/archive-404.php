@@ -9,6 +9,7 @@
 get_header(); ?>
 <?php
 	global $wpdb;
+	global $enable_sidebar;
 	$table = $wpdb->prefix."term_relationships";
 
 	$termobject = get_queried_object();
@@ -24,10 +25,12 @@ get_header(); ?>
 	$tags = get_terms('story_tag', $args);
 ?>
 	<div id="content" class="row">
+	<?php if ($enable_sidebar) { ?>
         <div class="col-md-4 col-sm-12 col-xs-12 pblctn_right_sid_mtr">
               <?php get_stories_side_nav($termobject->taxonomy, $termobject->slug); ?>
         </div>
-        <div class="col-md-8 col-sm-12 col-xs-12 pblctn_lft_sid_img_cntnr map_cntnr">
+	<?php } ?>
+        <div class="<?php if ($enable_sidebar) { ?>col-md-8<?php } else { ?>col-md-12<?php } ?> col-sm-12 col-xs-12 pblctn_lft_sid_img_cntnr map_cntnr">
             <div class="col-md-12 col-sm-12 col-xs-12 pblctn_right_sid_mtr">
                <?php get_storiesmap($postids);?>
             </div>

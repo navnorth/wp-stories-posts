@@ -988,7 +988,7 @@ function get_top_heading() {
 	<div class="col-md-12 col-sm-12 col-xs-12 profile-heading">
 	<?php if (!(title_can_be_hidden())): ?>
             <h1>
-            	<?php _e( "View All Projects", SCP_SLUG); ?>
+            	<?php _e( "View All Profiles", SCP_SLUG); ?>
             </h1>
 	    <?php endif; ?>
             <h5 class="stry_srch_desc">

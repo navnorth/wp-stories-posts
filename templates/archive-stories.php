@@ -439,7 +439,7 @@ get_header(); ?>
 					<h1><?php _e('Featured Profiles', SCP_SLUG); ?></h1>
                         		<ul class="bxslider">
 						<?php while ( $postquery->have_posts() ) : $postquery->the_post(); ?>
-                                    	<li class="col-md-4">
+                                    	<li class="col-md-4 col-sm-12 col-xs-12">
                                             <div class="sliderinnrwrap">
                                                 <div class="sliderimgwrpr">
                                                     <?php

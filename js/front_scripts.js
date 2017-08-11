@@ -1,14 +1,12 @@
 jQuery(document).ready(function(){
   jQuery('.bxslider').bxSlider({
-	  pager: true,
+	  pager: false,
 	  control: false,
-	  auto: true,
-	  autoHover: true,
-	  pause: 5000,
+	  auto: false,
+	  autoStart: false,
 	  controls: false,
-	  minSlides: 1,
+	  minSlides: 3,
 	  maxSlides: 3,
-	  moveSlides: 1,
 	  slideWidth: 412,
   });
   jQuery(".cstmaccordiandv").click(function(){

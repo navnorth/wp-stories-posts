@@ -1016,7 +1016,7 @@ function get_top_topics_dropdown($taxonomy=NULL, $taxonomy_name=NULL)
 		if(isset($taxonomy_name) && !empty($taxonomy_name) && $taxonomy_name == $tag->slug):
 			$check = 'selected="selected"';
 		else:
-			$check = 'selected="selected"';
+			$check = '';
 		endif;
 		$topic_nav .= '<option '.$check.' value="'.site_url().'/stories/story_tag/'.$tag->slug.'">'.ucfirst($tag->name).'</option>';
 	}

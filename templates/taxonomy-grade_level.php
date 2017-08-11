@@ -182,7 +182,7 @@ get_header(); ?>
 						while ( $postquery->have_posts() ) : $postquery->the_post(); ?>
 							<?php
 							if (($i%3)==1)
-								echo '<div class="profile-row">';
+								echo '<div class="row">';
 											
 							echo '<div class="col-md-4">'; ?>
 							<?php get_story_template_part( 'content', 'subprofile' ); ?>

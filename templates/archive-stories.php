@@ -528,7 +528,7 @@ get_header(); ?>
 						//Display initial stories
 						while ( $postquery->have_posts() ) : $postquery->the_post();
 								if (($i%3)==1)
-										echo '<div class="profile-row">';
+										echo '<div class="row">';
 										
 								echo '<div class="col-md-4">';
 								get_story_template_part( 'content', 'subprofile' );

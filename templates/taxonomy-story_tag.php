@@ -161,7 +161,7 @@ get_header(); ?>
 						</div>
 						<?php
 						//Get Max number of pages
-						$postquery = new WP_Query(array('post_type' => 'stories', 'post__in' => $postids, 'posts_per_page' => 10));
+						$postquery = new WP_Query(array('post_type' => 'stories', 'post__in' => $postids, 'posts_per_page' => 6));
 						$max_page = $postquery->max_num_pages;
 						
 						$paged = 1;
@@ -169,7 +169,7 @@ get_header(); ?>
 							$paged = (int)$_GET['page'];
 						
 						//Change query to show just 10
-						$args = array('post_type' => 'stories', 'post__in' => $postids, 'posts_per_page' => 10*$paged);
+						$args = array('post_type' => 'stories', 'post__in' => $postids, 'posts_per_page' => 6*$paged);
 						
 						//Apply sort args
 						$args = apply_sort_args($args);
@@ -181,7 +181,7 @@ get_header(); ?>
 						while ( $postquery->have_posts() ) : $postquery->the_post(); ?>
 							<?php
 							if (($i%3)==1)
-								echo '<div class="profile-row">';
+								echo '<div class="row">';
 											
 							echo '<div class="col-md-4">'; ?>
 							<?php get_story_template_part( 'content', 'subprofile' ); ?>
@@ -196,7 +196,7 @@ get_header(); ?>
 						echo '</div>';
 						
 						//Show Load More Button
-						if ($post_count>10 & $paged<$max_page) {
+						if ($post_count>6 & $paged<$max_page) {
 							$base_url = "http" . (($_SERVER['SERVER_PORT'] == 443) ? "s://" : "://") . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
 							
 							if (strpos($base_url,"page"))

@@ -623,7 +623,7 @@ img.featured_item_image { width:100%; }
     overflow: hidden;
 }
 .fusion-body.post-type-archive-stories #main .fusion-row .pblctn_right_sid_mtr {
-    padding-left:15px !iportant;
+    padding-left:15px !important;
     padding-right:15px !important;
 }
 .fusion-body #content-stories .profile-row:last-child .profile-block { margin-bottom:25px; }

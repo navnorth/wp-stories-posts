@@ -48,6 +48,7 @@ global $enable_sidebar;
 	
 	$args = array('orderby' => 'term_order','order' => 'ASC','hide_empty' => true);
 	$tags = get_terms('story_tag', $args);
+	$post_count = count($postids);
 	
 ?>
 	<div id="content" class="row">

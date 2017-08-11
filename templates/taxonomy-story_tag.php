@@ -177,8 +177,21 @@ get_header(); ?>
 						$postquery = new WP_Query( $args );
 						
 						echo '<div id="content-stories">';
+						$i = 1;
 						while ( $postquery->have_posts() ) : $postquery->the_post(); ?>
-							<?php get_story_template_part( 'content', 'substory' ); ?>
+							<?php
+							if (($i%3)==1)
+								echo '<div class="profile-row">';
+											
+							echo '<div class="col-md-4">'; ?>
+							<?php get_story_template_part( 'content', 'subprofile' ); ?>
+							<?php
+							echo '</div>';
+									
+							if (($i%3)==0)
+								echo '</div>';
+							$i++;
+							?>
 						<?php endwhile; // end of the loop.
 						echo '</div>';
 						

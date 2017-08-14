@@ -1,14 +1,25 @@
 jQuery(document).ready(function(){
-  jQuery('.bxslider').bxSlider({
-	  pager: false,
+  if (jQuery(window).width()<600) {
+    jQuery('.bxslider').bxSlider({
+	  pager: true,
 	  control: false,
-	  auto: false,
-	  autoStart: false,
+	  auto: true,
+	  autoHover: true,
 	  controls: false,
-	  minSlides: 3,
-	  maxSlides: 3,
-	  slideWidth: 412,
-  });
+	  pause: 5000,
+    });
+  } else {
+    jQuery('.bxslider').bxSlider({
+	    pager: false,
+	    control: false,
+	    auto: false,
+	    autoStart: false,
+	    controls: false,
+	    minSlides: 3,
+	    maxSlides: 3,
+	    slideWidth: 412,
+    });
+  }
   jQuery(".cstmaccordiandv").click(function(){
 	 if(jQuery(this).children('i').hasClass("fa-caret-right"))
 	 {

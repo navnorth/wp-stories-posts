@@ -687,4 +687,8 @@ img.featured_item_image { width:100%; }
     .tax-state.fusion-body #content-stories .profile-block,
     .tax-story_tag.fusion-body #content-stories .profile-block,
     .tax-grade_level.fusion-body #content-stories .profile-block { width:100%; }
+    .fusion-body.post-type-archive-stories #main .fusion-row .scp_slider_content .sliderinnrwrap {
+        min-height:550px;
+    }
+    .sliderimgwrpr:after { background:none; }
 }

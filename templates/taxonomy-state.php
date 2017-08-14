@@ -211,7 +211,7 @@ global $enable_sidebar;
 						if (($i%3)==1)
 							echo '<div class="row">';
 										
-						echo '<div class="col-md-4">'; ?>
+						echo '<div class="col-md-4 col-sm-12 col-xs-12">'; ?>
 						<?php get_story_template_part( 'content', 'subprofile' ); ?>
 						<?php
 						echo '</div>';

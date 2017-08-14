@@ -666,4 +666,25 @@ img.featured_item_image { width:100%; }
     .slidercontentnrwrpr h4 { margin-top:0; font-size:13px !important; }
     .slidercontentnrwrpr p { margin: 0 0 10px; font-size:12px; }
     .col-md-12.pblctn_paramtr.padding_left .scp_feature_image .featured_item_image { margin-bottom: 10px; }
+    .mapcontainer { height:350px !important; }
+    .ss-container {
+        padding-bottom:56.25%;
+        height:350px !important;
+    }
+    .fusion-body.post-type-archive-stories #main .fusion-row .map_cntnr { width:90%; }
+    .col-md-12.pblctn_paramtr.padding_left:last-child { margin-bottom:25px !important; }
+    .fusion-body .btn-more-profiles { width:95%; }
+    .fusion-body .profile-heading { padding-left:0; }
+    .fusion-body.post-type-archive-stories #main .fusion-row .pblctn_right_sid_mtr { padding-left:0 !important; }
+    .stry_srch_frm #story-tabs .srchtrmbxs.col-xs-12 { padding-left:0; }
+    .pblctn_lft_sid_img_cntnr { padding-left:0 !important; }
+    .tax-program #main, .tax-grade_level #main, .tax-state #main, .tax-story_tag #main{ width:90%; margin:0 auto; padding-left:0; padding-right:20px; }
+    .tax-program #main .stry_srch_frm #story-tabs .srchtrmbxs.col-xs-12,
+    .tax-grade_level #main .stry_srch_frm #story-tabs .srchtrmbxs.col-xs-12,
+    .tax-state #main .stry_srch_frm #story-tabs .srchtrmbxs.col-xs-12,
+    .tax-story_tag #main .stry_srch_frm #story-tabs .srchtrmbxs.col-xs-12 { padding-right:0; }
+    .tax-program.fusion-body #content-stories .profile-block,
+    .tax-state.fusion-body #content-stories .profile-block,
+    .tax-story_tag.fusion-body #content-stories .profile-block,
+    .tax-grade_level.fusion-body #content-stories .profile-block { width:100%; }
 }

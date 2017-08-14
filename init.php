@@ -1104,21 +1104,21 @@ function get_story_filters($taxonomy=NULL, $taxonomy_name=NULL) {
 	?>
     	<div class="search_widget stry_srch_frm profile-search-form">
 	    <div id="story-tabs">
-		<div class="srchtrmbxs col-md-3">
+		<div class="srchtrmbxs col-md-3 col-sm-12 col-xs-12">
 			<?php echo $programoption; ?>
 		</div>
 		<?php if ($_filters['state']==1): ?>
-		<div class="srchtrmbxs col-md-3">
+		<div class="srchtrmbxs col-md-3 col-sm-12 col-xs-12">
 			<?php echo $stateoption; ?>
 		</div>
 		<?php endif; ?>
 		<?php if ($_filters['grade_level']==1): ?>
-		<div class="srchtrmbxs col-md-3">
+		<div class="srchtrmbxs col-md-3 col-sm-12 col-xs-12">
 			<?php echo $gradeoption; ?>
 		</div>
 		<?php endif; ?>
 		
-		<div class="srchtrmbxs col-md-3">
+		<div class="srchtrmbxs col-md-3 col-sm-12 col-xs-12">
 			<?php echo get_top_topics_dropdown($taxonomy, $taxonomy_name) ?>
 		</div>
 		</div>

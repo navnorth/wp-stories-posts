@@ -530,7 +530,7 @@ get_header(); ?>
 								if (($i%3)==1)
 										echo '<div class="row">';
 										
-								echo '<div class="col-md-4">';
+								echo '<div class="col-md-4 col-sm-12 col-xs-12">';
 								get_story_template_part( 'content', 'subprofile' );
 								echo '</div>';
 								

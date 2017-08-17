@@ -447,7 +447,7 @@ get_header(); ?>
                                                     $img_alt = get_post_meta(get_post_thumbnail_id($post->ID), '_wp_attachment_image_alt', true);
                                                     if(isset($img_url) && !empty($img_url))
                                                     {
-                                                        echo '<img src="'.$img_url.'" alt="'.$img_alt. '" />';
+                                                        echo '<a href="'.get_permalink($post->ID).'"><img src="'.$img_url.'" alt="'.$img_alt. '" /></a>';
                                                     }
                                                     ?>
                                                 </div>

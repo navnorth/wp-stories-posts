@@ -58,7 +58,7 @@
 <div class="col-md-12 pblctn_paramtr padding_left profile-block">
 	<?php if(isset($img_url) && !empty($img_url)) : ?>
         <div class="scp_profile_feature_image">
-            <img class="featured_item_image" src="<?php echo $img_url; ?>" alt="<?php echo $img_alt; ?>" />
+            <a href="<?php echo $link ?>"><img class="featured_item_image" src="<?php echo $img_url; ?>" alt="<?php echo $img_alt; ?>" /></a>
         </div>
 	<?php endif; ?>
 	<div class="scp_profile_content">

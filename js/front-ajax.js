@@ -4,6 +4,7 @@ jQuery(document).ready(function($){
         var post_ids = $(this).attr('data-posts');
         var sorting = $(this).attr('data-sort');
         var page = $(this).attr('data-page');
+        var tax = $(this).attr('data-taxonomy');
         var url = $('.btn-load-more').attr('data-base-url');
         var mobile = false;
         
@@ -22,7 +23,8 @@ jQuery(document).ready(function($){
             sort: sorting,
             page: page,
             back_url: url + $('.btn-load-more').attr("href"),
-            mobile: mobile
+            mobile: mobile,
+            taxonomy: tax,
         };
         
         /*$.post(the_ajax_script.ajaxurl, data).done(function(response) {*/

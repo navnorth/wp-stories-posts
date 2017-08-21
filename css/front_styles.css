@@ -571,6 +571,10 @@ img.featured_item_image { width:100%; }
 .profile-row { margin:0 0 20px; }
 .fusion-body.post-type-archive-stories #main { padding:0; }
 .fusion-body.post-type-archive-stories .fusion-page-title-bar { display:none; }
+.fusion-body.post-type-archive-stories.tax-program .fusion-page-title-bar,
+.fusion-body.post-type-archive-stories.tax-grade_level .fusion-page-title-bar,
+.fusion-body.post-type-archive-stories.tax-state .fusion-page-title-bar,
+.fusion-body.post-type-archive-stories.tax-story_tag .fusion-page-title-bar{ display:block; margin-bottom:30px; }
 .fusion-body.post-type-archive-stories #main .fusion-row { max-width:100%; }
 .fusion-body.post-type-archive-stories #main .fusion-row .scp_slider_content { background-position:center center; background-repeat:no-repeat; background-color:rgba(255,255,255,0); padding:50px 30px 100px; }
 .fusion-body.post-type-archive-stories #main .fusion-row .scp_slider_content .slidersubwrpr { max-width:1260px; margin:0 auto; float:none; }

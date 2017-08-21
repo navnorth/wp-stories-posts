@@ -7,6 +7,39 @@
  * @since Twenty Twelve 1.0
  */
 global $enable_sidebar;
+
+if (isset($_REQUEST['tax'])){
+	add_filter( 'body_class', 'tax_body_class');
+	add_filter( 'post_type_archive_title', 'tax_title', 10, 2);
+}
+
+function tax_body_class($classes) {
+	$classes[] = 'tax-'.$_REQUEST['tax'];
+     
+	return $classes;
+}
+
+function tax_title($post_type_name, $post_type){
+	switch ($_REQUEST['tax']){
+		case 'program':
+			$title = "All Summits";
+			break;
+		case 'state':
+			$title = "All States";
+			break;
+		case 'grade_level':
+			$title = "All School Types";
+			break;
+		case 'story_tag':
+			$title = "All Topics";
+			break;
+		default:
+			$title = "Profiles";
+			break;
+	}
+	return $title;
+}
+
 get_header(); ?>
 
 	<div id="content" class="row">
@@ -434,6 +467,7 @@ get_header(); ?>
 					</div>
 				<?php } ?>
 				<!-- Slider -->
+				<?php if (!isset($_REQUEST['tax'])) { ?>
 				<div class="slidermainwrpr scp_slider_content" style="background-image:url('<?php echo SCP_URL; ?>/images/profile-background.jpg');">
 					<div class="slidersubwrpr">
 					<h1><?php _e('Featured Profiles', SCP_SLUG); ?></h1>
@@ -490,8 +524,10 @@ get_header(); ?>
                         		</ul>
                     		</div>
                         </div>
+			<?php } ?>
 				<div class="<?php if ($enable_sidebar) { ?>col-md-8<?php } else { ?>col-md-12<?php } ?> col-sm-12 col-xs-12 pblctn_lft_sid_img_cntnr map_cntnr">
-						<?php get_top_heading(); ?>
+						<?php  if (!isset($_REQUEST['tax']))
+								get_top_heading(); ?>
 						<div class="col-md-12 col-sm-12 col-xs-12 pblctn_right_sid_mtr">
 							 <?php get_storiesmap();?>
 						</div>
@@ -499,15 +535,32 @@ get_header(); ?>
 								<?php get_story_filters(); ?>
 						 </div>
 				<?php
-				$postquery = new WP_Query(array('post_type' => 'stories', 'posts_per_page' => -1));
+				$main_args = array('post_type' => 'stories', 'posts_per_page' => -1);
+				$tax_terms = array();
+				if ($_REQUEST['tax']){
+					$tax_term_objects = get_terms($_REQUEST['tax']);
+					
+					foreach($tax_term_objects as $tax_term_object){
+						$tax_terms[] = $tax_term_object->slug;
+					}
+					
+					$main_args['tax_query'] = array(array( 'taxonomy' => $_REQUEST['tax'], 'field' => 'slug', 'terms' => $tax_terms));
+				} 
+				$postquery = new WP_Query($main_args);
 
 				$post_ids = wp_list_pluck( $postquery->posts, 'ID' );
 				$post_count = count($post_ids);
 				$args = array('orderby' => 'term_order','order' => 'ASC','hide_empty' => true);
 				$tags = get_terms('story_tag', $args);
 				if ( $postquery->have_posts() ) {
+						$max_args = array('post_type' => 'stories', 'posts_per_page' => 6);
+						
+						if ($_REQUEST['tax']){
+							$max_args['tax_query'] = array(array( 'taxonomy' => $_REQUEST['tax'], 'field' => 'slug', 'terms' => $tax_terms));
+						}
+						
 						//Get number of pages
-						$postquery = new WP_Query(array('post_type' => 'stories', 'posts_per_page' => 6));
+						$postquery = new WP_Query($max_args);
 						$max_page = $postquery->max_num_pages;
 		
 						$paged = 1;
@@ -515,6 +568,10 @@ get_header(); ?>
 								$paged = (int)$_GET['page'];
 		
 						$args = array('post_type' => 'stories', 'posts_per_page' => 6 * $paged);
+						
+						if ($_REQUEST['tax']){
+							$args['tax_query'] = array(array( 'taxonomy' => $_REQUEST['tax'], 'field' => 'slug', 'terms' => $tax_terms));
+						}
 						
 						//Apply sort args
 						$args = apply_sort_args($args);
@@ -545,7 +602,11 @@ get_header(); ?>
 								$base_url = "http" . (($_SERVER['SERVER_PORT'] == 443) ? "s://" : "://") . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
 								if (strpos($base_url,"page"))
 										$base_url = substr($base_url,0,strpos($base_url, "page")-1);
-								echo '<div class="col-md-12 pblctn_paramtr padding_left"><a href="&page='.($paged+1).'" data-page-number="'.($paged+1).'" data-page="show_all" data-base-url="'.$base_url.'" data-max-page="'.$max_page.'" class="btn-load-more btn-more-profiles">Load More</a></div>';
+								
+								$tax_html = "";
+								if ($_REQUEST['tax'])
+									$tax_html = ' data-taxonomy="'.$_REQUEST['tax'].'"';
+								echo '<div class="col-md-12 pblctn_paramtr padding_left"><a href="&page='.($paged+1).'" data-page-number="'.($paged+1).'" data-page="show_all" data-base-url="'.$base_url.'" data-max-page="'.$max_page.'" class="btn-load-more btn-more-profiles"'.$tax_html.'>Load More</a></div>';
 						}
 				}
 		}

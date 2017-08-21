@@ -1010,7 +1010,7 @@ function get_top_topics_dropdown($taxonomy=NULL, $taxonomy_name=NULL)
 	$topic_nav = '<div class="tglelemnt">';
 	$topic_nav .= '<h5>Topics:</h5>';
 	$topic_nav .= '<select name="story_tag" id="story_tag_dropdown">';
-	$topic_nav .= '<option value="">Browse by Topic</option>';
+	$topic_nav .= '<option value="'.site_url().'/stories/?tax=story_tag">Browse by Topic</option>';
 	foreach($tags as $tag)
 	{
 		if(isset($taxonomy_name) && !empty($taxonomy_name) && $taxonomy_name == $tag->slug):
@@ -1051,7 +1051,7 @@ function get_story_filters($taxonomy=NULL, $taxonomy_name=NULL) {
 		$stateoption = '<div class="tglelemnt">';
 		$stateoption .= '<h5>State:</h5>';
 		$stateoption .= '<select name="state" id="statedropdown">';
-		$stateoption .= '<option value="">Browse by State</option>';
+		$stateoption .= '<option value="'.site_url().'/stories/?tax=state">Browse by State</option>';
 		foreach($states as $state)
 		{
 			if(isset($taxonomy_name) && !empty($taxonomy_name) && $state->slug == $taxonomy_name):
@@ -1069,7 +1069,7 @@ function get_story_filters($taxonomy=NULL, $taxonomy_name=NULL) {
 		$gradeoption = '<div class="tglelemnt">';
 		$gradeoption .= '<h5>School Type:</h5>';
 		$gradeoption .= '<select name="grade_level" id="grade_level_dropdown">';
-		$gradeoption .= '<option value="">Browse by School Type</option>';
+		$gradeoption .= '<option value="'.site_url().'/stories/?tax=grade_level">Browse by School Type</option>';
 		foreach($grades as $grade)
 		{
 			if(isset($taxonomy_name) && !empty($taxonomy_name) && $grade->slug == $taxonomy_name):
@@ -1088,7 +1088,7 @@ function get_story_filters($taxonomy=NULL, $taxonomy_name=NULL) {
 		$programoption = '<div class="tglelemnt">';
 		$programoption .= '<h5>Summit:</h5>';
 		$programoption .= '<select name="program" id="programdropdown">';
-		$programoption .= '<option value="">Browse by Summit</option>';
+		$programoption .= '<option value="'.site_url().'/stories/?tax=program">Browse by Summit</option>';
 		foreach($programs as $program)
 		{
 			if(isset($taxonomy_name) && !empty($taxonomy_name) && $program->slug == $taxonomy_name):

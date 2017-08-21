@@ -944,7 +944,19 @@ function load_more_stories() {
 				'post_status' => 'publish',
 				'paged' => $page_num
 				);
-
+		
+		if (isset($_POST['taxonomy']) && $_POST['taxonomy']!==""){
+			$tax_terms = array();
+			$tax_term_objects = get_terms($_POST['taxonomy']);
+					
+			foreach($tax_term_objects as $tax_term_object){
+				$tax_terms[] = $tax_term_object->slug;
+			}
+					
+			$args['tax_query'] = array(array( 'taxonomy' => $_POST['taxonomy'], 'field' => 'slug', 'terms' => $tax_terms));
+		}
+			
+				
 		if (isset($_POST['post_ids'])) {
 			$post_ids = json_decode($_POST['post_ids']);
 			$args['post__in'] = $post_ids;

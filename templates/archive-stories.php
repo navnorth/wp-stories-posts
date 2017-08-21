@@ -528,12 +528,6 @@ get_header(); ?>
 				<div class="<?php if ($enable_sidebar) { ?>col-md-8<?php } else { ?>col-md-12<?php } ?> col-sm-12 col-xs-12 pblctn_lft_sid_img_cntnr map_cntnr">
 						<?php  if (!isset($_REQUEST['tax']))
 								get_top_heading(); ?>
-						<div class="col-md-12 col-sm-12 col-xs-12 pblctn_right_sid_mtr">
-							 <?php get_storiesmap();?>
-						</div>
-						<div class="col-md-12 col-sm-12 col-xs-12 profile-filters">
-								<?php get_story_filters(); ?>
-						 </div>
 				<?php
 				$main_args = array('post_type' => 'stories', 'posts_per_page' => -1);
 				$tax_terms = array();
@@ -552,6 +546,14 @@ get_header(); ?>
 				$post_count = count($post_ids);
 				$args = array('orderby' => 'term_order','order' => 'ASC','hide_empty' => true);
 				$tags = get_terms('story_tag', $args);
+				?>
+					<div class="col-md-12 col-sm-12 col-xs-12 pblctn_right_sid_mtr">
+							 <?php get_storiesmap($post_ids);?>
+						</div>
+						<div class="col-md-12 col-sm-12 col-xs-12 profile-filters">
+								<?php get_story_filters(); ?>
+						 </div>
+				<?php
 				if ( $postquery->have_posts() ) {
 						$max_args = array('post_type' => 'stories', 'posts_per_page' => 6);
 						

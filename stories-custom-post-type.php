@@ -365,7 +365,7 @@ function scp_template_loader($template)
 	{
 		$template = $path;
 	}
-
+	
 	return $template;
 }
 //Function for getting map
@@ -940,7 +940,7 @@ function load_more_stories() {
 
 		$args = array(
 				'post_type' => 'stories',
-				'posts_per_page' => 10,
+				'posts_per_page' => 6,
 				'post_status' => 'publish',
 				'paged' => $page_num
 				);
@@ -984,8 +984,18 @@ function load_more_stories() {
 
 		$_mobile = $_POST['mobile'];
 
+		$i = 1;
 		while ( $postquery->have_posts() ) : $postquery->the_post();
-		    get_story_template_part( 'content', 'substory' );
+			if (($i%3)==1)
+				echo '<div class="row">';
+				
+			echo '<div class="col-md-4 col-sm-12 col-xs-12">';
+			get_story_template_part( 'content', 'subprofile' );
+			echo '</div>';
+								
+			if (($i%3)==0)
+					echo '</div>';
+			$i++;
 		endwhile;
 		die();
 	}
@@ -1012,7 +1022,7 @@ function sort_stories(){
 
 		$post_count = count($post_ids);
 
-		$args = array('post_type' => 'stories', 'posts_per_page' => 10);
+		$args = array('post_type' => 'stories', 'posts_per_page' => 6);
 
 		switch($_POST["sort"]){
 			case 0:
@@ -1044,7 +1054,7 @@ function sort_stories(){
 		if ($_REQUEST['page'])
 			$paged = (int)$_REQUEST['page'];
 
-		$args['posts_per_page'] = 10 * $paged;
+		$args['posts_per_page'] = 6 * $paged;
 
 		if (isset($_POST['post_ids']))
 			$args['post__in'] = json_decode($_POST['post_ids']);;

@@ -35,26 +35,9 @@ get_header(); ?>
                <?php get_storiesmap($postids);?>
             </div>
 
-            <header class="tax-header">
-                <h1 class="tax-title">
-                	<?php _e( "Nothing Found", "nn-story-custom-post-type" ) ?>
-                </h1>
-                <div class="topics-search-box">
-                    	<form method="get" action="<?php echo site_url();?>/stories">
-                            <input type="hidden" name="action" value="search" />
-                            <select name="story_tag" onchange="formsubmit(this);">
-                                <option value=""><?php _e( "Select Topics", "nn-story-custom-post-type" ); ?></option>
-                                <?php
-                                    foreach($tags as $tag)
-                                    {
-                                        $count = get_counts($tag->term_id,$postids);
-										echo '<option value="'.$tag->slug.'">'.$tag->name.' ('.$count.')</option>';
-                                    }
-                                ?>
-                            </select>
-                        </form>
-                </div>
-            </header>
+            <div class="col-md-12 col-sm-12 col-xs-12 profile-filters">
+		<?php get_story_filters(); ?>
+	    </div>
             <div class="entry-content">
                 <p><?php _e( "Apologies, but no results were found. Perhaps searching will help find a related post.", "nn-story-custom-post-type" ); ?></p>
            	</div>

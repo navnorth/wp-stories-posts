@@ -604,11 +604,21 @@ get_header(); ?>
 								$base_url = "http" . (($_SERVER['SERVER_PORT'] == 443) ? "s://" : "://") . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
 								if (strpos($base_url,"page"))
 										$base_url = substr($base_url,0,strpos($base_url, "page")-1);
+									
+								$url_prefix = "?";
+								$page_url = "page=".($paged+1)."";
+								if (strpos($_SERVER['REQUEST_URI'],"?")){
+									if (!(strpos($_SERVER['REQUEST_URI'],"?page")))
+										$url_prefix = "&";
+								} else {
+									if (substr($base_url,-1)!=="/")
+										$base_url .= "/";
+								}
 								
 								$tax_html = "";
 								if ($_REQUEST['tax'])
 									$tax_html = ' data-taxonomy="'.$_REQUEST['tax'].'"';
-								echo '<div class="col-md-12 pblctn_paramtr padding_left"><a href="&page='.($paged+1).'" data-page-number="'.($paged+1).'" data-page="show_all" data-base-url="'.$base_url.'" data-max-page="'.$max_page.'" class="btn-load-more btn-more-profiles"'.$tax_html.'>Load More</a></div>';
+								echo '<div class="col-md-12 pblctn_paramtr padding_left"><a href="'.$page_url.'" data-page-number="'.($paged+1).'" data-page="show_all" data-url-prefix="'.$url_prefix.'" data-base-url="'.$base_url.'" data-max-page="'.$max_page.'" class="btn-load-more btn-more-profiles"'.$tax_html.'>Load More</a></div>';
 						}
 				}
 		}

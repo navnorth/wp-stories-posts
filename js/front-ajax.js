@@ -33,8 +33,13 @@ jQuery(document).ready(function($){
             var next_page = page_num + 1;
             var base_url = btn_load.attr('data-base-url');
             var max_page = btn_load.attr('data-max-page');
+            var url_prefix = btn_load.attr('data-url-prefix');
+            var append_url = $('.btn-load-more').attr("href");
+            if (url_prefix) {
+                append_url = url_prefix + append_url;
+            }
             
-            history.pushState({}, '', base_url + $('.btn-load-more').attr("href"));
+            history.pushState({}, '', base_url + append_url);
             
             $('#content-stories').append(response);
             if (next_page<=max_page) {
@@ -47,7 +52,7 @@ jQuery(document).ready(function($){
                     btn_load
                        .attr('data-page-number',next_page)
                        .attr('data-sort', sorting)
-                       .attr('href', '&page='  + next_page.toString());
+                       .attr('href', 'page='  + next_page.toString());
                 }
             }else {
                 btn_load.addClass('btn-hidden');

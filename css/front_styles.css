@@ -677,7 +677,7 @@ img.featured_item_image { width:100%; }
     }
     .fusion-body.post-type-archive-stories #main .fusion-row .map_cntnr { width:90%; }
     .col-md-12.pblctn_paramtr.padding_left:last-child { margin: 0 auto 25px !important; }
-    .fusion-body .btn-more-profiles { width:95%; }
+    .fusion-body .btn-more-profiles { width:95%; margin:0 auto; }
     .pblctn_lft_sid_img_cntnr { padding-left:0 !important; }
     .tax-program #main, .tax-grade_level #main, .tax-state #main, .tax-story_tag #main{ width:90%; margin:0 auto; padding-left:0; padding-right:20px; }
     .tax-program #main .stry_srch_frm #story-tabs .srchtrmbxs.col-xs-12,
@@ -696,7 +696,8 @@ img.featured_item_image { width:100%; }
     .fusion-body.post-type-archive-stories #main .fusion-row .scp_slider_content .slidersubwrpr .bx-wrapper .bx-viewport .bxslider .col-md-4 { padding-left:15px !important; padding-right:15px !important; }
     .fusion-body.post-type-archive-stories #main .fusion-row .scp_slider_content .sliderinnrwrap .slidercontentnrwrpr {
         padding:20px;
-        margin: 10px 35px 10px 5px;
+        margin: 10px 15px;
     }
     .fusion-body.post-type-archive-stories #main .fusion-row .scp_slider_content .sliderinnrwrap { width:100%; }
+    .col-md-12.pblctn_paramtr.padding_left { padding:25px 15px; }
 }

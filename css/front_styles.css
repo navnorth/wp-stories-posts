@@ -675,15 +675,17 @@ img.featured_item_image { width:100%; }
         padding-bottom:56.25%;
         height:350px !important;
     }
+    .fusion-body.post-type-archive-stories #main .fusion-row .pblctn_right_sid_mtr { padding-left:0 !important; padding-right:0 !important; }
     .fusion-body.post-type-archive-stories #main .fusion-row .map_cntnr { width:90%; }
     .col-md-12.pblctn_paramtr.padding_left:last-child { margin: 0 auto 25px !important; }
     .fusion-body .btn-more-profiles { width:95%; margin:0 auto; }
     .pblctn_lft_sid_img_cntnr { padding-left:0 !important; }
     .tax-program #main, .tax-grade_level #main, .tax-state #main, .tax-story_tag #main{ width:90%; margin:0 auto; padding-left:0; padding-right:0; }
+    .archive-stories #main .stry_srch_frm #story-tabs .srchtrmbxs.col-xs-12,
     .tax-program #main .stry_srch_frm #story-tabs .srchtrmbxs.col-xs-12,
     .tax-grade_level #main .stry_srch_frm #story-tabs .srchtrmbxs.col-xs-12,
     .tax-state #main .stry_srch_frm #story-tabs .srchtrmbxs.col-xs-12,
-    .tax-story_tag #main .stry_srch_frm #story-tabs .srchtrmbxs.col-xs-12 { padding-right:0; }
+    .tax-story_tag #main .stry_srch_frm #story-tabs .srchtrmbxs.col-xs-12 { padding-right:0;padding-left:0; }
     .tax-program.fusion-body #content-stories .profile-block,
     .tax-state.fusion-body #content-stories .profile-block,
     .tax-story_tag.fusion-body #content-stories .profile-block,

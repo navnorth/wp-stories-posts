@@ -679,7 +679,7 @@ img.featured_item_image { width:100%; }
     .col-md-12.pblctn_paramtr.padding_left:last-child { margin: 0 auto 25px !important; }
     .fusion-body .btn-more-profiles { width:95%; margin:0 auto; }
     .pblctn_lft_sid_img_cntnr { padding-left:0 !important; }
-    .tax-program #main, .tax-grade_level #main, .tax-state #main, .tax-story_tag #main{ width:90%; margin:0 auto; padding-left:0; padding-right:20px; }
+    .tax-program #main, .tax-grade_level #main, .tax-state #main, .tax-story_tag #main{ width:90%; margin:0 auto; padding-left:0; padding-right:0; }
     .tax-program #main .stry_srch_frm #story-tabs .srchtrmbxs.col-xs-12,
     .tax-grade_level #main .stry_srch_frm #story-tabs .srchtrmbxs.col-xs-12,
     .tax-state #main .stry_srch_frm #story-tabs .srchtrmbxs.col-xs-12,
@@ -699,5 +699,9 @@ img.featured_item_image { width:100%; }
         margin: 10px 15px;
     }
     .fusion-body.post-type-archive-stories #main .fusion-row .scp_slider_content .sliderinnrwrap { width:100%; }
-    .col-md-12.pblctn_paramtr.padding_left { padding:25px 15px; }
+    .archive-stories .col-md-12.pblctn_paramtr.padding_left { padding:25px 15px; }
+    .tax-story_tag .col-md-12.pblctn_paramtr.padding_left,
+    .tax-state .col-md-12.pblctn_paramtr.padding_left,
+    .tax-program .col-md-12.pblctn_paramtr.padding_left,
+    .tax-grade_level .col-md-12.pblctn_paramtr.padding_left { padding:25px 0; }
 }

@@ -6,7 +6,7 @@
  * @subpackage Twenty_Twelve
  * @since Twenty Twelve 1.0
  */
-global $_embed;
+global $_embed, $hide_title;
 include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
 function add_vimeo_script(){
     $script_url = SCP_URL."js/vimeo.ga.min.js";
@@ -324,6 +324,11 @@ function add_vimeo_script(){
 
 <div class="col-md-7 col-sm-12 col-xs-12 pblctn_lft_sid_img_cntnr">
     <div class="col-md-12 pblctn_paramtr padding_left">
+	<?php if (!$hide_title) { ?>
+        <h2><?php
+		echo get_the_title($post->ID);
+	?></h2>
+	<?php } ?>
         <p>
             <?php
                 $content = get_the_content($post->ID);

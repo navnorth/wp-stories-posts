@@ -288,6 +288,14 @@ msgstr ""
 msgid "Stories: "
 msgstr "Profiles:"
 
+#: stories-custom-post-type.php:879
+msgid "Hide Story Title?"
+msgstr "Hide Profile Title?"
+
+#: stories-custom-post-type.php:886
+msgid "hide title on story page"
+msgstr "hide title on profile page"
+
 #: templates/archive-404.php:37
 msgid "Nothing Found"
 msgstr ""

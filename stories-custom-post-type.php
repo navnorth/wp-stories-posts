@@ -28,10 +28,11 @@
  */
 
 //defining the url,path and slug for the plugin
-global $wpdb, $characteristics, $districtsize, $scp_session, $_embed, $_backurl, $enable_sidebar;
+global $wpdb, $characteristics, $districtsize, $scp_session, $_embed, $_backurl, $enable_sidebar, $hide_title;
 $characteristics = array('Rural','Suburban','Urban');
 $districtsize = array("Less than 1,000 students","1,001-10,000 students","10,001-40,000 students","40,001+ students");
 $enable_sidebar = get_option('enable_sidebar');
+$hide_title = get_option('hide_title');
 
 define( 'SCP_URL', plugin_dir_url(__FILE__) );
 define( 'SCP_PATH', plugin_dir_path(__FILE__) );
@@ -872,6 +873,20 @@ function setup_settings_form() {
 				'description' => __('enable left sidebar on stories main page', SCP_SLUG)
 			)
 			   );
+	
+	/* Hide Title */
+	add_settings_field(
+			'hide_title',
+			__( 'Hide Story Title?' , SCP_SLUG ),
+			'setup_settings_field',
+			'stories-settings-page',
+			'stories-settings-section',
+			array(
+				'uid' => 'hide_title',
+				'type' => 'checkbox',
+				'description' => __('hide title on story page', SCP_SLUG)
+			)
+			   );
 
 	register_setting( 'stories-settings-section' , 'load_bootstrap' );
 	register_setting( 'stories-settings-section' , 'load_font_awesome' );
@@ -884,6 +899,7 @@ function setup_settings_form() {
 	register_setting( 'stories-settings-section' , 'enable_institution_type' );
 	register_setting( 'stories-settings-section' , 'enable_embed' );
 	register_setting( 'stories-settings-section' , 'enable_sidebar' );
+	register_setting( 'stories-settings-section' , 'hide_title' );
 }
 
 function first_section_callback() {

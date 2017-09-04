@@ -149,7 +149,6 @@ function create_stories_metabox()
 	$story_highlight 	= get_post_meta($post->ID, "story_highlight", true);
 	$story_district 	= get_post_meta($post->ID, "story_district", true);
 	$story_school 		= get_post_meta($post->ID, "story_school", true);
-	$story_institution 	= get_post_meta($post->ID, "story_institution", true);
 	$story_mapaddress 	= get_post_meta($post->ID, "story_mapaddress", true);
 	$story_zipcode 		= get_post_meta($post->ID, "story_zipcode", true);
 	$story_sidebar_content = get_post_meta($post->ID, "story_sidebar_content", true);
@@ -208,8 +207,6 @@ function create_stories_metabox()
 							<input type="text" name="story_district" value="'. $story_district .'" />
 							<span>School</span>
 							<input type="text" name="story_school" value="'. $story_school .'" />
-							<span>Institution</span>
-							<input type="text" name="story_institution" value="'. $story_institution .'" />
 							<span>Map Address</span>
 							<input type="text" name="story_mapaddress" value="'. $story_mapaddress .'" />
 							<span>Zipcode</span>
@@ -265,11 +262,6 @@ function save_askquestion_metabox()
 	if(isset($_POST['story_school']) && !empty($_POST['story_school']))
 	{
 		update_post_meta($post->ID, "story_school", $_POST['story_school']);
-	}
-	
-	if(isset($_POST['story_institution']) && !empty($_POST['story_institution']))
-	{
-		update_post_meta($post->ID, "story_institution", $_POST['story_institution']);
 	}
 
 	if(isset($_POST['story_zipcode']) && !empty($_POST['story_zipcode']))

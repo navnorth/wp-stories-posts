@@ -945,7 +945,10 @@ function display_story_content($post_id, $limit = 200) {
 	$post = get_post($post_id);
 
 	if ($post->post_excerpt) {
-		$story =  $post->post_excerpt;
+		if (strlen($post->post_excerpt)>$limit)
+			$story =  substr($post->post_excerpt, 0, $limit)."...";
+		else
+			$story = $post->post_excerpt;
 	} else {
 		$content = strip_tags(get_the_content($post_id));
 		$story = substr($content, 0, $limit)."...";

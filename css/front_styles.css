@@ -596,7 +596,7 @@ img.featured_item_image { width:100%; }
     padding-left:30px !important;
     padding-right:30px !important;
 }
-.fusion-body.post-type-archive-stories #main .fusion-row .scp_slider_content .sliderinnrwrap { background:#fff; float:none; min-height:630px; }
+.fusion-body.post-type-archive-stories #main .fusion-row .scp_slider_content .sliderinnrwrap { background:#fff; float:none; min-height:500px; }
 .fusion-body.post-type-archive-stories #main .fusion-row .scp_slider_content .sliderinnrwrap .sliderimgwrpr {
     width:100%;
     float:none;

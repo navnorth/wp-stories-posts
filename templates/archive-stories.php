@@ -510,7 +510,7 @@ get_header(); ?>
                                                     <h5><?php echo  $district . $state_name ?></h5>
                                                     <p>
                                                        <?php
-								echo display_story_content($post->ID);
+								echo display_story_content($post->ID, 50);
 								?>
                                                     </p>
 						    <p><a href="<?php echo get_permalink($post->ID);?>"><?php _e( "Read More &gt;" , "nn-story-custom-post-type" ); ?></a></p>

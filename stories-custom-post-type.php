@@ -523,7 +523,7 @@ function get_storiesmap($pageposts=NULL)
 									$district = trim(addslashes($district));
 									$title = addslashes($title);
 									$content = addslashes($content);
-									$linkRow = '<div class="meta"><a href="$link">Read More</a></div>';
+									$linkRow = '<div class="meta"><a href="'.$link.'">Read More</a></div>';
 									if ($story_status == 'publish') {
 										if($image) {
 											echo "['<div class=info tabindex=0><h4><a href=$link>$title</a></h4><div class=subinfo><p><b>$district</b>, <b>$stateurl</b></p></div><div class=popupcntnr><div class=\"col-md-5\"><img src=$image alt=\"Story Thumbnail\"></div><div class=\"col-md-7\">$idea_tags<div class=\"meta\">$content</div>$lead_tags<div class=\"meta\">$summit_tags$logic_tags</div>$linkRow</div></div></div>', $latitude, $longitude, '$title - $story->postid', '$pincolor'],";

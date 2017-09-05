@@ -91,6 +91,8 @@ function create_managment_taxonomies()
 				'menu_name'                  => __( $texonomy_value ),
 			);
 		}
+			$excluded_columns = array( 'districtsize', 'institutionenrollment', 'institutiontype' );
+			
 			$args = array(
 				'hierarchical'          => true,
 				'labels'                => $labels,
@@ -99,6 +101,10 @@ function create_managment_taxonomies()
 				'query_var'             => true,
 				'rewrite'               => array( 'slug' => $texonomy_key ),
 			);
+			
+			if (in_array($texonomy_key,$excluded_columns))
+				$args['show_admin_column'] = false;
+				
 			register_taxonomy( $texonomy_key, array('stories'), $args );
 	}
 

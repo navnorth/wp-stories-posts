@@ -19,8 +19,8 @@
     padding:15px 0;
     border-bottom: 1px solid #eaeaea;
 }
-.col-md-12.pblctn_paramtr.padding_left:last-child,
-.col-md-12.pblctn_paramtr.padding_left.no-border-bottom{ border-bottom:none; }
+.col-md-12.pblctn_paramtr.padding_left:last-child{ border-bottom:none; }
+.col-md-12.pblctn_paramtr.padding_left.no-border-bottom{ border-bottom:none;padding:0; }
 .col-md-12.pblctn_paramtr.padding_left blockquote { overflow:auto; }
 .stry_srch_frm { float: left; width: 90%}
 .showallstories { float: left; width: 90%; margin-top: 10px; font-size:18px;}

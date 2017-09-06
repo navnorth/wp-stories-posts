@@ -286,33 +286,6 @@ function add_vimeo_script(){
                 </p>
             </div>
         <?php endif; ?>
-        <?php
-            $args=array(
-                'tax_query' => array(array(
-                                    'taxonomy'  => 'story_tag',
-                                    'terms'     => $tagid,
-                                    'operator'  => 'IN')),
-                'post_type' => "stories",
-                'post__not_in' => array($post->ID),
-                'posts_per_page'=>5,
-                'caller_get_posts'=>1);
-            $stories = get_posts($args);
-
-            if(!empty($stories)) : ?>
-
-            <div class="col-md-12 col-sm-12 col-xs-12">
-                <div class="pblctn_box"><span class="socl_icns fa-stack"><i class="fa fa-star "></i></span></div>
-                <h4 class="rght_sid_wdgt_hedng uppercase"><?php _e( 'Related Stories' , SCP_SLUG ); ?></h4>
-                <?php
-                    foreach( $stories as $story)
-                    {
-                        echo '<p class="padding_top_btm">
-                                <a target="_blank" href="'.get_the_permalink($story->ID).'">'.get_the_title($story->ID).'</a>
-                              </p>';
-                    }
-                ?>
-            </div>
-            <?php endif; ?>
 	    
 	    <?php
 	    $sharing_shortcode = shortcode_exists('fusion_sharing');
@@ -321,9 +294,15 @@ function add_vimeo_script(){
 	    ?>
     </div>
 </div>
-
+<?php
+    $content = get_the_content($post->ID);
+    $content_length = strlen($content);
+    $border_bottom = "";
+    if ($content_length==0)
+	$border_bottom = " no-border-bottom";
+?>
 <div class="col-md-7 col-sm-12 col-xs-12 pblctn_lft_sid_img_cntnr">
-    <div class="col-md-12 pblctn_paramtr padding_left">
+    <div class="col-md-12 pblctn_paramtr padding_left<?php echo $border_bottom; ?>">
 	<?php if (!$hide_title) { ?>
         <h2><?php
 		echo get_the_title($post->ID);
@@ -331,11 +310,37 @@ function add_vimeo_script(){
 	<?php } ?>
         <p>
             <?php
-                $content = get_the_content($post->ID);
                 $content = apply_filters('the_content', $content);
                 echo do_shortcode($content);
             ?>
         </p>
      </div>
+    <?php
+    $args=array(
+	'tax_query' => array(array(
+			    'taxonomy'  => 'story_tag',
+			    'terms'     => $tagid,
+			    'operator'  => 'IN')),
+	'post_type' => "stories",
+	'post__not_in' => array($post->ID),
+	'posts_per_page'=>5,
+	'caller_get_posts'=>1);
+    $stories = get_posts($args);
+
+    if(!empty($stories)) : ?>
+
+    <div class="col-md-12 col-sm-12 col-xs-12">
+	<div class="pblctn_box"><span class="socl_icns fa-stack"><i class="fa fa-star "></i></span></div>
+	<h4 class="rght_sid_wdgt_hedng uppercase"><?php _e( 'Related Stories' , SCP_SLUG ); ?></h4>
+	<?php
+	    foreach( $stories as $story)
+	    {
+		echo '<p class="padding_top_btm">
+			<a target="_blank" href="'.get_the_permalink($story->ID).'">'.get_the_title($story->ID).'</a>
+		      </p>';
+	    }
+	?>
+    </div>
+    <?php endif; ?>
 </div>
 

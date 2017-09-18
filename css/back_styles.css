@@ -64,4 +64,4 @@ h2.heading, div.heading {
     padding:20px;
 }
 .alignRight { text-align:right; }
-.wp-admin .mce-floatpanel.mce-popover { z-index:999999 !important; }
+.wp-admin .mce-floatpanel { z-index:999999 !important; }

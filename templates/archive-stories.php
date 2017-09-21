@@ -468,7 +468,7 @@ get_header(); ?>
 				<?php } ?>
 				<!-- Slider -->
 				<?php if (!isset($_REQUEST['tax'])) { ?>
-				<div class="slidermainwrpr scp_slider_content" style="background-image:url('<?php echo SCP_URL; ?>/images/profile-background.jpg');">
+				<div class="slidermainwrpr scp_slider_content" style="background-image:url('<?php echo SCP_URL; ?>/images/profiles-header-image.jpg');">
 					<div class="slidersubwrpr">
 					<h1><?php _e('Featured Profiles', SCP_SLUG); ?></h1>
                         		<ul class="bxslider">

@@ -175,20 +175,6 @@ function add_vimeo_script(){
 	    
 	    $final_level = "P-12";
 	    
-	    //Display K-12 first before Higher Education
-	    if (!empty($grade_tag) && $enable_level) {
-		    
-		    $grade_tag = array_unique($grade_tag, SORT_REGULAR);
-		    sort($grade_tag);
-		    echo '<p class="margin_20">';
-		    foreach($grade_tag as $display) {
-			if ($display['grade_level']=="Postsecondary" && count($grade_tag)==1)
-			    $final_level = "Postsecondary";
-			$grade_label = '<a href="'.$display['grade_url'].'"><span class="'.$display['grade_color'].'">'.$display['grade_level'].'</span></a>';
-			echo $grade_label;
-		    }
-		    echo '</p>';
-	    }
 	    ?>
 	    <?php if(isset($programurl) && !empty($programurl)) : ?>
                  <h4 class="margn_none">

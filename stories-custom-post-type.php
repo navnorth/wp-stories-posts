@@ -504,21 +504,8 @@ function get_storiesmap($pageposts=NULL)
 
 												$term = get_term($primary_term, 'grade_level');
 
-												if (is_wp_error($term)) {
-													$pincolor = get_map_pin_color($grades);
-												} else {
-													if ($term->name=="Higher Education"  || $term->name=="Postsecondary") {
-														$pincolor = "#e57200";
-													} else {
-														$pincolor = "#294179";
-													}
-												}
-											} else {
-												$pincolor = get_map_pin_color($grades);
-											}
-										} else {
-											$pincolor = get_map_pin_color($grades);
-										}
+											} 
+										} 
 									}
 									$district = trim(addslashes($district));
 									$title = addslashes($title);

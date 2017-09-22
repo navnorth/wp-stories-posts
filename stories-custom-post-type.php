@@ -3,7 +3,7 @@
  Plugin Name:  Story Custom Post Type
  Plugin URI:   https://www.navigationnorth.com/solutions/wordpress/stories-plugin
  Description:  Stories as a custom post type, with custom metadata and display. Developed in collaboration with Monad Infotech (http://monadinfotech.com)
- Version:      0.7.3
+ Version:      0.7.4
  Author:       Navigation North
  Author URI:   http://www.navigationnorth.com
  Text Domain:  wp-stories-posts
@@ -40,7 +40,7 @@ define( 'SCP_SLUG','wp-stories-posts' );
 define( 'SCP_FILE',__FILE__);
 define( 'SCP_PLUGIN_NAME' , 'Story Custom Post Type' );
 define( 'SCP_PLUGIN_INFO' , 'https://www.navigationnorth.com/solutions/wordpress/stories-plugin' );
-define( 'SCP_VERSION' , '0.7.3');
+define( 'SCP_VERSION' , '0.7.4');
 define( 'GOOGLE_API_KEY' , 'AIzaSyACobLJYn3xWIaxrZHEa6G3VjOteYpWBno');
 
 include_once(SCP_PATH.'init.php');
@@ -366,7 +366,7 @@ function scp_template_loader($template)
 	{
 		$template = $path;
 	}
-	
+
 	return $template;
 }
 //Function for getting map
@@ -429,12 +429,12 @@ function get_storiesmap($pageposts=NULL)
 									$lead_tags = "";
 									$summit_tags = "";
 									$logic_tags = "";
-									
+
 									//Idea Tags
 									if(isset($tags) && !empty($tags)) {
 										$tag_url = "";
 										$tag_id = array();
-										
+
 										foreach($tags as $tag) {
 										    $tag_id[] = $tag->term_id;
 										    $url = get_term_link($tag->term_id, $tag->taxonomy);
@@ -443,12 +443,12 @@ function get_storiesmap($pageposts=NULL)
 										$tag_url = trim($tag_url, ', ');
 										$idea_tags = '<div class="meta"><b>Idea Tags:</b> '.$tag_url.'</div>';
 									}
-									
+
 									//Team Lead
 									if(isset($team_lead) && !empty($team_lead)){
 										$lead_tags = '<div class="meta"><b>Team Lead:</b> '.$team_lead.'</div>';
 									}
-									
+
 									//Summit
 									if(isset($summits) && !empty($summits))
 									{
@@ -461,16 +461,16 @@ function get_storiesmap($pageposts=NULL)
 									    $summiturl = trim($summiturl, ', ');
 									    $summit_tags = '<div class="popup-summit"><b>Summit:</b> '.$summiturl.'</div>';
 									}
-									
+
 									//Logic Model
 									if(isset($logic_model) && !empty($logic_model)) {
 										$logic_tags = '<div class="popup-logic-model"><b>Logic Model:</b> <a href="'.$logic_model.'" target="_blank"><i class="fa fa-file-pdf-o" aria-hidden="true"></i></a></div>';
 									}
-									
+
 									if (has_post_thumbnail($story->postid)) {
 										$image = get_the_post_thumbnail_url($story->postid, 'medium');
 									}
-									
+
 									$content = $story->post_excerpt ? $story->post_excerpt : $story->content;
 									$link = get_the_permalink($story->postid)."?back=".urlencode($_SERVER['REQUEST_URI']);
 
@@ -504,8 +504,8 @@ function get_storiesmap($pageposts=NULL)
 
 												$term = get_term($primary_term, 'grade_level');
 
-											} 
-										} 
+											}
+										}
 									}
 									$district = trim(addslashes($district));
 									$title = addslashes($title);
@@ -649,44 +649,44 @@ function tips_function($attr, $content=NULL)
 add_action( 'admin_menu' , 'story_settings_menu', 100 );
 function story_settings_menu() {
 	global $submenu;
-	
+
 	$post_type = "stories";
-	
+
 	//Enable/Disable Level submenu
 	$enable_level = get_option('enable_grade_level');
 	if (!($enable_level)){
 		unset($submenu['edit.php?post_type=stories'][17]);
 		remove_meta_box('grade_leveldiv',$post_type,'side');
 	}
-	
+
 	//Enable/Disable Community Type
 	$enable_community_type = get_option('enable_characteristics');
 	if (!($enable_community_type)){
 		unset($submenu['edit.php?post_type=stories'][18]);
 		remove_meta_box('characteristicsdiv',$post_type,'side');
 	}
-	
+
 	//Enable/Disable District Enrollment
 	$enable_district_enrollment = get_option('enable_district_size');
 	if (!($enable_district_enrollment)){
 		unset($submenu['edit.php?post_type=stories'][19]);
 		remove_meta_box('districtsizediv',$post_type,'side');
 	}
-	
+
 	//Enable/Disable Institution Enrollment
 	$enable_institution_enrollment = get_option('enable_institution_enrollment');
 	if (!($enable_institution_enrollment)){
 		unset($submenu['edit.php?post_type=stories'][20]);
 		remove_meta_box('institutionenrollmentdiv',$post_type,'side');
 	}
-	
+
 	//Enable/Disable Institution Type
 	$enable_institution_type = get_option('enable_institution_type');
 	if (!($enable_institution_type)){
 		unset($submenu['edit.php?post_type=stories'][21]);
 		remove_meta_box('institutiontypediv',$post_type,'side');
 	}
-	
+
 	add_submenu_page(
 			 'edit.php?post_type=stories',
 			 __( 'Stories Custom Post Type Settings' , SCP_SLUG ),
@@ -846,7 +846,7 @@ function setup_settings_form() {
 				'description' => __('displays external embedding on the Share This widget', SCP_SLUG)
 			)
 			   );
-	
+
 	/* Enable Sidebar */
 	add_settings_field(
 			'enable_sidebar',
@@ -860,7 +860,7 @@ function setup_settings_form() {
 				'description' => __('enable left sidebar on stories main page', SCP_SLUG)
 			)
 			   );
-	
+
 	/* Hide Title */
 	add_settings_field(
 			'hide_title',
@@ -947,19 +947,19 @@ function load_more_stories() {
 				'post_status' => 'publish',
 				'paged' => $page_num
 				);
-		
+
 		if (isset($_POST['taxonomy']) && $_POST['taxonomy']!==""){
 			$tax_terms = array();
 			$tax_term_objects = get_terms($_POST['taxonomy']);
-					
+
 			foreach($tax_term_objects as $tax_term_object){
 				$tax_terms[] = $tax_term_object->slug;
 			}
-					
+
 			$args['tax_query'] = array(array( 'taxonomy' => $_POST['taxonomy'], 'field' => 'slug', 'terms' => $tax_terms));
 		}
-			
-				
+
+
 		if (isset($_POST['post_ids'])) {
 			$post_ids = json_decode($_POST['post_ids']);
 			$args['post__in'] = $post_ids;
@@ -1003,11 +1003,11 @@ function load_more_stories() {
 		while ( $postquery->have_posts() ) : $postquery->the_post();
 			if (($i%3)==1)
 				echo '<div class="row">';
-				
+
 			echo '<div class="col-md-4 col-sm-12 col-xs-12">';
 			get_story_template_part( 'content', 'subprofile' );
 			echo '</div>';
-								
+
 			if (($i%3)==0)
 					echo '</div>';
 			$i++;
@@ -1130,9 +1130,9 @@ if (!function_exists('spacious_header_title')) {
 		else {
 			$spacious_header_title = '';
 		}
-	
+
 		return $spacious_header_title;
-	
+
 	}
 }
 

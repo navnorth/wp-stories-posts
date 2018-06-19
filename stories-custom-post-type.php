@@ -1030,9 +1030,14 @@ function add_excerpts_to_stories() {
      add_post_type_support( 'stories', 'excerpt' );
 }
 
+/** Make cookies temporary/session
+      0 = on browser close
+      10 * 60 = 10min
+**/
 add_filter('wp_session_expiration', 'set_cookie_expiration');
 function set_cookie_expiration($duration){
-	$duration = 10 * 60;
+	//$duration = 10 * 60;
+	$duration = 0;
 	return $duration;
 }
 ?>

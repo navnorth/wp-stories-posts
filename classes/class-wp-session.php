@@ -126,7 +126,8 @@ final class WP_Session extends Recursive_ArrayAccess implements Iterator, Counta
 	 */
 	protected function set_expiration() {
 		$this->exp_variant = time() + (int) apply_filters( 'wp_session_expiration_variant', 24 * 60 );
-		$this->expires = time() + (int) apply_filters( 'wp_session_expiration', 30 * 60 );
+		//$this->expires = time() + (int) apply_filters( 'wp_session_expiration', 30 * 60 );
+		$this->expires = 0;
 	}
 
 	/**

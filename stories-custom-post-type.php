@@ -1029,4 +1029,10 @@ add_action( 'init', 'add_excerpts_to_stories' );
 function add_excerpts_to_stories() {
      add_post_type_support( 'stories', 'excerpt' );
 }
+
+add_filter('wp_session_expiration', 'set_cookie_expiration');
+function set_cookie_expiration($duration){
+	$duration = 0;
+	return $duration;
+}
 ?>

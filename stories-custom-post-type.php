@@ -1032,7 +1032,7 @@ function add_excerpts_to_stories() {
 
 add_filter('wp_session_expiration', 'set_cookie_expiration');
 function set_cookie_expiration($duration){
-	$duration = 0;
+	$duration = 10 * 60;
 	return $duration;
 }
 ?>

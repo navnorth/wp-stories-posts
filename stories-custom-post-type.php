@@ -952,6 +952,8 @@ function sort_stories(){
 		}
 
 		$postquery = new WP_Query($args);
+		
+		$_backurl = $_POST['back_url'];
 
 		while ( $postquery->have_posts() ) : $postquery->the_post();
 		    get_story_template_part( 'content', 'substory' );

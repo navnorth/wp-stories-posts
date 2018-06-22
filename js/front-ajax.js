@@ -72,7 +72,7 @@ jQuery(document).ready(function($){
             sort: sort,
             post_var: page_num-1,
             post_ids: post_ids,
-            back_url = back_url,
+            back_url: back_url,
             term: term,
             taxonomy: taxonomy
         };

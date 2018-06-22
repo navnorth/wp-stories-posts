@@ -890,7 +890,7 @@ add_action('wp_ajax_nopriv_load_more', 'load_more_stories');
 
 /** Sort Stories **/
 function sort_stories(){
-	global $wpdb, $scp_session;
+	global $wpdb, $scp_session, $_backurl;
 
 	// Initialize WP_Session
 	if (!isset($scp_session))

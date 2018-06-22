@@ -1134,6 +1134,8 @@ function story_entry_meta() {
 function get_sort_box($post_ids=null){
 	global $scp_session;
 	
+	$base_url = "http" . (($_SERVER['SERVER_PORT'] == 443) ? "s://" : "://") . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
+	
 	if (!isset($scp_session))
 		$scp_session = WP_Session::get_instance();
 	
@@ -1152,7 +1154,7 @@ function get_sort_box($post_ids=null){
 				<li data-value="3"<?php if ($sort==3): ?> class="cs-selected"<?php endif; ?>><a href="javascript:void(0);"><span>Z-A</span></a></li>
 			</ul>
 		</div>
-		<select class="sort-selectbox" data-posts="<?php echo json_encode($post_ids); ?>">
+		<select class="sort-selectbox" data-posts="<?php echo json_encode($post_ids); ?>" data-base-url="<?php echo $base_url; ?>">
 			<option value="0"<?php if ($sort==0): ?>  selected<?php endif; ?>>Newest</option>
 			<option value="1"<?php if ($sort==1): ?>  selected<?php endif; ?>>Oldest</option>
 			<option value="2"<?php if ($sort==2): ?>  selected<?php endif; ?>>A-Z</option>

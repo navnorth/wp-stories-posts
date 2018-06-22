@@ -60,6 +60,7 @@ jQuery(document).ready(function($){
         var sort = $(this).val();
         var post_ids = $(this).attr('data-posts');
         var page_num = parseInt($('.btn-load-more').attr('data-page-number'));
+        var back_url = $(this).attr('data-base-url');
         if ($('.btn-load-more').is(':visible')) {
             post_ids = $('.btn-load-more').attr('data-posts');
         }
@@ -71,6 +72,7 @@ jQuery(document).ready(function($){
             sort: sort,
             post_var: page_num-1,
             post_ids: post_ids,
+            back_url = back_url,
             term: term,
             taxonomy: taxonomy
         };

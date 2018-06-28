@@ -189,6 +189,10 @@ function add_vimeo_script(){
 	    $story_institution = get_post_meta($post->ID, "story_institution", true);
             $story_mapaddress = get_post_meta($post->ID, "story_mapaddress", true);
             $story_sidebar_content = get_post_meta($post->ID, "story_sidebar_content", true);
+	    
+	    $districturl = "";
+	    $tagurl = "";
+            $tagid = array();
 
             if(isset($characteristics) && !empty($characteristics))
             {
@@ -285,8 +289,6 @@ function add_vimeo_script(){
 	    
             if(isset($story_tags) && !empty($story_tags))
             {
-                $tagurl = '';
-                $tagid = array();
                 foreach($story_tags as $story_tag)
                 {
                     $tagid[] = $story_tag->term_id;
@@ -416,7 +418,7 @@ function add_vimeo_script(){
                 'post_type' => "stories",
                 'post__not_in' => array($post->ID),
                 'posts_per_page'=>5,
-                'caller_get_posts'=>1);
+                'ignore_sticky_posts'=>1);
             $stories = get_posts($args);
 
             if(!empty($stories)) : ?>

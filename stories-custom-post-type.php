@@ -806,7 +806,8 @@ function setup_settings_field( $arguments ) {
 	echo '<input name="'.$arguments['uid'].'" id="'.$arguments['uid'].'" type="'.$arguments['type'].'" value="' . $value . '" ' . $size . ' ' .  $selected . ' />';
 
 	//Show Helper Text if specified
-	if ($helper = $arguments['helper']) {
+	if (isset($arguments['helper'])) {
+		$helper = $arguments['helper'];
 		printf( '<span class="helper"> %s</span>' , $helper );
 	}
 

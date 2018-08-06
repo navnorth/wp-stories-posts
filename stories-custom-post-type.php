@@ -28,7 +28,8 @@
  */
 
 //defining the url,path and slug for the plugin
-global $wpdb, $characteristics, $districtsize, $scp_session, $_embed, $_backurl;
+//global $wpdb, $characteristics, $districtsize, $scp_session, $_embed, $_backurl;
+global $wpdb, $characteristics, $districtsize, $_embed, $_backurl;
 $characteristics = array('Rural','Suburban','Urban');
 $districtsize = array("Less than 1,000 students","1,001-10,000 students","10,001-40,000 students","40,001+ students");
 
@@ -57,10 +58,10 @@ if ( ! class_exists( 'Recursive_ArrayAccess' ) ) {
 }
 
 // Only include the functionality if it's not pre-defined.
-if ( ! class_exists( 'WP_Session' ) ) {
+/*if ( ! class_exists( 'WP_Session' ) ) {
 	require_once( SCP_PATH.'/classes/class-wp-session.php' );
 	require_once( SCP_PATH.'/classes/wp-session.php' );
-}
+}*/
 
 $_bootstrap = get_option( 'load_bootstrap' );
 $_fontawesome = get_option( 'load_font_awesome' );
@@ -826,10 +827,11 @@ add_action('wp_print_scripts', 'load_ajax_script');
 
 /* Ajax Callback */
 function load_more_stories() {
-	global $wpdb, $wp_query, $scp_session, $_backurl, $_mobile;
+	//global $wpdb, $wp_query, $scp_session, $_backurl, $_mobile;
+	global $wpdb, $wp_query, $_backurl, $_mobile;
 
-	if (!isset($scp_session))
-		$scp_session = WP_Session::get_instance();
+	/*if (!isset($scp_session))
+		$scp_session = WP_Session::get_instance();*/
 
 	if (isset($_POST["post_var"])) {
 		$page_num = $_POST["post_var"];
@@ -848,9 +850,9 @@ function load_more_stories() {
 
 		//Sorting Results
 		$sort = 0;
-		if (isset($scp_session['story_sort']))
+		/*if (isset($scp_session['story_sort']))
 			$sort = (int)$scp_session['story_sort'];
-		else
+		else*/
 			$sort = (int)$_POST['sort'];
 
 
@@ -891,16 +893,16 @@ add_action('wp_ajax_nopriv_load_more', 'load_more_stories');
 
 /** Sort Stories **/
 function sort_stories(){
-	global $wpdb, $scp_session, $_backurl;
+	global $wpdb, $_backurl;
 
 	// Initialize WP_Session
-	if (!isset($scp_session))
-		$scp_session = WP_Session::get_instance();
+	/*if (!isset($scp_session))
+		$scp_session = WP_Session::get_instance();*/
 
 	if (isset($_POST["sort"])) {
 
 		//$_SESSION['story_sort'] = $_POST['sort'];
-		$scp_session['story_sort'] = $_POST['sort'];
+		//$scp_session['story_sort'] = $_POST['sort'];
 
 		$stories = new WP_Query(array('post_type' => 'stories', 'posts_per_page' => -1));
 
@@ -1036,10 +1038,10 @@ function add_excerpts_to_stories() {
       0 = on browser close
       10 * 60 = 10min
 **/
-add_filter('wp_session_expiration', 'set_cookie_expiration');
+/*add_filter('wp_session_expiration', 'set_cookie_expiration');
 function set_cookie_expiration($duration){
 	//$duration = 10 * 60;
 	$duration = 0;
 	return $duration;
-}
+}*/
 ?>

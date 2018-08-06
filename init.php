@@ -1132,16 +1132,16 @@ function story_entry_meta() {
 */
 
 function get_sort_box($post_ids=null){
-	global $scp_session;
+	//global $scp_session;
 	
 	$base_url = "http" . (($_SERVER['SERVER_PORT'] == 443) ? "s://" : "://") . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
 	
-	if (!isset($scp_session))
-		$scp_session = WP_Session::get_instance();
+	//if (!isset($scp_session))
+	//	$scp_session = WP_Session::get_instance();
 	
 	$sort = 0;
-	if (isset($scp_session['story_sort']))
-		$sort = (int)$scp_session['story_sort'];
+	//if (isset($scp_session['story_sort']))
+	//	$sort = (int)$scp_session['story_sort'];
 	?>
 	<div class="sort-box">
 		<span class="sortoption"></span>
@@ -1165,14 +1165,14 @@ function get_sort_box($post_ids=null){
 }
 
 function apply_sort_args($args){
-	global $scp_session;
+	//global $scp_session;
 	
-	if (!isset($scp_session))
-		$scp_session = WP_Session::get_instance();
+	//if (!isset($scp_session))
+	//	$scp_session = WP_Session::get_instance();
 	
 	$sort = 0;
-	if (isset($scp_session['story_sort']))
-		$sort = (int)$scp_session['story_sort'];
+	//if (isset($scp_session['story_sort']))
+	//	$sort = (int)$scp_session['story_sort'];
 
 	switch($sort){
 		case 0:

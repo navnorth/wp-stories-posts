@@ -8,34 +8,36 @@
  */
 get_header(); ?>
 <?php
-global $scp_session;
+//global $scp_session;
 global $wpdb;
 
 $active_tab = "";
 
 	// Initialize WP_Session
-	if (!isset($scp_session))
-		$scp_session = WP_Session::get_instance();
+	/*if (!isset($scp_session))
+		$scp_session = WP_Session::get_instance();*/
 		
 	if (isset($_POST['active_tab'])) {
-		$scp_session['active_tab'] = isset($_POST['active_tab'])?$_POST['active_tab']:'all';
+		//$scp_session['active_tab'] = isset($_POST['active_tab'])?$_POST['active_tab']:'all';
+		$active_tab = isset($_POST['active_tab'])?$_POST['active_tab']:'all';
+	} /*elseif (isset($scp_session['active_tab'])) {
 		$active_tab = $scp_session['active_tab'];
-	} elseif (isset($scp_session['active_tab'])) {
-		$active_tab = $scp_session['active_tab'];
-	}
+	}*/
 	
-	if ($active_tab=="all")
-		unset($scp_session['post_ids']);
+	/*if ($active_tab=="all")
+		unset($scp_session['post_ids']);*/
 	
 	$table = $wpdb->prefix."term_relationships";
 	$termobject = get_queried_object();
 	$term_id = $termobject->term_id;
 	
-	if (isset($_POST['post_ids']) || isset($scp_session['post_ids'])) {
-		if ($_POST['post_ids'])
-			$scp_session['post_ids'] = $_POST['post_ids'];
+	//if (isset($_POST['post_ids']) || isset($scp_session['post_ids'])) {
+	if (isset($_POST['post_ids'])) {
+		/*if ($_POST['post_ids'])
+			$scp_session['post_ids'] = $_POST['post_ids'];*/
 			
-		$post_ids = json_decode($scp_session['post_ids']);
+		$post_ids = json_decode($_POST['post_ids']);
+		//$post_ids = json_decode($scp_session['post_ids']);
 		$post_ids = implode(",", $post_ids);
 		$postids = $wpdb->get_results("select object_id from $table where term_taxonomy_id=".$term_id." and object_id in (".$post_ids.")",OBJECT_K);
 	} else {

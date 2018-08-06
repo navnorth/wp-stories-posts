@@ -219,8 +219,6 @@ function taxonomy_order()
 	}
 }
 
-add_action( 'wp_ajax_update-custom-type-order-hierarchical', array(&$this, 'saveAjaxOrderHierarchical') );
-
 add_filter('get_terms_orderby', 'applyorderfilter', 10, 2);
 function applyorderfilter($orderby, $args)
 {
@@ -370,6 +368,8 @@ function scp_template_loader($template)
 function get_storiesmap($pageposts=NULL)
 {
 	global $wpdb, $_googleapikey;
+	$stateurl = "";
+	$postid = "";
 	$story_table = $wpdb->prefix . "scp_stories";
     $post_table = $wpdb->prefix . "posts";
 	$sql = "SELECT S.id, S.postid, S.title, S.latitude, S.longitude, S.image, S.content, P.post_excerpt

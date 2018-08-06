@@ -26,7 +26,7 @@ get_header(); ?>
 ?>
 	<div id="content" class="row">
 			<?php
-				if($_REQUEST['action'] == 'search')
+				if(isset($_REQUEST['action']) && $_REQUEST['action'] == 'search')
 				{
 					extract($_REQUEST);
 					$searcharr = array();
@@ -190,7 +190,7 @@ get_header(); ?>
 						$max_page = $postquery->max_num_pages;
 						
 						$paged = 1;
-						if ($_GET['page'])
+						if (isset($_GET['page']))
 							$paged = (int)$_GET['page'];
 							
 						//Change query to show just  10

@@ -11,6 +11,8 @@ get_header(); ?>
 global $scp_session;
 global $wpdb;
 
+$active_tab = "";
+
 	// Initialize WP_Session
 	if (!isset($scp_session))
 		$scp_session = WP_Session::get_instance();
@@ -51,7 +53,7 @@ global $wpdb;
 ?>
 	<div id="content" class="row">
 			<?php
-				if($_REQUEST['action'] == 'search')
+				if(isset($_REQUEST['action']) && $_REQUEST['action'] == 'search')
 				{
 					extract($_REQUEST);
 					$searcharr = array();
@@ -215,7 +217,7 @@ global $wpdb;
 						$max_page = $postquery->max_num_pages;
 						
 						$paged = 1;
-						if ($_GET['page'])
+						if (isset($_GET['page']))
 							$paged = (int)$_GET['page'];
 						
 						//Change query to show just  10

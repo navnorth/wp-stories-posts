@@ -192,6 +192,7 @@ function add_vimeo_script(){
 	    
 	    $districturl = "";
 	    $tagurl = "";
+	    $characteristicurl = "";
             $tagid = array();
 
             if(isset($characteristics) && !empty($characteristics))

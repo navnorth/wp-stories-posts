@@ -66,7 +66,7 @@ get_header(); ?>
 				$max_page = $postquery->max_num_pages;
 
 				$paged = 1;
-				if ($_GET['page'])
+				if (isset($_GET['page']))
 						$paged = (int)$_GET['page'];
 
 				$args = array('post_type' => 'stories', 'posts_per_page' => 10 * $paged);
@@ -228,7 +228,7 @@ get_header(); ?>
 								       $max_page = $postquery->max_num_pages;
 
 								       $paged = 1;
-								       if ($_GET['page'])
+								       if (isset($_GET['page']))
 										       $paged = (int)$_GET['page'];
 
 								$args =	array(

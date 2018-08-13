@@ -352,8 +352,8 @@ article.stories .entry-meta a.read-more, article.stories .entry-meta a.read-more
     margin-top: 35px;
     border: 1px solid #294179;
     padding: 20px;
-    float:none;
 }
+.pblctn_right_sid_mtr .col-md-12.nomargintop { float:none; }
 .rght_sid_wdgt_hedng {
     font-size: 18px !important;
     font-weight:bold;

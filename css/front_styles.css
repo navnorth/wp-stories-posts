@@ -352,6 +352,7 @@ article.stories .entry-meta a.read-more, article.stories .entry-meta a.read-more
     margin-top: 35px;
     border: 1px solid #294179;
     padding: 20px;
+    float:none;
 }
 .rght_sid_wdgt_hedng {
     font-size: 18px !important;
@@ -455,6 +456,7 @@ article.stories .entry-meta a.read-more, article.stories .entry-meta a.read-more
 }
 .single-stories .fusion-row > #content > .col-md-4.pblctn_right_sid_mtr { width:33.333333%; }
 .single-stories .story_sharewidgeticns .ssba.ssba-wrap img { width:30px !important; height:30px !important; }
+.rght_sid_wdgt_hedng { margin-bottom:0; }
 @media screen and (max-width: 992px) {
     .stry_srch_frm { width: 100%}
     /*.pblctn_lft_sid_img_cntnr { padding-left: 0 !important}*/

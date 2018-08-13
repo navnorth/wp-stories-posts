@@ -60,16 +60,19 @@ function add_vimeo_script(){
 		    <?php if ($story_video_host==1) {
 			    if (isYoutubeVideoExists($video_id)) { ?>
 				<div id="ytvideo"  <?php if ($story_video_host==2) echo "data-progress='true' data-seek='true' data-bounce='true'"; ?>></div>
-			    <?php } else { 
-				if (isset($img_url) && !empty($img_url)){
-				    $script = "<script>\n ".
+			    <?php } else {
+				
+				$script = "<script>\n ".
 					    "jQuery(document).ready(function(e) { \n".
 					    "	ga('send',  'event', 'Story Video: " . $post->post_title . "', 'Failed', '". $video_id."'  ); \n".
 					    "}); \n ".
 					    "</script>";
-				    echo $script;
+				echo $script;
+				
+				if (isset($img_url) && !empty($img_url)){
 				    echo displayImage($img_url, $img_alt);
 				}
+				
 			    }
 		     } else { ?>
 			<iframe id="ytvideo" src="<?php echo $video_url; ?>" <?php if ($story_video_host==2) echo "data-progress='true' data-seek='true' data-bounce='true'"; ?> height="250"></iframe>

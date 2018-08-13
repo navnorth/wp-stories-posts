@@ -404,4 +404,21 @@ function importStories($default=false) {
     $response = array('message' => $message, 'type' => $type);
     return $response;
 }
+
+function isYoutubeVideoExists($videoId){
+    $exists = false;
+    $headers = get_headers('https://www.youtube.com/oembed?format=json&url=http://www.youtube.com/watch?v=' . $videoId);
+
+    if(is_array($headers) ? preg_match('/^HTTP\\/\\d+\\.\\d+\\s+2\\d\\d\\s+.*$/',$headers[0]) : false){
+        $exists = true;
+    }
+    
+    return $exists;
+}
+
+function displayImage($imageUrl, $imageAlt){
+    return '<div class="col-md-12 col-sm-12 col-xs-12 noborder nomargintop">
+                <img src="'.$imageUrl.'" alt="'.$imageAlt.'" />
+    </div>';
+}
 ?>

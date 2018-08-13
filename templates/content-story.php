@@ -46,22 +46,38 @@ function add_vimeo_script(){
             $img_alt = get_post_meta(get_post_thumbnail_id($post->ID), '_wp_attachment_image_alt', true);
             $video_id = get_post_meta( $post->ID, "story_video" , true );
 	    $story_video_host 	= get_post_meta($post->ID, "story_video_host", true);
-        ?>
-        <?php if(isset($img_url) && !empty($img_url) && empty($video_id)) : ?>
-            <div class="col-md-12 col-sm-12 col-xs-12 noborder nomargintop">
-                <img src="<?php echo $img_url; ?>" alt="<?php echo $img_alt; ?>" />
-            </div>
-        <?php endif; ?>
+        
+	if(isset($img_url) && !empty($img_url) && empty($video_id))
+	    echo displayImage($img_url, $img_alt);
 
-        <?php
-	if(isset($video_id) && !empty($video_id)) :
+	if(isset($video_id) && !empty($video_id)) {
+	    $origin = get_site_url();
+	    $video_url = "https://www.youtube.com/embed/".$video_id."?enablejsapi=1&#038;origin=".$origin;
+	    	    
 	?>
             <div class="col-md-12 col-sm-12 col-xs-12 noborder nomargintop">
 		<div class="<?php if ($story_video_host==1): ?>video-wrap<?php else: ?>vid-wrap<?php endif; ?>">
-		    <iframe id="ytvideo" src="<?php echo $video_url; ?>" <?php if ($story_video_host==2) echo "data-progress='true' data-seek='true' data-bounce='true'"; ?> height="250"></iframe>
+		    <?php if ($story_video_host==1) {
+			    if (isYoutubeVideoExists($video_id)) { ?>
+				<div id="ytvideo"  <?php if ($story_video_host==2) echo "data-progress='true' data-seek='true' data-bounce='true'"; ?>></div>
+			    <?php } else { 
+				if (isset($img_url) && !empty($img_url)){
+				    $script = "<script>\n ".
+					    "jQuery(document).ready(function(e) { \n".
+					    "	ga('send',  'event', 'Story Video: " . $post->post_title . "', 'Failed', '". $video_id."'  ); \n".
+					    "}); \n ".
+					    "</script>";
+				    echo $script;
+				    echo displayImage($img_url, $img_alt);
+				}
+			    }
+		     } else { ?>
+			<iframe id="ytvideo" src="<?php echo $video_url; ?>" <?php if ($story_video_host==2) echo "data-progress='true' data-seek='true' data-bounce='true'"; ?> height="250"></iframe>
+		    <?php } ?>
 		</div>
             </div>
 	<?php
+	    
 	    if ($story_video_host==1) {
 		    $tracking_script = "<script type='text/javascript'>\n";
 
@@ -88,15 +104,17 @@ function add_vimeo_script(){
 					    "function onYouTubeIframeAPIReady_LoadPlayer() { \n".
 					    "	player = new YT.Player('ytvideo', { \n".
 					    "	width: '', \n".
-					    "	height: '', \n".
-					    "	videoId: '', \n".
+					    "	height: '250', \n".
+					    "	videoId: '".$video_id."', \n".
 					    "	playerVars: { \n".
 					    "		'autoplay': 0, \n".
 					    "		'controls': 1, \n".
-					    "		'rel' : 0 \n".
+					    "		'enablejsapi': 1, \n".
+					    "		'rel' : 0, \n".
+					    "		'origin' : '".$origin."' \n".
 					    "	}, \n".
 					    "	events: { \n".
-					    "		'onError': function(){ console.log('error') }, \n".
+					    "		'onError': onPlayerError, \n".
 					    "		'onReady': onPlayerReady, \n".
 					    "		'onStateChange': onPlayerStateChange \n".
 					    "		} \n".
@@ -104,15 +122,17 @@ function add_vimeo_script(){
 					    "	//console.log(player); \n".
 					    "}\n".
 					    "	var pauseFlag = false; \n".
+					    "	var gaSent = false; \n".
 					    "function onPlayerError(event) { \n".
-					    "   console.log('error'); \n".
 					    "	if (event.data) { \n".
-					    "		ga('send',  'event', 'Story Video: " . $post->post_title . "', 'Failed', videoId ); \n".
-					    "		console.log('error'); \n".
+					    "		if (gaSent === false) { \n".
+					    "			ga('send',  'event', 'Story Video: " . $post->post_title . "', 'Failed', '". $video_id."'  ); \n".
+					    "			gaSent = true; \n".
+					    "		} \n".
+					    "		useFeaturedImage(); \n".
 					    " 	} \n".
 					    "} \n".
 					    "function onPlayerReady(event) { \n".
-					    " 	console.log('ready');".
 					    "	// do nothing, no tracking needed \n".
 					    "} \n".
 					    "function onPlayerStateChange(event) { \n".
@@ -125,21 +145,34 @@ function add_vimeo_script(){
 					    "	videoId = String(videoId); \n".
 					    "	// track when user clicks to Play \n".
 					    "	if (event.data == YT.PlayerState.PLAYING) { \n".
-					    "		ga('send', 'event', 'Story Video: " . $post->post_title . "', 'Play', videoId );\n".
+					    "		ga('send', 'event', 'Story Video: " . $post->post_title . "', 'Play', '". $video_id."'  );\n".
 					    "		console.log(ga); \n".
 					    "		pauseFlag = true; \n".
 					    "	}\n".
 					    "	// track when user clicks to Pause \n".
 					    "	if (event.data == YT.PlayerState.PAUSED && pauseFlag) { \n".
-					    "		ga('send',  'event', 'Story Video: " . $post->post_title . "', 'Pause', videoId ); \n".
+					    "		ga('send',  'event', 'Story Video: " . $post->post_title . "', 'Pause', '". $video_id."'  ); \n".
 					    "		pauseFlag = false; \n ".
 					    "	} \n".
 					    "	// track when video ends \n".
 					    "	if (event.data == YT.PlayerState.ENDED) { \n".
-					    "		ga('send', 'event', 'Story Video: " . $post->post_title . "', 'Finished', videoId  ); \n".
+					    "		ga('send', 'event', 'Story Video: " . $post->post_title . "', 'Finished', '". $video_id."'  ); \n".
 					    "	}\n".
 					    "}";
+		    
+		    $tracking_script .= "function useFeaturedImage(){ \n";
+					
+		    if(isset($img_url) && !empty($img_url)) : 
+			$tracking_script .= "jQuery('#ytvideo').hide(); \n";
+			$tracking_script .= "jQuery('#ytImage').remove(); \n";
+			$tracking_script .= "jQuery('#ytvideo').parent().append(\"".
+					    "<div id='ytImage' class='col-md-12 col-sm-12 col-xs-12 noborder nomargintop'>".
+					    "	<img src='".$img_url."' alt='".$img_alt."' />".
+					    "</div>".
+					    "\");";
+		    endif;
 
+		    $tracking_script .= "}";
 		    $tracking_script .= "</script>";
 		    $tracking_script .= "<script>\n ".
 					    "jQuery(document).ready(function(e) { \n".
@@ -147,15 +180,13 @@ function add_vimeo_script(){
 					    "}); \n ".
 					    "</script>";
 		    echo $tracking_script;
-		    $origin = get_site_url();
-		    $video_url = "https://www.youtube.com/embed/".$video_id."?enablejsapi=1&#038;origin=".$origin;
 		}
 		elseif ($story_video_host==2) {
 		    add_action('wp_footer','add_vimeo_script');
 		    $video_url = "https://player.vimeo.com/video/".$video_id."?api=1&player_id=".$video_id;
 		}
 	?>
-        <?php endif; ?>
+        <?php } ?>
 
         <aside class="story_sharewidget">
             <h3 class="rght_sid_wdgt_hedng"><?php _e( 'Share this story' , SCP_SLUG ); ?></h3>

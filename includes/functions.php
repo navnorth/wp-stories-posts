@@ -408,7 +408,7 @@ function importStories($default=false) {
 function isYoutubeVideoExists($videoId){
     $exists = false;
     $headers = get_headers('https://www.youtube.com/oembed?format=json&url=http://www.youtube.com/watch?v=' . $videoId);
-
+    
     if(is_array($headers) ? preg_match('/^HTTP\\/\\d+\\.\\d+\\s+2\\d\\d\\s+.*$/',$headers[0]) : false){
         $exists = true;
     }

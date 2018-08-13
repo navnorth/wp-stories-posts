@@ -54,8 +54,15 @@ function add_vimeo_script(){
         <?php endif; ?>
 
         <?php
-	    if(isset($video_id) && !empty($video_id)) :
-		if ($story_video_host==1) {
+	if(isset($video_id) && !empty($video_id)) :
+	?>
+            <div class="col-md-12 col-sm-12 col-xs-12 noborder nomargintop">
+		<div class="<?php if ($story_video_host==1): ?>video-wrap<?php else: ?>vid-wrap<?php endif; ?>">
+		    <iframe id="ytvideo" src="<?php echo $video_url; ?>" <?php if ($story_video_host==2) echo "data-progress='true' data-seek='true' data-bounce='true'"; ?> height="250"></iframe>
+		</div>
+            </div>
+	<?php
+	    if ($story_video_host==1) {
 		    $tracking_script = "<script type='text/javascript'>\n";
 
 		    $tracking_script .= " function loadPlayer() { \n".
@@ -82,7 +89,7 @@ function add_vimeo_script(){
 					    "	player = new YT.Player('ytvideo', { \n".
 					    "	width: '', \n".
 					    "	height: '', \n".
-					    "	videoId: '".$video_id."', \n".
+					    "	videoId: '', \n".
 					    "	playerVars: { \n".
 					    "		'autoplay': 0, \n".
 					    "		'controls': 1, \n".
@@ -148,12 +155,6 @@ function add_vimeo_script(){
 		    $video_url = "https://player.vimeo.com/video/".$video_id."?api=1&player_id=".$video_id;
 		}
 	?>
-            <div class="col-md-12 col-sm-12 col-xs-12 noborder nomargintop">
-		<div class="<?php if ($story_video_host==1): ?>video-wrap<?php else: ?>vid-wrap<?php endif; ?>">
-		    <div id="ytvideo"></div>
-		    <!--<iframe id="<?php echo $video_id; ?>" src="<?php echo $video_url; ?>" <?php if ($story_video_host==2) echo "data-progress='true' data-seek='true' data-bounce='true'"; ?> height="250"></iframe>-->
-		</div>
-            </div>
         <?php endif; ?>
 
         <aside class="story_sharewidget">

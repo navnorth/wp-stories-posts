@@ -90,12 +90,20 @@ function add_vimeo_script(){
 					    "	}, \n".
 					    "	events: { \n".
 					    "		'onReady': onPlayerReady, \n".
-					    "		'onStateChange': onPlayerStateChange \n".
+					    "		'onStateChange': onPlayerStateChange, \n".
+					    "		'onError': onPlayerError \n".
 					    "		} \n".
 					    "	}); \n".
 					    "	console.log(player); \n".
 					    "}\n".
 					    "	var pauseFlag = false; \n".
+					    "function onPlayerError(event) { \n".
+					    "   console.log(event); \n".
+					    "	if (event.data) { \n".
+					    "		ga('send',  'event', 'Story Video: " . $post->post_title . "', 'Failed', videoId ); \n".
+					    "		console.log('error'); \n".
+					    " 	} \n".
+					    "} \n".
 					    "function onPlayerReady(event) { \n".
 					    "	// do nothing, no tracking needed \n".
 					    "} \n".
@@ -122,7 +130,7 @@ function add_vimeo_script(){
 					    "	if (event.data == YT.PlayerState.ENDED) { \n".
 					    "		ga('send', 'event', 'Story Video: " . $post->post_title . "', 'Finished', videoId  ); \n".
 					    "	}\n".
-					    "} \n";
+					    "}";
 
 		    $tracking_script .= "</script>";
 		    $tracking_script .= "<script>\n ".

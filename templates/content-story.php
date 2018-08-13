@@ -79,32 +79,33 @@ function add_vimeo_script(){
 					    "	// This code is called by the YouTube API to create the player object \n".
 					    "var player;\n".
 					    "function onYouTubeIframeAPIReady_LoadPlayer() { \n".
-					    "	player = new YT.Player('".$video_id."', { \n".
+					    "	player = new YT.Player('ytvideo', { \n".
 					    "	width: '', \n".
 					    "	height: '', \n".
-					    "	videoId: '', \n".
+					    "	videoId: '".$video_id."', \n".
 					    "	playerVars: { \n".
 					    "		'autoplay': 0, \n".
 					    "		'controls': 1, \n".
 					    "		'rel' : 0 \n".
 					    "	}, \n".
 					    "	events: { \n".
+					    "		'onError': function(){ console.log('error') }, \n".
 					    "		'onReady': onPlayerReady, \n".
-					    "		'onStateChange': onPlayerStateChange, \n".
-					    "		'onError': onPlayerError \n".
+					    "		'onStateChange': onPlayerStateChange \n".
 					    "		} \n".
 					    "	}); \n".
-					    "	console.log(player); \n".
+					    "	//console.log(player); \n".
 					    "}\n".
 					    "	var pauseFlag = false; \n".
 					    "function onPlayerError(event) { \n".
-					    "   console.log(event); \n".
+					    "   console.log('error'); \n".
 					    "	if (event.data) { \n".
 					    "		ga('send',  'event', 'Story Video: " . $post->post_title . "', 'Failed', videoId ); \n".
 					    "		console.log('error'); \n".
 					    " 	} \n".
 					    "} \n".
 					    "function onPlayerReady(event) { \n".
+					    " 	console.log('ready');".
 					    "	// do nothing, no tracking needed \n".
 					    "} \n".
 					    "function onPlayerStateChange(event) { \n".
@@ -149,7 +150,8 @@ function add_vimeo_script(){
 	?>
             <div class="col-md-12 col-sm-12 col-xs-12 noborder nomargintop">
 		<div class="<?php if ($story_video_host==1): ?>video-wrap<?php else: ?>vid-wrap<?php endif; ?>">
-		    <iframe id="<?php echo $video_id; ?>" src="<?php echo $video_url; ?>" <?php if ($story_video_host==2) echo "data-progress='true' data-seek='true' data-bounce='true'"; ?> height="250"></iframe>
+		    <div id="ytvideo"></div>
+		    <!--<iframe id="<?php echo $video_id; ?>" src="<?php echo $video_url; ?>" <?php if ($story_video_host==2) echo "data-progress='true' data-seek='true' data-bounce='true'"; ?> height="250"></iframe>-->
 		</div>
             </div>
         <?php endif; ?>

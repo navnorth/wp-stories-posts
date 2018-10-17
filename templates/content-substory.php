@@ -57,7 +57,7 @@
 ?>
 <div class="col-md-12 pblctn_paramtr padding_left">
     <h3>
-        <a href="<?php echo $link; ?>">
+        <a href="<?php echo esc_url($link); ?>">
             <?php echo get_the_title($post->ID); ?>
         </a>
     </h3>

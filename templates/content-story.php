@@ -22,7 +22,7 @@ function add_vimeo_script(){
         $back_link_text = __( 'Back to Stories', SCP_SLUG );
         if (isset($_GET['back']) && !empty($_GET['back']))
         {
-            $back_link_URL = esc_html($_GET['back']);
+            $back_link_URL = esc_url(filter_var($_GET['back'],FILTER_SANITIZE_STRING));
             $back_link_text = __( 'Back to Results', SCP_SLUG );
         }
         ?>

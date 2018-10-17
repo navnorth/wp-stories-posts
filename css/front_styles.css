@@ -24,7 +24,7 @@
 .stry_srch_frm { float: left; width: 90%}
 .showallstories { float: left; width: 90%; margin-top: 10px; font-size:18px;}
 .stry_srch_frm  input[type="text"],
-.stry_srch_frm  select, 
+.stry_srch_frm  select,
 #statedropdown{
     width: 65%;
     margin-top: 5px;
@@ -311,7 +311,7 @@ article.stories .entry-meta a.read-more, article.stories .entry-meta a.read-more
 .search_story_image { width:20%; float:left; }
 .search_story_featured_image { width:100%; height:auto; }
 .search_story_content { width:80%; float:right; }
-.search_story_content_full h3, .search_story_content h3{ margin-bottom:0;padding-bottom:0; }
+.search_story_content_full h3, .search_story_content h3 { margin:3px 0 0 0;padding-bottom:0; }
 .sort-box { text-align: right; float: right; margin-top: 0; position: relative; width: 80px; display:inline-block; line-height:1.5em; z-index:2; }
 .sort-story { cursor:pointer; }
 .sort-box .sort-selectbox { display:none; }

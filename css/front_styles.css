@@ -458,7 +458,7 @@ article.stories .entry-meta a.read-more, article.stories .entry-meta a.read-more
 .single-stories .fusion-row > #content > .col-md-4.pblctn_right_sid_mtr { width:33.333333%; }
 .single-stories .story_sharewidgeticns .ssba.ssba-wrap img { width:auto !important; height:auto !important; }
 .rght_sid_wdgt_hedng { margin-bottom:0; }
-.video-container { padding-top:0; }
+.video-container { padding-top:0 !important; }
 @media screen and (max-width: 992px) {
     .stry_srch_frm { width: 100%}
     /*.pblctn_lft_sid_img_cntnr { padding-left: 0 !important}*/

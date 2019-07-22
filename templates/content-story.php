@@ -209,7 +209,7 @@ function add_vimeo_script(){
 			    }
 			} else {
 			    
-			    echo do_shortcode("[ssba]");
+			    echo do_shortcode("[oet_social]");
 			    
 			    if ($_embed)
 				    echo add_share_embed_code($post->ID);

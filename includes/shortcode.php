@@ -23,6 +23,12 @@ function oet_story_func($attr, $content = null) {
     
     if (is_array($attr))
         extract($attr);
+        if (is_admin()) {
+          $_arr = getShortcodeAttr($attr);	
+          foreach($_arr as $key => $value) $$key = $value;
+        }else{
+          extract($attr);
+        }
     
     $class_attrs[] = "story-embed-box";
     

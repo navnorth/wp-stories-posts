@@ -58,10 +58,11 @@ function add_vimeo_script(){
             <div class="col-md-12 col-sm-12 col-xs-12 noborder nomargintop">
 		<div class="<?php if ($story_video_host==1): ?>video-wrap<?php else: ?>vid-wrap<?php endif; ?>">
 		    <?php if ($story_video_host==1) {
-			    if (isYoutubeVideoExists($video_id)) { ?>
-				<div id="ytvideo"  <?php if ($story_video_host==2) echo "data-progress='true' data-seek='true' data-bounce='true'"; ?>></div>
-			    <?php } else {
-				
+			    if (isYoutubeVideoExists($video_id)) { 
+            if(!is_numeric($video_id)){
+              echo get_modal_video_link($story_video_host,$video_id);
+            } ?>
+          <?php } else {
 				$script = "<script>\n ".
 					    "jQuery(document).ready(function(e) { \n".
 					    "	ga('send',  'event', 'Story Video: " . $post->post_title . "', 'Failed', '". $video_id."'  ); \n".
@@ -75,8 +76,12 @@ function add_vimeo_script(){
 				
 			    }
 		     } else { ?>
-			<iframe id="ytvideo" src="<?php echo $video_url; ?>" <?php if ($story_video_host==2) echo "data-progress='true' data-seek='true' data-bounce='true'"; ?> height="250"></iframe>
-		    <?php } ?>
+			<!--<iframe id="ytvideo" src="<?php echo $video_url; ?>" <?php if ($story_video_host==2) echo "data-progress='true' data-seek='true' data-bounce='true'"; ?> height="250"></iframe>-->
+        <?php
+        if(is_numeric($video_id)){
+          echo get_modal_video_link($story_video_host,$video_id);
+        } ?>
+        <?php } ?>  
 		</div>
             </div>
 	<?php
@@ -107,7 +112,7 @@ function add_vimeo_script(){
 					    "function onYouTubeIframeAPIReady_LoadPlayer() { \n".
 					    "	player = new YT.Player('ytvideo', { \n".
 					    "	width: '', \n".
-					    "	height: '250', \n".
+					    "	height: '360', \n".
 					    "	videoId: '".$video_id."', \n".
 					    "	playerVars: { \n".
 					    "		'autoplay': 0, \n".
@@ -187,6 +192,12 @@ function add_vimeo_script(){
 		elseif ($story_video_host==2) {
 		    add_action('wp_footer','add_vimeo_script');
 		    $video_url = "https://player.vimeo.com/video/".$video_id."?api=1&player_id=".$video_id;
+        $tracking_script = "<script src='https://player.vimeo.com/api/player.js'></script>";
+        $tracking_script .= "<script type='text/javascript'>\n"; 
+        $tracking_script .= "var iframe = document.querySelector('#ytvideo');";
+        $tracking_script .= "var vimplay = new Vimeo.Player(iframe);";
+        $tracking_script .= "</script>";
+        echo $tracking_script;
 		}
 	?>
         <?php } ?>

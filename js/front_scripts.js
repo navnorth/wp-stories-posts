@@ -134,7 +134,49 @@ jQuery(document).ready(function(){
 	e.preventDefault();
       });
   });
+  
+  var hst = jQuery('#stry-video-overlay').attr('hst');
+  jQuery(document).on('click','a.stry-video-link', function(e){
+    e.preventDefault ? e.preventDefault() : e.returnValue = false;
+    togglemodal(hst,1);
+  })
+  jQuery(document).on('click','#stry-video-overlay', function(e){
+    e.preventDefault ? e.preventDefault() : e.returnValue = false;
+    togglemodal(hst,0);
+  })
+  jQuery(document).on("keydown", function(e) {
+   if (e.key === "Escape") { // escape key maps to keycode `27`
+     togglemodal(hst,0);
+    }
+  });
+  window.setInterval(checkFocus, 1000); 
 });
+
+function togglemodal(hst, bol){
+  if(bol){ //show and play
+    if(hst == 1){
+      player.playVideo();
+    }else{
+      vimplay.play();
+    }
+    jQuery('#stry-video-overlay').modal('show');
+  }else{ //pause and hide
+    if(hst == 1){
+      player.pauseVideo();
+    }else{
+      vimplay.pause();
+    }
+    jQuery('#stry-video-overlay').modal('hide');
+  }
+}
+
+/** Check if youtube iFrame has stolen the focus **/
+function checkFocus() {
+    if(document.activeElement.tagName == "IFRAME") {
+        document.getElementById("stry-video-overlay").focus(); //return focus to overlay
+        document.body.focus();
+    }
+}
 
 /** Movelabel in between excerpt and topic **/
 function moveStoryLabelOnMobile() {

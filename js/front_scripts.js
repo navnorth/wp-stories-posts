@@ -145,7 +145,8 @@ jQuery(document).ready(function(){
     togglemodal(hst,0);
   })
   jQuery(document).on("keydown", function(e) {
-   if (e.key === "Escape") { // escape key maps to keycode `27`
+   if (e.key == "Escape" || e.key == "Esc") { 
+     // escape key maps to keycode `27`
      togglemodal(hst,0);
     }
   });

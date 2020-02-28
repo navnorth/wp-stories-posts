@@ -166,7 +166,7 @@ function get_modal_video_link($vidtype,$vidid){
     $vimdata = unserialize(file_get_contents("http://vimeo.com/api/v2/video/$vidid.php"));
     $imagesrc = $vimdata[0]['thumbnail_large'];
     $reticon = '<span class="stry-vimeo-play"></span>';
-    $retvid .= '<iframe id="ytvideo" src="https://player.vimeo.com/video/'.$vidid.'?api=1&player_id='.$vidid.'color=ef0800&title=0&byline=0&portrait=0" width="600" height="360" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>';
+    $retvid .= '<iframe id="ytvideo" title="Video Embed" src="https://player.vimeo.com/video/'.$vidid.'?api=1&player_id='.$vidid.'color=ef0800&title=0&byline=0&portrait=0" width="600" height="360" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>';
   }
   
   $ret .= '<a href="#" class="stry-video-link" hst="'.$vidtype.'" data-toggle="modal" data-target="#stry-video-overlay">';

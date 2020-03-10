@@ -761,6 +761,20 @@ function setup_settings_form() {
 				'description' => __('displays external embedding on the Share This widget', SCP_SLUG)
 			)
 			   );
+	
+	/* Enable YouTube Check */
+	add_settings_field(
+			'enable_youtube_check',
+			__( 'Enable YouTube Checking?' , SCP_SLUG ),
+			'setup_settings_field',
+			'stories-settings-page',
+			'stories-settings-section',
+			array(
+				'uid' => 'enable_youtube_check',
+				'type' => 'checkbox',
+				'description' => __('enable YouTube Url validation', SCP_SLUG)
+			)
+			   );
 
 	register_setting( 'stories-settings-section' , 'load_bootstrap' );
 	register_setting( 'stories-settings-section' , 'load_font_awesome' );
@@ -772,6 +786,7 @@ function setup_settings_form() {
 	register_setting( 'stories-settings-section' , 'enable_institution_enrollment' );
 	register_setting( 'stories-settings-section' , 'enable_institution_type' );
 	register_setting( 'stories-settings-section' , 'enable_embed' );
+	register_setting( 'stories-settings-section' , 'enable_youtube_check' );
 }
 
 function first_section_callback() {

@@ -58,11 +58,13 @@ function add_vimeo_script(){
             <div class="col-md-12 col-sm-12 col-xs-12 noborder nomargintop">
 		<div class="<?php if ($story_video_host==1): ?>video-wrap<?php else: ?>vid-wrap<?php endif; ?>">
 		    <?php if ($story_video_host==1) {
+			$enable_youtube_check = get_option('enable_youtube_check');
+			if (!empty($enable_youtube_check)) {
 			    if (isYoutubeVideoExists($video_id)) { 
-            if(!is_numeric($video_id)){
-              echo get_modal_video_link($story_video_host,$video_id);
-            } ?>
-          <?php } else {
+				if(!is_numeric($video_id)){
+				  echo get_modal_video_link($story_video_host,$video_id);
+				} ?>
+			    <?php } else {
 				$script = "<script>\n ".
 					    "jQuery(document).ready(function(e) { \n".
 					    "	ga('send',  'event', 'Story Video: " . $post->post_title . "', 'Failed', '". $video_id."'  ); \n".
@@ -75,6 +77,11 @@ function add_vimeo_script(){
 				}
 				
 			    }
+			} else {
+			    if(!is_numeric($video_id)){
+				echo get_modal_video_link($story_video_host,$video_id);
+			    }
+			}
 		     } else { ?>
 			<!--<iframe id="ytvideo" src="<?php echo $video_url; ?>" <?php if ($story_video_host==2) echo "data-progress='true' data-seek='true' data-bounce='true'"; ?> height="250"></iframe>-->
         <?php

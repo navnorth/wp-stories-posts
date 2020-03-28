@@ -139,8 +139,8 @@ function scp_backside_scripts()
 add_action('wp_enqueue_scripts', 'scp_frontside_scripts');
 function scp_frontside_scripts()
 {
-	global $_bootstrap,  $_fontawesome;
-
+	global $_bootstrap,  $_fontawesome, $post;
+	
 	wp_enqueue_style('front-styles', SCP_URL.'css/front_styles.css');
 	wp_enqueue_style('bxslider-styles', SCP_URL.'css/jquery.bxslider.css');
 
@@ -152,7 +152,9 @@ function scp_frontside_scripts()
 	}
 
 	wp_enqueue_script('jquery');
-	wp_enqueue_script('front-scripts', SCP_URL.'js/front_scripts.js');
+	if ($post->post_type=="stories") {
+		wp_enqueue_script('front-scripts', SCP_URL.'js/front_scripts.js');
+	}
 	wp_enqueue_script('bxslider-scripts', SCP_URL.'js/jquery.bxslider.min.js');
 
 	if ($_bootstrap) {

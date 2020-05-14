@@ -106,6 +106,9 @@ get_header(); ?>
 
 						if (!empty($search_text)){
 								// Search Query
+								$search_text_display = htmlspecialchars($search_text, ENT_COMPAT, 'UTF-8');
+								$search_text = sanitize_text_field($search_text);
+								
 								$args = array(
 										'post_type' => 'stories',
 										'posts_per_page' => -1,
@@ -212,7 +215,7 @@ get_header(); ?>
 								       <h1 class="tax-title">
 									    <?php
 										       $post_count = count($unique);
-										       printf( __( 'Search Results: %s', SCP_SLUG ), '<i>' . $search_text . '</i> <span>(' .$post_count.' '.story_plural($post_count).')</span>' );
+										       printf( __( 'Search Results: %s', SCP_SLUG ), '<i>' . $search_text_display . '</i> <span>(' .$post_count.' '.story_plural($post_count).')</span>' );
 									    ?>
 								       </h1>
 								       <?php get_sort_box($unique); ?>

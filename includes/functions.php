@@ -152,6 +152,56 @@ function add_share_embed_code($id){
     return $html;
 }
 
+
+/**
+ * Video Popup Overlay
+ **/
+function get_modal_video_link($vidtype,$vidid){
+  $ret = ''; $imagesrc = '';
+  if($vidtype == 1){ //youtube
+    $imagesrc = 'https://img.youtube.com/vi/'.$vidid.'/mqdefault.jpg';
+    $retvid = '<div id="ytvideo"></div>';
+    $reticon = '<span class="stry-youtube-play"></span>';
+  }else{ //vimeo
+    $vimdata = unserialize(file_get_contents("http://vimeo.com/api/v2/video/$vidid.php"));
+    $imagesrc = $vimdata[0]['thumbnail_large'];
+    $reticon = '<span class="stry-vimeo-play"></span>';
+    $retvid .= '<iframe id="ytvideo" title="Video Embed" src="https://player.vimeo.com/video/'.$vidid.'?api=1&player_id='.$vidid.'color=ef0800&title=0&byline=0&portrait=0" width="600" height="360" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>';
+  }
+  
+  $ret .= '<a href="#" class="stry-video-link" hst="'.$vidtype.'" data-toggle="modal" data-target="#stry-video-overlay">';
+    $ret .= '<img src="'.$imagesrc.'" alt="Story Video"/>';
+    $ret .= '<div class="stry-video-avatar-table">';
+      $ret .= '<div class="stry-video-avatar-cell">';
+          $ret .= $reticon;
+      $ret .= '</div>';
+    $ret .= '</div>';
+  $ret .= '</a>';
+
+  $ret .= '<div class="modal fade" id="stry-video-overlay" role="dialog" hst="'.$vidtype.'" tabindex="-1">';
+    $ret .= '<div class="stry-video-modal modal-dialog modal-lg">';
+              $ret .= '<div class="stry-video-table">';
+                $ret .= '<div class="stry-video-cell">';
+                  $ret .= '<div class="stry-video-content">';
+                    $ret .= $retvid;
+                  $ret .= '</div>';
+                $ret .= '</div>';
+              $ret .= '</div>';
+    $ret .= '</div>';
+    $ret .= '<a href="#" class="stry-video-close" hst="'.$vidtype.'"><span class="dashicons dashicons-no-alt"></span></a>';
+  $ret .= '</div>';
+  
+  return $ret;
+}
+
+/**
+ * Load Dashicons at frontend
+ **/
+add_action( 'wp_enqueue_scripts', 'load_dashicons_front_end' );
+function load_dashicons_front_end() {
+  wp_enqueue_style( 'dashicons' );
+}
+
 /**
  * Add Share Story Embed Script 
  **/

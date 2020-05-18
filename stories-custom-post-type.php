@@ -2,15 +2,15 @@
 /*
  Plugin Name:  Story Custom Post Type
  Plugin URI:   https://www.navigationnorth.com/solutions/wordpress/stories-plugin
- Description:  Stories as a custom post type, with custom metadata and display. Developed in collaboration with Monad Infotech (http://monadinfotech.com)
- Version:      0.8.3
+ Description:  Stories as a custom post type, with custom metadata and display.
+ Version:      0.9.2
  Author:       Navigation North
  Author URI:   http://www.navigationnorth.com
  Text Domain:  wp-stories-posts
  License:      GPL3
  License URI:  https://www.gnu.org/licenses/gpl-3.0.html
 
- Copyright (C) 2017 Navigation North
+ Copyright (C) Navigation North
 
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -38,7 +38,7 @@ define( 'SCP_SLUG','wp-stories-posts' );
 define( 'SCP_FILE',__FILE__);
 define( 'SCP_PLUGIN_NAME' , 'Story Custom Post Type' );
 define( 'SCP_PLUGIN_INFO' , 'https://www.navigationnorth.com/solutions/wordpress/stories-plugin' );
-define( 'SCP_VERSION' , '0.8.3');
+define( 'SCP_VERSION' , '0.9.2');
 
 include_once(SCP_PATH.'init.php');
 include_once(SCP_PATH.'/includes/widgets.php');
@@ -139,7 +139,7 @@ function scp_backside_scripts()
 add_action('wp_enqueue_scripts', 'scp_frontside_scripts');
 function scp_frontside_scripts()
 {
-	global $_bootstrap,  $_fontawesome;
+	global $_bootstrap,  $_fontawesome, $post;
 
 	wp_enqueue_style('front-styles', SCP_URL.'css/front_styles.css');
 	wp_enqueue_style('bxslider-styles', SCP_URL.'css/jquery.bxslider.css');
@@ -152,7 +152,9 @@ function scp_frontside_scripts()
 	}
 
 	wp_enqueue_script('jquery');
-	wp_enqueue_script('front-scripts', SCP_URL.'js/front_scripts.js');
+	if ($post->post_type=="stories") {
+		wp_enqueue_script('front-scripts', SCP_URL.'js/front_scripts.js');
+	}
 	wp_enqueue_script('bxslider-scripts', SCP_URL.'js/jquery.bxslider.min.js');
 
 	if ($_bootstrap) {
@@ -762,6 +764,20 @@ function setup_settings_form() {
 			)
 			   );
 
+	/* Enable YouTube Check */
+	add_settings_field(
+			'enable_youtube_check',
+			__( 'Enable YouTube Checking?' , SCP_SLUG ),
+			'setup_settings_field',
+			'stories-settings-page',
+			'stories-settings-section',
+			array(
+				'uid' => 'enable_youtube_check',
+				'type' => 'checkbox',
+				'description' => __('enable YouTube Url validation', SCP_SLUG)
+			)
+			   );
+
 	register_setting( 'stories-settings-section' , 'load_bootstrap' );
 	register_setting( 'stories-settings-section' , 'load_font_awesome' );
 	register_setting( 'stories-settings-section' , 'google_api_key' );
@@ -772,6 +788,7 @@ function setup_settings_form() {
 	register_setting( 'stories-settings-section' , 'enable_institution_enrollment' );
 	register_setting( 'stories-settings-section' , 'enable_institution_type' );
 	register_setting( 'stories-settings-section' , 'enable_embed' );
+	register_setting( 'stories-settings-section' , 'enable_youtube_check' );
 }
 
 function first_section_callback() {

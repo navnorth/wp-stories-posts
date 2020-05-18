@@ -347,10 +347,13 @@ class WP_Widget_Single_Story extends WP_Widget {
 						    add_action('wp_footer','add_vimeo_script');
 						    $video_url = "https://player.vimeo.com/video/".$video_id."?api=1&player_id=".$video_id;
 						}
+				$vid_title = "Video Embed";
+				if (!empty($title))
+					$vid_title .= ": ".$title; 
 				?>
 				<div class="col-md-12 col-sm-12 col-xs-12 noborder nomargintop">
 					<div class="vid-wrap">
-						<iframe id="<?php echo $video_id; ?>" src="<?php echo $video_url; ?>" <?php if ($story_video_host==2) echo "data-progress='true' data-seek='true' data-bounce='true'"; ?>></iframe>
+						<iframe title="<?php echo $vid_title; ?>" id="<?php echo $video_id; ?>" src="<?php echo $video_url; ?>" <?php if ($story_video_host==2) echo "data-progress='true' data-seek='true' data-bounce='true'"; ?>></iframe>
 					</div>
 				</div>
 				<?php endif; ?>

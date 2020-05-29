@@ -471,4 +471,12 @@ function displayImage($imageUrl, $imageAlt){
                 <img src="'.$imageUrl.'" alt="'.$imageAlt.'" />
     </div>';
 }
+
+function oet_sanitize($input){
+  $input = sanitize_text_field(htmlspecialchars_decode($input));
+  $bad_chars = array("\"", "'", "(", "\\\\", "<", "&");
+  $safe_chars = array("&quot;", "&apos;", "&lpar;", "&bsol;", "&lt;", "&amp;");
+  $output = str_replace($bad_chars, $safe_chars, $input);
+  return stripslashes($output);
+}
 ?>

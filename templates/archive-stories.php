@@ -106,7 +106,7 @@ get_header(); ?>
 
 						if (!empty($search_text)){
 								// Search Query
-								$search_text = sanitize_text_field($search_text);
+								$search_text = oet_sanitize($search_text);
 								
 								$args = array(
 										'post_type' => 'stories',

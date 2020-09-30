@@ -898,7 +898,7 @@ function get_story_search($search_text=NULL, $taxonomy=NULL, $taxonomy_name=NULL
 	$search_value="";
 
 	if (isset($search_text))
-		$search_value=' value="'.$search_text.'"';
+		$search_value=' value="'.oet_sanitize($search_text).'"';
 
 	$search_form = '<div class="srchtrmbxs">
 				<form action="'.site_url().'/stories/" class="search-form searchform clearfix" method="get" _lpchecked="1">

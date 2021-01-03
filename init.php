@@ -234,8 +234,10 @@ function save_askquestion_metabox()
 	}
 	else
 	{
-		$story_characteristic = serialize(array());
-		update_post_meta($post->ID, "story_characteristic", $story_characteristic);
+		if (is_object($post)){
+			$story_characteristic = serialize(array());
+			update_post_meta($post->ID, "story_characteristic", $story_characteristic);
+		}
 	}
 
 	if(isset($_POST['story_sidebar_content']) && !empty($_POST['story_sidebar_content']))

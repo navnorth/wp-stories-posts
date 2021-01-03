@@ -323,32 +323,35 @@ function add_vimeo_script(){
 
         if(isset($districtsize) && !empty($districtsize))
             {
+                $districturl = '';
                 foreach($districtsize as $district)
                 {
                     $url = get_term_link($district->term_id, $district->taxonomy);
                     $districturl .= '<a target="_blank" href="'. $url .'">'.$district->name.'</a>, ';
                 }
-        $districturl = trim($districturl, ', ');
+                $districturl = trim($districturl, ', ');
             }
 
         if(isset($institutionenrollment) && !empty($institutionenrollment))
             {
+                $institutionurl = '';
                 foreach($institutionenrollment as $institution)
                 {
                     $url = get_term_link($institution->term_id, $institution->taxonomy);
                     $institutionurl .= '<a target="_blank" href="'. $url .'">'.$institution->name.'</a>, ';
                 }
-        $institutionurl = trim($institutionurl, ', ');
+                $institutionurl = trim($institutionurl, ', ');
             }
 
         if(isset($institutiontype) && !empty($institutiontype))
             {
+                $institutiontypeurl = '';
                 foreach($institutiontype as $type)
                 {
                     $url = get_term_link($type->term_id, $type->taxonomy);
                     $institutiontypeurl .= '<a target="_blank" href="'. $url .'">'.$type->name.'</a>, ';
                 }
-        $institutiontypeurl = trim($institutiontypeurl, ', ');
+                $institutiontypeurl = trim($institutiontypeurl, ', ');
             }
 
             if(isset($story_tags) && !empty($story_tags))

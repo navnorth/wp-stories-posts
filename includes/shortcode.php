@@ -93,6 +93,7 @@ function oet_story_func($attr, $content = null) {
     }
     
     //Set Type
+    $attr_type = '';
     if ($callout_type){
             $attr_type = $callout_type;
             $class_attrs[] = "pull-out-box";

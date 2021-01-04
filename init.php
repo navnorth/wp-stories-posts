@@ -296,6 +296,7 @@ function generate_state_dropdown($id, $taxonomy, $taxonomy_name, $level = null) 
 			'fields'	=>	'ids',
 			'hide_empty'	=> 	false);
 	$state_ids = get_terms('state', $args);
+	$stateoption = "";
 	
 	if ($level=="P-12")
 		$grade_level = array("Early Childhood Education","P-12");

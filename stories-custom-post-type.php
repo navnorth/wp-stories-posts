@@ -152,7 +152,8 @@ function scp_frontside_scripts()
 	}
 
 	wp_enqueue_script('jquery');
-	if ($post->post_type=="stories") {
+	$_cstmPostType = (isset($post->post_type))?$post->post_type:'';
+	if ($_cstmPostType=="stories") {
 		wp_enqueue_script('front-scripts', SCP_URL.'js/front_scripts.js');
 	}
 	wp_enqueue_script('bxslider-scripts', SCP_URL.'js/jquery.bxslider.min.js');

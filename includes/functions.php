@@ -157,7 +157,7 @@ function add_share_embed_code($id){
  * Video Popup Overlay
  **/
 function get_modal_video_link($vidtype,$vidid){
-  $ret = ''; $imagesrc = '';
+  $ret = ''; $imagesrc = ''; $retvid=''; $reticon='';
   if($vidtype == 1){ //youtube
     $imagesrc = 'https://img.youtube.com/vi/'.$vidid.'/mqdefault.jpg';
     $retvid = '<div id="ytvideo"></div>';

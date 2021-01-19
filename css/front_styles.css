@@ -634,6 +634,7 @@ a.stry-video-close span.dashicons:before {font-size: 42px !important; width: 42p
     width: 100%;
     /*height: 100%;*/
 }
+.single-stories .vid-wrap .stry-video-avatar-table { top:41% !important; }
 .stry-video-avatar-cell {
     /*display: table-cell;*/
     /*vertical-align: middle;*/

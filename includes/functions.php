@@ -157,20 +157,26 @@ function add_share_embed_code($id){
  * Video Popup Overlay
  **/
 function get_modal_video_link($vidtype,$vidid){
-  $ret = ''; $imagesrc = ''; $retvid=''; $reticon='';
-  if($vidtype == 1){ //youtube
+  $ret = ''; $imagesrc = ''; $retvid=''; $reticon=''; $vimdata = null; $vim_api_url=''; $vim_addtl_attributes = '';
+  if($vidtype == "1"){ //youtube
     $imagesrc = 'https://img.youtube.com/vi/'.$vidid.'/mqdefault.jpg';
     $retvid = '<div id="ytvideo"></div>';
     $reticon = '<span class="stry-youtube-play"></span>';
   }else{ //vimeo
-    $vimdata = unserialize(file_get_contents("http://vimeo.com/api/v2/video/$vidid.php"));
-    $imagesrc = $vimdata[0]['thumbnail_large'];
+    $vim_api_url = "http://vimeo.com/api/v2/video/$vidid.php";
+    if (ini_get('allow_url_fopen')){
+        $vimdata = unserialize(file_get_contents($vim_api_url));
+        $imagesrc = $vimdata[0]['thumbnail_large'];
+    } else {
+        $imagesrc = SCP_URL . "images/vimeo-default-thumbnail.jpg";
+        $vim_addtl_attributes = ' data-video-type="vimeo" data-video-id="'.$vidid.'"';
+    }
     $reticon = '<span class="stry-vimeo-play"></span>';
     $retvid .= '<iframe id="ytvideo" title="Video Embed" src="https://player.vimeo.com/video/'.$vidid.'?api=1&player_id='.$vidid.'color=ef0800&title=0&byline=0&portrait=0" width="600" height="360" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>';
   }
   
   $ret .= '<a href="#" class="stry-video-link" hst="'.$vidtype.'" data-toggle="modal" data-target="#stry-video-overlay">';
-    $ret .= '<img src="'.$imagesrc.'" alt="Story Video"/>';
+    $ret .= '<img class="modal-video-thumbnail" src="'.$imagesrc.'" alt="Story Video" '.$vim_addtl_attributes.' />';
     $ret .= '<div class="stry-video-avatar-table">';
       $ret .= '<div class="stry-video-avatar-cell">';
           $ret .= $reticon;

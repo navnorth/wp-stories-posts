@@ -156,7 +156,7 @@ function add_share_embed_code($id){
 /**
  * Video Popup Overlay
  **/
-function get_modal_video_link($vidtype,$vidid){
+function get_modal_video_link($vidtype,$vidid, $thumbnail = false){
   $ret = ''; $imagesrc = ''; $retvid=''; $reticon=''; $vimdata = null; $vim_api_url=''; $vim_addtl_attributes = '';
   if($vidtype == "1"){ //youtube
     $imagesrc = 'https://img.youtube.com/vi/'.$vidid.'/mqdefault.jpg';
@@ -164,9 +164,13 @@ function get_modal_video_link($vidtype,$vidid){
     $reticon = '<span class="stry-youtube-play"></span>';
   }else{ //vimeo
     $vim_api_url = "http://vimeo.com/api/v2/video/$vidid.php";
-    if (ini_get('allow_url_fopen')){
-        $vimdata = unserialize(file_get_contents($vim_api_url));
-        $imagesrc = $vimdata[0]['thumbnail_large'];
+    if ($thumbnail){
+        if (ini_get('allow_url_fopen')){
+            $vimdata = unserialize(file_get_contents($vim_api_url));
+            $imagesrc = $vimdata[0]['thumbnail_large'];
+        } else {
+            $imagesrc = SCP_URL . "images/vimeo-default-thumbnail.jpg";    
+        }
     } else {
         $imagesrc = SCP_URL . "images/vimeo-default-thumbnail.jpg";
         $vim_addtl_attributes = ' data-video-type="vimeo" data-video-id="'.$vidid.'"';

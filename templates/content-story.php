@@ -94,8 +94,9 @@ function add_vimeo_script(){
     			}
 	        } else { ?>
                 <?php
+                $enable_vimeo_thumbnail = (get_option('enable_vimeo_thumbnail')?true:false);
                 if(is_numeric($video_id)){
-                  echo get_modal_video_link($story_video_host,$video_id);
+                  echo get_modal_video_link($story_video_host,$video_id, $enable_vimeo_thumbnail);
                 } ?>
         <?php } ?>  
 		</div>

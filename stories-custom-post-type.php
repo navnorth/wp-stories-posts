@@ -779,6 +779,20 @@ function setup_settings_form() {
 			)
 			   );
 
+	/* Enable Vimeo Thumbnail Fetching */
+	add_settings_field(
+			'enable_vimeo_thumbnail',
+			__( 'Enable Vimeo Thumbnail Fetching?' , SCP_SLUG ),
+			'setup_settings_field',
+			'stories-settings-page',
+			'stories-settings-section',
+			array(
+				'uid' => 'enable_vimeo_thumbnail',
+				'type' => 'checkbox',
+				'description' => __('enable fetching of Vimeo Thumbnail via API', SCP_SLUG)
+			)
+			   );
+
 	register_setting( 'stories-settings-section' , 'load_bootstrap' );
 	register_setting( 'stories-settings-section' , 'load_font_awesome' );
 	register_setting( 'stories-settings-section' , 'google_api_key' );
@@ -790,6 +804,7 @@ function setup_settings_form() {
 	register_setting( 'stories-settings-section' , 'enable_institution_type' );
 	register_setting( 'stories-settings-section' , 'enable_embed' );
 	register_setting( 'stories-settings-section' , 'enable_youtube_check' );
+	register_setting( 'stories-settings-section' , 'enable_vimeo_thumbnail' );
 }
 
 function first_section_callback() {

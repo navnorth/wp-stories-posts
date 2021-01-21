@@ -52,6 +52,7 @@ h2.heading, div.heading {
     padding: 9px 15px 4px 0;
     line-height: 29px;
 }
+.stories_page_stories-settings-page table.form-table th { width:250px; }
 .import-body { width:50%; clear:both; overflow:hidden; }
 .import-row { width:100%; }
 .import-row .row-left { width: 63%; float: left; }

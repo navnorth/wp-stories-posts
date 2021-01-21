@@ -3,7 +3,7 @@
  Plugin Name:  Story Custom Post Type
  Plugin URI:   https://www.navigationnorth.com/solutions/wordpress/stories-plugin
  Description:  Stories as a custom post type, with custom metadata and display.
- Version:      0.9.3
+ Version:      0.9.5
  Author:       Navigation North
  Author URI:   http://www.navigationnorth.com
  Text Domain:  wp-stories-posts
@@ -38,7 +38,7 @@ define( 'SCP_SLUG','wp-stories-posts' );
 define( 'SCP_FILE',__FILE__);
 define( 'SCP_PLUGIN_NAME' , 'Story Custom Post Type' );
 define( 'SCP_PLUGIN_INFO' , 'https://www.navigationnorth.com/solutions/wordpress/stories-plugin' );
-define( 'SCP_VERSION' , '0.9.3');
+define( 'SCP_VERSION' , '0.9.5');
 
 include_once(SCP_PATH.'init.php');
 include_once(SCP_PATH.'/includes/widgets.php');

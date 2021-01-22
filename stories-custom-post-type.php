@@ -533,6 +533,16 @@ function get_storiesmap($pageposts=NULL)
 
                     var iconCounter = 0;
 
+                    function AutoCenter()
+                    {
+                      var bounds = new google.maps.LatLngBounds();
+                      jQuery.each(markers, function (index, marker)
+                      {
+                        bounds.extend(marker.position);
+                      });
+                      map.fitBounds(bounds);
+                    }
+
                     // Add the markers and infowindows to the map
                     if (locations.length>1) {
 	                    for (var i = 0; i < locations.length; i++)
@@ -566,19 +576,10 @@ function get_storiesmap($pageposts=NULL)
 		                        }
 	                        }
 	                    }
-	                } 
-
-                    function AutoCenter()
-                    {
-                      var bounds = new google.maps.LatLngBounds();
-                      jQuery.each(markers, function (index, marker)
-                      {
-                        bounds.extend(marker.position);
-                      });
-                      map.fitBounds(bounds);
-                    }
-                    
-                    AutoCenter();
+	                    AutoCenter();
+	                } else {
+	                	map.setCenter(new google.maps.LatLng(40.715618, -74.011133));
+	            	}
 
                     // load the accessibility hacks for the map
                     jQuery(document).gmaps();

@@ -412,6 +412,8 @@ function get_storiesmap($pageposts=NULL)
 									$id = $story->id;
 									$title = $story->title;
 									$latitude = $story->latitude;
+									var_dump($latitude);
+									var_dump($longitude);
 									$longitude = $story->longitude;
 									$image = $story->image;
 									if (has_post_thumbnail($story->postid)) {
@@ -536,6 +538,7 @@ function get_storiesmap($pageposts=NULL)
                     // Add the markers and infowindows to the map
                     for (var i = 0; i < locations.length; i++)
                     {
+                    	console.log(locations[i][1]);
 			iconSVG.fillColor = locations[i][4]
 			marker = new google.maps.Marker({
 			position: new google.maps.LatLng(locations[i][1], locations[i][2], locations[i][3], locations[i][4], locations[i][5]),

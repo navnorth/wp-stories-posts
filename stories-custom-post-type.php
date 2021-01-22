@@ -566,12 +566,7 @@ function get_storiesmap($pageposts=NULL)
 		                        }
 	                        }
 	                    }
-	                } else {
-	                	marker = new google.maps.Marker({
-			                map: map,
-			                position: new google.maps.LatLng(40.715618, -74.011133)
-			            });
-	            	}
+	                } 
 
                     function AutoCenter()
                     {

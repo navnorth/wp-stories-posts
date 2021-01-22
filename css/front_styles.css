@@ -634,7 +634,8 @@ a.stry-video-close span.dashicons:before {font-size: 42px !important; width: 42p
     width: 100%;
     /*height: 100%;*/
 }
-.single-stories .vid-wrap .stry-video-avatar-table { top:41% !important; }
+.single-stories .vid-wrap .stry-video-avatar-table,
+.single-stories .video-wrap .stry-video-avatar-table { top:0 !important; display:inline-flex; align-items:center; justify-content: center; }
 .stry-video-avatar-cell {
     /*display: table-cell;*/
     /*vertical-align: middle;*/

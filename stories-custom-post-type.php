@@ -577,7 +577,8 @@ function get_storiesmap($pageposts=NULL)
                       });
                       map.fitBounds(bounds);
                     }
-                    AutoCenter();
+                    if (locations.length>1)
+                    	AutoCenter();
 
                     // load the accessibility hacks for the map
                     jQuery(document).gmaps();

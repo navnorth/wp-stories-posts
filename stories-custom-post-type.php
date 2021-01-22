@@ -403,6 +403,7 @@ function get_storiesmap($pageposts=NULL)
             <script type="text/javascript">
                     var locations = [
                         <?php
+                        	var_dump($stories);
                             if (isset($stories) && !empty($stories))
 							{
 								foreach ($stories as $story)
@@ -412,8 +413,6 @@ function get_storiesmap($pageposts=NULL)
 									$id = $story->id;
 									$title = $story->title;
 									$latitude = $story->latitude;
-									var_dump($latitude);
-									var_dump($longitude);
 									$longitude = $story->longitude;
 									$image = $story->image;
 									if (has_post_thumbnail($story->postid)) {

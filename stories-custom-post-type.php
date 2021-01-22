@@ -577,7 +577,7 @@ function get_storiesmap($pageposts=NULL)
                       });
                       map.fitBounds(bounds);
                     }
-                    if (locations.length>1)
+                    if (markers.length>0)
                     	AutoCenter();
 
                     // load the accessibility hacks for the map

@@ -534,37 +534,39 @@ function get_storiesmap($pageposts=NULL)
                     var iconCounter = 0;
 
                     // Add the markers and infowindows to the map
-                    for (var i = 0; i < locations.length; i++)
-                    {
-                    	if (typeof locations[i][4] !== 'undefined')
-							iconSVG.fillColor = locations[i][4];
+                    if (locations.length>1) {
+	                    for (var i = 0; i < locations.length; i++)
+	                    {
+	                    	if (typeof locations[i][4] !== 'undefined')
+								iconSVG.fillColor = locations[i][4];
 
-						if (typeof locations[i][1] !== 'undefined')	{
-							marker = new google.maps.Marker({
-								position: new google.maps.LatLng(locations[i][1], locations[i][2], locations[i][3], locations[i][4], locations[i][5]),
-								map: map,
-								title : locations[i][3],
-								icon : iconSVG,
-								shadow: shadow
-					    	});
+							if (typeof locations[i][1] !== 'undefined')	{
+								marker = new google.maps.Marker({
+									position: new google.maps.LatLng(locations[i][1], locations[i][2], locations[i][3], locations[i][4], locations[i][5]),
+									map: map,
+									title : locations[i][3],
+									icon : iconSVG,
+									shadow: shadow
+						    	});
 
-                          	markers.push(marker);
+	                          	markers.push(marker);
 
-	                        google.maps.event.addListener(marker, 'click', (function(marker, i)
-	                        {
-	                            return function() {
-	                              infowindow.setContent(locations[i][0]);
-	                              infowindow.open(map, marker);
-	                            }
-	                        })(marker, i));
+		                        google.maps.event.addListener(marker, 'click', (function(marker, i)
+		                        {
+		                            return function() {
+		                              infowindow.setContent(locations[i][0]);
+		                              infowindow.open(map, marker);
+		                            }
+		                        })(marker, i));
 
-	                        iconCounter++;
-	                        if(iconCounter >= icons_length)
-	                        {
-	                            iconCounter = 0;
+		                        iconCounter++;
+		                        if(iconCounter >= icons_length)
+		                        {
+		                            iconCounter = 0;
+		                        }
 	                        }
-                        }
-                    }
+	                    }
+	                }
 
                     function AutoCenter()
                     {

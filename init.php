@@ -273,9 +273,10 @@ function get_latitude_longitude($address)
 
     $address = str_replace(" ", "+", $address);
 
-    $json = file_get_contents("http://maps.google.com/maps/api/geocode/json?address=$address&sensor=false");
+    $json = file_get_contents("http://maps.google.com/maps/api/geocode/json?address=$address&sensor=false&key=".$_googleapikey);
 
     $json = json_decode($json);
+    
 	if(!empty($json))
 	{
     	$lat = $json->{'results'}[0]->{'geometry'}->{'location'}->{'lat'};

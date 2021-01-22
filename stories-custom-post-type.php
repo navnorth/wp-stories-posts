@@ -369,10 +369,8 @@ function get_storiesmap($pageposts=NULL)
 	$story_table = $wpdb->prefix . "scp_stories";
     $post_table = $wpdb->prefix . "posts";
 	$sql = "SELECT S.id, S.postid, S.title, S.latitude, S.longitude, S.image, S.content, P.post_excerpt
-        FROM $story_table S INNER JOIN $post_table P ON P.ID = S.postid";
-    /*$sql = "SELECT S.id, S.postid, S.title, S.latitude, S.longitude, S.image, S.content, P.post_excerpt
         FROM $story_table S INNER JOIN $post_table P ON P.ID = S.postid
-        WHERE S.latitude <> '' AND S.longitude <> ''";*/
+        WHERE S.latitude <> '' AND S.longitude <> ''";
 
 	if(empty($pageposts) || $pageposts == NULL)
 	{
@@ -405,7 +403,6 @@ function get_storiesmap($pageposts=NULL)
             <script type="text/javascript">
                     var locations = [
                         <?php
-                        	var_dump($stories);
                             if (isset($stories) && !empty($stories))
 							{
 								foreach ($stories as $story)
@@ -539,31 +536,34 @@ function get_storiesmap($pageposts=NULL)
                     // Add the markers and infowindows to the map
                     for (var i = 0; i < locations.length; i++)
                     {
-                    	console.log(locations[i][1]);
-			iconSVG.fillColor = locations[i][4]
-			marker = new google.maps.Marker({
-			position: new google.maps.LatLng(locations[i][1], locations[i][2], locations[i][3], locations[i][4], locations[i][5]),
-			map: map,
-			title : locations[i][3],
-			icon : iconSVG,
-			shadow: shadow
-		      });
+                    	if (typeof locations[i][4] !== 'undefined')
+							iconSVG.fillColor = locations[i][4];
 
-                          markers.push(marker);
+						if (typeof locations[i][1] !== 'undefined')	{
+							marker = new google.maps.Marker({
+								position: new google.maps.LatLng(locations[i][1], locations[i][2], locations[i][3], locations[i][4], locations[i][5]),
+								map: map,
+								title : locations[i][3],
+								icon : iconSVG,
+								shadow: shadow
+					    	});
 
-                          google.maps.event.addListener(marker, 'click', (function(marker, i)
-                          {
-                            return function() {
-                              infowindow.setContent(locations[i][0]);
-                              infowindow.open(map, marker);
-                            }
-                          })(marker, i));
+                          	markers.push(marker);
 
-                          iconCounter++;
-                          if(iconCounter >= icons_length)
-                          {
-                            iconCounter = 0;
-                          }
+	                        google.maps.event.addListener(marker, 'click', (function(marker, i)
+	                        {
+	                            return function() {
+	                              infowindow.setContent(locations[i][0]);
+	                              infowindow.open(map, marker);
+	                            }
+	                        })(marker, i));
+
+	                        iconCounter++;
+	                        if(iconCounter >= icons_length)
+	                        {
+	                            iconCounter = 0;
+	                        }
+                        }
                     }
 
                     function AutoCenter()

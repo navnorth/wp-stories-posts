@@ -566,7 +566,12 @@ function get_storiesmap($pageposts=NULL)
 		                        }
 	                        }
 	                    }
-	                }
+	                } else {
+	                	marker = new google.maps.Marker({
+			                map: map,
+			                position: new google.maps.LatLng(40.715618, -74.011133)
+			            });
+	            	}
 
                     function AutoCenter()
                     {
@@ -577,8 +582,8 @@ function get_storiesmap($pageposts=NULL)
                       });
                       map.fitBounds(bounds);
                     }
-                    if (markers.length>0)
-                    	AutoCenter();
+                    
+                    AutoCenter();
 
                     // load the accessibility hacks for the map
                     jQuery(document).gmaps();

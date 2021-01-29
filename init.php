@@ -111,13 +111,13 @@ function create_stories_metabox()
 	$return = '';
 		$return .= '<div class="scp_adtnalflds">';
 			$return .= '<div class="wrprtext">Video ID</div>';
-			$return .= '<div class="wrprfld"><input type="text" name="story_video" value="'.$story_video.'" /></div>';
+			$return .= '<div class="wrprfld"><input type="text" class="half-field-width" name="story_video" value="'.$story_video.'" /></div>';
 		$return .= '</div>';
 
 		$return .= '<div class="scp_adtnalflds">';
 			$return .= '<div class="wrprtext">Video Host</div>';
 			$return .= '<div class="wrprfld">
-					<select name="story_video_host">
+					<select name="story_video_host" class="half-field-width">
 						<option value="0">Select Video Host</option>';
 			$status = ($story_video_host=="1")?"selected":"";
 			$return .=		'<option value="1" '.$status.'>YouTube</option>';
@@ -152,12 +152,25 @@ function create_stories_metabox()
 							<input type="text" name="story_school" value="'. $story_school .'" />
 							<span>Institution</span>
 							<input type="text" name="story_institution" value="'. $story_institution .'" />
+						</div>
+						<div class="wrprfld gmap-address">
 							<span>Map Address</span>
-							<input type="text" name="story_mapaddress" value="'. $story_mapaddress .'" />
-							<span>Zipcode</span>
-							<input type="text" name="story_zipcode" value="'. $story_zipcode .'" />
+							<input type="text" id="story-mapaddress" name="story_mapaddress" value="'. $story_mapaddress .'" />
+							<span class="gmap-label">Zipcode</span>
+							<input type="text" id="story-zipcode" name="story_zipcode" value="'. $story_zipcode .'" />
 						</div>';
 		$return .= '</div>';
+
+		$return .= '<div class="scp_adtnalflds gmap-coordinates">';
+			$return .= '<div class="wrprtext">Coordinates</div>';
+			$return .= '<div class="wrprfld">
+							<span class="map-coord-label">Latitude</span>
+							<input type="text" id="map-latitude" class="map-coord-field"  name="story_address_latitude" value="'. $story_address_latitude .'" />
+							<span class="map-coord-label coord-label-2">Longitude</span>
+							<input type="text" id="map-longitude"  class="map-coord-field" name="story_address_longitude" value="'. $story_address_longitude .'" />
+							<div class="map-display"><div class="map"></div></div>
+						</div>
+					</div>';
 
 		$return .= '<div class="scp_adtnalflds">';
 			$return .= '<div class="wrprtext">Additional Sidebar Content</div>';

@@ -1,5 +1,6 @@
 .scp_adtnalflds {
     margin: 15px 0;
+    overflow:hidden;
 }
 .wrprtext {
     font-size: 15px;
@@ -9,7 +10,7 @@
 .wrprfld input[type="text"], .wrprfld select {
     margin: 11px 0;
     padding: 5px 10px;
-    width: 75%;
+    width: 85%;
 	height: 35px;
 }
 .wrprfld textarea {
@@ -26,8 +27,8 @@
 .wrprfld > span {
     float: left;
     font-size: 14px;
-    width: 14%;
-	margin: 17px 0;
+    width: 15%;
+	margin: 17px 0 0;
 }
 .plugin-footer {
     margin: 20px 15px 0 0;
@@ -65,3 +66,12 @@ h2.heading, div.heading {
     padding:20px;
 }
 .alignRight { text-align:right; }
+/** Story Meta Field Styles **/
+#story-mapaddress { width:50%; float:left;  }
+.wrprfld > span.gmap-label { width:8%; margin-left:2%; margin-right:2%; }
+#story-zipcode { width:23%; float:left; }
+.scp_adtnalflds .wrprfld .half-field-width { width:50%; }
+#postbox-container-2 #advanced-sortables .inside { padding:30px 50px; }
+.gmap-coordinates .map-coord-label.coord-label-2 { margin-left: 2%; width: 11%; margin-right: 2%; }
+.scp_adtnalflds.gmap-coordinates .map-coord-field { width: 35%; float: left; }
+/** End of Story Meta Field Styles **/

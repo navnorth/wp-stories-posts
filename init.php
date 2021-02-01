@@ -107,6 +107,7 @@ function create_stories_metabox()
 	$story_mapaddress 	= get_post_meta($post->ID, "story_mapaddress", true);
 	$story_zipcode 		= get_post_meta($post->ID, "story_zipcode", true);
 	$story_sidebar_content = get_post_meta($post->ID, "story_sidebar_content", true);
+	$refresh_img = SCP_URL . 'images/refresh.png';
 
 	$return = '';
 		$return .= '<div class="scp_adtnalflds">';
@@ -158,6 +159,7 @@ function create_stories_metabox()
 							<input type="text" id="story-mapaddress" name="story_mapaddress" value="'. $story_mapaddress .'" />
 							<span class="gmap-label">Zipcode</span>
 							<input type="text" id="story-zipcode" name="story_zipcode" value="'. $story_zipcode .'" />
+							<button type="button" class="map-refresh-btn button" title="Refresh Map"><img src="'.$refresh_img.'" height="24" width="24" /></button>
 						</div>';
 		$return .= '</div>';
 

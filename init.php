@@ -109,7 +109,10 @@ function create_stories_metabox()
 	$story_sidebar_content = get_post_meta($post->ID, "story_sidebar_content", true);
 	$refresh_img = SCP_URL . 'images/refresh.png';
 
+
+
 	$return = '';
+
 		$return .= '<div class="scp_adtnalflds">';
 			$return .= '<div class="wrprtext">Video ID</div>';
 			$return .= '<div class="wrprfld"><input type="text" class="half-field-width" name="story_video" value="'.$story_video.'" /></div>';
@@ -170,9 +173,9 @@ function create_stories_metabox()
 							<input type="text" id="map-latitude" class="map-coord-field"  name="story_address_latitude" value="'. $story_address_latitude .'" />
 							<span class="map-coord-label coord-label-2">Longitude</span>
 							<input type="text" id="map-longitude"  class="map-coord-field" name="story_address_longitude" value="'. $story_address_longitude .'" />
-							<div class="map-display"><div class="map"></div></div>
 						</div>
 					</div>';
+		$return .= '<div class="map-display"><div id="map"></div></div>';
 
 		$return .= '<div class="scp_adtnalflds">';
 			$return .= '<div class="wrprtext">Additional Sidebar Content</div>';
@@ -181,7 +184,26 @@ function create_stories_metabox()
 						</div>';
 		$return .= '</div>';
 
+		$return .= '<script type="text/javascript">
+					let map;
+					function initMap() {
+  						map = new google.maps.Map(document.getElementById("map"), {
+    							center: { lat: 40.715618, lng: -74.011133 },
+    							zoom: 8,
+  								});
+					}
+				</script>';
+		$return .= initialize_stories_map();
+		$return .= '<style>#map { height:100%; }</style>';
+
 	echo $return;
+}
+
+function initialize_stories_map(){
+	global $_googleapikey;
+	global $post;
+	if (isset($_googleapikey) && $post->post_type=='stories')
+		return '<script src="https://maps.googleapis.com/maps/api/js?key='.$_googleapikey.'&callback=initMap"></script>';
 }
 
 add_action('save_post', 'save_askquestion_metabox');

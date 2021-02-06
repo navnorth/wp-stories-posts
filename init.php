@@ -175,7 +175,9 @@ function create_stories_metabox()
 							<input type="text" id="map-longitude"  class="map-coord-field" name="story_address_longitude" value="'. $story_address_longitude .'" />
 						</div>
 					</div>';
-		$return .= '<div class="map-display"><div id="map"></div></div>';
+		$return .= '<div class="map-display"><div id="map"></div><div id="infowindow-content">
+      					<span id="place-name" class="title"></span><br />
+      					<span id="place-address"></span></div></div>';
 
 		$return .= '<div class="scp_adtnalflds">';
 			$return .= '<div class="wrprtext">Additional Sidebar Content</div>';
@@ -191,6 +193,50 @@ function create_stories_metabox()
     							center: { lat: 40.715618, lng: -74.011133 },
     							zoom: 8,
   								});
+  						const input = document.getElementById("story-mapaddress");
+  						const lat = document.getElementById("map-latitude");
+  						const lng = document.getElementById("map-longitude");
+  						const options = {
+				          componentRestrictions: { country: "us" },
+				          fields: ["formatted_address", "geometry", "name"],
+				          origin: map.getCenter(),
+				          strictBounds: false,
+				          types: ["address"],
+				        };
+				        const autocomplete = new google.maps.places.Autocomplete(
+          									input,
+          									options
+        				);
+        				autocomplete.bindTo("bounds", map);
+        				const infowindow = new google.maps.InfoWindow();
+        				const infowindowContent = document.getElementById("infowindow-content");
+  						infowindow.setContent(infowindowContent);
+  						const marker = new google.maps.Marker({
+						    map,
+						    anchorPoint: new google.maps.Point(0, -29),
+						});
+						autocomplete.addListener("place_changed", () => {
+							infowindow.close();
+    						marker.setVisible(false);
+    						const place = autocomplete.getPlace();
+    						if (!place.geometry) {
+    							window.alert("No details available for input: " + place.name + "");
+      							return;
+    						}
+    						if (place.geometry.viewport) {
+						      map.fitBounds(place.geometry.viewport);
+						    } else {
+						      map.setCenter(place.geometry.location);
+						      map.setZoom(17);
+						    }
+						    marker.setPosition(place.geometry.location);
+						    marker.setVisible(true);
+						    input.textContent = place.formatted_address;
+						    let xlat = place.geometry.location.lat();
+						    let xlng = place.geometry.location.lng();
+						    lat.value = xlat;
+						    lng.value = xlng;
+						});
 					}
 				</script>';
 		$return .= initialize_stories_map();
@@ -203,7 +249,18 @@ function initialize_stories_map(){
 	global $_googleapikey;
 	global $post;
 	if (isset($_googleapikey) && $post->post_type=='stories')
-		return '<script src="https://maps.googleapis.com/maps/api/js?key='.$_googleapikey.'&callback=initMap"></script>';
+		return '<script src="https://maps.googleapis.com/maps/api/js?key='.$_googleapikey.'&callback=initMap&libraries=places"></script>';
+}
+
+// Add map JS reference
+//add_action('admin_enqueue_scripts','scp_add_map_js');
+function scp_add_map_js(){
+	global $post;
+	global $_googleapikey;
+	if ($post->post_type=="stories"){
+		wp_enqueue_script('scp-map-script', SCP_URL.'js/scp_map.js', array('jquery'));
+		wp_localize_script('scp-map-script', 'googlemap', array( 'apikey' => $_googleapikey ));
+	}
 }
 
 add_action('save_post', 'save_askquestion_metabox');

@@ -162,7 +162,6 @@ function create_stories_metabox()
 							<input type="text" id="story-mapaddress" name="story_mapaddress" value="'. $story_mapaddress .'" />
 							<span class="gmap-label">Zipcode</span>
 							<input type="text" id="story-zipcode" name="story_zipcode" value="'. $story_zipcode .'" />
-							<button type="button" class="map-refresh-btn button" title="Refresh Map"><img src="'.$refresh_img.'" height="24" width="24" /></button>
 						</div>';
 		$return .= '</div>';
 
@@ -173,6 +172,7 @@ function create_stories_metabox()
 							<input type="text" id="map-latitude" class="map-coord-field"  name="story_address_latitude" value="'. $story_address_latitude .'" />
 							<span class="map-coord-label coord-label-2">Longitude</span>
 							<input type="text" id="map-longitude"  class="map-coord-field" name="story_address_longitude" value="'. $story_address_longitude .'" />
+							<button type="button" class="map-refresh-btn button" title="Refresh Map"><img src="'.$refresh_img.'" height="24" width="24" /></button>
 						</div>
 					</div>';
 		$return .= '<div class="map-display"><div id="map"></div><div id="infowindow-content">
@@ -188,12 +188,14 @@ function create_stories_metabox()
 
 		$return .= '<script type="text/javascript">
 					let map;
+					/* Initialize Map */
 					function initMap() {
   						map = new google.maps.Map(document.getElementById("map"), {
     							center: { lat: 40.715618, lng: -74.011133 },
     							zoom: 8,
   								});
   						const input = document.getElementById("story-mapaddress");
+  						const zip = document.getElementById("story-zipcode");
   						const lat = document.getElementById("map-latitude");
   						const lng = document.getElementById("map-longitude");
   						const options = {
@@ -203,22 +205,21 @@ function create_stories_metabox()
 				          strictBounds: false,
 				          types: ["address"],
 				        };
+
+				        /* Autocomplete binding */
 				        const autocomplete = new google.maps.places.Autocomplete(
-          									input,
-          									options
+          					input,
+          					options
         				);
         				autocomplete.bindTo("bounds", map);
-        				const infowindow = new google.maps.InfoWindow();
-        				const infowindowContent = document.getElementById("infowindow-content");
-  						infowindow.setContent(infowindowContent);
   						const marker = new google.maps.Marker({
 						    map,
 						    anchorPoint: new google.maps.Point(0, -29),
 						});
 						autocomplete.addListener("place_changed", () => {
-							infowindow.close();
     						marker.setVisible(false);
     						const place = autocomplete.getPlace();
+    						console.log(place);
     						if (!place.geometry) {
     							window.alert("No details available for input: " + place.name + "");
       							return;
@@ -227,8 +228,27 @@ function create_stories_metabox()
 						      map.fitBounds(place.geometry.viewport);
 						    } else {
 						      map.setCenter(place.geometry.location);
-						      map.setZoom(17);
+						      map.setZoom(15);
 						    }
+
+						    const geocoder = new google.maps.Geocoder();
+						    const address = input.value;
+						    geocoder.geocode({ address: address }, (results, status) => {
+							    if (status === "OK") {
+							    	console.log(results);
+							      if (results.length>0){
+							      	let address_components = results[0].address_components;
+							      	address_components.map(function(component){
+							      		if (component.types.indexOf("postal_code")!==-1){
+							      			zip.value = component.long_name;
+							      		}
+							      	});
+							      }
+							    } else {
+							      alert("Geocode was not successful for the following reason: " + status);
+							    }
+							  });
+
 						    marker.setPosition(place.geometry.location);
 						    marker.setVisible(true);
 						    input.textContent = place.formatted_address;
@@ -253,7 +273,7 @@ function initialize_stories_map(){
 }
 
 // Add map JS reference
-//add_action('admin_enqueue_scripts','scp_add_map_js');
+add_action('admin_enqueue_scripts','scp_add_map_js');
 function scp_add_map_js(){
 	global $post;
 	global $_googleapikey;

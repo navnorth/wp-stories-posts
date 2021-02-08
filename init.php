@@ -97,7 +97,12 @@ function story_custom_metaboxes()
 
 function create_stories_metabox()
 {
-	global $post, $characteristics, $districtsize;
+	global $post, $characteristics, $districtsize, $wpdb;
+
+	$story_address_latitude = "";
+	$story_address_longitude = "";
+	$table_name = $wpdb->prefix . "scp_stories";
+
 	$story_video 		= get_post_meta($post->ID, "story_video", true);
 	$story_video_host 	= get_post_meta($post->ID, "story_video_host", true);
 	$story_highlight 	= get_post_meta($post->ID, "story_highlight", true);
@@ -109,7 +114,11 @@ function create_stories_metabox()
 	$story_sidebar_content = get_post_meta($post->ID, "story_sidebar_content", true);
 	$refresh_img = SCP_URL . 'images/refresh.png';
 
-
+	$stories = scp_get_coordinates($post->ID);
+	if (count($stories)>0){
+		$story_address_latitude = $stories[0]->latitude;
+		$story_address_longitude = $stories[0]->longitude;
+	}
 
 	$return = '';
 
@@ -175,6 +184,7 @@ function create_stories_metabox()
 							<button type="button" class="map-refresh-btn button" title="Refresh Map"><img src="'.$refresh_img.'" height="24" width="24" /></button>
 						</div>
 					</div>';
+		$return .= '<div id="map-error-msg" class="map-error-msg"></div>';
 		$return .= '<div class="map-display"><div id="map"></div><div id="infowindow-content">
       					<span id="place-name" class="title"></span><br />
       					<span id="place-address"></span></div></div>';
@@ -198,6 +208,7 @@ function create_stories_metabox()
   						const zip = document.getElementById("story-zipcode");
   						const lat = document.getElementById("map-latitude");
   						const lng = document.getElementById("map-longitude");
+  						const err = document.getElementById("map-error-msg");
   						const options = {
 				          componentRestrictions: { country: "us" },
 				          fields: ["formatted_address", "geometry", "name"],
@@ -221,7 +232,7 @@ function create_stories_metabox()
     						const place = autocomplete.getPlace();
     						console.log(place);
     						if (!place.geometry) {
-    							window.alert("No details available for input: " + place.name + "");
+    							err.textContent = "No details available for input: " + place.name + "";
       							return;
     						}
     						if (place.geometry.viewport) {
@@ -245,7 +256,7 @@ function create_stories_metabox()
 							      	});
 							      }
 							    } else {
-							      alert("Geocode was not successful for the following reason: " + status);
+							      err.textContent = "Geocode was not successful for the following reason: " + status;
 							    }
 							  });
 
@@ -277,9 +288,11 @@ add_action('admin_enqueue_scripts','scp_add_map_js');
 function scp_add_map_js(){
 	global $post;
 	global $_googleapikey;
-	if ($post->post_type=="stories"){
-		wp_enqueue_script('scp-map-script', SCP_URL.'js/scp_map.js', array('jquery'));
-		wp_localize_script('scp-map-script', 'googlemap', array( 'apikey' => $_googleapikey ));
+	if (is_object($post)){
+		if ($post->post_type=="stories"){
+			wp_enqueue_script('scp-map-script', SCP_URL.'js/scp_map.js', array('jquery'));
+			wp_localize_script('scp-map-script', 'googlemap', array( 'apikey' => $_googleapikey ));
+		}
 	}
 }
 
@@ -331,14 +344,20 @@ function save_askquestion_metabox()
 	if(isset($_POST['story_mapaddress']) && !empty($_POST['story_mapaddress']))
 	{
 		update_post_meta($post->ID, "story_mapaddress", $_POST['story_mapaddress']);
-		$latlong = get_latitude_longitude($_POST['story_mapaddress']);
+		/*$latlong = get_latitude_longitude($_POST['story_mapaddress']);
 		if($latlong)
 		{
         	$map = explode(',' ,$latlong);
         	$mapLatitude = $map[0];
         	$mapLongitude = $map[1];
 			save_metadata($post->ID, $mapLatitude, $mapLongitude);
-		}
+		}*/
+	}
+
+	if (isset($_POST['story_address_latitude']) && isset($_POST['story_address_longitude'])){
+		$mapLatitude = $_POST['story_address_latitude'];
+        $mapLongitude = $_POST['story_address_longitude'];
+		save_metadata($post->ID, $mapLatitude, $mapLongitude);
 	}
 
 	if(isset($_POST['story_sidebar_content']))
@@ -380,6 +399,18 @@ function save_metadata($postid, $mapLatitude, $mapLongitude)
 		$wpdb->get_results("INSERT into $table_name (postid, title, content, image, longitude, latitude) VALUES ($postid, '$title', '$content', '$image', '$mapLongitude', '$mapLatitude')");
 	}
 }
+
+//Get Stories Coordinates
+function scp_get_coordinates($postid)
+{
+	global $wpdb;
+	$table_name = $wpdb->prefix . "scp_stories";
+
+	$results = $wpdb->get_results("select * from $table_name where postid=$postid");
+	
+	return $results;
+}
+
 //function for get longitude and latitude
 function get_latitude_longitude($address)
 {

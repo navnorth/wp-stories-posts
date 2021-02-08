@@ -535,16 +535,22 @@ function get_storiesmap($pageposts=NULL)
 
                     function AutoCenter()
                     {
-                      var bounds = new google.maps.LatLngBounds();
-                      jQuery.each(markers, function (index, marker)
-                      {
-                        bounds.extend(marker.position);
-                      });
-                      map.fitBounds(bounds);
+                      	var bounds = new google.maps.LatLngBounds();
+                      	jQuery.each(markers, function (index, marker)
+						{
+							bounds.extend(marker.position);
+						});
+                    	map.fitBounds(bounds);
+                    	if (markers.length==1) {
+	                      	var listener = google.maps.event.addListener(map, "idle", function() { 
+								  if (map.getZoom() > 16) map.setZoom(16); 
+								  google.maps.event.removeListener(listener); 
+							});
+						}
                     }
-
+                    
                     // Add the markers and infowindows to the map
-                    if (locations.length>1) {
+                    if (jQuery.isArray(locations[0]) && locations.length>0) {
 	                    for (var i = 0; i < locations.length; i++)
 	                    {
 	                    	if (typeof locations[i][4] !== 'undefined')
@@ -552,7 +558,8 @@ function get_storiesmap($pageposts=NULL)
 
 							if (typeof locations[i][1] !== 'undefined')	{
 								marker = new google.maps.Marker({
-									position: new google.maps.LatLng(locations[i][1], locations[i][2], locations[i][3], locations[i][4], locations[i][5]),
+									//position: new google.maps.LatLng(locations[i][1], locations[i][2], locations[i][3], locations[i][4], locations[i][5]),
+									position: new google.maps.LatLng(locations[i][1], locations[i][2]),
 									map: map,
 									title : locations[i][3],
 									icon : iconSVG,
@@ -578,7 +585,8 @@ function get_storiesmap($pageposts=NULL)
 	                    }
 	                    AutoCenter();
 	                } else {
-	                	map.setCenter(new google.maps.LatLng(40.715618, -74.011133));
+	                	map.setCenter(new google.maps.LatLng(40.812955, -100.907613));
+	                	map.setZoom(4);
 	            	}
 
                     // load the accessibility hacks for the map

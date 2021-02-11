@@ -271,7 +271,7 @@ function create_stories_metabox()
 					}
 				</script>';
 		$return .= initialize_stories_map();
-		$return .= '<style>#map { height:100%; }</style>';
+		$return .= '<style>#map { height:100%; min-height:400px; }</style>';
 
 	echo $return;
 }

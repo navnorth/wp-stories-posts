@@ -101,6 +101,8 @@ function create_stories_metabox()
 
 	$story_address_latitude = "";
 	$story_address_longitude = "";
+	$story_zipcode = "";
+	$story_mapaddress = "";
 	$table_name = $wpdb->prefix . "scp_stories";
 
 	$story_video 		= get_post_meta($post->ID, "story_video", true);
@@ -222,15 +224,30 @@ function create_stories_metabox()
           					input,
           					options
         				);
-        				autocomplete.bindTo("bounds", map);
-  						const marker = new google.maps.Marker({
+        				autocomplete.bindTo("bounds", map);';
+
+        if (!empty($story_address_latitude) && !empty($story_address_longitude)) {
+        	$return .= 'const marker = new google.maps.Marker({
 						    map,
 						    anchorPoint: new google.maps.Point(0, -29),
 						});
-						autocomplete.addListener("place_changed", () => {
+						marker.setVisible(false);
+						var loc = new google.maps.LatLng('.$story_address_latitude.', '.$story_address_longitude.');
+						map.setCenter(loc);
+						map.setZoom(15);
+						marker.setPosition(loc);
+						marker.setVisible(true);
+						';
+        } else {
+        	$return .= 'const marker = new google.maps.Marker({
+						    map,
+						    anchorPoint: new google.maps.Point(0, -29),
+						});';
+        }
+
+		$return .= 'autocomplete.addListener("place_changed", () => {
     						marker.setVisible(false);
     						const place = autocomplete.getPlace();
-    						console.log(place);
     						if (!place.geometry) {
     							err.textContent = "No details available for input: " + place.name + "";
       							return;
@@ -267,8 +284,55 @@ function create_stories_metabox()
 						    let xlng = place.geometry.location.lng();
 						    lat.value = xlat;
 						    lng.value = xlng;
-						});
-					}
+						});';
+		$return .= 'map.addListener("click", (mapsMouseEvent) => {
+						console.log(mapsMouseEvent.latLng);
+						let xlat = mapsMouseEvent.latLng.lat();
+				    	let xlng = mapsMouseEvent.latLng.lng();
+						const latlng = {
+						    lat: parseFloat(xlat),
+						    lng: parseFloat(xlng)
+					    };
+					    marker.setVisible(false);
+
+					    const geocoder = new google.maps.Geocoder();
+					    const address = input.value;
+					    geocoder.geocode({ location: latlng }, (results, status) => {
+					    if (status === "OK") {
+					      if (results[0]) {
+					      	input.value = results[0].formatted_address;
+					      	let address_components = results[0].address_components;
+					      	address_components.map(function(component){
+					      		if (component.types.indexOf("postal_code")!==-1){
+					      			zip.value = component.long_name;
+					      		}
+					      	});
+					        const marker = new google.maps.Marker({
+					          anchorPoint: new google.maps.Point(0, -29),
+					          map: map,
+					        });
+					        marker.setVisible(false);
+					        var loc = new google.maps.LatLng(latlng.lat, latlng.lng);
+					        map.setCenter(loc);
+					        map.setZoom(15);
+					        marker.setPosition(loc);
+					        marker.setVisible(true);
+					      } else {
+					        jQuery("#map-error-msg").html("No results found").show();
+					        window.setTimeout(function(){ jQuery("#map-error-msg").hide(); },5000)
+					      }
+					    } else {
+					      jQuery("#map-error-msg").html("Geocoder failed due to: " + status).show();
+					      window.setTimeout(function(){ jQuery("#map-error-msg").hide(); },5000)
+					    }
+					  });
+
+				    //input.textContent = place.formatted_address;
+				    
+				    lat.value = xlat;
+				    lng.value = xlng;
+					});';
+		$return .=	'}
 				</script>';
 		$return .= initialize_stories_map();
 		$return .= '<style>#map { height:100%; min-height:400px; }</style>';
@@ -334,6 +398,9 @@ function save_askquestion_metabox()
 	if(isset($_POST['story_zipcode']) && !empty($_POST['story_zipcode']))
 	{
 		update_post_meta($post->ID, "story_zipcode", $_POST['story_zipcode']);
+	} else {
+		if (is_object($post) && get_post_meta($post->ID, "story_zipcode"))
+			update_post_meta($post->ID, "story_zipcode", "");
 	}
 
 	if(isset($_POST['story_districtsize']) && !empty($_POST['story_districtsize']))
@@ -341,6 +408,7 @@ function save_askquestion_metabox()
 		update_post_meta($post->ID, "story_districtsize", $_POST['story_districtsize']);
 	}
 
+	//update_post_meta($post->ID, "story_mapaddress", $_POST['story_mapaddress']);
 	if(isset($_POST['story_mapaddress']) && !empty($_POST['story_mapaddress']))
 	{
 		update_post_meta($post->ID, "story_mapaddress", $_POST['story_mapaddress']);
@@ -352,6 +420,9 @@ function save_askquestion_metabox()
         	$mapLongitude = $map[1];
 			save_metadata($post->ID, $mapLatitude, $mapLongitude);
 		}*/
+	} else {
+		if (is_object($post) && get_post_meta($post->ID, "story_mapaddress"))
+			update_post_meta($post->ID, "story_mapaddress", "");
 	}
 
 	if (isset($_POST['story_address_latitude']) && isset($_POST['story_address_longitude'])){

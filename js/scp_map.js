@@ -4,8 +4,8 @@ jQuery(document).ready(function($){
 		var uuid = gen_uuid();
 
 		const lat = document.getElementById("map-latitude").value;
-  		const lng = document.getElementById("map-longitude").value;
-  		const input = document.getElementById("story-mapaddress").value;
+  	const lng = document.getElementById("map-longitude").value;
+  	const input = document.getElementById("story-mapaddress").value;
 		
 		const geocoder = new google.maps.Geocoder();
 		
@@ -53,16 +53,23 @@ function geocodeLatLng(geocoder, map) {
       			zip.value = component.long_name;
       		}
       	});
-        map.setZoom(15);
         const marker = new google.maps.Marker({
-          position: latlng,
+          anchorPoint: new google.maps.Point(0, -29),
           map: map,
         });
+        marker.setVisible(false);
+        var loc = new google.maps.LatLng(latlng.lat, latlng.lng);
+        map.setCenter(loc);
+        map.setZoom(15);
+        marker.setPosition(loc);
+        marker.setVisible(true);
       } else {
-        window.alert("No results found");
+        jQuery('#map-error-msg').html("No results found").show();
+        window.setTimeout(function(){ jQuery('#map-error-msg').hide(); },5000)
       }
     } else {
-      window.alert("Geocoder failed due to: " + status);
+      jQuery('#map-error-msg').html("Geocoder failed due to: " + status).show();
+      window.setTimeout(function(){ jQuery('#map-error-msg').hide(); },5000)
     }
   });
 }
@@ -85,12 +92,15 @@ function geocodeAddress(geocoder, map) {
 	  	});
 		map.setCenter(results[0].geometry.location);
 		map.setZoom(15);
-		new google.maps.Marker({
+		const marker = new google.maps.Marker({
 			map: map,
+      anchorPoint: new google.maps.Point(0, -29),
 			position: results[0].geometry.location,
 		});
+    marker.setVisible(true);
     } else {
-      alert("Geocode was not successful for the following reason: " + status);
+      jQuery('#map-error-msg').html("Geocode was not successful for the following reason: " + status).show();
+      window.setTimeout(function(){ jQuery('#map-error-msg').hide(); },5000)
     }
   });
 }

@@ -14,6 +14,12 @@ jQuery(document).ready(function($){
 		else
 			geocodeAddress(geocoder, map);
 	});
+  $('#story-mapaddress,#map-latitude,#map-longitude').on('keypress', function(e){
+    if (e.keyCode==13){
+      e.preventDefault();
+      $('.map-refresh-btn').trigger("click");
+    } 
+  });
 });
 
 // Generate Version 4 UUID
@@ -82,22 +88,22 @@ function geocodeAddress(geocoder, map) {
   const zip = document.getElementById("story-zipcode");
   geocoder.geocode({ address: address }, (results, status) => {
     if (status === "OK") {
-		lat.value = results[0].geometry.location.lat();
-		lng.value = results[0].geometry.location.lng();
-		let address_components = results[0].address_components;
-	  	address_components.map(function(component){
-	  		if (component.types.indexOf("postal_code")!==-1){
-	  			zip.value = component.long_name;
-	  		}
-	  	});
-		map.setCenter(results[0].geometry.location);
-		map.setZoom(15);
-		const marker = new google.maps.Marker({
-			map: map,
-      anchorPoint: new google.maps.Point(0, -29),
-			position: results[0].geometry.location,
-		});
-    marker.setVisible(true);
+  		lat.value = results[0].geometry.location.lat();
+  		lng.value = results[0].geometry.location.lng();
+  		let address_components = results[0].address_components;
+  	  	address_components.map(function(component){
+  	  		if (component.types.indexOf("postal_code")!==-1){
+  	  			zip.value = component.long_name;
+  	  		}
+  	  	});
+  		map.setCenter(results[0].geometry.location);
+  		map.setZoom(15);
+  		const marker = new google.maps.Marker({
+  			map: map,
+        anchorPoint: new google.maps.Point(0, -29),
+  			position: results[0].geometry.location,
+  		});
+      marker.setVisible(true);
     } else {
       jQuery('#map-error-msg').html("Geocode was not successful for the following reason: " + status).show();
       window.setTimeout(function(){ jQuery('#map-error-msg').hide(); },5000)

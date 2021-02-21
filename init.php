@@ -307,10 +307,10 @@ function create_stories_metabox()
 					      			zip.value = component.long_name;
 					      		}
 					      	});
-					        const marker = new google.maps.Marker({
+					        /*const marker = new google.maps.Marker({
 					          anchorPoint: new google.maps.Point(0, -29),
 					          map: map,
-					        });
+					        });*/
 					        marker.setVisible(false);
 					        var loc = new google.maps.LatLng(latlng.lat, latlng.lng);
 					        map.setCenter(loc);

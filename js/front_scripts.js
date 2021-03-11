@@ -144,13 +144,24 @@ jQuery(document).ready(function(){
     e.preventDefault ? e.preventDefault() : e.returnValue = false;
     togglemodal(hst,0);
   })
+  /* Close Modal */
+  jQuery(document).on('click','.stry-video-close', function(e){
+    e.preventDefault ? e.preventDefault() : e.returnValue = false;
+    togglemodal(hst,0);
+  })
+  /* Close Modal on escape, enter and space key press when focus is on modal close button */
+  jQuery(document).on('keydown','.stry-video-close', function(e){
+    if (e.key == "Escape" || e.key == "Esc" || e.key == "Enter" || e.keyCode == 13 || e.keyCode == 32 ) { 
+      jQuery('.stry-video-close').trigger("click");
+    }
+  })
   jQuery(document).on("keydown", function(e) {
    if (e.key == "Escape" || e.key == "Esc") { 
      // escape key maps to keycode `27`
      togglemodal(hst,0);
     }
   });
-  window.setInterval(checkFocus, 1000); 
+  //window.setInterval(checkFocus, 1000); 
 });
 
 function togglemodal(hst, bol){

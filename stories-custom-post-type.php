@@ -3,7 +3,7 @@
  Plugin Name:  Story Custom Post Type
  Plugin URI:   https://www.navigationnorth.com/solutions/wordpress/stories-plugin
  Description:  Stories as a custom post type, with custom metadata and display.
- Version:      0.9.5
+ Version:      0.9.6
  Author:       Navigation North
  Author URI:   http://www.navigationnorth.com
  Text Domain:  wp-stories-posts
@@ -38,7 +38,7 @@ define( 'SCP_SLUG','wp-stories-posts' );
 define( 'SCP_FILE',__FILE__);
 define( 'SCP_PLUGIN_NAME' , 'Story Custom Post Type' );
 define( 'SCP_PLUGIN_INFO' , 'https://www.navigationnorth.com/solutions/wordpress/stories-plugin' );
-define( 'SCP_VERSION' , '0.9.5');
+define( 'SCP_VERSION' , '0.9.6');
 
 include_once(SCP_PATH.'init.php');
 include_once(SCP_PATH.'/includes/widgets.php');
@@ -542,13 +542,13 @@ function get_storiesmap($pageposts=NULL)
 						});
                     	map.fitBounds(bounds);
                     	if (markers.length==1) {
-	                      	var listener = google.maps.event.addListener(map, "idle", function() { 
-								  if (map.getZoom() > 16) map.setZoom(16); 
-								  google.maps.event.removeListener(listener); 
+	                      	var listener = google.maps.event.addListener(map, "idle", function() {
+								  if (map.getZoom() > 16) map.setZoom(16);
+								  google.maps.event.removeListener(listener);
 							});
 						}
                     }
-                    
+
                     // Add the markers and infowindows to the map
                     if (jQuery.isArray(locations[0]) && locations.length>0) {
 	                    for (var i = 0; i < locations.length; i++)

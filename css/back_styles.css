@@ -77,4 +77,6 @@ h2.heading, div.heading {
 button.map-refresh-btn.button { height:35px; padding:5px; margin:11px 0; margin-left:3px; }
 button.map-refresh-btn.button:hover { background-color:#a2d5eb; border-color:#000000; }
 #map-error-msg { color: #ff0000; border: 1px solid #ff0000; padding: 10px; display:none; }
+.form-table td p.cb-desc { display:inline-block; }
+.form-table td p.description { font-style:italic; }
 /** End of Story Meta Field Styles **/

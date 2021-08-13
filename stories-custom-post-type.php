@@ -809,6 +809,34 @@ function setup_settings_form() {
 			)
 			   );
 
+	/* Enable Archive Notice */
+	add_settings_field(
+		'enable_archive_notice',
+		__( 'Archive Notice Enabled?' , SCP_SLUG ),
+		'setup_settings_field',
+		'stories-settings-page',
+		'stories-settings-section',
+		array(
+			'uid' => 'enable_archive_notice',
+			'type' => 'checkbox',
+			'description' => __('display the archive notice on the main page of the Stories plugin', SCP_SLUG)
+		)
+	);
+
+	/* Archive Notice Content */
+	add_settings_field(
+		'archive_notice_content',
+		__( 'Archive Notice Content:' , SCP_SLUG ),
+		'setup_settings_field',
+		'stories-settings-page',
+		'stories-settings-section',
+		array(
+			'uid' => 'archive_notice_content',
+			'type' => 'textarea',
+			'description' => __('archive notice text to display', SCP_SLUG)
+		)
+	);
+
 	register_setting( 'stories-settings-section' , 'load_bootstrap' );
 	register_setting( 'stories-settings-section' , 'load_font_awesome' );
 	register_setting( 'stories-settings-section' , 'google_api_key' );
@@ -821,6 +849,8 @@ function setup_settings_form() {
 	register_setting( 'stories-settings-section' , 'enable_embed' );
 	register_setting( 'stories-settings-section' , 'enable_youtube_check' );
 	register_setting( 'stories-settings-section' , 'enable_vimeo_thumbnail' );
+	register_setting( 'stories-settings-section' , 'enable_archive_notice' );
+	register_setting( 'stories-settings-section' , 'archive_notice_content' );
 }
 
 function first_section_callback() {
@@ -830,14 +860,17 @@ function first_section_callback() {
 function setup_settings_field( $arguments ) {
 	$selected = "";
 	$size = "";
+	$chkClass = "";
+	$textareasize = 'rows="5" cols="60"';
 
 	$value = get_option($arguments['uid']);
 
 	if ($arguments['type']=="textbox") {
-		$size = 'size="50"';
+		$size = 'size="60"';
 	}
 
 	if ($arguments['type']=="checkbox"){
+		$chkClass = " cb-desc";
 		if ($value==1 || $value=="on")
 			$selected = "checked='checked'";
 		else{
@@ -845,7 +878,11 @@ function setup_settings_field( $arguments ) {
 		}
 	}
 
-	echo '<input name="'.$arguments['uid'].'" id="'.$arguments['uid'].'" type="'.$arguments['type'].'" value="' . $value . '" ' . $size . ' ' .  $selected . ' />';
+	if ($arguments['type']=="textarea") {
+		echo '<textarea name="'.$arguments['uid'].'" id="'.$arguments['uid'].'" '.$textareasize.'>'.$value.'</textarea>';
+	} else {
+		echo '<input name="'.$arguments['uid'].'" id="'.$arguments['uid'].'" type="'.$arguments['type'].'" value="' . $value . '" ' . $size . ' ' .  $selected . ' />';
+	}
 
 	//Show Helper Text if specified
 	if (isset($arguments['helper'])) {
@@ -855,7 +892,7 @@ function setup_settings_field( $arguments ) {
 
 	//Show Description if specified
 	if( $description = $arguments['description'] ){
-		printf( '<p class="description">%s</p>', $description );
+		printf( '<p class="description%s">%s</p>', $chkClass, $description );
 	}
 }
 

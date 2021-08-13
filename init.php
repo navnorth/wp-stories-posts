@@ -759,6 +759,11 @@ function get_stories_side_nav($taxonomy=NULL, $taxonomy_name=NULL, $search_text=
             	<?php _e( "Use this tool to browse stories of innovation happening in schools across the nation. By sharing these stories, we hope to connect districts, schools, and educators trying similar things so that they can learn from each other's experiences.", SCP_SLUG); ?>
             </p>
 
+        <?php 	$archive_notice = get_option('enable_archive_notice');
+            	$archive_notice_content = get_option('archive_notice_content');
+    		if ( ($archive_notice=="1" || $archive_notice=="on" ) & $archive_notice_content!=="" ): ?>
+            	<div class="archived-disclaimer"><?php echo $archive_notice_content; ?></div>
+        	<?php endif; ?>
             <h4 class="hdng_mtr brdr_mrgn_none stry_browse_header">Browse Stories</h4>
 	    <div id="story-tabs">
 	<?php

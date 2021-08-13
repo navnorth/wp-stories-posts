@@ -833,7 +833,7 @@ function setup_settings_form() {
 		array(
 			'uid' => 'archive_notice_content',
 			'type' => 'textarea',
-			'description' => __('archive notice text to display', SCP_SLUG)
+			'description' => __('content of the archive notice to display', SCP_SLUG)
 		)
 	);
 
@@ -877,7 +877,7 @@ function setup_settings_field( $arguments ) {
 			$value = 1;
 		}
 	}
-
+	
 	if ($arguments['type']=="textarea") {
 		echo '<textarea name="'.$arguments['uid'].'" id="'.$arguments['uid'].'" '.$textareasize.'>'.$value.'</textarea>';
 	} else {

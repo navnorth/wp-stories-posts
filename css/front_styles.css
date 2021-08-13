@@ -658,6 +658,7 @@ a.stry-video-close span.dashicons:before {font-size: 42px !important; width: 42p
 .stry-video-avatar-cell:hover .stry-youtube-play {color: #ff0000;}
 .stry-video-avatar-cell .stry-vimeo-play {color: #ffffff;}
 .stry-video-avatar-cell:hover .stry-vimeo-play {color: #2d95df;}
+.stry_srch_frm .archived-disclaimer { overflow:hidden; }
 @media (max-width: 640px){
   .stry-video-content iframe#ytvideo{width:100% !important;}
   .stry-video-content {height:320px !important;}

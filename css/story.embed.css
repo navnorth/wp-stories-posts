@@ -16,3 +16,9 @@
 .story-embed-content h1 a:hover { color:#f1f1f1; }
 .story-embed-content p { color:#fff; }
 .story-embed-content p a { color:#fff; text-decoration:none !important; }
+
+.story-embed-box {
+    float: none !important;
+    margin-left: 0px;
+    margin-right: 0px;
+}

@@ -7,7 +7,7 @@
 
 /**
   * OET Story
-  * Example [oet_story id=1 ]Story content here[/oet_story]
+  * Example [oet_story id=1 width=6]Story content here[/oet_story]
  **/
 add_shortcode( 'oet_story' , 'oet_story_func' );
 function oet_story_func($attr, $content = null) {
@@ -15,7 +15,7 @@ function oet_story_func($attr, $content = null) {
     wp_enqueue_style('oet-story-embed', SCP_URL.'css/story.embed.css');
 
     //Default width
-    $attr_width = 12;
+    $attr_width = 6;
     $title = "";
     $attr_bg = "";
     $styles = "";
@@ -67,12 +67,10 @@ function oet_story_func($attr, $content = null) {
     }
     
     //Set Alignment
-    /*
     $alignment = (isset($alignment))?$alignment:false;
     if ($alignment)
             $class_attrs[] = "pull-".$alignment;
-    */
-          
+            
     //Set Color
     $callout_color = (isset($callout_color))?$callout_color:false;
     if ($callout_color){

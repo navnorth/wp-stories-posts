@@ -43,7 +43,6 @@
     color: #fff;
     cursor: pointer;
     float: right;
-    /*font-family: "Raleway-Regular";*/
     margin: 5px 0 0;
     padding: 10px 0;
     text-align: center;
@@ -67,7 +66,7 @@
     font-size: 14px;
     vertical-align: middle;
     padding: 5px 10px;
-    font-family: 'WorkSans-Regular';
+    font-family: 'Work Sans', sans-serif;
 }
 
 .slidermainwrpr { width: 100%; float: left; margin-top: 10px }
@@ -383,7 +382,7 @@ article.stories .entry-meta a.read-more, article.stories .entry-meta a.read-more
 .bgorange { background-color:#e57200; padding:4px 20px; margin-left:10px; color:#fff; }
 .bgblue { background-color:#294179; padding:4px 20px; margin-left:10px; color:#fff; }
 .single-stories .pblctn_right_sid_mtr .vid-wrap { margin-bottom:10px; }
-.story_sharewidget .popover, .story_sharewidget .popover-content { font-family: 'WorkSans-Bold' !important; }
+.story_sharewidget .popover, .story_sharewidget .popover-content { font-family: 'Work Sans', sans-serif !important; font-weight:bold; }
 .story_sharewidget .popover #st_oet_embed { font-size:13px; }
 .margin_20 { margin:20px 0 !important; }
 .margin_20 .bgblue, .margin_20 .bgorange { margin-left:0; }
@@ -404,12 +403,12 @@ article.stories .entry-meta a.read-more, article.stories .entry-meta a.read-more
     -moz-opacity: 0.8;
     -khtml-opacity: 0.8;
 }
-.stry_srch_frm ul.tabs li a { font-size:14px; outline:none; font-family: 'WorkSans-Regular'; padding:7px 15px; display:block; }
+.stry_srch_frm ul.tabs li a { font-size:14px; outline:none; font-family: 'Work Sans', sans-serif; padding:7px 15px; display:block; }
 .stry_srch_frm ul.tabs li.all { background-color:#ffffff; width:30%; border: 1px solid #f0f0f0; border-right:none; }
 .stry_srch_frm ul.tabs li.all a { color:#000000; }
 .stry_srch_frm ul.tabs li.all.active { border-bottom:none; }
 .stry_srch_frm ul.tabs li a:hover, .stry_srch_frm ul.tabs li a.active,
-.stry_srch_frm ul.tabs li:hover a, .stry_srch_frm ul.tabs li.active a{ font-weight:bold; text-decoration:none; font-family: 'WorkSans-Bold'; }
+.stry_srch_frm ul.tabs li:hover a, .stry_srch_frm ul.tabs li.active a{ font-weight:bold; text-decoration:none; font-family: 'Work Sans', sans-serif; font-weight:bold; }
 .stry_srch_frm ul.tabs li:hover, .stry_srch_frm ul.tabs li.active {
     opacity:1;
     -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";

@@ -1129,7 +1129,7 @@ function get_story_search($search_text=NULL, $taxonomy=NULL, $taxonomy_name=NULL
 				<form action="'.site_url().'/stories/" class="search-form searchform clearfix" method="get" _lpchecked="1">
 					<div class="search-wrap">
 						<input type="hidden" name="action" value="search">
-						<input type="text" placeholder="Search stories..." class="s field" name="search_text"'. $search_value .'>
+						<input type="text" placeholder="Search stories..." class="s field" aria-label="search stories" name="search_text"'. $search_value .'>
 						<button class="search-icon" type="submit"></button>
 					</div>
 				</form><!-- .searchform -->

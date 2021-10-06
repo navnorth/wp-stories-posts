@@ -17,8 +17,8 @@ jQuery(document).ready(function(){
       jQuery('.bxslider>li').eq(newIndex+1).addClass('active-slide').attr('tabindex',0);
     }
   });
-  jQuery('.bxslider li').on("focus",function(){
-    jQuery(this).closest(".bx-viewport").trigger("mouseenter");
+  jQuery('.bxslider li a').on("focus",function(){
+    jQuery(this).closest(".bx-viewport").trigger("focus");
     console.log('got focus');
   });
   jQuery('.bxslider li').on("focusout",function(){

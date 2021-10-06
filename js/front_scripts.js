@@ -18,7 +18,7 @@ jQuery(document).ready(function(){
     }
   });
   jQuery('.bxslider li a').on("focus",function(){
-    jQuery(this).closest(".bx-viewport").trigger("focus");
+    jQuery(this).closest(".bx-viewport").trigger("mouseenter");
     console.log('got focus');
   });
   jQuery('.bxslider li').on("focusout",function(){

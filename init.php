@@ -796,7 +796,7 @@ function get_stories_side_nav($taxonomy=NULL, $taxonomy_name=NULL, $search_text=
 		<div id="all" class="story-tab">
 			<?php if ($_filters['state']==1): ?>
 			<div class="srchtrmbxs">
-			    <ul class="cstmaccordian">
+			    <div class="cstmaccordian">
 				    <div class="cstmaccordiandv">
 				    <?php
 								    if(isset($taxonomy) && !empty($taxonomy) && $taxonomy == 'state'):
@@ -811,12 +811,12 @@ function get_stories_side_nav($taxonomy=NULL, $taxonomy_name=NULL, $search_text=
 				    <a tabindex="0" title="<?php echo $accordian_title; ?> State Menu" class="accordian_section_title">State</a>
 				</div>
 				<?php echo $stateoption; ?>
-			    </ul>
+			    </div>
 			</div>
 			<?php endif; ?>
 			<?php if ($_filters['grade_level']==1): ?>
 			<div class="srchtrmbxs">
-			    <ul class="cstmaccordian">
+			    <div class="cstmaccordian">
 				    <div class="cstmaccordiandv">
 				    <?php
 								    if(isset($taxonomy) && !empty($taxonomy) && $taxonomy == 'grade_level'):
@@ -831,7 +831,7 @@ function get_stories_side_nav($taxonomy=NULL, $taxonomy_name=NULL, $search_text=
 				    <a tabindex="0" title="<?php echo $accordian_title; ?> Grade Menu" class="accordian_section_title">Level</a>
 				</div>
 				<?php echo $gradeoption; ?>
-			    </ul>
+			    </div>
 			</div>
 			<?php endif; ?>
 		</div>
@@ -841,7 +841,7 @@ function get_stories_side_nav($taxonomy=NULL, $taxonomy_name=NULL, $search_text=
 			<?php if ($_filters['state']==1): ?>
 			<?php $state2option = generate_state_dropdown('statedropdown2', $taxonomy, $taxonomy_name, "P-12"); ?>
 			<div class="srchtrmbxs">
-			    <ul class="cstmaccordian">
+			    <div class="cstmaccordian">
 				    <div class="cstmaccordiandv">
 				    <?php
 								    if(isset($taxonomy) && !empty($taxonomy) && $taxonomy == 'state'):
@@ -856,13 +856,13 @@ function get_stories_side_nav($taxonomy=NULL, $taxonomy_name=NULL, $search_text=
 				    <a tabindex="0" title="<?php echo $accordian_title; ?> State Menu" class="accordian_section_title">State</a>
 				</div>
 				<?php echo $state2option; ?>
-			    </ul>
+			    </div>
 			</div>
 			<?php endif; ?>
 			
 			<?php if ($_filters['characteristics']==1): ?>
 			<div class="srchtrmbxs">
-				<ul class="cstmaccordian">
+				<div class="cstmaccordian">
 					<div class="cstmaccordiandv">
 					<?php
 									if(isset($taxonomy) && !empty($taxonomy) && $taxonomy == 'characteristics'):
@@ -877,13 +877,13 @@ function get_stories_side_nav($taxonomy=NULL, $taxonomy_name=NULL, $search_text=
 					<a tabindex="0" title="<?php echo $accordian_title; ?> Community Type Menu" class="accordian_section_title">Community Type</a>
 				    </div>
 				    <?php echo $district_locationoption; ?>
-				</ul>
+				</div>
 			</div>
 			<?php endif; ?>
 			
 			<?php if ($_filters['district_size']==1): ?>
 			<div class="srchtrmbxs">
-				<ul class="cstmaccordian">
+				<div class="cstmaccordian">
 				    <div class="cstmaccordiandv">
 					<?php
 									if(isset($taxonomy) && !empty($taxonomy) && $taxonomy == 'districtsize'):
@@ -898,7 +898,7 @@ function get_stories_side_nav($taxonomy=NULL, $taxonomy_name=NULL, $search_text=
 					<a tabindex="0" title="<?php echo $accordian_title; ?> District Enrollment Menu" class="accordian_section_title">District Enrollment</a>
 				    </div>
 				    <?php echo $district_sizeoption; ?>
-				</ul>
+				</div>
 			</div>
 			<?php endif; ?>
 		</div>
@@ -908,7 +908,7 @@ function get_stories_side_nav($taxonomy=NULL, $taxonomy_name=NULL, $search_text=
 			<?php if ($_filters['state']==1): ?>
 			<?php $state3option = generate_state_dropdown('statedropdown3', $taxonomy, $taxonomy_name, "Postsecondary"); ?>
 			<div class="srchtrmbxs">
-			    <ul class="cstmaccordian">
+			    <div class="cstmaccordian">
 				    <div class="cstmaccordiandv">
 				    <?php
 								    if(isset($taxonomy) && !empty($taxonomy) && $taxonomy == 'state'):
@@ -923,14 +923,14 @@ function get_stories_side_nav($taxonomy=NULL, $taxonomy_name=NULL, $search_text=
 				    <a tabindex="0" title="<?php echo $accordian_title; ?> State Menu" class="accordian_section_title">State</a>
 				</div>
 				<?php echo $state3option; ?>
-			    </ul>
+			    </div>
 			</div>
 			<?php endif; ?>
 			
 			
 			<?php if ($_filters['institutiontype']==1): ?>
 			<div class="srchtrmbxs">
-				<ul class="cstmaccordian">
+				<div class="cstmaccordian">
 				    <div class="cstmaccordiandv">
 					<?php
 						if(isset($taxonomy) && !empty($taxonomy) && $taxonomy == 'institutiontype'):
@@ -945,13 +945,13 @@ function get_stories_side_nav($taxonomy=NULL, $taxonomy_name=NULL, $search_text=
 					<a tabindex="0" title="<?php echo $accordian_title; ?> Institution Type Menu" class="accordian_section_title">Institution Type</a>
 				    </div>
 				    <?php echo $institutiontype_option; ?>
-				</ul>
+				</div>
 			</div>
 			<?php endif; ?>
 			
 			<?php if ($_filters['institutionenrollment']==1): ?>
 			<div class="srchtrmbxs">
-				<ul class="cstmaccordian">
+				<div class="cstmaccordian">
 				    <div class="cstmaccordiandv">
 					<?php
 						if(isset($taxonomy) && !empty($taxonomy) && $taxonomy == 'institutionenrollment'):
@@ -966,7 +966,7 @@ function get_stories_side_nav($taxonomy=NULL, $taxonomy_name=NULL, $search_text=
 					<a tabindex="0" title="<?php echo $accordian_title; ?> Institution Enrollment Menu" class="accordian_section_title">Institution Enrollment</a>
 				    </div>
 				    <?php echo $institution_option; ?>
-				</ul>
+				</div>
 			</div>
 			<?php endif; ?>
 		</div>

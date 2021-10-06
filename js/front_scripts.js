@@ -6,7 +6,17 @@ jQuery(document).ready(function(){
 	  autoHover: true,
 	  pause: 5000,
 	  controls: false,
-    keyboardEnadble: true,
+    keyboardEnabled: true,
+    onSliderLoad: function(currentIndex) {
+      jQuery('.bxslider>li').eq(currentIndex).addClass('active-slide')
+    },
+    onSlideBefore: function(slideElement, oldIndex, newIndex){
+      jQuery('.bxslider>li').eq(oldIndex).removeClass('active-slide');
+      jQuery('.bxslider>li').eq(newIndex).addClass('active-slide')
+      console.log(slideElement);
+      console.log(oldIndex);
+      console.log(newIndex);
+    }
   });
   jQuery(".cstmaccordiandv").click(function(){
 	 if(jQuery(this).children('i').hasClass("fa-caret-right"))

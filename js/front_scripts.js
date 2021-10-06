@@ -17,6 +17,14 @@ jQuery(document).ready(function(){
       jQuery('.bxslider>li').eq(newIndex+1).addClass('active-slide').attr('tabindex',0);
     }
   });
+  jQuery('.bxslider li').on("focus",function(){
+    jQuery(this).closest(".bx-viewport").trigger("mouseenter");
+    console.log('got focus');
+  });
+  jQuery('.bxslider li').on("focusout",function(){
+    jQuery(this).closest(".bx-viewport").trigger("mouseleave");
+    console.log('lost focus');
+  });
   jQuery(".cstmaccordiandv").click(function(){
 	 if(jQuery(this).children('i').hasClass("fa-caret-right"))
 	 {
@@ -172,13 +180,6 @@ jQuery(document).ready(function(){
     }
   });
   //window.setInterval(checkFocus, 1000); 
-
-  jQuery('.bxslider li').on("focus",function(){
-    jQuery(this).closest(".bx-viewport").trigger("mouseenter");
-  });
-  jQuery('.bxslider li').on("focusout",function(){
-    jQuery(this).closest(".bx-viewport").trigger("mouseleave");
-  });
 });
 
 function togglemodal(hst, bol){

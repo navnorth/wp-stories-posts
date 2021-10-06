@@ -17,13 +17,17 @@ jQuery(document).ready(function(){
       jQuery('.bxslider>li').eq(newIndex+1).addClass('active-slide').attr('tabindex',0);
     }
   });
-  jQuery('.bxslider li a').on("focus",function(){
-    jQuery(this).closest(".bx-viewport").trigger("focus");
-    console.log('got focus');
+  jQuery(document).on('focus','.bx-viewport', function(){
+        jQuery('.slidersubwrpr').addClass('focused');
   });
-  jQuery('.bxslider li').on("focusout",function(){
-    jQuery(this).closest(".bx-viewport").trigger("mouseleave");
-    console.log('lost focus');
+  jQuery(document).on('blur','.bx-viewport', function(){
+        jQuery('.slidersubwrpr').removeClass('focused');
+  });
+  jQuery(document).on('focus','.bx-viewport, .bxslider li a',function(){
+    jQuery(this).closest(".bx-viewport").trigger("mouseenter");
+  });
+  jQuery(document).on('focusout','.bx-viewport, .bxslider li a',function(){
+    $(this).closest(".bx-viewport").trigger("mouseleave");
   });
   jQuery(".cstmaccordiandv").click(function(){
 	 if(jQuery(this).children('i').hasClass("fa-caret-right"))

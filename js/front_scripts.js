@@ -1,5 +1,5 @@
 jQuery(document).ready(function(){
-  jQuery('.bxslider').bxSlider({
+  var slider = jQuery('.bxslider').bxSlider({
 	  pager: true,
 	  control: false,
 	  auto: true,
@@ -25,9 +25,11 @@ jQuery(document).ready(function(){
   });
   jQuery(document).on('focus','.bx-viewport, .bxslider li a',function(){
     jQuery(this).closest(".bx-viewport").trigger("mouseenter");
+    slider.stopAuto();
   });
   jQuery(document).on('focusout','.bx-viewport, .bxslider li a',function(){
-    $(this).closest(".bx-viewport").trigger("mouseleave");
+    jQuery(this).closest(".bx-viewport").trigger("mouseleave");
+    slider.startAuto();
   });
   jQuery(".cstmaccordiandv").click(function(){
 	 if(jQuery(this).children('i').hasClass("fa-caret-right"))

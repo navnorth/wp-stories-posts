@@ -9,9 +9,7 @@ jQuery(document).ready(function(){
     keyboardEnabled: true,
     onSliderLoad: function(currentIndex) {
       jQuery('.bxslider>li').eq(1).addClass('active-slide')
-      jQuery('.bxslider>li').each(function(index){
-        jQuery(this).attr('tabindex','-1');
-      });
+      jQuery('.bxslider>li').attr('tabindex','-1');
     },
     onSlideBefore: function(slideElement, oldIndex, newIndex){
       jQuery('.bxslider>li').eq(oldIndex+1).removeAttr('class tabindex');

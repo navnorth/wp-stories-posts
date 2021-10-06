@@ -663,7 +663,7 @@ a.stry-video-close span.dashicons:before {font-size: 42px !important; width: 42p
 .stry_srch_frm .archived-disclaimer { overflow:hidden; }
 .sliderinnrwrap .slidercontentnrwrpr .sldr_top_hdng { font-size:20px; }
 .slidersubwrpr .bx-wrapper { box-shadow: none; background:none; border:none; }
-.slidersubwrpr.focused; { outline: 2px solid #9fbedb !important; }
+.slidersubwrpr.focused { outline: 2px solid #9fbedb !important; }
 @media (max-width: 640px){
   .stry-video-content iframe#ytvideo{width:100% !important;}
   .stry-video-content {height:320px !important;}

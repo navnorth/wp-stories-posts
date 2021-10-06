@@ -11,11 +11,8 @@ jQuery(document).ready(function(){
       jQuery('.bxslider>li').eq(1).addClass('active-slide')
     },
     onSlideBefore: function(slideElement, oldIndex, newIndex){
-      jQuery('.bxslider>li').eq(oldIndex).removeClass('active-slide').removeAttr('tabindex');
+      jQuery('.bxslider>li').eq(oldIndex+1).removeClass('active-slide').removeAttr('tabindex');
       jQuery('.bxslider>li').eq(newIndex+1).addClass('active-slide').attr('tabindex',0);
-      console.log(slideElement);
-      console.log(oldIndex);
-      console.log(newIndex);
     }
   });
   jQuery(".cstmaccordiandv").click(function(){
@@ -173,6 +170,13 @@ jQuery(document).ready(function(){
     }
   });
   //window.setInterval(checkFocus, 1000); 
+
+  jQuery('.bxslider li').on("focus",function(){
+    jQuery(this).closest(".bx-viewport").trigger("mouseenter");
+  });
+  jQuery('.bxslider li').on("focusout",function(){
+    jQuery(this).closest(".bx-viewport").trigger("mouseleave");
+  });
 });
 
 function togglemodal(hst, bol){

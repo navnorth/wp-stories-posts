@@ -108,7 +108,7 @@
     margin-left: 5px;
     display: inline-block;
 }
-.sldr_readmr_btn a:hover,.sldr_readmr_btn a:active { color:#222; }
+.sldr_readmr_btn a:hover,.sldr_readmr_btn a:active,.sldr_readmr_btn a:focus { color:#222; }
 .slidercontentnrwrpr h3 { font-size: 20px; line-height: 25px; margin-bottom: 8px; margin-top: 0; max-height: 53px; overflow: hidden}
 .sldr_top_hdng { font-size: 18px; color: #e57200; margin-top: 10px; /*font-family: "Raleway-Bold" !important*/}
 .slidercontentnrwrpr h4 { margin-bottom: 15px; margin-top: -5px; font-size:14px !important; }

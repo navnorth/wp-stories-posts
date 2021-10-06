@@ -10,11 +10,13 @@ jQuery(document).ready(function(){
     onSliderLoad: function(currentIndex) {
       jQuery('.bxslider>li').eq(1).addClass('active-slide')
       jQuery('.bxslider>li').attr('tabindex','-1');
+      jQuery('.bxslider>li a').attr('tabindex','-1');
       jQuery('.bx-viewport').attr('tabindex','0');
     },
     onSlideBefore: function(slideElement, oldIndex, newIndex){
       jQuery('.bxslider>li').eq(oldIndex+1).removeAttr('class').attr('tabindex','-1');
       jQuery('.bxslider>li').eq(newIndex+1).addClass('active-slide').attr('tabindex',0);
+      jQuery('.bxslider>li').eq(newIndex+1).find('a').attr('tabindex','0');
     }
   });
   jQuery(document).on('focus','.bx-viewport', function(){

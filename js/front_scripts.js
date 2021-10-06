@@ -8,11 +8,11 @@ jQuery(document).ready(function(){
 	  controls: false,
     keyboardEnabled: true,
     onSliderLoad: function(currentIndex) {
-      jQuery('.bxslider>li').eq(currentIndex).addClass('active-slide')
+      jQuery('.bxslider>li').eq(1).addClass('active-slide')
     },
     onSlideBefore: function(slideElement, oldIndex, newIndex){
-      jQuery('.bxslider>li').eq(oldIndex).removeClass('active-slide');
-      jQuery('.bxslider>li').eq(newIndex).addClass('active-slide')
+      jQuery('.bxslider>li').eq(oldIndex).removeClass('active-slide').removeAttr('tabindex');
+      jQuery('.bxslider>li').eq(newIndex+1).addClass('active-slide').attr('tabindex',0);
       console.log(slideElement);
       console.log(oldIndex);
       console.log(newIndex);

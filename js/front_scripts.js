@@ -15,7 +15,8 @@ jQuery(document).ready(function(){
     },
     onSlideBefore: function(slideElement, oldIndex, newIndex){
       jQuery('.bxslider>li').eq(oldIndex+1).removeAttr('class').attr('tabindex','-1');
-      jQuery('.bxslider>li').eq(newIndex+1).addClass('active-slide').attr('tabindex',0);
+      jQuery('.bxslider>li').eq(oldIndex+1).find('a').attr('tabindex','-1');
+      jQuery('.bxslider>li').eq(newIndex+1).addClass('active-slide').attr('tabindex','0');
       jQuery('.bxslider>li').eq(newIndex+1).find('a').attr('tabindex','0');
     }
   });

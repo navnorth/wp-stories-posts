@@ -5,7 +5,8 @@ jQuery(document).ready(function(){
 	  auto: true,
 	  autoHover: true,
 	  pause: 5000,
-	  controls: false
+	  controls: false,
+    keyboardEnadble: true,
   });
   jQuery(".cstmaccordiandv").click(function(){
 	 if(jQuery(this).children('i').hasClass("fa-caret-right"))

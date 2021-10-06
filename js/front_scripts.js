@@ -13,7 +13,7 @@ jQuery(document).ready(function(){
       jQuery('.bx-viewport').attr('tabindex','0');
     },
     onSlideBefore: function(slideElement, oldIndex, newIndex){
-      jQuery('.bxslider>li').eq(oldIndex+1).removeAttr('class');
+      jQuery('.bxslider>li').eq(oldIndex+1).removeAttr('class').attr('tabindex','-1');
       jQuery('.bxslider>li').eq(newIndex+1).addClass('active-slide').attr('tabindex',0);
     }
   });

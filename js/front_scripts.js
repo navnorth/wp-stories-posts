@@ -23,6 +23,12 @@ jQuery(document).ready(function(){
   jQuery(document).on('blur','.bx-viewport', function(){
         jQuery('.slidersubwrpr').removeClass('focused');
   });
+  jQuery(document).on('focus','.bx-viewport, .bxslider li a',function(){
+    jQuery(this).closest(".bx-viewport").trigger("mouseenter");
+  });
+  jQuery(document).on('focusout','.bx-viewport, .bxslider li a',function(){
+    $(this).closest(".bx-viewport").trigger("mouseleave");
+  });
   jQuery(".cstmaccordiandv").click(function(){
 	 if(jQuery(this).children('i').hasClass("fa-caret-right"))
 	 {

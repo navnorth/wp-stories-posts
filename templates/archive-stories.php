@@ -439,7 +439,7 @@ get_header(); ?>
 							<div class="slidersubwrpr">
                         		<ul class="bxslider">
 									<?php while ( $postquery->have_posts() ) : $postquery->the_post(); ?>
-                                    	<li tabindex="-1">
+                                    	<li>
                                             <div class="sliderinnrwrap">
                                                 <div class="sliderimgwrpr">
                                                     <?php

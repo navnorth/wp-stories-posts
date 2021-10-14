@@ -35,9 +35,6 @@ jQuery(document).ready(function(){
     jQuery(this).closest(".bx-viewport").trigger("mouseleave");
     slider.startAuto();
   });
-  jQuery(document).on('click','.bxslider li a',function(e){
-    console.log(e);
-  });
   jQuery(".cstmaccordiandv").click(function(){
 	 if(jQuery(this).children('i').hasClass("fa-caret-right"))
 	 {

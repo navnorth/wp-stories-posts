@@ -27,11 +27,11 @@ jQuery(document).ready(function(){
         jQuery('.slidersubwrpr').removeClass('focused');
   });
   jQuery(document).on('focus','.bx-viewport, .bxslider li a',function(){
-    jQuery(this).closest(".bx-viewport").trigger("mouseenter");
+    //jQuery(this).closest(".bx-viewport").trigger("mouseenter");
     slider.stopAuto();
   });
   jQuery(document).on('focusout','.bx-viewport, .bxslider li a',function(){
-    jQuery(this).closest(".bx-viewport").trigger("mouseleave");
+    //jQuery(this).closest(".bx-viewport").trigger("mouseleave");
     slider.startAuto();
   });
   jQuery(".cstmaccordiandv").click(function(){

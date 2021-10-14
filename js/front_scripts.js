@@ -6,6 +6,7 @@ jQuery(document).ready(function(){
 	  autoHover: true,
 	  pause: 5000,
 	  controls: false,
+    touchEnabled: false,
     keyboardEnabled: true,
     onSliderLoad: function(currentIndex) {
       jQuery('.bxslider>li').eq(1).addClass('active-slide')

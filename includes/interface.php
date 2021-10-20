@@ -83,7 +83,10 @@ function ordersmenu()
 									<?php echo $taxonomy_info->label ?></b> (<?php echo  $taxonomy_info->labels->singular_name; ?>)
 								</td>
 								<td class="categories column-categories">
-									<?php echo count($taxonomy_terms) ?>
+									<?php 
+										if (is_array($taxonomy_terms))
+											echo count($taxonomy_terms); 
+									?>
 								</td>
 							</tr>
 						<?php

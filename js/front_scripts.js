@@ -1,11 +1,39 @@
 jQuery(document).ready(function(){
-  jQuery('.bxslider').bxSlider({
+  var slider = jQuery('.bxslider').bxSlider({
 	  pager: true,
 	  control: false,
 	  auto: true,
 	  autoHover: true,
 	  pause: 5000,
-	  controls: false
+	  controls: false,
+    touchEnabled: false,
+    keyboardEnabled: true,
+    onSliderLoad: function(currentIndex) {
+      jQuery('.bxslider>li').eq(1).addClass('active-slide')
+      jQuery('.bxslider>li').attr('tabindex','-1');
+      jQuery('.bxslider>li a').attr('tabindex','-1');
+      jQuery('.bx-viewport').attr('tabindex','0');
+    },
+    onSlideBefore: function(slideElement, oldIndex, newIndex){
+      jQuery('.bxslider>li').eq(oldIndex+1).removeAttr('class').attr('tabindex','-1');
+      jQuery('.bxslider>li').eq(oldIndex+1).find('a').attr('tabindex','-1');
+      jQuery('.bxslider>li').eq(newIndex+1).addClass('active-slide').attr('tabindex','0');
+      jQuery('.bxslider>li').eq(newIndex+1).find('a').attr('tabindex','0');
+    }
+  });
+  jQuery(document).on('focus','.bx-viewport', function(){
+        jQuery('.slidersubwrpr').addClass('focused');
+  });
+  jQuery(document).on('blur','.bx-viewport', function(){
+        jQuery('.slidersubwrpr').removeClass('focused');
+  });
+  jQuery(document).on('focus','.bx-viewport, .bxslider li a',function(){
+    jQuery(this).closest(".bx-viewport").trigger("mouseenter");
+    slider.stopAuto();
+  });
+  jQuery(document).on('focusout','.bx-viewport, .bxslider li a',function(){
+    jQuery(this).closest(".bx-viewport").trigger("mouseleave");
+    slider.startAuto();
   });
   jQuery(".cstmaccordiandv").click(function(){
 	 if(jQuery(this).children('i').hasClass("fa-caret-right"))
@@ -144,13 +172,24 @@ jQuery(document).ready(function(){
     e.preventDefault ? e.preventDefault() : e.returnValue = false;
     togglemodal(hst,0);
   })
+  /* Close Modal */
+  jQuery(document).on('click','.stry-video-close', function(e){
+    e.preventDefault ? e.preventDefault() : e.returnValue = false;
+    togglemodal(hst,0);
+  })
+  /* Close Modal on escape, enter and space key press when focus is on modal close button */
+  jQuery(document).on('keydown','.stry-video-close', function(e){
+    if (e.key == "Escape" || e.key == "Esc" || e.key == "Enter" || e.keyCode == 13 || e.keyCode == 32 ) { 
+      jQuery('.stry-video-close').trigger("click");
+    }
+  })
   jQuery(document).on("keydown", function(e) {
    if (e.key == "Escape" || e.key == "Esc") { 
      // escape key maps to keycode `27`
      togglemodal(hst,0);
     }
   });
-  window.setInterval(checkFocus, 1000); 
+  //window.setInterval(checkFocus, 1000); 
 });
 
 function togglemodal(hst, bol){

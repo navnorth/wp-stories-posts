@@ -20,7 +20,9 @@ function oet_story_func($attr, $content = null) {
     $attr_bg = "";
     $styles = "";
     $styles_attrs = array();
-    
+    $attr_title = "";
+    $attr_content = "";
+    $style = "";
     if (is_array($attr))
         extract($attr);
         if (is_admin()) {
@@ -47,7 +49,6 @@ function oet_story_func($attr, $content = null) {
     
         // Story Url
         $attr_url = get_story_url_from_id($id);
-        
         $attr_title = '<h1><a href="'.$attr_url.'">'.$title.'</a></h1>';
         
         //Background
@@ -66,10 +67,12 @@ function oet_story_func($attr, $content = null) {
     }
     
     //Set Alignment
+    $alignment = (isset($alignment))?$alignment:false;
     if ($alignment)
             $class_attrs[] = "pull-".$alignment;
             
     //Set Color
+    $callout_color = (isset($callout_color))?$callout_color:false;
     if ($callout_color){
 
             $color_class = $callout_color;
@@ -93,6 +96,8 @@ function oet_story_func($attr, $content = null) {
     }
     
     //Set Type
+    $attr_type = '';
+    $callout_type = (isset($callout_type))?$callout_type:false;
     if ($callout_type){
             $attr_type = $callout_type;
             $class_attrs[] = "pull-out-box";

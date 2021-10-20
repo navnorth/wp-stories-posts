@@ -97,7 +97,14 @@ function story_custom_metaboxes()
 
 function create_stories_metabox()
 {
-	global $post, $characteristics, $districtsize;
+	global $post, $characteristics, $districtsize, $wpdb;
+
+	$story_address_latitude = "";
+	$story_address_longitude = "";
+	$story_zipcode = "";
+	$story_mapaddress = "";
+	$table_name = $wpdb->prefix . "scp_stories";
+
 	$story_video 		= get_post_meta($post->ID, "story_video", true);
 	$story_video_host 	= get_post_meta($post->ID, "story_video_host", true);
 	$story_highlight 	= get_post_meta($post->ID, "story_highlight", true);
@@ -107,17 +114,25 @@ function create_stories_metabox()
 	$story_mapaddress 	= get_post_meta($post->ID, "story_mapaddress", true);
 	$story_zipcode 		= get_post_meta($post->ID, "story_zipcode", true);
 	$story_sidebar_content = get_post_meta($post->ID, "story_sidebar_content", true);
+	$refresh_img = SCP_URL . 'images/refresh.png';
+
+	$stories = scp_get_coordinates($post->ID);
+	if (count($stories)>0){
+		$story_address_latitude = $stories[0]->latitude;
+		$story_address_longitude = $stories[0]->longitude;
+	}
 
 	$return = '';
+
 		$return .= '<div class="scp_adtnalflds">';
 			$return .= '<div class="wrprtext">Video ID</div>';
-			$return .= '<div class="wrprfld"><input type="text" name="story_video" value="'.$story_video.'" /></div>';
+			$return .= '<div class="wrprfld"><input type="text" class="half-field-width" name="story_video" value="'.$story_video.'" /></div>';
 		$return .= '</div>';
 
 		$return .= '<div class="scp_adtnalflds">';
 			$return .= '<div class="wrprtext">Video Host</div>';
 			$return .= '<div class="wrprfld">
-					<select name="story_video_host">
+					<select name="story_video_host" class="half-field-width">
 						<option value="0">Select Video Host</option>';
 			$status = ($story_video_host=="1")?"selected":"";
 			$return .=		'<option value="1" '.$status.'>YouTube</option>';
@@ -152,12 +167,29 @@ function create_stories_metabox()
 							<input type="text" name="story_school" value="'. $story_school .'" />
 							<span>Institution</span>
 							<input type="text" name="story_institution" value="'. $story_institution .'" />
+						</div>
+						<div class="wrprfld gmap-address">
 							<span>Map Address</span>
-							<input type="text" name="story_mapaddress" value="'. $story_mapaddress .'" />
-							<span>Zipcode</span>
-							<input type="text" name="story_zipcode" value="'. $story_zipcode .'" />
+							<input type="text" id="story-mapaddress" name="story_mapaddress" value="'. $story_mapaddress .'" />
+							<span class="gmap-label">Zipcode</span>
+							<input type="text" id="story-zipcode" name="story_zipcode" value="'. $story_zipcode .'" />
 						</div>';
 		$return .= '</div>';
+
+		$return .= '<div class="scp_adtnalflds gmap-coordinates">';
+			$return .= '<div class="wrprtext">Coordinates</div>';
+			$return .= '<div class="wrprfld">
+							<span class="map-coord-label">Latitude</span>
+							<input type="text" id="map-latitude" class="map-coord-field"  name="story_address_latitude" value="'. $story_address_latitude .'" />
+							<span class="map-coord-label coord-label-2">Longitude</span>
+							<input type="text" id="map-longitude"  class="map-coord-field" name="story_address_longitude" value="'. $story_address_longitude .'" />
+							<button type="button" class="map-refresh-btn button" title="Refresh Map"><img src="'.$refresh_img.'" height="24" width="24" /></button>
+						</div>
+					</div>';
+		$return .= '<div id="map-error-msg" class="map-error-msg"></div>';
+		$return .= '<div class="map-display"><div id="map"></div><div id="infowindow-content">
+      					<span id="place-name" class="title"></span><br />
+      					<span id="place-address"></span></div></div>';
 
 		$return .= '<div class="scp_adtnalflds">';
 			$return .= '<div class="wrprtext">Additional Sidebar Content</div>';
@@ -166,7 +198,166 @@ function create_stories_metabox()
 						</div>';
 		$return .= '</div>';
 
+		$return .= '<script type="text/javascript">
+					let map;
+					/* Initialize Map */
+					function initMap() {
+  						map = new google.maps.Map(document.getElementById("map"), {
+    							center: { lat: 40.715618, lng: -74.011133 },
+    							zoom: 8,
+  								});
+  						const input = document.getElementById("story-mapaddress");
+  						const zip = document.getElementById("story-zipcode");
+  						const lat = document.getElementById("map-latitude");
+  						const lng = document.getElementById("map-longitude");
+  						const err = document.getElementById("map-error-msg");
+  						const options = {
+				          componentRestrictions: { country: "us" },
+				          fields: ["formatted_address", "geometry", "name"],
+				          origin: map.getCenter(),
+				          strictBounds: false,
+				          types: ["address"],
+				        };
+
+				        /* Autocomplete binding */
+				        const autocomplete = new google.maps.places.Autocomplete(
+          					input,
+          					options
+        				);
+        				autocomplete.bindTo("bounds", map);';
+
+        if (!empty($story_address_latitude) && !empty($story_address_longitude)) {
+        	$return .= 'const marker = new google.maps.Marker({
+						    map,
+						    anchorPoint: new google.maps.Point(0, -29),
+						});
+						marker.setVisible(false);
+						var loc = new google.maps.LatLng('.$story_address_latitude.', '.$story_address_longitude.');
+						map.setCenter(loc);
+						map.setZoom(15);
+						marker.setPosition(loc);
+						marker.setVisible(true);
+						';
+        } else {
+        	$return .= 'const marker = new google.maps.Marker({
+						    map,
+						    anchorPoint: new google.maps.Point(0, -29),
+						});';
+        }
+
+		$return .= 'autocomplete.addListener("place_changed", () => {
+    						marker.setVisible(false);
+    						const place = autocomplete.getPlace();
+    						if (!place.geometry) {
+    							err.textContent = "No details available for input: " + place.name + "";
+      							return;
+    						}
+    						if (place.geometry.viewport) {
+						      map.fitBounds(place.geometry.viewport);
+						    } else {
+						      map.setCenter(place.geometry.location);
+						      map.setZoom(15);
+						    }
+
+						    const geocoder = new google.maps.Geocoder();
+						    const address = input.value;
+						    geocoder.geocode({ address: address }, (results, status) => {
+							    if (status === "OK") {
+							    	console.log(results);
+							      if (results.length>0){
+							      	let address_components = results[0].address_components;
+							      	address_components.map(function(component){
+							      		if (component.types.indexOf("postal_code")!==-1){
+							      			zip.value = component.long_name;
+							      		}
+							      	});
+							      }
+							    } else {
+							      err.textContent = "Geocode was not successful for the following reason: " + status;
+							    }
+							  });
+
+						    marker.setPosition(place.geometry.location);
+						    marker.setVisible(true);
+						    input.textContent = place.formatted_address;
+						    let xlat = place.geometry.location.lat();
+						    let xlng = place.geometry.location.lng();
+						    lat.value = xlat;
+						    lng.value = xlng;
+						});';
+		$return .= 'map.addListener("click", (mapsMouseEvent) => {
+						console.log(mapsMouseEvent.latLng);
+						let xlat = mapsMouseEvent.latLng.lat();
+				    	let xlng = mapsMouseEvent.latLng.lng();
+						const latlng = {
+						    lat: parseFloat(xlat),
+						    lng: parseFloat(xlng)
+					    };
+					    marker.setVisible(false);
+
+					    const geocoder = new google.maps.Geocoder();
+					    const address = input.value;
+					    geocoder.geocode({ location: latlng }, (results, status) => {
+					    if (status === "OK") {
+					      if (results[0]) {
+					      	input.value = results[0].formatted_address;
+					      	let address_components = results[0].address_components;
+					      	address_components.map(function(component){
+					      		if (component.types.indexOf("postal_code")!==-1){
+					      			zip.value = component.long_name;
+					      		}
+					      	});
+					        /*const marker = new google.maps.Marker({
+					          anchorPoint: new google.maps.Point(0, -29),
+					          map: map,
+					        });*/
+					        marker.setVisible(false);
+					        var loc = new google.maps.LatLng(latlng.lat, latlng.lng);
+					        map.setCenter(loc);
+					        map.setZoom(15);
+					        marker.setPosition(loc);
+					        marker.setVisible(true);
+					      } else {
+					        jQuery("#map-error-msg").html("No results found").show();
+					        window.setTimeout(function(){ jQuery("#map-error-msg").hide(); },5000)
+					      }
+					    } else {
+					      jQuery("#map-error-msg").html("Geocoder failed due to: " + status).show();
+					      window.setTimeout(function(){ jQuery("#map-error-msg").hide(); },5000)
+					    }
+					  });
+
+				    //input.textContent = place.formatted_address;
+				    
+				    lat.value = xlat;
+				    lng.value = xlng;
+					});';
+		$return .=	'}
+				</script>';
+		$return .= initialize_stories_map();
+		$return .= '<style>#map { height:100%; min-height:400px; }</style>';
+
 	echo $return;
+}
+
+function initialize_stories_map(){
+	global $_googleapikey;
+	global $post;
+	if (isset($_googleapikey) && $post->post_type=='stories')
+		return '<script src="https://maps.googleapis.com/maps/api/js?key='.$_googleapikey.'&callback=initMap&libraries=places"></script>';
+}
+
+// Add map JS reference
+add_action('admin_enqueue_scripts','scp_add_map_js');
+function scp_add_map_js(){
+	global $post;
+	global $_googleapikey;
+	if (is_object($post)){
+		if ($post->post_type=="stories"){
+			wp_enqueue_script('scp-map-script', SCP_URL.'js/scp_map.js', array('jquery'));
+			wp_localize_script('scp-map-script', 'googlemap', array( 'apikey' => $_googleapikey ));
+		}
+	}
 }
 
 add_action('save_post', 'save_askquestion_metabox');
@@ -207,6 +398,9 @@ function save_askquestion_metabox()
 	if(isset($_POST['story_zipcode']) && !empty($_POST['story_zipcode']))
 	{
 		update_post_meta($post->ID, "story_zipcode", $_POST['story_zipcode']);
+	} else {
+		if (is_object($post) && get_post_meta($post->ID, "story_zipcode"))
+			update_post_meta($post->ID, "story_zipcode", "");
 	}
 
 	if(isset($_POST['story_districtsize']) && !empty($_POST['story_districtsize']))
@@ -214,17 +408,27 @@ function save_askquestion_metabox()
 		update_post_meta($post->ID, "story_districtsize", $_POST['story_districtsize']);
 	}
 
+	//update_post_meta($post->ID, "story_mapaddress", $_POST['story_mapaddress']);
 	if(isset($_POST['story_mapaddress']) && !empty($_POST['story_mapaddress']))
 	{
 		update_post_meta($post->ID, "story_mapaddress", $_POST['story_mapaddress']);
-		$latlong = get_latitude_longitude($_POST['story_mapaddress']);
+		/*$latlong = get_latitude_longitude($_POST['story_mapaddress']);
 		if($latlong)
 		{
         	$map = explode(',' ,$latlong);
         	$mapLatitude = $map[0];
         	$mapLongitude = $map[1];
 			save_metadata($post->ID, $mapLatitude, $mapLongitude);
-		}
+		}*/
+	} else {
+		if (is_object($post) && get_post_meta($post->ID, "story_mapaddress"))
+			update_post_meta($post->ID, "story_mapaddress", "");
+	}
+
+	if (isset($_POST['story_address_latitude']) && isset($_POST['story_address_longitude'])){
+		$mapLatitude = $_POST['story_address_latitude'];
+        $mapLongitude = $_POST['story_address_longitude'];
+		save_metadata($post->ID, $mapLatitude, $mapLongitude);
 	}
 
 	if(isset($_POST['story_sidebar_content']))
@@ -234,8 +438,10 @@ function save_askquestion_metabox()
 	}
 	else
 	{
-		$story_characteristic = serialize(array());
-		update_post_meta($post->ID, "story_characteristic", $story_characteristic);
+		if (is_object($post)){
+			$story_characteristic = serialize(array());
+			update_post_meta($post->ID, "story_characteristic", $story_characteristic);
+		}
 	}
 
 	if(isset($_POST['story_sidebar_content']) && !empty($_POST['story_sidebar_content']))
@@ -264,6 +470,18 @@ function save_metadata($postid, $mapLatitude, $mapLongitude)
 		$wpdb->get_results("INSERT into $table_name (postid, title, content, image, longitude, latitude) VALUES ($postid, '$title', '$content', '$image', '$mapLongitude', '$mapLatitude')");
 	}
 }
+
+//Get Stories Coordinates
+function scp_get_coordinates($postid)
+{
+	global $wpdb;
+	$table_name = $wpdb->prefix . "scp_stories";
+
+	$results = $wpdb->get_results("select * from $table_name where postid=$postid");
+	
+	return $results;
+}
+
 //function for get longitude and latitude
 function get_latitude_longitude($address)
 {
@@ -271,9 +489,10 @@ function get_latitude_longitude($address)
 
     $address = str_replace(" ", "+", $address);
 
-    $json = file_get_contents("http://maps.google.com/maps/api/geocode/json?address=$address&sensor=false");
+    $json = file_get_contents("https://maps.google.com/maps/api/geocode/json?address=$address&sensor=false&key=".$_googleapikey);
 
     $json = json_decode($json);
+   
 	if(!empty($json))
 	{
     	$lat = $json->{'results'}[0]->{'geometry'}->{'location'}->{'lat'};
@@ -294,6 +513,7 @@ function generate_state_dropdown($id, $taxonomy, $taxonomy_name, $level = null) 
 			'fields'	=>	'ids',
 			'hide_empty'	=> 	false);
 	$state_ids = get_terms('state', $args);
+	$stateoption = "";
 	
 	if ($level=="P-12")
 		$grade_level = array("Early Childhood Education","P-12");
@@ -539,6 +759,11 @@ function get_stories_side_nav($taxonomy=NULL, $taxonomy_name=NULL, $search_text=
             	<?php _e( "Use this tool to browse stories of innovation happening in schools across the nation. By sharing these stories, we hope to connect districts, schools, and educators trying similar things so that they can learn from each other's experiences.", SCP_SLUG); ?>
             </p>
 
+        <?php 	$archive_notice = get_option('enable_archive_notice');
+            	$archive_notice_content = get_option('archive_notice_content');
+    		if ( ($archive_notice=="1" || $archive_notice=="on" ) & $archive_notice_content!=="" ): ?>
+            	<div class="archived-disclaimer"><?php echo $archive_notice_content; ?></div>
+        	<?php endif; ?>
             <h4 class="hdng_mtr brdr_mrgn_none stry_browse_header">Browse Stories</h4>
 	    <div id="story-tabs">
 	<?php
@@ -571,7 +796,7 @@ function get_stories_side_nav($taxonomy=NULL, $taxonomy_name=NULL, $search_text=
 		<div id="all" class="story-tab">
 			<?php if ($_filters['state']==1): ?>
 			<div class="srchtrmbxs">
-			    <ul class="cstmaccordian">
+			    <div class="cstmaccordian">
 				    <div class="cstmaccordiandv">
 				    <?php
 								    if(isset($taxonomy) && !empty($taxonomy) && $taxonomy == 'state'):
@@ -586,12 +811,12 @@ function get_stories_side_nav($taxonomy=NULL, $taxonomy_name=NULL, $search_text=
 				    <a tabindex="0" title="<?php echo $accordian_title; ?> State Menu" class="accordian_section_title">State</a>
 				</div>
 				<?php echo $stateoption; ?>
-			    </ul>
+			    </div>
 			</div>
 			<?php endif; ?>
 			<?php if ($_filters['grade_level']==1): ?>
 			<div class="srchtrmbxs">
-			    <ul class="cstmaccordian">
+			    <div class="cstmaccordian">
 				    <div class="cstmaccordiandv">
 				    <?php
 								    if(isset($taxonomy) && !empty($taxonomy) && $taxonomy == 'grade_level'):
@@ -606,7 +831,7 @@ function get_stories_side_nav($taxonomy=NULL, $taxonomy_name=NULL, $search_text=
 				    <a tabindex="0" title="<?php echo $accordian_title; ?> Grade Menu" class="accordian_section_title">Level</a>
 				</div>
 				<?php echo $gradeoption; ?>
-			    </ul>
+			    </div>
 			</div>
 			<?php endif; ?>
 		</div>
@@ -616,7 +841,7 @@ function get_stories_side_nav($taxonomy=NULL, $taxonomy_name=NULL, $search_text=
 			<?php if ($_filters['state']==1): ?>
 			<?php $state2option = generate_state_dropdown('statedropdown2', $taxonomy, $taxonomy_name, "P-12"); ?>
 			<div class="srchtrmbxs">
-			    <ul class="cstmaccordian">
+			    <div class="cstmaccordian">
 				    <div class="cstmaccordiandv">
 				    <?php
 								    if(isset($taxonomy) && !empty($taxonomy) && $taxonomy == 'state'):
@@ -631,13 +856,13 @@ function get_stories_side_nav($taxonomy=NULL, $taxonomy_name=NULL, $search_text=
 				    <a tabindex="0" title="<?php echo $accordian_title; ?> State Menu" class="accordian_section_title">State</a>
 				</div>
 				<?php echo $state2option; ?>
-			    </ul>
+			    </div>
 			</div>
 			<?php endif; ?>
 			
 			<?php if ($_filters['characteristics']==1): ?>
 			<div class="srchtrmbxs">
-				<ul class="cstmaccordian">
+				<div class="cstmaccordian">
 					<div class="cstmaccordiandv">
 					<?php
 									if(isset($taxonomy) && !empty($taxonomy) && $taxonomy == 'characteristics'):
@@ -652,13 +877,13 @@ function get_stories_side_nav($taxonomy=NULL, $taxonomy_name=NULL, $search_text=
 					<a tabindex="0" title="<?php echo $accordian_title; ?> Community Type Menu" class="accordian_section_title">Community Type</a>
 				    </div>
 				    <?php echo $district_locationoption; ?>
-				</ul>
+				</div>
 			</div>
 			<?php endif; ?>
 			
 			<?php if ($_filters['district_size']==1): ?>
 			<div class="srchtrmbxs">
-				<ul class="cstmaccordian">
+				<div class="cstmaccordian">
 				    <div class="cstmaccordiandv">
 					<?php
 									if(isset($taxonomy) && !empty($taxonomy) && $taxonomy == 'districtsize'):
@@ -673,7 +898,7 @@ function get_stories_side_nav($taxonomy=NULL, $taxonomy_name=NULL, $search_text=
 					<a tabindex="0" title="<?php echo $accordian_title; ?> District Enrollment Menu" class="accordian_section_title">District Enrollment</a>
 				    </div>
 				    <?php echo $district_sizeoption; ?>
-				</ul>
+				</div>
 			</div>
 			<?php endif; ?>
 		</div>
@@ -683,7 +908,7 @@ function get_stories_side_nav($taxonomy=NULL, $taxonomy_name=NULL, $search_text=
 			<?php if ($_filters['state']==1): ?>
 			<?php $state3option = generate_state_dropdown('statedropdown3', $taxonomy, $taxonomy_name, "Postsecondary"); ?>
 			<div class="srchtrmbxs">
-			    <ul class="cstmaccordian">
+			    <div class="cstmaccordian">
 				    <div class="cstmaccordiandv">
 				    <?php
 								    if(isset($taxonomy) && !empty($taxonomy) && $taxonomy == 'state'):
@@ -698,14 +923,14 @@ function get_stories_side_nav($taxonomy=NULL, $taxonomy_name=NULL, $search_text=
 				    <a tabindex="0" title="<?php echo $accordian_title; ?> State Menu" class="accordian_section_title">State</a>
 				</div>
 				<?php echo $state3option; ?>
-			    </ul>
+			    </div>
 			</div>
 			<?php endif; ?>
 			
 			
 			<?php if ($_filters['institutiontype']==1): ?>
 			<div class="srchtrmbxs">
-				<ul class="cstmaccordian">
+				<div class="cstmaccordian">
 				    <div class="cstmaccordiandv">
 					<?php
 						if(isset($taxonomy) && !empty($taxonomy) && $taxonomy == 'institutiontype'):
@@ -720,13 +945,13 @@ function get_stories_side_nav($taxonomy=NULL, $taxonomy_name=NULL, $search_text=
 					<a tabindex="0" title="<?php echo $accordian_title; ?> Institution Type Menu" class="accordian_section_title">Institution Type</a>
 				    </div>
 				    <?php echo $institutiontype_option; ?>
-				</ul>
+				</div>
 			</div>
 			<?php endif; ?>
 			
 			<?php if ($_filters['institutionenrollment']==1): ?>
 			<div class="srchtrmbxs">
-				<ul class="cstmaccordian">
+				<div class="cstmaccordian">
 				    <div class="cstmaccordiandv">
 					<?php
 						if(isset($taxonomy) && !empty($taxonomy) && $taxonomy == 'institutionenrollment'):
@@ -741,7 +966,7 @@ function get_stories_side_nav($taxonomy=NULL, $taxonomy_name=NULL, $search_text=
 					<a tabindex="0" title="<?php echo $accordian_title; ?> Institution Enrollment Menu" class="accordian_section_title">Institution Enrollment</a>
 				    </div>
 				    <?php echo $institution_option; ?>
-				</ul>
+				</div>
 			</div>
 			<?php endif; ?>
 		</div>
@@ -904,8 +1129,8 @@ function get_story_search($search_text=NULL, $taxonomy=NULL, $taxonomy_name=NULL
 				<form action="'.site_url().'/stories/" class="search-form searchform clearfix" method="get" _lpchecked="1">
 					<div class="search-wrap">
 						<input type="hidden" name="action" value="search">
-						<input type="text" placeholder="Search stories..." class="s field" name="search_text"'. $search_value .'>
-						<button class="search-icon" type="submit"></button>
+						<input type="text" placeholder="Search stories..." class="s field" aria-label="search stories" name="search_text"'. $search_value .'>
+						<button class="search-icon" type="submit" aria-label="Search"></button>
 					</div>
 				</form><!-- .searchform -->
 			</div>';

@@ -3,14 +3,14 @@
  Plugin Name:  Story Custom Post Type
  Plugin URI:   https://www.navigationnorth.com/solutions/wordpress/stories-plugin
  Description:  Stories as a custom post type, with custom metadata and display.
- Version:      0.9.3
+ Version:      0.9.8
  Author:       Navigation North
  Author URI:   http://www.navigationnorth.com
  Text Domain:  wp-stories-posts
  License:      GPL3
  License URI:  https://www.gnu.org/licenses/gpl-3.0.html
 
- Copyright (C) Navigation North
+ Copyright (C) 2021 Navigation North
 
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -38,7 +38,7 @@ define( 'SCP_SLUG','wp-stories-posts' );
 define( 'SCP_FILE',__FILE__);
 define( 'SCP_PLUGIN_NAME' , 'Story Custom Post Type' );
 define( 'SCP_PLUGIN_INFO' , 'https://www.navigationnorth.com/solutions/wordpress/stories-plugin' );
-define( 'SCP_VERSION' , '0.9.3');
+define( 'SCP_VERSION' , '0.9.8');
 
 include_once(SCP_PATH.'init.php');
 include_once(SCP_PATH.'/includes/widgets.php');
@@ -152,7 +152,8 @@ function scp_frontside_scripts()
 	}
 
 	wp_enqueue_script('jquery');
-	if ($post->post_type=="stories") {
+	$_cstmPostType = (isset($post->post_type))?$post->post_type:'';
+	if ($_cstmPostType=="stories") {
 		wp_enqueue_script('front-scripts', SCP_URL.'js/front_scripts.js');
 	}
 	wp_enqueue_script('bxslider-scripts', SCP_URL.'js/jquery.bxslider.min.js');
@@ -532,45 +533,61 @@ function get_storiesmap($pageposts=NULL)
 
                     var iconCounter = 0;
 
-                    // Add the markers and infowindows to the map
-                    for (var i = 0; i < locations.length; i++)
-                    {
-			iconSVG.fillColor = locations[i][4]
-			marker = new google.maps.Marker({
-			position: new google.maps.LatLng(locations[i][1], locations[i][2], locations[i][3], locations[i][4], locations[i][5]),
-			map: map,
-			title : locations[i][3],
-			icon : iconSVG,
-			shadow: shadow
-		      });
-
-                          markers.push(marker);
-
-                          google.maps.event.addListener(marker, 'click', (function(marker, i)
-                          {
-                            return function() {
-                              infowindow.setContent(locations[i][0]);
-                              infowindow.open(map, marker);
-                            }
-                          })(marker, i));
-
-                          iconCounter++;
-                          if(iconCounter >= icons_length)
-                          {
-                            iconCounter = 0;
-                          }
-                    }
-
                     function AutoCenter()
                     {
-                      var bounds = new google.maps.LatLngBounds();
-                      jQuery.each(markers, function (index, marker)
-                      {
-                        bounds.extend(marker.position);
-                      });
-                      map.fitBounds(bounds);
+                      	var bounds = new google.maps.LatLngBounds();
+                      	jQuery.each(markers, function (index, marker)
+						{
+							bounds.extend(marker.position);
+						});
+                    	map.fitBounds(bounds);
+                    	if (markers.length==1) {
+	                      	var listener = google.maps.event.addListener(map, "idle", function() {
+								  if (map.getZoom() > 16) map.setZoom(16);
+								  google.maps.event.removeListener(listener);
+							});
+						}
                     }
-                    AutoCenter();
+
+                    // Add the markers and infowindows to the map
+                    if (jQuery.isArray(locations[0]) && locations.length>0) {
+	                    for (var i = 0; i < locations.length; i++)
+	                    {
+	                    	if (typeof locations[i][4] !== 'undefined')
+								iconSVG.fillColor = locations[i][4];
+
+							if (typeof locations[i][1] !== 'undefined')	{
+								marker = new google.maps.Marker({
+									//position: new google.maps.LatLng(locations[i][1], locations[i][2], locations[i][3], locations[i][4], locations[i][5]),
+									position: new google.maps.LatLng(locations[i][1], locations[i][2]),
+									map: map,
+									title : locations[i][3],
+									icon : iconSVG,
+									shadow: shadow
+						    	});
+
+	                          	markers.push(marker);
+
+		                        google.maps.event.addListener(marker, 'click', (function(marker, i)
+		                        {
+		                            return function() {
+		                              infowindow.setContent(locations[i][0]);
+		                              infowindow.open(map, marker);
+		                            }
+		                        })(marker, i));
+
+		                        iconCounter++;
+		                        if(iconCounter >= icons_length)
+		                        {
+		                            iconCounter = 0;
+		                        }
+	                        }
+	                    }
+	                    AutoCenter();
+	                } else {
+	                	map.setCenter(new google.maps.LatLng(40.812955, -100.907613));
+	                	map.setZoom(4);
+	            	}
 
                     // load the accessibility hacks for the map
                     jQuery(document).gmaps();
@@ -778,6 +795,48 @@ function setup_settings_form() {
 			)
 			   );
 
+	/* Enable Vimeo Thumbnail Fetching */
+	add_settings_field(
+			'enable_vimeo_thumbnail',
+			__( 'Enable Vimeo Thumbnail Fetching?' , SCP_SLUG ),
+			'setup_settings_field',
+			'stories-settings-page',
+			'stories-settings-section',
+			array(
+				'uid' => 'enable_vimeo_thumbnail',
+				'type' => 'checkbox',
+				'description' => __('enable fetching of Vimeo Thumbnail via API', SCP_SLUG)
+			)
+			   );
+
+	/* Enable Archive Notice */
+	add_settings_field(
+		'enable_archive_notice',
+		__( 'Archive Notice Enabled?' , SCP_SLUG ),
+		'setup_settings_field',
+		'stories-settings-page',
+		'stories-settings-section',
+		array(
+			'uid' => 'enable_archive_notice',
+			'type' => 'checkbox',
+			'description' => __('display the archive notice on the main page of the Stories plugin', SCP_SLUG)
+		)
+	);
+
+	/* Archive Notice Content */
+	add_settings_field(
+		'archive_notice_content',
+		__( 'Archive Notice Content:' , SCP_SLUG ),
+		'setup_settings_field',
+		'stories-settings-page',
+		'stories-settings-section',
+		array(
+			'uid' => 'archive_notice_content',
+			'type' => 'textarea',
+			'description' => __('content of the archive notice to display', SCP_SLUG)
+		)
+	);
+
 	register_setting( 'stories-settings-section' , 'load_bootstrap' );
 	register_setting( 'stories-settings-section' , 'load_font_awesome' );
 	register_setting( 'stories-settings-section' , 'google_api_key' );
@@ -789,6 +848,9 @@ function setup_settings_form() {
 	register_setting( 'stories-settings-section' , 'enable_institution_type' );
 	register_setting( 'stories-settings-section' , 'enable_embed' );
 	register_setting( 'stories-settings-section' , 'enable_youtube_check' );
+	register_setting( 'stories-settings-section' , 'enable_vimeo_thumbnail' );
+	register_setting( 'stories-settings-section' , 'enable_archive_notice' );
+	register_setting( 'stories-settings-section' , 'archive_notice_content' );
 }
 
 function first_section_callback() {
@@ -798,14 +860,17 @@ function first_section_callback() {
 function setup_settings_field( $arguments ) {
 	$selected = "";
 	$size = "";
+	$chkClass = "";
+	$textareasize = 'rows="5" cols="60"';
 
 	$value = get_option($arguments['uid']);
 
 	if ($arguments['type']=="textbox") {
-		$size = 'size="50"';
+		$size = 'size="60"';
 	}
 
 	if ($arguments['type']=="checkbox"){
+		$chkClass = " cb-desc";
 		if ($value==1 || $value=="on")
 			$selected = "checked='checked'";
 		else{
@@ -813,7 +878,11 @@ function setup_settings_field( $arguments ) {
 		}
 	}
 
-	echo '<input name="'.$arguments['uid'].'" id="'.$arguments['uid'].'" type="'.$arguments['type'].'" value="' . $value . '" ' . $size . ' ' .  $selected . ' />';
+	if ($arguments['type']=="textarea") {
+		echo '<textarea name="'.$arguments['uid'].'" id="'.$arguments['uid'].'" '.$textareasize.'>'.$value.'</textarea>';
+	} else {
+		echo '<input name="'.$arguments['uid'].'" id="'.$arguments['uid'].'" type="'.$arguments['type'].'" value="' . $value . '" ' . $size . ' ' .  $selected . ' />';
+	}
 
 	//Show Helper Text if specified
 	if (isset($arguments['helper'])) {
@@ -823,7 +892,7 @@ function setup_settings_field( $arguments ) {
 
 	//Show Description if specified
 	if( $description = $arguments['description'] ){
-		printf( '<p class="description">%s</p>', $description );
+		printf( '<p class="description%s">%s</p>', $chkClass, $description );
 	}
 }
 

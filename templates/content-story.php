@@ -11,6 +11,16 @@ include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
 function add_vimeo_script(){
     $script_url = SCP_URL."js/vimeo.ga.min.js";
     $tracking_script = "<script type='text/javascript' src='".$script_url."'></script>";
+    $tracking_script .= '<script type="text/javascript">
+                            jQuery(document).ready(function($){
+                                vidid = $(".modal-video-thumbnail").attr("data-video-id");
+                                if (vidid) {
+                                    $.getJSON("https://vimeo.com/api/oembed.json?url=https://vimeo.com/" + vidid, {format: "json"}, function(data) {
+                                        $(".modal-video-thumbnail").attr("src", data.thumbnail_url);
+                                    });
+                                }
+                            });
+                        </script>';
     echo $tracking_script;
 }
 ?>
@@ -54,46 +64,46 @@ function add_vimeo_script(){
         $origin = get_site_url();
         $video_url = "https://www.youtube.com/embed/".$video_id."?enablejsapi=1&#038;origin=".$origin;
 
-    ?>
-            <div class="col-md-12 col-sm-12 col-xs-12 noborder nomargintop">
-		<div class="<?php if ($story_video_host==1): ?>video-wrap<?php else: ?>vid-wrap<?php endif; ?>">
-		    <?php if ($story_video_host==1) {
-			$enable_youtube_check = get_option('enable_youtube_check');
-			if (!empty($enable_youtube_check)) {
-			    if (isYoutubeVideoExists($video_id)) { 
-				if(!is_numeric($video_id)){
-				  echo get_modal_video_link($story_video_host,$video_id);
-				} ?>
-			    <?php } else {
-				$script = "<script>\n ".
-					    "jQuery(document).ready(function(e) { \n".
-					    "	ga('send',  'event', 'Story Video: " . $post->post_title . "', 'Failed', '". $video_id."'  ); \n".
-					    "}); \n ".
-					    "</script>";
-				echo $script;
-				
-				if (isset($img_url) && !empty($img_url)){
-				    echo displayImage($img_url, $img_alt);
-				}
-				
-			    }
-			} else {
-			    if(!is_numeric($video_id)){
-				echo get_modal_video_link($story_video_host,$video_id);
-			    }
-			}
-		     } else { ?>
-			<!--<iframe id="ytvideo" src="<?php echo $video_url; ?>" <?php if ($story_video_host==2) echo "data-progress='true' data-seek='true' data-bounce='true'"; ?> height="250"></iframe>-->
-        <?php
-        if(is_numeric($video_id)){
-          echo get_modal_video_link($story_video_host,$video_id);
-        } ?>
+        ?>
+        <div class="col-md-12 col-sm-12 col-xs-12 noborder nomargintop">
+		  <div class="<?php if ($story_video_host=='1'): ?>video-wrap<?php else: ?>vid-wrap<?php endif; ?>">
+		    <?php if ($story_video_host=="1") {
+    			$enable_youtube_check = get_option('enable_youtube_check');
+    			if (!empty($enable_youtube_check)) {
+    			    if (isYoutubeVideoExists($video_id)) { 
+        				if(!is_numeric($video_id)){
+        				  echo get_modal_video_link($story_video_host,$video_id);
+        				} ?>
+    			    <?php } else {
+        				$script = "<script>\n ".
+        					    "jQuery(document).ready(function(e) { \n".
+        					    "	ga('send',  'event', 'Story Video: " . $post->post_title . "', 'Failed', '". $video_id."'  ); \n".
+        					    "}); \n ".
+        					    "</script>";
+        				echo $script;
+    				
+        				if (isset($img_url) && !empty($img_url)){
+        				    echo displayImage($img_url, $img_alt);
+        				}
+    				
+    			    }
+    			} else {
+    			    if(!is_numeric($video_id)){
+    				echo get_modal_video_link($story_video_host,$video_id);
+    			    }
+    			}
+	        } else { ?>
+                <?php
+                $enable_vimeo_thumbnail = (get_option('enable_vimeo_thumbnail')?true:false);
+                if(is_numeric($video_id)){
+                  echo get_modal_video_link($story_video_host,$video_id, $enable_vimeo_thumbnail);
+                } ?>
         <?php } ?>  
 		</div>
-            </div>
+        </div>
 	<?php
 	    
-	    if ($story_video_host==1) {
+	    if ($story_video_host=="1") {
 		    $tracking_script = "<script type='text/javascript'>\n";
 
 		    $tracking_script .= " function loadPlayer() { \n".
@@ -196,15 +206,15 @@ function add_vimeo_script(){
 					    "</script>";
 		    echo $tracking_script;
 		}
-		elseif ($story_video_host==2) {
+		elseif ($story_video_host=="2") {
 		    add_action('wp_footer','add_vimeo_script');
 		    $video_url = "https://player.vimeo.com/video/".$video_id."?api=1&player_id=".$video_id;
-        $tracking_script = "<script src='https://player.vimeo.com/api/player.js'></script>";
-        $tracking_script .= "<script type='text/javascript'>\n"; 
-        $tracking_script .= "var iframe = document.querySelector('#ytvideo');";
-        $tracking_script .= "var vimplay = new Vimeo.Player(iframe);";
-        $tracking_script .= "</script>";
-        echo $tracking_script;
+            $tracking_script = "<script src='https://player.vimeo.com/api/player.js'></script>";
+            $tracking_script .= "<script type='text/javascript'>\n"; 
+            $tracking_script .= "var iframe = document.querySelector('#ytvideo');";
+            $tracking_script .= "var vimplay = new Vimeo.Player(iframe);";
+            $tracking_script .= "</script>";
+            echo $tracking_script;
 		}
 	?>
         <?php } ?>
@@ -323,32 +333,35 @@ function add_vimeo_script(){
 
         if(isset($districtsize) && !empty($districtsize))
             {
+                $districturl = '';
                 foreach($districtsize as $district)
                 {
                     $url = get_term_link($district->term_id, $district->taxonomy);
                     $districturl .= '<a target="_blank" href="'. $url .'">'.$district->name.'</a>, ';
                 }
-        $districturl = trim($districturl, ', ');
+                $districturl = trim($districturl, ', ');
             }
 
         if(isset($institutionenrollment) && !empty($institutionenrollment))
             {
+                $institutionurl = '';
                 foreach($institutionenrollment as $institution)
                 {
                     $url = get_term_link($institution->term_id, $institution->taxonomy);
                     $institutionurl .= '<a target="_blank" href="'. $url .'">'.$institution->name.'</a>, ';
                 }
-        $institutionurl = trim($institutionurl, ', ');
+                $institutionurl = trim($institutionurl, ', ');
             }
 
         if(isset($institutiontype) && !empty($institutiontype))
             {
+                $institutiontypeurl = '';
                 foreach($institutiontype as $type)
                 {
                     $url = get_term_link($type->term_id, $type->taxonomy);
                     $institutiontypeurl .= '<a target="_blank" href="'. $url .'">'.$type->name.'</a>, ';
                 }
-        $institutiontypeurl = trim($institutiontypeurl, ', ');
+                $institutiontypeurl = trim($institutiontypeurl, ', ');
             }
 
             if(isset($story_tags) && !empty($story_tags))

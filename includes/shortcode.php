@@ -11,7 +11,6 @@
  **/
 add_shortcode( 'oet_story' , 'oet_story_func' );
 function oet_story_func($attr, $content = null) {
-
     wp_enqueue_style('oet-story-embed', SCP_URL.'css/story.embed.css');
 
     //Default width
@@ -23,14 +22,13 @@ function oet_story_func($attr, $content = null) {
     $attr_title = "";
     $attr_content = "";
     $style = "";
-    if (is_array($attr))
-        extract($attr);
+    if (is_array($attr)){
         if (is_admin()) {
-          $_arr = getShortcodeAttr($attr);	
+          $_arr = getShortcodeAttr($attr);  
           foreach($_arr as $key => $value) $$key = $value;
-        }else{
-          extract($attr);
         }
+        extract($attr);
+    }
     
     $class_attrs[] = "story-embed-box";
     

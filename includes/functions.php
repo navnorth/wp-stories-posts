@@ -90,10 +90,15 @@ function get_videoID($id) {
  * Get Youtube Image
  **/
 function get_youtube_image($youtube_id) {
-    $youtube_url = "//img.youtube.com/vi/$youtube_id/maxresdefault.jpg";
+    // Check if maxresdefault thumbnail image is available
+    $youtube_url = "https://img.youtube.com/vi/$youtube_id/maxresdefault.jpg";
     $_image = getimagesize($youtube_url);
-    var_dump($_image);
-    //$youtube_url = "//img.youtube.com/vi/$youtube_id/sddefault.jpg";
+
+    // If not available load SDDefault version
+    if (!$_image)
+        $youtube_url = "//img.youtube.com/vi/$youtube_id/sddefault.jpg";
+    else
+        $youtube_url = "//img.youtube.com/vi/$youtube_id/maxresdefault.jpg";
     return $youtube_url;
 }
 

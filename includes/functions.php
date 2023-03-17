@@ -28,7 +28,6 @@ function get_background($id) {
             // Added this as sometimes a story returns true even there is no post thumbnail set
             if(has_youtube_video($id)){
                 $youtubeID = get_videoID($id);
-                var_dump($youtubeID);
                 $background_image_url = get_youtube_image($youtubeID);
             } elseif(has_vimeo_video($id)){
                 $vimeoID = get_videoID($id);
@@ -55,7 +54,7 @@ function has_youtube_video($id) {
     $has_video = false;
     
     $video = get_post_meta($id,'story_video_host',true);
-    var_dump($video);
+    
     if ($video=="1"){
         $has_video = true;
     }
@@ -91,7 +90,8 @@ function get_videoID($id) {
  * Get Youtube Image
  **/
 function get_youtube_image($youtube_id) {
-    $youtube_url = "//img.youtube.com/vi/$youtube_id/maxresdefault.jpg";
+    //$youtube_url = "//img.youtube.com/vi/$youtube_id/maxresdefault.jpg";
+    $youtube_url = "//img.youtube.com/vi/$youtube_id/sddefault.jpg";
     return $youtube_url;
 }
 

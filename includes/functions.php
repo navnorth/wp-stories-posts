@@ -20,7 +20,7 @@ function get_title_by_id($id) {
  **/
 function get_background($id) {
     $background_image_url = "";
-    
+    var_dump(has_post_thumbnail($id));
     if (has_post_thumbnail($id)){
         $bg_url = wp_get_attachment_image_src(get_post_thumbnail_id($id), 'full');
         var_dump($bg_url);

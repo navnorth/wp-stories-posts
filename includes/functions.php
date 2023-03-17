@@ -23,6 +23,7 @@ function get_background($id) {
     
     if (has_post_thumbnail($id)){
         $bg_url = wp_get_attachment_image_src(get_post_thumbnail_id($id), 'full');
+        var_dump($bg_url);
         $background_image_url = $bg_url[0];
     } elseif(has_youtube_video($id)){
         $youtubeID = get_videoID($id);

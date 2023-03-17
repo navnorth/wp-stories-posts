@@ -50,9 +50,7 @@ function oet_story_func($attr, $content = null) {
         $attr_title = '<h1><a href="'.$attr_url.'">'.$title.'</a></h1>';
         
         //Background
-        var_dump($id);
         $background = get_background($id);
-        var_dump($background);
         if ($background)
             $styles_attrs[] = "background:url('".$background."') no-repeat center center; background-size:cover;";
         

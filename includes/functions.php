@@ -20,15 +20,23 @@ function get_title_by_id($id) {
  **/
 function get_background($id) {
     $background_image_url = "";
-    var_dump(has_post_thumbnail($id));
     if (has_post_thumbnail($id)){
-        var_dump(get_post_thumbnail_id($id), " ", $id );
         $bg_url = wp_get_attachment_image_src(get_post_thumbnail_id($id), 'full');
-        var_dump($bg_url);
-        $background_image_url = $bg_url[0];
+        if ($bg_url)
+            $background_image_url = $bg_url[0];
+        else {
+            // Added this as sometimes a story returns true even there is no post thumbnail set
+            if(has_youtube_video($id)){
+                $youtubeID = get_videoID($id);
+                var_dump($youtubeID);
+                $background_image_url = get_youtube_image($youtubeID);
+            } elseif(has_vimeo_video($id)){
+                $vimeoID = get_videoID($id);
+                $background_image_url = get_vimeo_image($vimeoID);
+            }   
+        }
     } elseif(has_youtube_video($id)){
         $youtubeID = get_videoID($id);
-        var_dump($youtubeID);
         $background_image_url = get_youtube_image($youtubeID);
     } elseif(has_vimeo_video($id)){
         $vimeoID = get_videoID($id);

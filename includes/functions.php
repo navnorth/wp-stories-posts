@@ -22,6 +22,7 @@ function get_background($id) {
     $background_image_url = "";
     var_dump(has_post_thumbnail($id));
     if (has_post_thumbnail($id)){
+        var_dump(get_post_thumbnail_id($id), " ", $id );
         $bg_url = wp_get_attachment_image_src(get_post_thumbnail_id($id), 'full');
         var_dump($bg_url);
         $background_image_url = $bg_url[0];

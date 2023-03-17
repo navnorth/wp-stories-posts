@@ -45,7 +45,7 @@ function has_youtube_video($id) {
     $has_video = false;
     
     $video = get_post_meta($id,'story_video_host',true);
-    
+    var_dump($video);
     if ($video=="1"){
         $has_video = true;
     }

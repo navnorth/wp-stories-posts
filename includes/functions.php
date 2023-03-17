@@ -26,6 +26,7 @@ function get_background($id) {
         $background_image_url = $bg_url[0];
     } elseif(has_youtube_video($id)){
         $youtubeID = get_videoID($id);
+        var_dump($youtubeID);
         $background_image_url = get_youtube_image($youtubeID);
     } elseif(has_vimeo_video($id)){
         $vimeoID = get_videoID($id);

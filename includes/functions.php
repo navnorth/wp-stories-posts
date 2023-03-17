@@ -91,7 +91,7 @@ function get_videoID($id) {
  **/
 function get_youtube_image($youtube_id) {
     $youtube_url = "//img.youtube.com/vi/$youtube_id/maxresdefault.jpg";
-    $_image = wp_getimagesize($youtube_url);
+    $_image = getimagesize($youtube_url);
     var_dump($_image);
     //$youtube_url = "//img.youtube.com/vi/$youtube_id/sddefault.jpg";
     return $youtube_url;

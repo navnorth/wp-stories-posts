@@ -20,10 +20,20 @@ function get_title_by_id($id) {
  **/
 function get_background($id) {
     $background_image_url = "";
-    
     if (has_post_thumbnail($id)){
         $bg_url = wp_get_attachment_image_src(get_post_thumbnail_id($id), 'full');
-        $background_image_url = $bg_url[0];
+        if ($bg_url)
+            $background_image_url = $bg_url[0];
+        else {
+            // Added this as sometimes a story returns true even there is no post thumbnail set
+            if(has_youtube_video($id)){
+                $youtubeID = get_videoID($id);
+                $background_image_url = get_youtube_image($youtubeID);
+            } elseif(has_vimeo_video($id)){
+                $vimeoID = get_videoID($id);
+                $background_image_url = get_vimeo_image($vimeoID);
+            }   
+        }
     } elseif(has_youtube_video($id)){
         $youtubeID = get_videoID($id);
         $background_image_url = get_youtube_image($youtubeID);
@@ -80,7 +90,15 @@ function get_videoID($id) {
  * Get Youtube Image
  **/
 function get_youtube_image($youtube_id) {
-    $youtube_url = "//img.youtube.com/vi/$youtube_id/maxresdefault.jpg";
+    // Check if maxresdefault thumbnail image is available
+    $youtube_url = "https://img.youtube.com/vi/$youtube_id/maxresdefault.jpg";
+    $_image = getimagesize($youtube_url);
+
+    // If not available load SDDefault version
+    if (!$_image)
+        $youtube_url = "//img.youtube.com/vi/$youtube_id/sddefault.jpg";
+    else
+        $youtube_url = "//img.youtube.com/vi/$youtube_id/maxresdefault.jpg";
     return $youtube_url;
 }
 

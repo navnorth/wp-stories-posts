@@ -3,14 +3,14 @@
  Plugin Name:  Story Custom Post Type
  Plugin URI:   https://www.navigationnorth.com/solutions/wordpress/stories-plugin
  Description:  Stories as a custom post type, with custom metadata and display.
- Version:      0.9.8
+ Version:      0.9.9
  Author:       Navigation North
  Author URI:   http://www.navigationnorth.com
  Text Domain:  wp-stories-posts
  License:      GPL3
  License URI:  https://www.gnu.org/licenses/gpl-3.0.html
 
- Copyright (C) 2021 Navigation North
+ Copyright (C) 2023 Navigation North
 
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -38,7 +38,7 @@ define( 'SCP_SLUG','wp-stories-posts' );
 define( 'SCP_FILE',__FILE__);
 define( 'SCP_PLUGIN_NAME' , 'Story Custom Post Type' );
 define( 'SCP_PLUGIN_INFO' , 'https://www.navigationnorth.com/solutions/wordpress/stories-plugin' );
-define( 'SCP_VERSION' , '0.9.8');
+define( 'SCP_VERSION' , '0.9.9');
 
 include_once(SCP_PATH.'init.php');
 include_once(SCP_PATH.'/includes/widgets.php');

@@ -247,89 +247,88 @@ function add_vimeo_script(){
         </aside>
 
         <?php
-            $programs = get_the_terms( $post->ID, "program" );
-            $states = get_the_terms( $post->ID, "state" );
-            $grade_levels = get_the_terms( $post->ID, "grade_level" );
-            $story_tags = get_the_terms( $post->ID, "story_tag" );
+        $programs = get_the_terms( $post->ID, "program" );
+        $states = get_the_terms( $post->ID, "state" );
+        $grade_levels = get_the_terms( $post->ID, "grade_level" );
+        $story_tags = get_the_terms( $post->ID, "story_tag" );
         $characteristics = get_the_terms( $post->ID, "characteristics" );
         $districtsize = get_the_terms( $post->ID, "districtsize" );
         $institutionenrollment = get_the_terms( $post->ID, "institutionenrollment" );
         $institutiontype = get_the_terms( $post->ID, "institutiontype" );
 
-            $story_highlight = get_post_meta($post->ID, "story_highlight", true);
-            $story_district = get_post_meta($post->ID, "story_district", true);
-            $story_school = get_post_meta($post->ID, "story_school", true);
+        $story_highlight = get_post_meta($post->ID, "story_highlight", true);
+        $story_district = get_post_meta($post->ID, "story_district", true);
+        $story_school = get_post_meta($post->ID, "story_school", true);
         $story_institution = get_post_meta($post->ID, "story_institution", true);
-            $story_mapaddress = get_post_meta($post->ID, "story_mapaddress", true);
-            $story_sidebar_content = get_post_meta($post->ID, "story_sidebar_content", true);
+        $story_mapaddress = get_post_meta($post->ID, "story_mapaddress", true);
+        $story_sidebar_content = get_post_meta($post->ID, "story_sidebar_content", true);
 
         $districturl = "";
         $tagurl = "";
         $characteristicurl = "";
-            $tagid = array();
+        $tagid = array();
 
-            if(isset($characteristics) && !empty($characteristics))
+        if(isset($characteristics) && !empty($characteristics))
+        {
+            foreach($characteristics as $characteristic)
             {
-                foreach($characteristics as $characteristic)
-                {
-                    $url = get_term_link($characteristic->term_id, $characteristic->taxonomy);
-                    $characteristicurl .= '<a target="_blank" href="'. $url .'">'.$characteristic->name.'</a>, ';
-                }
-                $characteristicurl = trim($characteristicurl, ', ');
+                $url = get_term_link($characteristic->term_id, $characteristic->taxonomy);
+                $characteristicurl .= '<a target="_blank" href="'. $url .'">'.$characteristic->name.'</a>, ';
             }
+            $characteristicurl = trim($characteristicurl, ', ');
+        }
 
-            if(isset($states) && !empty($states))
+        if(isset($states) && !empty($states))
+        {
+            foreach($states as $state)
             {
-                foreach($states as $state)
-                {
-                    $url = get_term_link($state->term_id, $state->taxonomy);
-                    $stateurl = '<a target="_blank" href="'. $url .'">'.$state->name.'</a>';
-                }
+                $url = get_term_link($state->term_id, $state->taxonomy);
+                $stateurl = '<a target="_blank" href="'. $url .'">'.$state->name.'</a>';
             }
+        }
 
-            if(isset($programs) && !empty($programs))
+        if(isset($programs) && !empty($programs))
+        {
+            $programurl = '';
+            foreach($programs as $program)
             {
-                $programurl = '';
-                foreach($programs as $program)
-                {
-                    $url = get_term_link($program->term_id, $program->taxonomy);
-                    $programurl .= '<a target="_blank" href="'. $url .'">'.$program->name.'</a>, ';
-                }
-                $programurl = trim($programurl, ', ');
+                $url = get_term_link($program->term_id, $program->taxonomy);
+                $programurl .= '<a target="_blank" href="'. $url .'">'.$program->name.'</a>, ';
             }
+            $programurl = trim($programurl, ', ');
+        }
 
         $grade_tag = array();
         $grades = array();
-
-            if(isset($grade_levels) && !empty($grade_levels))
+        if(isset($grade_levels) && !empty($grade_levels))
+        {
+            $gradeurl = '';
+            foreach($grade_levels as $grade_level)
             {
-                $gradeurl = '';
-                foreach($grade_levels as $grade_level)
-                {
-                    $url = get_term_link($grade_level->term_id, $grade_level->taxonomy);
-                    $gradeurl .= '<a target="_blank" href="'. $url .'">'.$grade_level->name.'</a>, ';
+                $url = get_term_link($grade_level->term_id, $grade_level->taxonomy);
+                $gradeurl .= '<a target="_blank" href="'. $url .'">'.$grade_level->name.'</a>, ';
 
-            if ($grade_level->name=="P-12" || $grade_level->name=="Early Childhood Education") {
-            $grade_tag[] = array("grade_color" => "bgblue",
-                         "grade_level" => __( 'P-12' , SCP_SLUG ),
-                         "grade_name" => 'P-12',
-                         "grade_url" => $url);
-            $grade_color = "bgblue";
-            $grade_level = __( 'P-12' , SCP_SLUG );
-            $grades[] = "P-12";
-            }
-            elseif ($grade_level->name=="Higher Education" || $grade_level->name=="Postsecondary") {
-                $grade_tag[] = array("grade_color" => "bgorange",
-                         "grade_level" => __( 'Postsecondary' , SCP_SLUG ),
-                         "grade_name" => 'Postsecondary',
-                         "grade_url" => $url);
-                $grade_color = "bgorange";
-                $grade_level = __( 'Postsecondary' , SCP_SLUG );
-                $grades[] = "Postsecondary";
-            }
+                if ($grade_level->name=="P-12" || $grade_level->name=="Early Childhood Education") {
+                    $grade_tag[] = array("grade_color" => "bgblue",
+                                    "grade_level" => __( 'P-12' , SCP_SLUG ),
+                                    "grade_name" => 'P-12',
+                                    "grade_url" => $url);
+                    $grade_color = "bgblue";
+                    $grade_level = __( 'P-12' , SCP_SLUG );
+                    $grades[] = "P-12";
                 }
-                $gradeurl = trim($gradeurl, ', ');
+                elseif ($grade_level->name=="Higher Education" || $grade_level->name=="Postsecondary" || strcmp(html_entity_decode($grade_level->name),"Higher & Adult Ed")==0) {
+                    $grade_tag[] = array("grade_color" => "bgorange",
+                                "grade_level" => __( 'Higher & Adult Ed' , SCP_SLUG ),
+                                "grade_name" => 'Higher & Adult Ed',
+                                "grade_url" => $url);
+                    $grade_color = "bgorange";
+                    $grade_level = __( 'Higher & Adult Ed' , SCP_SLUG );
+                    $grades[] = "Higher & Adult Ed";
+                }
             }
+            $gradeurl = trim($gradeurl, ', ');
+        }
 
         if(isset($districtsize) && !empty($districtsize))
             {
@@ -392,8 +391,8 @@ function add_vimeo_script(){
             sort($grade_tag);
             echo '<p class="margin_20">';
             foreach($grade_tag as $display) {
-            if ($display['grade_level']=="Postsecondary" && count($grade_tag)==1)
-                $final_level = "Postsecondary";
+            if ((strcmp(html_entity_decode($display['grade_level']),"Higher & Adult Ed")==0 || $display['grade_level']=="Postsecondary") && count($grade_tag)==1)
+                $final_level = "Higher & Adult Ed";
             $grade_label = '<a href="'.$display['grade_url'].'"><span class="'.$display['grade_color'].'">'.$display['grade_level'].'</span></a>';
             echo $grade_label;
             }
@@ -413,7 +412,7 @@ function add_vimeo_script(){
                  </p>-->
             <?php // endif; ?>
 
-        <?php if ($final_level=="Postsecondary") : ?>
+        <?php if ($final_level=="Postsecondary" || strcmp(html_entity_decode($final_level),"Higher & Adult Ed")==0) : ?>
         <?php if(isset($story_institution) && !empty($story_institution)) : ?>
             <p class="margn_none">
             <b><?php _e( 'Institution :' , SCP_SLUG ); ?></b> <?php echo $story_institution; ?>
@@ -452,14 +451,14 @@ function add_vimeo_script(){
              </p>
         <?php endif; ?>
         <?php endif; ?>
-        <?php if ($final_level=="Postsecondary") : ?>
+        <?php if ($final_level=="Postsecondary" || strcmp(html_entity_decode($final_level),"Higher & Adult Ed")==0) : ?>
         <?php if(isset($institutionurl) && !empty($institutionurl)) : ?>
              <p class="margn_none">
              <b><?php _e( 'Institution Enrollment :' , SCP_SLUG ); ?></b> <?php echo $institutionurl; ?>
              </p>
         <?php endif; ?>
         <?php endif; ?>
-        <?php if ($final_level=="Postsecondary") : ?>
+        <?php if ($final_level=="Postsecondary" || strcmp(html_entity_decode($final_level),"Higher & Adult Ed")==0 ) : ?>
         <?php if(isset($institutiontypeurl) && !empty($institutiontypeurl)) : ?>
              <p class="margn_none">
              <b><?php _e( 'Institution Type :' , SCP_SLUG ); ?></b> <?php echo $institutiontypeurl; ?>
@@ -531,4 +530,3 @@ function add_vimeo_script(){
         </p>
      </div>
 </div>
-

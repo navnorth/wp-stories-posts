@@ -102,11 +102,11 @@
 						$grade_color = "bgblue";
 						$grade_level = __( 'P-12' , SCP_SLUG );
 					}
-					elseif ($grade->name=="Higher Education" || $grade->name=="Postsecondary") {
+					elseif ($grade->name=="Higher Education" || $grade->name=="Postsecondary" || strcmp(html_entity_decode($grade->name),"Higher & Adult Ed")==0) {
 						$grade_display[] = array("grade_color" => "bgorange",
-									 "grade_level" => __( 'Postsecondary' , SCP_SLUG ));
+									 "grade_level" => __( 'Higher & Adult Ed' , SCP_SLUG ));
 						$grade_color = "bgorange";
-						$grade_level = __( 'Postsecondary' , SCP_SLUG );
+						$grade_level = __( 'Higher & Adult Ed' , SCP_SLUG );
 					}
 				}
 				

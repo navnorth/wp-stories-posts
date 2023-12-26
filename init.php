@@ -518,7 +518,7 @@ function generate_state_dropdown($id, $taxonomy, $taxonomy_name, $level = null) 
 	if ($level=="P-12")
 		$grade_level = array("Early Childhood Education","P-12");
 	else
-		$grade_level = array("Higher Education","Postsecondary");
+		$grade_level = array("Higher Education","Postsecondary", "Higher & Adult Ed");
 	
 	//Get story ids based on state and grade_level
 	$args2 = array(
@@ -771,7 +771,7 @@ function get_stories_side_nav($taxonomy=NULL, $taxonomy_name=NULL, $search_text=
 		$tabs = array(
 			array( "name" => _x( "All" , SCP_SLUG ), "anchor" => "all" ),
 			array( "name" => _x( "P-12" , SCP_SLUG ) , "anchor" => "p12") ,
-			array( "name" => _x( "Postsecondary", SCP_SLUG ), "anchor" => "postsecondary" )
+			array( "name" => _x( "Higher & Adult Ed", SCP_SLUG ), "anchor" => "higheradulted" )
 			);
 		
 		if (!empty($tabs)) {
@@ -781,7 +781,7 @@ function get_stories_side_nav($taxonomy=NULL, $taxonomy_name=NULL, $search_text=
 					$active = 'class="active"';
 				} elseif (in_array($taxonomy,array('characteristics','districtsize')) && $tab['anchor']=="p12"){
 					$active = 'class="active"';
-				}  elseif (in_array($taxonomy,array('institutionenrollment','institutiontype')) && $tab['anchor']=="postsecondary"){
+				}  elseif (in_array($taxonomy,array('institutionenrollment','institutiontype')) && $tab['anchor']=="higheradulted"){
 					$active = 'class="active"';
 				} else {
 					$active = "";
@@ -904,9 +904,9 @@ function get_stories_side_nav($taxonomy=NULL, $taxonomy_name=NULL, $search_text=
 		</div>
 		
 		<!-- Post Secondary Tab -->
-		<div id="postsecondary" class="story-tab">
+		<div id="higheradulted" class="story-tab">
 			<?php if ($_filters['state']==1): ?>
-			<?php $state3option = generate_state_dropdown('statedropdown3', $taxonomy, $taxonomy_name, "Postsecondary"); ?>
+			<?php $state3option = generate_state_dropdown('statedropdown3', $taxonomy, $taxonomy_name, "Higher & Adult Ed"); ?>
 			<div class="srchtrmbxs">
 			    <div class="cstmaccordian">
 				    <div class="cstmaccordiandv">

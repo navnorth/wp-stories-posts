@@ -72,8 +72,8 @@ jQuery(document).ready(function(){
 	  tab = "p12";
 	  post_ids= jQuery(this).attr('data-post-ids');
 	} else if (id=="statedropdown3"){
-	  anchor = "#postsecondary";
-	  tab = "postsecondary";
+	  anchor = "#higheradulted";
+    tab = "higheradulted";
 	  post_ids= jQuery(this).attr('data-post-ids');
 	} else {
 	  tab = "all";

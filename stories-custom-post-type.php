@@ -453,7 +453,7 @@ function get_storiesmap($pageposts=NULL)
 												if (is_wp_error($term)) {
 													$pincolor = get_map_pin_color($grades);
 												} else {
-													if ($term->name=="Higher Education"  || $term->name=="Postsecondary") {
+													if ($term->name=="Higher Education"  || $term->name=="Postsecondary"  || strcmp(html_entity_decode($term->name),"Higher & Adult Ed")==0) {
 														$pincolor = "#e57200";
 													} else {
 														$pincolor = "#294179";

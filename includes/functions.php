@@ -99,6 +99,7 @@ function get_youtube_image($youtube_id) {
         $youtube_url = "//img.youtube.com/vi/$youtube_id/sddefault.jpg";
     else
         $youtube_url = "//img.youtube.com/vi/$youtube_id/maxresdefault.jpg";
+
     return $youtube_url;
 }
 
@@ -260,7 +261,7 @@ function get_map_pin_color($grades) {
     
     foreach($grades as $grade)
     {
-            if ($grade->name=="Higher Education"  || $grade->name=="Postsecondary") {
+            if ($grade->name=="Higher Education"  || $grade->name=="Postsecondary"  || strcmp(html_entity_decode( $grade->name),"Higher & Adult Ed")==0) {
                     $pincolor = "#e57200";
             } else {
                     $pincolor = "#294179";

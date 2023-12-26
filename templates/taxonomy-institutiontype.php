@@ -8,7 +8,7 @@
  */
 get_header(); ?>
 <?php
-	$active_tab = "postsecondary";
+	$active_tab = "higheradulted";
 	global $wpdb;
 	$table = $wpdb->prefix."term_relationships";
 	$termobject = get_queried_object();

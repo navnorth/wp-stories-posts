@@ -47,7 +47,7 @@ function oet_story_func($attr, $content = null) {
     
         // Story Url
         $attr_url = get_story_url_from_id($id);
-        $attr_title = '<h1><a href="'.$attr_url.'">'.$title.'</a></h1>';
+        $attr_title = '<h1><a href="'.$attr_url.'" onclick="gtag(\'event\',\'Story Blog Click\',{\'story_url\':\'' . $attr_url . '\'});">'.$title.'</a></h1>';
         
         //Background
         $background = get_background($id);
